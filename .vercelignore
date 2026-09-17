@@ -1,0 +1,8 @@
+.next
+node_modules
+supabase/.branches
+supabase/.temp
+android/app/build
+android/.gradle
+*.log
+.env.local

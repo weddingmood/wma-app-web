@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-cinzel: 'Cinzel', serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+
+  /* Theme Defaults (Terracotta Royal & Blanc Glacé) */
+  --wm-bg-ice: #F8FAFC;
+  --wm-surface-pure: #FFFFFF;
+  --wm-surface-ivory: #FCFAF7;
+  --wm-primary: #C05638;
+  --wm-primary-hover: #A84429;
+  --wm-secondary: #1E3A2F;
+  --wm-accent-gold: #D4AF37;
+  --wm-accent-gold-light: #F7EFD2;
+  --wm-border: #E8ECEF;
+  --wm-text-dark: #1F2937;
+  --wm-text-muted: #64748B;
+  
+  /* Font size variable scalable */
+  --wm-base-font-size: 16px;
+  --wm-title-scale: 1;
+
+  /* Clean light shadows */
+  --wm-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --wm-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+  --wm-shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+}
+
+body {
+  background-color: var(--wm-bg-ice);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(192, 86, 56, 0.03) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--wm-text-dark);
+  font-family: var(--font-cormorant), serif;
+  font-size: var(--wm-base-font-size);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Utility Classes */
+.font-cormorant { font-family: var(--font-cormorant), serif !important; }
+.font-playfair { font-family: var(--font-playfair), Georgia, serif !important; }
+.font-cinzel { font-family: var(--font-cinzel), serif !important; }
+.font-montserrat { font-family: var(--font-montserrat), sans-serif !important; }
+.font-jakarta { font-family: var(--font-jakarta), sans-serif !important; }
+
+/* Dynamic Font Size Classes */
+body.font-size-sm {
+  --wm-base-font-size: 14px;
+  --wm-title-scale: 0.88;
+}
+body.font-size-md {
+  --wm-base-font-size: 16px;
+  --wm-title-scale: 1;
+}
+body.font-size-lg {
+  --wm-base-font-size: 18px;
+  --wm-title-scale: 1.15;
+}
+
+/* Dynamic Font Classes */
+body.font-family-cormorant { font-family: var(--font-cormorant), serif; }
+body.font-family-playfair { font-family: var(--font-playfair), Georgia, serif; }
+body.font-family-cinzel { font-family: var(--font-cinzel), serif; }
+body.font-family-montserrat { font-family: var(--font-montserrat), sans-serif; }
+body.font-family-jakarta { font-family: var(--font-jakarta), sans-serif; }
+
+/* Display Modes */
+body.display-mode-simplified .decorative-element {
+  display: none !important;
+}
+
+body.display-mode-organization .compact-spacing {
+  padding: 0.5rem !important;
+  gap: 0.5rem !important;
+}
+
+body.display-mode-elegant .elegant-flourish {
+  letter-spacing: 0.05em;
+  font-style: italic;
+}
+
+/* TRUE WHITE GLASS / ICE GLASS (Lumineux, Pur, Profond, Transparent) */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.04), 
+    0 4px 6px -2px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.glass-panel-translucent {
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+}
+
+.glass-card-warm {
+  background: rgba(253, 251, 248, 0.88) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(234, 226, 213, 0.75);
+  box-shadow: 0 6px 16px -2px rgba(192, 86, 56, 0.03);
+}
+
+.glass-card-ice {
+  background: rgba(248, 250, 252, 0.85) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+/* Subtle Gold & Glassmorphism styles */
+.wm-glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.wm-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 1.25rem;
+  border: 1px solid #EAEFF4;
+  box-shadow: var(--wm-shadow-sm);
+  transition: all 0.2s ease-in-out;
+}
+
+.wm-card:hover {
+  box-shadow: var(--wm-shadow-md);
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.gold-badge {
+  background: linear-gradient(135deg, rgba(255, 253, 240, 0.9) 0%, rgba(250, 246, 236, 0.9) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #8C6D37;
+}
+
+/* Dynamic Primary Color Helpers */
+.wm-btn-primary {
+  background-color: var(--wm-primary) !important;
+  color: #FFFFFF !important;
+  transition: all 0.2s ease-in-out;
+}
+.wm-btn-primary:hover {
+  background-color: var(--wm-primary-hover) !important;
+  box-shadow: 0 4px 14px rgba(192, 86, 56, 0.25);
+}
+
+.wm-text-primary {
+  color: var(--wm-primary) !important;
+}
+
+.wm-border-primary {
+  border-color: var(--wm-primary) !important;
+}
+
+/* Smooth custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}

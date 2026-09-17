@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.github
+supabase/.branches
+supabase/.temp
+android/app/build
+android/.gradle
+*.log
+.env.local
+coverage

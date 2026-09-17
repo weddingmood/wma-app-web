@@ -1,0 +1,68 @@
+name: Wedding Mood CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+concurrency:
+  group: wedding-mood-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/app_db
+      NODE_ENV: test
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      NEXT_PUBLIC_ANDROID_PACKAGE: ci.weddingmood.app
+      NEXT_PUBLIC_APK_VERSION: 1.0.0
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: app_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Next.js route types
+        run: npx next typegen
+
+      - name: TypeScript validation
+        run: npm exec tsc -- --noEmit --pretty false
+
+      - name: Apply database schema
+        run: npx drizzle-kit push
+
+      - name: Production build
+        run: npm run build
+
+      - name: Verify PWA + APK artifacts
+        run: |
+          test -f public/manifest.webmanifest
+          test -f public/sw.js
+          test -f public/offline.html
+          test -f public/icons/icon-512.png
+          test -f public/downloads/wedding-mood-v1.0.0.apk
+          echo "PWA and APK artifacts OK"

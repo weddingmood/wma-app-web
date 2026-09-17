@@ -1,0 +1,35 @@
+{
+  "packageId": "ci.weddingmood.app",
+  "host": "weddingmood.ci",
+  "name": "Wedding Mood",
+  "launcherName": "Wedding Mood",
+  "display": "standalone",
+  "themeColor": "#C05638",
+  "themeColorDark": "#8C3A24",
+  "backgroundColor": "#F8FAFC",
+  "startUrl": "/dashboard?utm_source=android-twa",
+  "iconUrl": "https://weddingmood.ci/icons/maskable-512.png",
+  "maskableIconUrl": "https://weddingmood.ci/icons/maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "enableNotifications": true,
+  "shortcuts": [
+    {
+      "name": "Tableau de bord",
+      "short_name": "Accueil",
+      "url": "/dashboard?utm_source=android-twa"
+    },
+    {
+      "name": "Calendrier",
+      "short_name": "Calendrier",
+      "url": "/dashboard/calendar?utm_source=android-twa"
+    },
+    {
+      "name": "Messagerie",
+      "short_name": "Messages",
+      "url": "/dashboard/chat?utm_source=android-twa"
+    }
+  ],
+  "signing": {
+    "note": "Générer le keystore de production avec : keytool -genkey -v -keystore android/wedding-mood.keystore -alias weddingmood -keyalg RSA -keysize 2048 -validity 10000. Ne JAMAIS commiter le keystore ni ses mots de passe."
+  }
+}
