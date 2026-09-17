@@ -1,14 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "vite",
-  "outputDirectory": "dist",
-  "buildCommand": "npm run build",
-  "rewrites": [
-    {
-      "source": "/((?!assets/|icons/|downloads/|sw.js|manifest.json|manifest.webmanifest|offline.html|favicon.ico).*)",
-      "destination": "/index.html"
-    }
-  ],
+  "framework": "nextjs",
   "headers": [
     {
       "source": "/(.*)",
