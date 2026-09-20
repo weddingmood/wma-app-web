@@ -7,11 +7,11 @@ import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
 
 export const metadata: Metadata = {
   title: {
-    default: "WEDDING MOOD - PrÃ©paration au Mariage ChrÃ©tien en CÃ´te d'Ivoire",
-    template: "%s â€¢ Wedding Mood",
+    default: "WEDDING MOOD - Préparation au Mariage Chrétien en Côte d'Ivoire",
+    template: "%s • Wedding Mood",
   },
   description:
-    "Application premium d'accompagnement au mariage pour jeunes couples chrÃ©tiens en CÃ´te d'Ivoire. Dot, Mairie, Ã‰glise, Budget FCFA, 7 ThÃ¨mes Bibliques, InvitÃ©s, Synchronisation et Jour J.",
+    "Application premium d'accompagnement au mariage pour jeunes couples chrétiens en Côte d'Ivoire. Dot, Mairie, Église, Budget FCFA, 7 Thèmes Bibliques, Invités, Synchronisation et Jour J.",
   manifest: "/manifest.webmanifest",
   applicationName: "Wedding Mood",
   appleWebApp: {
@@ -56,3 +56,4 @@ export default function RootLayout({
     </html>
   );
 }
+

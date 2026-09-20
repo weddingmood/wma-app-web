@@ -75,7 +75,7 @@ export default function DownloadPage() {
 
   const sizeLabel = apkInfo?.sizeBytes
     ? `${(apkInfo.sizeBytes / 1024).toFixed(1)} Ko`
-    : "â€”";
+    : "—";
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-stone-900 pb-20">
@@ -89,7 +89,7 @@ export default function DownloadPage() {
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-stone-200 text-xs font-bold hover:bg-stone-50"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            Retour Ã  lâ€™application
+            Retour à l’application
           </Link>
         </div>
       </header>
@@ -98,13 +98,13 @@ export default function DownloadPage() {
         <div className="p-6 sm:p-10 rounded-3xl glass-panel border border-stone-200 shadow-sm text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-bold border border-orange-100">
             <Smartphone className="w-3.5 h-3.5" />
-            <span>Application mobile officielle â€¢ v{apkInfo?.version || "1.0.0"}</span>
+            <span>Application mobile officielle • v{apkInfo?.version || "1.0.0"}</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold">
-            TÃ©lÃ©charger Wedding Mood
+            Télécharger Wedding Mood
           </h1>
           <p className="text-sm text-stone-600 max-w-2xl mx-auto leading-relaxed">
-            Installez lâ€™application sur votre tÃ©lÃ©phone Android : accÃ¨s plein Ã©cran, fonctionnement
+            Installez l’application sur votre téléphone Android : accès plein écran, fonctionnement
             hors connexion, notifications et synchronisation automatique avec votre conjoint.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-stone-500">
@@ -124,18 +124,18 @@ export default function DownloadPage() {
           {/* Option 1 : PWA */}
           <div className="p-6 sm:p-8 rounded-3xl bg-white border-2 border-[#C05638]/40 shadow-md space-y-4">
             <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 uppercase tracking-wider">
-              MÃ©thode recommandÃ©e
+              Méthode recommandée
             </span>
             <h2 className="font-serif text-xl font-bold">1. Installer la Web App</h2>
             <p className="text-xs text-stone-600 leading-relaxed">
-              Installation instantanÃ©e depuis votre navigateur, sans fichier Ã  tÃ©lÃ©charger.
-              Mises Ã  jour automatiques Ã  chaque visite.
+              Installation instantanée depuis votre navigateur, sans fichier à télécharger.
+              Mises à jour automatiques à chaque visite.
             </p>
             <ol className="space-y-2 text-xs text-stone-700">
               {[
                 "Ouvrez cette page dans Chrome sur Android.",
-                "Touchez Â« Installer Â» ci-dessous ou Â« Ajouter Ã  lâ€™Ã©cran dâ€™accueil Â» dans le menu.",
-                "Validez : lâ€™icÃ´ne Wedding Mood apparaÃ®t avec dÃ©marrage plein Ã©cran.",
+                "Touchez « Installer » ci-dessous ou « Ajouter à l’écran d’accueil » dans le menu.",
+                "Validez : l’icône Wedding Mood apparaît avec démarrage plein écran.",
               ].map((step, i) => (
                 <li key={i} className="flex items-start gap-2.5">
                   <span className="w-5 h-5 rounded-full bg-[#C05638] text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
@@ -160,16 +160,16 @@ export default function DownloadPage() {
             <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-stone-900 text-white uppercase tracking-wider">
               Fichier APK
             </span>
-            <h2 className="font-serif text-xl font-bold">2. TÃ©lÃ©charger le fichier APK</h2>
+            <h2 className="font-serif text-xl font-bold">2. Télécharger le fichier APK</h2>
             <p className="text-xs text-stone-600 leading-relaxed">
-              Paquet Android officiel gÃ©nÃ©rÃ© depuis lâ€™application validÃ©e. IdÃ©al pour partager
-              lâ€™application par WhatsApp, Bluetooth ou clÃ© USB.
+              Paquet Android officiel généré depuis l’application validée. Idéal pour partager
+              l’application par WhatsApp, Bluetooth ou clé USB.
             </p>
             <ol className="space-y-2 text-xs text-stone-700">
               {[
-                "TÃ©lÃ©chargez le fichier APK ci-dessous.",
-                "Ouvrez le fichier et autorisez Â« Sources inconnues Â» si demandÃ©.",
-                "Touchez Â« Installer Â», puis ouvrez Wedding Mood.",
+                "Téléchargez le fichier APK ci-dessous.",
+                "Ouvrez le fichier et autorisez « Sources inconnues » si demandé.",
+                "Touchez « Installer », puis ouvrez Wedding Mood.",
               ].map((step, i) => (
                 <li key={i} className="flex items-start gap-2.5">
                   <span className="w-5 h-5 rounded-full bg-stone-900 text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
@@ -185,10 +185,10 @@ export default function DownloadPage() {
               className="w-full py-3.5 rounded-2xl bg-stone-900 text-white font-bold text-xs shadow-md hover:bg-stone-800 cursor-pointer flex items-center justify-center gap-2"
             >
               <Download className="w-4 h-4" />
-              {downloading ? "TÃ©lÃ©chargement..." : `TÃ©lÃ©charger lâ€™APK (${sizeLabel})`}
+              {downloading ? "Téléchargement..." : `Télécharger l’APK (${sizeLabel})`}
             </button>
             <p className="text-[10px] text-stone-400 text-center">
-              {apkInfo?.fileName} â€¢ VÃ©rifiÃ© par lâ€™Ã©quipe Wedding Mood
+              {apkInfo?.fileName} • Vérifié par l’équipe Wedding Mood
             </p>
           </div>
         </div>
@@ -201,23 +201,23 @@ export default function DownloadPage() {
               Partager par QR Code
             </div>
             {qrDataUrl ? (
-              <img src={qrDataUrl} alt="QR Code de tÃ©lÃ©chargement" className="w-48 h-48 mx-auto rounded-2xl border border-stone-200 p-2 bg-white" />
+              <img src={qrDataUrl} alt="QR Code de téléchargement" className="w-48 h-48 mx-auto rounded-2xl border border-stone-200 p-2 bg-white" />
             ) : (
               <div className="w-48 h-48 mx-auto rounded-2xl bg-stone-100 animate-pulse" />
             )}
             <p className="text-xs text-stone-500">
-              Scannez ce code avec un tÃ©lÃ©phone pour ouvrir cette page de tÃ©lÃ©chargement.
+              Scannez ce code avec un téléphone pour ouvrir cette page de téléchargement.
             </p>
           </div>
 
           <div className="p-6 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
-            <h3 className="font-serif font-bold text-lg">Pourquoi installer lâ€™application ?</h3>
+            <h3 className="font-serif font-bold text-lg">Pourquoi installer l’application ?</h3>
             <div className="space-y-3 text-xs">
               {[
-                { icon: Zap, title: "DÃ©marrage instantanÃ©", desc: "Ouverture plein Ã©cran depuis votre Ã©cran dâ€™accueil." },
-                { icon: WifiOff, title: "Mode hors connexion", desc: "TÃ¢ches, budget, priÃ¨res et jeux accessibles sans Internet." },
-                { icon: Bell, title: "Rappels du couple", desc: "Ã‰chÃ©ances, validations et messages synchronisÃ©s." },
-                { icon: ShieldCheck, title: "DonnÃ©es protÃ©gÃ©es", desc: "Espace privÃ© isolÃ© par couple, sessions sÃ©curisÃ©es." },
+                { icon: Zap, title: "Démarrage instantané", desc: "Ouverture plein écran depuis votre écran d’accueil." },
+                { icon: WifiOff, title: "Mode hors connexion", desc: "Tâches, budget, prières et jeux accessibles sans Internet." },
+                { icon: Bell, title: "Rappels du couple", desc: "Échéances, validations et messages synchronisés." },
+                { icon: ShieldCheck, title: "Données protégées", desc: "Espace privé isolé par couple, sessions sécurisées." },
               ].map((f, i) => (
                 <div key={i} className="flex items-start gap-3 p-3 rounded-2xl bg-white border border-stone-200">
                   <f.icon className="w-4 h-4 text-[#C05638] shrink-0 mt-0.5" />
@@ -230,17 +230,18 @@ export default function DownloadPage() {
             </div>
             <div className="flex items-center gap-2 text-[11px] text-stone-500 pt-1">
               <Monitor className="w-4 h-4" />
-              Sur ordinateur : utilisez Chrome puis Â« Installer Wedding Mood Â» dans la barre dâ€™adresse.
+              Sur ordinateur : utilisez Chrome puis « Installer Wedding Mood » dans la barre d’adresse.
             </div>
           </div>
         </div>
 
         <div className="text-center text-xs text-stone-400 pb-4">
           <Link href="/" className="inline-flex items-center gap-1 hover:text-stone-700 font-semibold">
-            DÃ©couvrir Wedding Mood <ExternalLink className="w-3 h-3" />
+            Découvrir Wedding Mood <ExternalLink className="w-3 h-3" />
           </Link>
         </div>
       </main>
     </div>
   );
 }
+

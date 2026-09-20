@@ -6,7 +6,7 @@ import { desc } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.isAdmin) {
-    return Response.json({ success: false, message: "AccÃ¨s administrateur requis" }, { status: 403 });
+    return Response.json({ success: false, message: "Accès administrateur requis" }, { status: 403 });
   }
 
   const logs = await db.select().from(auditLogs).orderBy(desc(auditLogs.createdAt)).limit(100);
@@ -19,8 +19,9 @@ export async function GET() {
     success: true,
     logs: logs.map((l) => ({
       ...l,
-      coupleName: l.coupleId ? coupleMap.get(l.coupleId) || `Couple #${l.coupleId}` : "â€”",
-      adminName: l.adminId ? adminMap.get(l.adminId) || `Admin #${l.adminId}` : "SystÃ¨me",
+      coupleName: l.coupleId ? coupleMap.get(l.coupleId) || `Couple #${l.coupleId}` : "—",
+      adminName: l.adminId ? adminMap.get(l.adminId) || `Admin #${l.adminId}` : "Système",
     })),
   });
 }
+

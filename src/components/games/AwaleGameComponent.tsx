@@ -45,8 +45,8 @@ interface Props {
 }
 
 export function AwaleGameComponent({
-  p1Name = "David",
-  p2Name = "Ruth",
+  p1Name = "…poux",
+  p2Name = "…pouse",
   coupleId,
   onMatchFinish,
 }: Props) {
@@ -288,10 +288,10 @@ export function AwaleGameComponent({
           </div>
           <div>
             <h3 className="font-serif font-bold text-stone-900 text-sm sm:text-base">
-              Awal√© Ivoirien (PlayAwale)
+              AwalÈ Ivoirien (PlayAwale)
             </h3>
             <span className="text-[11px] text-stone-500">
-              R√®gles ivoiriennes officielles : 12 cases, 48 graines, prise de 2 ou 3 en cascade, affam√© et pas de grand chelem
+              RËgles ivoiriennes officielles : 12 cases, 48 graines, prise de 2 ou 3 en cascade, affamÈ et pas de grand chelem
             </span>
           </div>
         </div>
@@ -329,12 +329,12 @@ export function AwaleGameComponent({
               onChange={(e) => handleReset("ai", e.target.value as AwaleAiLevel)}
               className="px-2.5 py-1.5 rounded-xl bg-white border border-stone-200 text-stone-800 text-xs font-semibold cursor-pointer"
             >
-              <option value="debutant">Niveau 1 : D√©butant</option>
+              <option value="debutant">Niveau 1 : DÈbutant</option>
               <option value="facile">Niveau 2 : Facile</option>
               <option value="moyen">Niveau 3 : Moyen</option>
               <option value="difficile">Niveau 4 : Difficile</option>
               <option value="expert">Niveau 5 : Expert</option>
-              <option value="maitre">Niveau 6 : Ma√Ætre</option>
+              <option value="maitre">Niveau 6 : MaÓtre</option>
             </select>
           )}
 
@@ -346,7 +346,7 @@ export function AwaleGameComponent({
                 ? "bg-amber-100 text-amber-900 border border-amber-300"
                 : "bg-white text-stone-600 border border-stone-200 hover:bg-stone-50"
             }`}
-            title="Activer ou d√©sactiver les conseils p√©dagogiques"
+            title="Activer ou dÈsactiver les conseils pÈdagogiques"
           >
             <BookOpen className="w-3.5 h-3.5" />
             <span>Conseils</span>
@@ -355,7 +355,7 @@ export function AwaleGameComponent({
           <button
             onClick={() => setShowRulesModal(true)}
             className="p-2 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 cursor-pointer"
-            title="Consulter les r√®gles officielles"
+            title="Consulter les rËgles officielles"
           >
             <HelpCircle className="w-4 h-4" />
           </button>
@@ -386,12 +386,12 @@ export function AwaleGameComponent({
               </span>
               {gameState.turn === "partner2" && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">
-                  {isAiThinking ? "R√©flexion..." : "√Ä jouer"}
+                  {isAiThinking ? "RÈflexion..." : "¿ jouer"}
                 </span>
               )}
             </div>
             <div className="font-serif font-black text-2xl text-amber-800 mt-1">
-              {displayedScores.p2} <span className="text-xs font-normal text-stone-500">/ 25 captur√©es</span>
+              {displayedScores.p2} <span className="text-xs font-normal text-stone-500">/ 25 capturÈes</span>
             </div>
           </div>
           <Award className="w-7 h-7 text-amber-600" />
@@ -411,12 +411,12 @@ export function AwaleGameComponent({
               </span>
               {gameState.turn === "partner1" && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-100 text-[#C05638]">
-                  √Ä vous de jouer
+                  ¿ vous de jouer
                 </span>
               )}
             </div>
             <div className="font-serif font-black text-2xl text-[#C05638] mt-1">
-              {displayedScores.p1} <span className="text-xs font-normal text-stone-500">/ 25 captur√©es</span>
+              {displayedScores.p1} <span className="text-xs font-normal text-stone-500">/ 25 capturÈes</span>
             </div>
           </div>
           <Award className="w-7 h-7 text-[#C05638]" />
@@ -463,7 +463,7 @@ export function AwaleGameComponent({
             {/* North Label */}
             <div className="flex items-center justify-between text-[11px] text-amber-200/90 font-bold uppercase tracking-widest px-2">
               <span>{gameMode === "ai" ? "Camp Ordinateur" : `Camp de ${p2Name}`} (Haut)</span>
-              <span className="text-amber-300/80 font-mono">Sens de rotation ‚ü≤</span>
+              <span className="text-amber-300/80 font-mono">Sens de rotation ?</span>
             </div>
 
             {/* Row 2: North Pits (P2: 11 down to 6, displayed from Left to Right: 12, 11, 10, 9, 8, 7) */}
@@ -563,7 +563,7 @@ export function AwaleGameComponent({
             {/* South Label */}
             <div className="flex items-center justify-between text-[11px] text-amber-200/90 font-bold uppercase tracking-widest px-2 pt-1">
               <span>Camp de {p1Name} (Bas)</span>
-              <span className="text-amber-300/80 font-mono">Cases 1 √† 6</span>
+              <span className="text-amber-300/80 font-mono">Cases 1 ‡ 6</span>
             </div>
           </div>
 
@@ -586,7 +586,7 @@ export function AwaleGameComponent({
           <div className="p-4 rounded-2xl bg-amber-50/90 border border-amber-200 text-xs text-amber-950 flex items-start gap-3">
             <Sparkles className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
             <div>
-              <strong>Conseil P√©dagogique (Case {hint.recommendedPit + 1}) :</strong>
+              <strong>Conseil PÈdagogique (Case {hint.recommendedPit + 1}) :</strong>
               <p className="mt-0.5 text-stone-700">{hint.reason}</p>
             </div>
           </div>
@@ -602,7 +602,7 @@ export function AwaleGameComponent({
             <div className="flex items-center gap-2">
               <History className="w-4 h-4 text-stone-500" />
               <span className="font-bold text-stone-800">
-                Revue des coups ({gameState.history.length} coups jou√©s)
+                Revue des coups ({gameState.history.length} coups jouÈs)
               </span>
             </div>
 
@@ -611,7 +611,7 @@ export function AwaleGameComponent({
                 disabled={replayMoveIndex <= 0}
                 onClick={() => setReplayMoveIndex(Math.max(0, (replayMoveIndex === -1 ? gameState.history.length : replayMoveIndex) - 1))}
                 className="p-1.5 rounded-lg bg-white border border-stone-200 hover:bg-stone-50 disabled:opacity-40 cursor-pointer"
-                title="Coup pr√©c√©dent"
+                title="Coup prÈcÈdent"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -634,7 +634,7 @@ export function AwaleGameComponent({
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-lg w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <h3 className="font-serif font-bold text-stone-900 text-base">
-                R√®gles Officielles de l'Awal√© Ivoirien (PlayAwale)
+                RËgles Officielles de l'AwalÈ Ivoirien (PlayAwale)
               </h3>
               <button
                 onClick={() => setShowRulesModal(false)}
@@ -649,19 +649,19 @@ export function AwaleGameComponent({
                 <strong>1. Disposition :</strong> 12 cases contenant 4 graines chacune (48 graines au total).
               </p>
               <p>
-                <strong>2. Semaille :</strong> Prenez toutes les graines d'une de vos cases et √©gr√©nez-les une par une dans le sens anti-horaire. Si une case contient 12 graines ou plus, la case de d√©part est saut√©e (elle reste vide).
+                <strong>2. Semaille :</strong> Prenez toutes les graines d'une de vos cases et ÈgrÈnez-les une par une dans le sens anti-horaire. Si une case contient 12 graines ou plus, la case de dÈpart est sautÈe (elle reste vide).
               </p>
               <p>
-                <strong>3. Prise :</strong> Si la derni√®re graine tombe dans le camp adverse et porte le contenu de cette case √† 2 ou 3 graines, vous les capturez. Les cases pr√©c√©dentes sont √©galement prises si elles contiennent 2 ou 3 graines.
+                <strong>3. Prise :</strong> Si la derniËre graine tombe dans le camp adverse et porte le contenu de cette case ‡ 2 ou 3 graines, vous les capturez. Les cases prÈcÈdentes sont Ègalement prises si elles contiennent 2 ou 3 graines.
               </p>
               <p>
-                <strong>4. R√®gle de l'affam√© :</strong> Si l'adversaire n'a plus de graines, vous devez obligatoirement jouer un coup qui lui en apporte.
+                <strong>4. RËgle de l'affamÈ :</strong> Si l'adversaire n'a plus de graines, vous devez obligatoirement jouer un coup qui lui en apporte.
               </p>
               <p>
-                <strong>5. Pas de grand chelem :</strong> Si une prise devait capturer toutes les graines du camp adverse, la prise est annul√©e et les graines restent sur le plateau.
+                <strong>5. Pas de grand chelem :</strong> Si une prise devait capturer toutes les graines du camp adverse, la prise est annulÈe et les graines restent sur le plateau.
               </p>
               <p>
-                <strong>6. Victoire :</strong> Le premier joueur qui atteint 25 graines remporte imm√©diatement la partie !
+                <strong>6. Victoire :</strong> Le premier joueur qui atteint 25 graines remporte immÈdiatement la partie !
               </p>
             </div>
 
@@ -677,3 +677,4 @@ export function AwaleGameComponent({
     </div>
   );
 }
+

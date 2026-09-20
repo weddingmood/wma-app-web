@@ -10,7 +10,7 @@ import { createInitialWordGameState } from "@/lib/word-engine";
 export async function GET(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -23,8 +23,8 @@ export async function GET(req: Request) {
     .where(eq(couples.id, session.coupleId))
     .limit(1);
 
-  const p1Name = couple?.partner1Name || "David";
-  const p2Name = couple?.partner2Name || "Ruth";
+  const p1Name = couple?.partner1Name || "Époux";
+  const p2Name = couple?.partner2Name || "Épouse";
 
   // Fetch past match history for the couple
   const historyRecords = await db
@@ -152,7 +152,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -178,8 +178,8 @@ export async function POST(req: Request) {
     .where(eq(couples.id, session.coupleId))
     .limit(1);
 
-  const p1Name = couple?.partner1Name || "David";
-  const p2Name = couple?.partner2Name || "Ruth";
+  const p1Name = couple?.partner1Name || "Époux";
+  const p2Name = couple?.partner2Name || "Épouse";
 
   // Check if match was completed to save into gameHistory
   if (action === "finish_match" || (winner && winner !== null)) {
@@ -299,3 +299,4 @@ export async function POST(req: Request) {
 
   return Response.json({ success: true, session: updated });
 }
+

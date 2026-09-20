@@ -6,7 +6,7 @@ import { eq, asc, and } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const coupleMsgs = await db
@@ -28,7 +28,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -54,3 +54,4 @@ export async function POST(req: Request) {
 
   return Response.json({ success: true, message: newMsg });
 }
+

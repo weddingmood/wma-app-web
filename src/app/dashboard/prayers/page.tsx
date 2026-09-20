@@ -123,10 +123,10 @@ export default function PrayersPage() {
             <span>Sanctuaire Spirituel du Couple</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-            Journal PrivÃ© d'Intercession & PriÃ¨res
+            Journal Privé d'Intercession & Prières
           </h1>
           <p className="text-stone-600 text-xs sm:text-sm mt-1">
-            DÃ©posez vos sujets de priÃ¨re Ã  deux et cÃ©lÃ©brez les grÃ¢ces accordÃ©es Ã  votre futur foyer.
+            Déposez vos sujets de prière à deux et célébrez les grâces accordées à votre futur foyer.
           </p>
         </div>
 
@@ -136,7 +136,7 @@ export default function PrayersPage() {
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Plus className="w-4 h-4" />
-          <span>Ã‰crire une PriÃ¨re</span>
+          <span>Écrire une Prière</span>
         </button>
       </div>
 
@@ -148,7 +148,7 @@ export default function PrayersPage() {
           <div className="col-span-2 text-center py-12 bg-white rounded-3xl border border-stone-200 p-8 space-y-2">
             <BookMarked className="w-10 h-10 text-stone-300 mx-auto" />
             <h3 className="font-serif font-bold text-stone-800 text-base">Votre journal est vierge</h3>
-            <p className="text-xs text-stone-500">Consignez ici votre premiÃ¨re priÃ¨re de couple.</p>
+            <p className="text-xs text-stone-500">Consignez ici votre première prière de couple.</p>
           </div>
         ) : (
           prayers.map((p) => {
@@ -177,19 +177,19 @@ export default function PrayersPage() {
 
                     {p.isAnswered && (
                       <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px] shrink-0">
-                        PriÃ¨re ExaucÃ©e
+                        Prière Exaucée
                       </span>
                     )}
                   </div>
 
                   <p className="text-xs text-stone-700 font-serif italic leading-relaxed whitespace-pre-line">
-                    Â« {p.prayerText} Â»
+                    « {p.prayerText} »
                   </p>
 
                   {/* Testimony Box if answered */}
                   {p.isAnswered && p.testimony && (
                     <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-950 space-y-1">
-                      <strong className="block font-bold">TÃ©moignage :</strong>
+                      <strong className="block font-bold">Témoignage :</strong>
                       <p className="leading-relaxed">{p.testimony}</p>
                     </div>
                   )}
@@ -206,7 +206,7 @@ export default function PrayersPage() {
                     }`}
                   >
                     <Heart className={`w-3.5 h-3.5 ${myPrayed ? "fill-current" : ""}`} />
-                    <span>{myPrayed ? "J'ai priÃ© pour ce sujet" : "Je prie maintenant"}</span>
+                    <span>{myPrayed ? "J'ai prié pour ce sujet" : "Je prie maintenant"}</span>
                   </button>
 
                   <div className="flex items-center gap-1">
@@ -215,7 +215,7 @@ export default function PrayersPage() {
                         onClick={() => setTestimonyModal({ id: p.id, text: "" })}
                         className="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-semibold cursor-pointer"
                       >
-                        ExaucÃ©
+                        Exaucé
                       </button>
                     )}
                     <button
@@ -238,7 +238,7 @@ export default function PrayersPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in">
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-md w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-              <h3 className="font-serif font-bold text-stone-900 text-base">Ã‰crire une PriÃ¨re de Couple</h3>
+              <h3 className="font-serif font-bold text-stone-900 text-base">Écrire une Prière de Couple</h3>
               <button onClick={() => setIsModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
@@ -246,7 +246,7 @@ export default function PrayersPage() {
 
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Titre ou Sujet de PriÃ¨re *</label>
+                <label className="block text-stone-700 font-bold mb-1">Titre ou Sujet de Prière *</label>
                 <input
                   type="text"
                   required
@@ -258,11 +258,11 @@ export default function PrayersPage() {
               </div>
 
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Notre PriÃ¨re *</label>
+                <label className="block text-stone-700 font-bold mb-1">Notre Prière *</label>
                 <textarea
                   rows={4}
                   required
-                  placeholder="Seigneur JÃ©sus, nous remettons entre Tes mains..."
+                  placeholder="Seigneur Jésus, nous remettons entre Tes mains..."
                   value={form.prayerText}
                   onChange={(e) => setForm({ ...form, prayerText: e.target.value })}
                   className="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"
@@ -271,7 +271,7 @@ export default function PrayersPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">CatÃ©gorie</label>
+                  <label className="block text-stone-700 font-bold mb-1">Catégorie</label>
                   <select
                     value={form.category}
                     onChange={(e) => setForm({ ...form, category: e.target.value })}
@@ -280,8 +280,8 @@ export default function PrayersPage() {
                     <option value="couple">Vie de Couple</option>
                     <option value="famille">Famille & Belle-Famille</option>
                     <option value="finances">Finances & Logement</option>
-                    <option value="intimite">PuretÃ© & IntimitÃ©</option>
-                    <option value="jour_j">Jour J & CÃ©lÃ©bration</option>
+                    <option value="intimite">Pureté & Intimité</option>
+                    <option value="jour_j">Jour J & Célébration</option>
                   </select>
                 </div>
                 <div>
@@ -308,7 +308,7 @@ export default function PrayersPage() {
                   className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
-                  DÃ©poser la PriÃ¨re
+                  Déposer la Prière
                 </button>
               </div>
             </form>
@@ -320,11 +320,11 @@ export default function PrayersPage() {
       {testimonyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in">
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-md w-full p-6 sm:p-8 space-y-4 text-xs">
-            <h3 className="font-serif font-bold text-stone-900 text-base">TÃ©moignage de GrÃ¢ce</h3>
-            <p className="text-stone-600">Partagez la rÃ©ponse apportÃ©e Ã  votre sujet de priÃ¨re :</p>
+            <h3 className="font-serif font-bold text-stone-900 text-base">Témoignage de Grâce</h3>
+            <p className="text-stone-600">Partagez la réponse apportée à votre sujet de prière :</p>
             <textarea
               rows={3}
-              placeholder="La situation a trouvÃ© son dÃ©nouement dans la paix..."
+              placeholder="La situation a trouvé son dénouement dans la paix..."
               value={testimonyModal.text}
               onChange={(e) => setTestimonyModal({ ...testimonyModal, text: e.target.value })}
               className="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"
@@ -342,7 +342,7 @@ export default function PrayersPage() {
                 onClick={handleSaveTestimony}
                 className="px-5 py-2 rounded-xl bg-emerald-600 text-white font-bold cursor-pointer hover:bg-emerald-700"
               >
-                Enregistrer le tÃ©moignage
+                Enregistrer le témoignage
               </button>
             </div>
           </div>
@@ -352,3 +352,4 @@ export default function PrayersPage() {
     </div>
   );
 }
+

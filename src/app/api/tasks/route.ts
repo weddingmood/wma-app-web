@@ -6,7 +6,7 @@ import { eq, desc, and } from "drizzle-orm";
 export async function GET(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autoris√©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÈ" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -30,14 +30,14 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autoris√©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÈ" }, { status: 401 });
   }
 
   const body = await req.json();
   const { title, description, category, assignee, dueDate, priority, status, budgetEstimated, budgetActual, comments } = body;
 
   if (!title) {
-    return Response.json({ success: false, message: "Le titre de la t√¢che est obligatoire." }, { status: 400 });
+    return Response.json({ success: false, message: "Le titre de la t‚che est obligatoire." }, { status: 400 });
   }
 
   const [newTask] = await db
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autoris√©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÈ" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -89,7 +89,7 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autoris√©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÈ" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -100,5 +100,6 @@ export async function DELETE(req: Request) {
   }
 
   await db.delete(tasks).where(and(eq(tasks.id, Number(id)), eq(tasks.coupleId, session.coupleId)));
-  return Response.json({ success: true, message: "T√¢che supprim√©e" });
+  return Response.json({ success: true, message: "T‚che supprimÈe" });
 }
+

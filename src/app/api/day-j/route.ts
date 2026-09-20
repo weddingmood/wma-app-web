@@ -6,7 +6,7 @@ import { eq, asc, desc } from "drizzle-orm";
 export async function GET(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -38,7 +38,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
   if (type === "schedule_item") {
     if (!timeSlot || !activityTitle) {
-      return Response.json({ success: false, message: "Horaire et activitÃ© obligatoires" }, { status: 400 });
+      return Response.json({ success: false, message: "Horaire et activité obligatoires" }, { status: 400 });
     }
 
     const [item] = await db
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
 
   if (type === "blessing") {
     if (!senderName || !blessingText) {
-      return Response.json({ success: false, message: "Nom et texte de bÃ©nÃ©diction obligatoires" }, { status: 400 });
+      return Response.json({ success: false, message: "Nom et texte de bénédiction obligatoires" }, { status: 400 });
     }
 
     const [blessing] = await db
@@ -76,7 +76,7 @@ export async function POST(req: Request) {
       .values({
         coupleId: session.coupleId,
         senderName,
-        senderRelation: senderRelation || "InvitÃ©(e)",
+        senderRelation: senderRelation || "Invité(e)",
         blessingText,
         isApprovedForScreen: true,
       })
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -117,3 +117,4 @@ export async function PATCH(req: Request) {
 
   return Response.json({ success: false, message: "Invalide" }, { status: 400 });
 }
+

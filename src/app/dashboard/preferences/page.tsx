@@ -27,10 +27,10 @@ export default function PreferencesPage() {
   };
 
   const displayModes = [
-    { id: "standard", name: "Mode Standard", desc: "ExpÃ©rience complÃ¨te, claire et Ã©quilibrÃ©e pour tous les prÃ©paratifs." },
-    { id: "simplified", name: "Mode SimplifiÃ©", desc: "Interface Ã©purÃ©e focalisÃ©e sur l'essentiel, les tÃ¢ches et la priÃ¨re." },
-    { id: "organization", name: "Mode Organisation", desc: "Vue dense orientÃ©e budget, rÃ©troplanning, calendrier et logistique." },
-    { id: "elegant", name: "Mode Ã‰lÃ©gant", desc: "PrÃ©sentation raffinÃ©e avec mise en valeur de la photographie et de l'espace." },
+    { id: "standard", name: "Mode Standard", desc: "Expérience complète, claire et équilibrée pour tous les préparatifs." },
+    { id: "simplified", name: "Mode Simplifié", desc: "Interface épurée focalisée sur l'essentiel, les tâches et la prière." },
+    { id: "organization", name: "Mode Organisation", desc: "Vue dense orientée budget, rétroplanning, calendrier et logistique." },
+    { id: "elegant", name: "Mode Élégant", desc: "Présentation raffinée avec mise en valeur de la photographie et de l'espace." },
   ];
 
   return (
@@ -43,10 +43,10 @@ export default function PreferencesPage() {
           <span>Personnalisation & Design Premium</span>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-          ThÃ¨mes de Couleurs & ExpÃ©rience Visuelle
+          Thèmes de Couleurs & Expérience Visuelle
         </h1>
         <p className="text-stone-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
-          Personnalisez votre espace avec les 20 palettes royales inspirÃ©es de CÃ´te d'Ivoire. Chaque changement s'applique immÃ©diatement Ã  l'ensemble des titres, boutons, liens et cartes de votre application.
+          Personnalisez votre espace avec les 20 palettes royales inspirées de Côte d'Ivoire. Chaque changement s'applique immédiatement à l'ensemble des titres, boutons, liens et cartes de votre application.
         </p>
       </div>
 
@@ -54,10 +54,10 @@ export default function PreferencesPage() {
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-6">
         <div className="flex items-center justify-between border-b border-stone-100 pb-3">
           <h3 className="font-serif font-bold text-stone-900 text-lg">
-            1. Choisissez Votre ThÃ¨me (20 Palettes Royales)
+            1. Choisissez Votre Thème (20 Palettes Royales)
           </h3>
           <span className="text-xs font-bold text-[#C05638]">
-            ThÃ¨me sÃ©lectionnÃ© : {COLOR_THEMES.find((t) => t.id === selectedThemeId)?.name}
+            Thème sélectionné : {COLOR_THEMES.find((t) => t.id === selectedThemeId)?.name}
           </span>
         </div>
 
@@ -78,7 +78,7 @@ export default function PreferencesPage() {
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-stone-400 uppercase">ThÃ¨me {theme.id}</span>
+                  <span className="text-[10px] font-bold text-stone-400 uppercase">Thème {theme.id}</span>
                   {isSelected && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
                 </div>
 
@@ -110,10 +110,10 @@ export default function PreferencesPage() {
         </div>
       </div>
 
-      {/* Typography Selection (Affecte rÃ©ellement tout le site) */}
+      {/* Typography Selection (Affecte réellement tout le site) */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
         <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
-          2. Typographie & Polices d'Ã‰criture (Application Globale)
+          2. Typographie & Polices d'Écriture (Application Globale)
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -134,7 +134,7 @@ export default function PreferencesPage() {
               >
                 <div className="text-xs font-bold text-stone-900">{f.name}</div>
                 <div className={`text-base font-serif text-stone-700 mt-2 ${f.fontClass}`}>
-                  Â« La corde Ã  trois fils ne se rompt pas Â»
+                  « La corde à trois fils ne se rompt pas »
                 </div>
               </button>
             );
@@ -174,7 +174,7 @@ export default function PreferencesPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-stone-100">
           <div>
             <label className="block text-xs font-bold text-stone-700 mb-1">
-              Taille des caractÃ¨res (Mise Ã  l'Ã©chelle globale)
+              Taille des caractères (Mise à l'échelle globale)
             </label>
             <div className="flex gap-2">
               {[
@@ -202,13 +202,13 @@ export default function PreferencesPage() {
 
           <div>
             <label className="block text-xs font-bold text-stone-700 mb-1">
-              DensitÃ© de l'interface
+              Densité de l'interface
             </label>
             <div className="flex gap-2">
               {[
                 { id: "compact", label: "Dense" },
                 { id: "normal", label: "Normale" },
-                { id: "spacious", label: "AÃ©rÃ©e" },
+                { id: "spacious", label: "Aérée" },
               ].map((den) => (
                 <button
                   key={den.id}
@@ -235,11 +235,11 @@ export default function PreferencesPage() {
         {saved ? (
           <span className="text-emerald-700 font-bold text-xs flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4" />
-            PrÃ©fÃ©rences appliquÃ©es avec succÃ¨s sur l'ensemble de vos Ã©crans.
+            Préférences appliquées avec succès sur l'ensemble de vos écrans.
           </span>
         ) : (
           <span className="text-xs text-stone-500">
-            Les rÃ©glages s'enregistrent en direct et sont partagÃ©s avec votre conjoint.
+            Les réglages s'enregistrent en direct et sont partagés avec votre conjoint.
           </span>
         )}
 
@@ -249,10 +249,11 @@ export default function PreferencesPage() {
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Save className="w-4 h-4" />
-          <span>Enregistrer les PrÃ©fÃ©rences</span>
+          <span>Enregistrer les Préférences</span>
         </button>
       </div>
 
     </div>
   );
 }
+

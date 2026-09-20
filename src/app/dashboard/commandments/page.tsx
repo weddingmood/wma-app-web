@@ -55,7 +55,7 @@ export default function CommandmentsPage() {
   };
 
   const handleResetDefault = async () => {
-    if (!confirm("Voulez-vous rÃ©initialiser les 10 commandements par dÃ©faut ?")) return;
+    if (!confirm("Voulez-vous réinitialiser les 10 commandements par défaut ?")) return;
     try {
       await fetch("/api/commandments", {
         method: "POST",
@@ -105,7 +105,7 @@ export default function CommandmentsPage() {
             Les 10 Commandements de Notre Foyer
           </h1>
           <p className="text-stone-600 text-xs sm:text-sm mt-1">
-            Les engagements rÃ©ciproques sacrÃ©s scellÃ©s devant Dieu pour protÃ©ger l'harmonie et l'amour de notre maison.
+            Les engagements réciproques sacrés scellés devant Dieu pour protéger l'harmonie et l'amour de notre maison.
           </p>
         </div>
 
@@ -114,16 +114,16 @@ export default function CommandmentsPage() {
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-700 text-xs font-semibold transition-colors shrink-0 cursor-pointer"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>Restaurer DÃ©faut</span>
+          <span>Restaurer Défaut</span>
         </button>
       </div>
 
       {/* Progress Box */}
       <div className="p-6 rounded-3xl glass-panel border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold text-stone-500 uppercase">Progression des Engagements ScellÃ©s</span>
+          <span className="text-xs font-semibold text-stone-500 uppercase">Progression des Engagements Scellés</span>
           <div className="text-2xl font-serif font-bold text-stone-900 mt-1">
-            {stats.bothConfirmedCount} sur {commandments.length} commandements scellÃ©s Ã  deux ({stats.progressPercent} %)
+            {stats.bothConfirmedCount} sur {commandments.length} commandements scellés à deux ({stats.progressPercent} %)
           </div>
           <p className="text-xs text-stone-500 mt-0.5">
             Chaque partenaire confirme individuellement son accord pour chaque commandement.
@@ -191,7 +191,7 @@ export default function CommandmentsPage() {
                 {cmd.commitmentText && (
                   <div className="p-3.5 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-1">
                     <strong className="block text-amber-900 font-bold">
-                      Notre engagement rÃ©ciproque :
+                      Notre engagement réciproque :
                     </strong>
                     <p className="text-stone-700 leading-relaxed">{cmd.commitmentText}</p>
                   </div>
@@ -207,7 +207,7 @@ export default function CommandmentsPage() {
                     ) : (
                       <span className="w-3.5 h-3.5 rounded-full border border-stone-300"></span>
                     )}
-                    <span>{couple?.partner1Name || "David"} : <strong>{cmd.partner1Confirmed ? "ConfirmÃ©" : "En attente"}</strong></span>
+                    <span>{couple?.partner1Name || "Époux"} : <strong>{cmd.partner1Confirmed ? "Confirmé" : "En attente"}</strong></span>
                   </span>
 
                   <span className="flex items-center gap-1.5">
@@ -216,7 +216,7 @@ export default function CommandmentsPage() {
                     ) : (
                       <span className="w-3.5 h-3.5 rounded-full border border-stone-300"></span>
                     )}
-                    <span>{couple?.partner2Name || "Ruth"} : <strong>{cmd.partner2Confirmed ? "ConfirmÃ©" : "En attente"}</strong></span>
+                    <span>{couple?.partner2Name || "Épouse"} : <strong>{cmd.partner2Confirmed ? "Confirmé" : "En attente"}</strong></span>
                   </span>
                 </div>
 
@@ -229,7 +229,7 @@ export default function CommandmentsPage() {
                   }`}
                   style={!myConfirmed ? { backgroundColor: activeTheme.primary } : {}}
                 >
-                  {myConfirmed ? "Mon engagement est scellÃ©" : `Confirmer cet engagement (${partnerName.split(" ")[0]})`}
+                  {myConfirmed ? "Mon engagement est scellé" : `Confirmer cet engagement (${partnerName.split(" ")[0]})`}
                 </button>
               </div>
             </div>
@@ -243,7 +243,7 @@ export default function CommandmentsPage() {
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-lg w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <h3 className="font-serif font-bold text-stone-900 text-base">
-                Modifier le Commandement NÂ°{selectedCmd.orderIndex}
+                Modifier le Commandement N°{selectedCmd.orderIndex}
               </h3>
               <button onClick={() => setIsEditModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
                 <X className="w-5 h-5" />
@@ -273,7 +273,7 @@ export default function CommandmentsPage() {
               </div>
 
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Notre Engagement RÃ©ciproque</label>
+                <label className="block text-stone-700 font-bold mb-1">Notre Engagement Réciproque</label>
                 <textarea
                   rows={3}
                   value={selectedCmd.commitmentText || ""}
@@ -306,3 +306,4 @@ export default function CommandmentsPage() {
     </div>
   );
 }
+

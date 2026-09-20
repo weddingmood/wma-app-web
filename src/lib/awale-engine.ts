@@ -1,5 +1,5 @@
-// Comprehensive, authentic AwalÃ© / Oware game engine for Wedding Mood
-// Follows international tournament rules (FÃ©dÃ©ration Internationale de Jeux de l'Esprit)
+// Comprehensive, authentic Awalé / Oware game engine for Wedding Mood
+// Follows international tournament rules (Fédération Internationale de Jeux de l'Esprit)
 
 export type AwalePlayer = "partner1" | "partner2";
 export type AwaleAiLevel = "debutant" | "facile" | "moyen" | "difficile" | "expert" | "maitre";
@@ -50,7 +50,7 @@ export function createInitialAwaleState(
     aiLevel,
     gameMode,
     pedagogicalMode,
-    lastMessage: "La partie d'AwalÃ© commence. Ã€ vous de jouer !",
+    lastMessage: "La partie d'Awalé commence. À vous de jouer !",
   };
 }
 
@@ -192,11 +192,11 @@ export function executeAwaleMove(
   if (newScore1 >= 25) {
     status = "finished";
     winner = "partner1";
-    statusMessage = "David a franchi la barre des 25 graines ! Magnifique victoire d'AwalÃ©.";
+    statusMessage = "Époux a franchi la barre des 25 graines ! Magnifique victoire d'Awalé.";
   } else if (newScore2 >= 25) {
     status = "finished";
     winner = "partner2";
-    statusMessage = "Ruth a franchi la barre des 25 graines ! Magnifique victoire d'AwalÃ©.";
+    statusMessage = "Épouse a franchi la barre des 25 graines ! Magnifique victoire d'Awalé.";
   } else if (oppLegal.length === 0) {
     // Next player cannot move (starved and cannot be fed). Current player takes all remaining seeds on board!
     for (let i = 0; i < 12; i++) {
@@ -208,7 +208,7 @@ export function executeAwaleMove(
     if (newScore1 > newScore2) winner = "partner1";
     else if (newScore2 > newScore1) winner = "partner2";
     else winner = "draw";
-    statusMessage = "L'adversaire est affamÃ© et ne peut plus jouer. Les graines restantes sont attribuÃ©es.";
+    statusMessage = "L'adversaire est affamé et ne peut plus jouer. Les graines restantes sont attribuées.";
   } else {
     // Check if remaining circulating seeds are too few to ever be captured (< 4 seeds circulating)
     const totalRemaining = countSeedsOnSide(newPits, "partner1") + countSeedsOnSide(newPits, "partner2");
@@ -222,7 +222,7 @@ export function executeAwaleMove(
       if (newScore1 > newScore2) winner = "partner1";
       else if (newScore2 > newScore1) winner = "partner2";
       else winner = "draw";
-      statusMessage = "Fin de partie, les derniÃ¨res graines ont Ã©tÃ© partagÃ©es.";
+      statusMessage = "Fin de partie, les dernières graines ont été partagées.";
     }
   }
 
@@ -238,8 +238,8 @@ export function executeAwaleMove(
     scoresBefore: { p1: score1, p2: score2 },
     scoresAfter: { p1: newScore1, p2: newScore2 },
     explanation: captured > 0
-      ? `${turn === "partner1" ? "David" : "Ruth"} a semÃ© depuis la case ${pitIndex + 1} et capturÃ© ${captured} graines !`
-      : `${turn === "partner1" ? "David" : "Ruth"} a semÃ© ${seedsToSow} graines depuis la case ${pitIndex + 1}.`,
+      ? `${turn === "partner1" ? "Époux" : "Épouse"} a semé depuis la case ${pitIndex + 1} et capturé ${captured} graines !`
+      : `${turn === "partner1" ? "Époux" : "Épouse"} a semé ${seedsToSow} graines depuis la case ${pitIndex + 1}.`,
   };
 
   const nextState: AwaleGameState = {
@@ -376,7 +376,7 @@ export function computeBestAwaleAiMove(
   if (legal.length === 0) return -1;
   if (legal.length === 1) return legal[0];
 
-  // 1. DÃ©butant (Level 1): Mostly random, small preference for immediate captures
+  // 1. Débutant (Level 1): Mostly random, small preference for immediate captures
   if (level === "debutant") {
     if (Math.random() > 0.5) {
       // Find any capturing move
@@ -453,21 +453,21 @@ export function getAwalePedagogicalHint(state: AwaleGameState): AwaleHint | null
   const bestPit = computeBestAwaleAiMove(state, "difficile");
   const res = executeAwaleMove(state, bestPit);
 
-  let reason = "Ce coup Ã©quilibre votre rÃ©serve et Ã©vite d'exposer vos cases.";
+  let reason = "Ce coup équilibre votre réserve et évite d'exposer vos cases.";
   let isDefense = false;
   let captures = 0;
 
   if (res && res.captured > 0) {
-    reason = `Coup offensif : semer depuis cette case permet de capturer immÃ©diatement ${res.captured} graines !`;
+    reason = `Coup offensif : semer depuis cette case permet de capturer immédiatement ${res.captured} graines !`;
     captures = res.captured;
   } else {
     // Check if opponent was starving
     const opp = state.turn === "partner1" ? "partner2" : "partner1";
     if (countSeedsOnSide(state.pits, opp) === 0) {
-      reason = "RÃ¨gle de l'affamÃ© : vous devez nourrir l'adversaire avec ce coup pour poursuivre la partie.";
+      reason = "Règle de l'affamé : vous devez nourrir l'adversaire avec ce coup pour poursuivre la partie.";
       isDefense = true;
     } else {
-      reason = "Ce coup protÃ¨ge vos graines fragiles et prÃ©pare une attaque en cascade au tour suivant.";
+      reason = "Ce coup protège vos graines fragiles et prépare une attaque en cascade au tour suivant.";
     }
   }
 
@@ -478,3 +478,4 @@ export function getAwalePedagogicalHint(state: AwaleGameState): AwaleHint | null
     isDefense,
   };
 }
+

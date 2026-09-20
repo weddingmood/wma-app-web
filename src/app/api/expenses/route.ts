@@ -6,7 +6,7 @@ import { eq, and, desc } from "drizzle-orm";
 export async function GET(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -28,7 +28,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -71,8 +71,8 @@ export async function POST(req: Request) {
     await db.insert(notifications).values({
       coupleId: session.coupleId,
       recipient: isPartner1 ? "partner2" : "partner1",
-      title: "Validation de dÃ©pense requise (> 50 000 FCFA)",
-      message: `${session.partnerName} a proposÃ© la dÃ©pense "${title}" d'un montant de ${numAmount.toLocaleString("fr-FR")} FCFA.`,
+      title: "Validation de dépense requise (> 50 000 FCFA)",
+      message: `${session.partnerName} a proposé la dépense "${title}" d'un montant de ${numAmount.toLocaleString("fr-FR")} FCFA.`,
       type: "expense",
       linkUrl: "/dashboard/budget",
     });
@@ -84,7 +84,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -101,7 +101,7 @@ export async function PATCH(req: Request) {
     .limit(1);
 
   if (!existing) {
-    return Response.json({ success: false, message: "DÃ©pense introuvable" }, { status: 404 });
+    return Response.json({ success: false, message: "Dépense introuvable" }, { status: 404 });
   }
 
   if (action === "approve") {
@@ -150,7 +150,7 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -161,5 +161,6 @@ export async function DELETE(req: Request) {
   }
 
   await db.delete(expenses).where(and(eq(expenses.id, Number(id)), eq(expenses.coupleId, session.coupleId)));
-  return Response.json({ success: true, message: "DÃ©pense supprimÃ©e" });
+  return Response.json({ success: true, message: "Dépense supprimée" });
 }
+

@@ -46,14 +46,14 @@ export function Logo({ size = 48, className = "", showText = true, variant = "da
         {/* 0. Fond blanc pur du logo */}
         <circle cx="250" cy="250" r="248" fill="#FFFFFF" />
 
-        {/* 1. Anneau Vert Ã‰meraude ExtÃ©rieur */}
+        {/* 1. Anneau Vert Émeraude Extérieur */}
         <circle cx="250" cy="250" r="240" fill="url(#wmEmeraldGrad)" stroke="#B37D28" strokeWidth="4" />
 
-        {/* 2. Anneau Concentrique Ivoire et Bordure DorÃ©e */}
+        {/* 2. Anneau Concentrique Ivoire et Bordure Dorée */}
         <circle cx="250" cy="250" r="222" fill="#FAF6EE" stroke="#C05638" strokeWidth="2.5" />
         <circle cx="250" cy="250" r="186" fill="#0A0A0A" stroke="#B37D28" strokeWidth="3" />
 
-        {/* 3. Motifs GÃ©omÃ©triques Traditionnels Africains sur l'Anneau Ivoire */}
+        {/* 3. Motifs Géométriques Traditionnels Africains sur l'Anneau Ivoire */}
         <g stroke="#B37D28" strokeWidth="2" fill="none" opacity="0.95">
           {/* Haut */}
           <path d="M250 34 L260 52 L240 52 Z" fill="#B37D28" />
@@ -77,7 +77,7 @@ export function Logo({ size = 48, className = "", showText = true, variant = "da
           <rect x="96" y="380" width="16" height="16" transform="rotate(45 104 388)" fill="#B37D28" />
           <rect x="380" y="380" width="16" height="16" transform="rotate(45 388 388)" fill="#B37D28" />
 
-          {/* Chevrons dÃ©coratifs */}
+          {/* Chevrons décoratifs */}
           <path d="M165 48 L175 62 L185 48" strokeWidth="2.5" />
           <path d="M315 48 L325 62 L335 48" strokeWidth="2.5" />
           <path d="M165 452 L175 438 L185 452" strokeWidth="2.5" />
@@ -91,7 +91,7 @@ export function Logo({ size = 48, className = "", showText = true, variant = "da
         {/* 4. Disque Central Noir Velours */}
         <circle cx="250" cy="250" r="183" fill="url(#wmCoreBlack)" />
 
-        {/* 5. Entrelacs DorÃ© */}
+        {/* 5. Entrelacs Doré */}
         <path
           d="M268 185 C235 155 195 190 205 235 C212 268 250 280 270 305 C295 338 270 375 230 370 C195 365 185 330 200 300 C215 270 260 230 285 200"
           stroke="url(#wmGoldLuxe)"
@@ -143,10 +143,11 @@ export function Logo({ size = 48, className = "", showText = true, variant = "da
             WEDDING MOOD
           </span>
           <span className="text-[10px] tracking-widest uppercase text-[#C05638] font-bold">
-            CÃ´te dâ€™Ivoire
+            Côte d’Ivoire
           </span>
         </div>
       )}
     </div>
   );
 }
+

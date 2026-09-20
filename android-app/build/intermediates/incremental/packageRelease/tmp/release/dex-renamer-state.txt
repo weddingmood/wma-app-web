@@ -1,0 +1,4 @@
+#Thu Sep 17 16:57:34 UTC 2026
+base.0=C\:\\Users\\YvesACHY\\Documents\\wma app web\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

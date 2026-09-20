@@ -77,7 +77,7 @@ export function playDiceRollSound() {
   vibrate(30);
 }
 
-// Clean wooden piece / seed click (AwalÃ© / Dames / Ludo move)
+// Clean wooden piece / seed click (Awalé / Dames / Ludo move)
 export function playMoveSound() {
   if (!soundEnabled) return;
   const ctx = getAudioContext();
@@ -242,3 +242,4 @@ export function playVictorySound() {
   });
   vibrate([50, 60, 50, 60, 100]);
 }
+

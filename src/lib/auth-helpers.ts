@@ -59,7 +59,7 @@ export async function getCurrentSession(): Promise<SessionData | null> {
     }
   }
 
-  // Fallback: If no session cookie is present, get the default demo couple (David & Ruth)
+  // Fallback: If no session cookie is present, get the default demo couple (Époux & Épouse)
   // so the application is immediately interactive and persistent out of the box
   const [defaultCouple] = await db.select().from(couples).limit(1);
   if (defaultCouple) {
@@ -74,3 +74,4 @@ export async function getCurrentSession(): Promise<SessionData | null> {
 
   return null;
 }
+

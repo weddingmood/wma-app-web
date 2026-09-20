@@ -84,19 +84,19 @@ export default function InvitationCreatorPage() {
   const [form, setForm] = useState({
     heroTitle: "Invitation au Mariage",
     subTitle: "Nous nous marions",
-    coupleNames: "David Kouassi & Ruth Yao",
+    coupleNames: "Époux Kouassi & Épouse Yao",
     weddingDate: "15 Novembre 2025",
     weddingTime: "10:00",
     city: "Abidjan",
     venueName: "Espace Nuptial Riviera Golf",
-    venueAddress: "Boulevard FranÃ§ois Mitterrand, Cocody, Abidjan",
+    venueAddress: "Boulevard François Mitterrand, Cocody, Abidjan",
     venueMapUrl: "https://maps.google.com/?q=Riviera+Golf+Abidjan",
-    customVerse: "EcclÃ©siaste 4:12 - La corde Ã  trois fils ne se rompt pas facilement.",
-    introText: "Nous avons la joie de vous inviter Ã  cÃ©lÃ©brer avec nous le dÃ©but de notre foyer.",
-    loveStory: "Notre histoire a dÃ©butÃ© au sein de la chorale de l'Ã©glise en 2021. Ã€ travers les temps de priÃ¨re fraternelle et les projets partagÃ©s, Dieu a scellÃ© notre amour pour l'Ã©ternitÃ©.",
-    testimony: "Â« Nous savons, du reste, que toutes choses concourent au bien de ceux qui aiment Dieu Â» (Romains 8:28).",
-    pastorWord: "Â« Que ce couple soit une maison bÃ¢tie sur le roc. Que la lumiÃ¨re de Christ brille Ã  travers leur alliance. Â» - Pasteur Jean-Marc Kouadio",
-    finalMessage: "Merci de partager notre joie. Que l'amour, la foi et la grÃ¢ce de Dieu accompagnent notre foyer.",
+    customVerse: "Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement.",
+    introText: "Nous avons la joie de vous inviter à célébrer avec nous le début de notre foyer.",
+    loveStory: "Notre histoire a débuté au sein de la chorale de l'église en 2021. À travers les temps de prière fraternelle et les projets partagés, Dieu a scellé notre amour pour l'éternité.",
+    testimony: "« Nous savons, du reste, que toutes choses concourent au bien de ceux qui aiment Dieu » (Romains 8:28).",
+    pastorWord: "« Que ce couple soit une maison bâtie sur le roc. Que la lumière de Christ brille à travers leur alliance. » - Pasteur Jean-Marc Kouadio",
+    finalMessage: "Merci de partager notre joie. Que l'amour, la foi et la grâce de Dieu accompagnent notre foyer.",
     rsvpDeadline: "31 Octobre 2025",
     publicationStatus: "published", // draft, ready_to_publish, published, updating
     hasPhoto: true,
@@ -124,7 +124,7 @@ export default function InvitationCreatorPage() {
     showQrCode: true,
     cagnotteEnabled: true,
     cagnotteTitle: "Cagnotte Foyer & Premier Loyer",
-    cagnotteDescription: "Pour les proches qui souhaitent manifester leur gÃ©nÃ©rositÃ© et participer Ã  l'amÃ©nagement du foyer, vous pouvez contribuer directement par votre moyen de paiement habituel.",
+    cagnotteDescription: "Pour les proches qui souhaitent manifester leur générosité et participer à l'aménagement du foyer, vous pouvez contribuer directement par votre moyen de paiement habituel.",
     cagnottePaymentMethod: "wave",
     cagnottePaymentUrl: "https://pay.wave.com/m/M_W9fOyOGfFiNN/c/ci/?amount=2000",
     cagnotteButtonText: "Contribuer au foyer",
@@ -135,38 +135,38 @@ export default function InvitationCreatorPage() {
         date: "Samedi 13 Septembre 2025",
         location: "Domicile Familial Yao - Cocody",
         address: "Rue des Jardins, Cocody, Abidjan",
-        description: "CÃ©lÃ©bration coutumiÃ¨re honorant nos deux familles dans l'Ã‰vangile.",
+        description: "Célébration coutumière honorant nos deux familles dans l'Évangile.",
       },
       civil: {
         time: "09:30",
         date: "Samedi 15 Novembre 2025",
         location: "Mairie de Cocody - Salle des Noces",
-        address: "Boulevard de la RÃ©publique, Cocody",
-        description: "CÃ©lÃ©bration officielle devant l'Officier de l'Ã‰tat Civil.",
+        address: "Boulevard de la République, Cocody",
+        description: "Célébration officielle devant l'Officier de l'État Civil.",
       },
       church: {
         time: "11:30",
         date: "Samedi 15 Novembre 2025",
-        location: "Ã‰glise Ã‰vangÃ©lique GrÃ¢ce et Vie",
-        address: "Riviera 3, prÃ¨s du LycÃ©e FranÃ§ais",
-        description: "Culte solennel de bÃ©nÃ©diction nuptiale et Ã©change des vÅ“ux sacrÃ©s.",
+        location: "Église Évangélique Grâce et Vie",
+        address: "Riviera 3, près du Lycée Français",
+        description: "Culte solennel de bénédiction nuptiale et échange des vœux sacrés.",
       },
       reception: {
         time: "14:00",
         date: "Samedi 15 Novembre 2025",
         location: "Grande Salle Nuptiale Riviera Golf",
-        address: "Boulevard FranÃ§ois Mitterrand, Riviera Golf",
-        description: "Banquet de noce, rÃ©jouissances, animation gospel live et mur de bÃ©nÃ©dictions.",
+        address: "Boulevard François Mitterrand, Riviera Golf",
+        description: "Banquet de noce, réjouissances, animation gospel live et mur de bénédictions.",
       },
     } as Record<string, CeremonyDetail>,
-    dotDate: "Samedi 13 Septembre 2025 Ã  10:00",
-    civilDate: "Samedi 15 Novembre 2025 Ã  09:30",
-    churchDate: "Samedi 15 Novembre 2025 Ã  11:30",
-    receptionDate: "Samedi 15 Novembre 2025 Ã  14:00",
-    additionalInfo: "Tenue d'honneur recommandÃ©e : Pagne Kita traditionnel ou blanc Ã©purÃ©.",
+    dotDate: "Samedi 13 Septembre 2025 à 10:00",
+    civilDate: "Samedi 15 Novembre 2025 à 09:30",
+    churchDate: "Samedi 15 Novembre 2025 à 11:30",
+    receptionDate: "Samedi 15 Novembre 2025 à 14:00",
+    additionalInfo: "Tenue d'honneur recommandée : Pagne Kita traditionnel ou blanc épuré.",
   });
 
-  const coupleSlug = couple?.slug || "david-ruth";
+  const coupleSlug = couple?.slug || "Époux-Épouse";
   const publicLink = `/invitation/${coupleSlug}`;
 
   const getFullPublicUrl = () => {
@@ -204,15 +204,15 @@ export default function InvitationCreatorPage() {
                 ...prev,
                 heroTitle: inv.heroTitle || "Invitation au Mariage",
                 subTitle: inv.subTitle || "Nous nous marions",
-                coupleNames: `${c?.partner1Name || "David"} & ${c?.partner2Name || "Ruth"}`,
+                coupleNames: `${c?.partner1Name || "Époux"} & ${c?.partner2Name || "Épouse"}`,
                 weddingDate: inv.weddingDate || c?.weddingDate || "15 Novembre 2025",
                 weddingTime: inv.weddingTime || "10:00",
                 city: c?.city || "Abidjan",
                 venueName: inv.venueName || c?.venue || "Espace Nuptial Riviera Golf",
-                venueAddress: inv.venueAddress || (c?.city ? `${c.city}, CÃ´te d'Ivoire` : "Abidjan, CÃ´te d'Ivoire"),
+                venueAddress: inv.venueAddress || (c?.city ? `${c.city}, Côte d'Ivoire` : "Abidjan, Côte d'Ivoire"),
                 venueMapUrl: inv.venueMapUrl || "https://maps.google.com/?q=Riviera+Golf+Abidjan",
-                customVerse: inv.customVerse || c?.bibleVerse || "EcclÃ©siaste 4:12 - La corde Ã  trois fils ne se rompt pas facilement.",
-                introText: inv.introText || "Nous avons la joie de vous inviter Ã  cÃ©lÃ©brer avec nous le dÃ©but de notre foyer.",
+                customVerse: inv.customVerse || c?.bibleVerse || "Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement.",
+                introText: inv.introText || "Nous avons la joie de vous inviter à célébrer avec nous le début de notre foyer.",
                 loveStory: inv.loveStory || prev.loveStory,
                 testimony: inv.testimony || prev.testimony,
                 pastorWord: inv.pastorWord || prev.pastorWord,
@@ -293,12 +293,12 @@ export default function InvitationCreatorPage() {
 
     const validTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
     if (!validTypes.includes(file.type)) {
-      alert("Veuillez sÃ©lectionner un format d'image valide (JPG, PNG ou WEBP).");
+      alert("Veuillez sélectionner un format d'image valide (JPG, PNG ou WEBP).");
       return;
     }
 
     if (file.size > 10 * 1024 * 1024) {
-      alert("L'image dÃ©passe la limite autorisÃ©e de 10 Mo.");
+      alert("L'image dépasse la limite autorisée de 10 Mo.");
       return;
     }
 
@@ -379,7 +379,7 @@ export default function InvitationCreatorPage() {
 
   // WhatsApp share
   const handleShareWhatsApp = () => {
-    const message = `${form.coupleNames} ont le plaisir de vous inviter Ã  cÃ©lÃ©brer leur mariage.\n\nDÃ©couvrez leur faire-part et confirmez votre prÃ©sence :\n${getFullPublicUrl()}`;
+    const message = `${form.coupleNames} ont le plaisir de vous inviter à célébrer leur mariage.\n\nDécouvrez leur faire-part et confirmez votre présence :\n${getFullPublicUrl()}`;
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
@@ -389,8 +389,8 @@ export default function InvitationCreatorPage() {
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({
-          title: `Faire-part de mariage â€¢ ${form.coupleNames}`,
-          text: `${form.coupleNames} ont la joie de vous inviter Ã  cÃ©lÃ©brer leur mariage.`,
+          title: `Faire-part de mariage • ${form.coupleNames}`,
+          text: `${form.coupleNames} ont la joie de vous inviter à célébrer leur mariage.`,
           url: getFullPublicUrl(),
         });
       } catch {
@@ -404,19 +404,19 @@ export default function InvitationCreatorPage() {
   return (
     <div className="space-y-8 pb-20">
       
-      {/* 1. HEADER DU CRÃ‰ATEUR & Ã‰TATS DE PUBLICATION */}
+      {/* 1. HEADER DU CRÉATEUR & ÉTATS DE PUBLICATION */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-5">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-bold border border-orange-100 mb-2">
               <Send className="w-3.5 h-3.5" />
-              <span>CrÃ©ateur de Faire-Part NumÃ©rique â€¢ Wedding Mood</span>
+              <span>Créateur de Faire-Part Numérique • Wedding Mood</span>
             </div>
             <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
               Mon Faire-Part & Mini-Site de Mariage
             </h1>
             <p className="text-stone-600 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-              Personnalisez votre invitation, prÃ©visualisez sur mobile et ordinateur, publiez en direct et partagez le lien unique avec vos invitÃ©s.
+              Personnalisez votre invitation, prévisualisez sur mobile et ordinateur, publiez en direct et partagez le lien unique avec vos invités.
             </p>
           </div>
 
@@ -427,11 +427,11 @@ export default function InvitationCreatorPage() {
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span className="text-stone-700 capitalize">
                 {form.publicationStatus === "published"
-                  ? "PubliÃ© en ligne"
+                  ? "Publié en ligne"
                   : form.publicationStatus === "ready_to_publish"
-                  ? "PrÃªt Ã  publier"
+                  ? "Prêt à publier"
                   : form.publicationStatus === "updating"
-                  ? "Mise Ã  jour en cours"
+                  ? "Mise à jour en cours"
                   : "Brouillon"}
               </span>
             </div>
@@ -443,7 +443,7 @@ export default function InvitationCreatorPage() {
               style={{ backgroundColor: activeTheme.primary }}
             >
               <Save className="w-4 h-4" />
-              <span>{saving ? "Enregistrement..." : "Publier / Mettre Ã  jour"}</span>
+              <span>{saving ? "Enregistrement..." : "Publier / Mettre à jour"}</span>
             </button>
 
             <Link
@@ -472,7 +472,7 @@ export default function InvitationCreatorPage() {
               className="px-3.5 py-2 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-800 font-bold shadow-2xs transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-stone-500" />}
-              <span>{copiedLink ? "CopiÃ© !" : "Copier le lien"}</span>
+              <span>{copiedLink ? "Copié !" : "Copier le lien"}</span>
             </button>
 
             <button
@@ -509,7 +509,7 @@ export default function InvitationCreatorPage() {
               {savedMsg && (
                 <span className="text-emerald-700 font-bold flex items-center gap-1 animate-in fade-in">
                   <CheckCircle2 className="w-4 h-4" />
-                  EnregistrÃ© avec succÃ¨s !
+                  Enregistré avec succès !
                 </span>
               )}
             </div>
@@ -517,10 +517,10 @@ export default function InvitationCreatorPage() {
             {/* Navigation Tabs */}
             <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-stone-100/90 rounded-2xl">
               {[
-                { id: "modeles", label: "20 ModÃ¨les" },
+                { id: "modeles", label: "20 Modèles" },
                 { id: "photo_cadre", label: "Photo & 20 Cadres" },
                 { id: "textes", label: "Titres & Textes" },
-                { id: "ceremonies", label: "CÃ©rÃ©monies & Lieux" },
+                { id: "ceremonies", label: "Cérémonies & Lieux" },
                 { id: "sections", label: "Affichage Sections" },
                 { id: "cagnotte", label: "Cagnotte" },
                 { id: "rsvp", label: "RSVP" },
@@ -540,15 +540,15 @@ export default function InvitationCreatorPage() {
               ))}
             </div>
 
-            {/* TAB 1: 20 FAMILLES DE MODÃˆLES VISUELS */}
+            {/* TAB 1: 20 FAMILLES DE MODÈLES VISUELS */}
             {activeTab === "modeles" && (
               <div className="space-y-4 animate-in fade-in">
                 <div>
                   <h4 className="font-serif font-bold text-stone-900 text-sm">
-                    SÃ©lectionnez votre ModÃ¨le de Faire-Part (20 Familles)
+                    Sélectionnez votre Modèle de Faire-Part (20 Familles)
                   </h4>
                   <p className="text-[11px] text-stone-500">
-                    Chaque composition possÃ¨de son agencement, ses typographies, ses bordures et ses dÃ©tails uniques.
+                    Chaque composition possède son agencement, ses typographies, ses bordures et ses détails uniques.
                   </p>
                 </div>
 
@@ -623,7 +623,7 @@ export default function InvitationCreatorPage() {
                   >
                     <Upload className="w-4 h-4 text-[#C05638] mb-1.5" />
                     <strong className="block text-stone-900 font-bold text-xs">Importer une photo</strong>
-                    <span className="text-[10px] text-stone-500">TÃ©lÃ©phone ou ordinateur</span>
+                    <span className="text-[10px] text-stone-500">Téléphone ou ordinateur</span>
                   </button>
 
                   <button
@@ -725,12 +725,12 @@ export default function InvitationCreatorPage() {
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {[
-                        { id: "monogram", name: "Style Monogramme", desc: "Sceau royal entrelacÃ© D & R" },
-                        { id: "typographic", name: "Style Typographique", desc: "Grande typographie noble DAVID & RUTH" },
-                        { id: "floral", name: "Style Floral", desc: "Ornements floraux dÃ©licats" },
-                        { id: "spiritual", name: "Style Spirituel", desc: "Verset sacrÃ© et croix d'alliance" },
-                        { id: "terracotta_gold", name: "Style Terracotta & Or", desc: "Lignes terracotta et touches dorÃ©es" },
-                        { id: "african_chic", name: "Style Chic Ivoirien", desc: "GÃ©omÃ©trie inspirÃ©e de nos traditions" },
+                        { id: "monogram", name: "Style Monogramme", desc: "Sceau royal entrelacé D & R" },
+                        { id: "typographic", name: "Style Typographique", desc: "Grande typographie noble Époux & Épouse" },
+                        { id: "floral", name: "Style Floral", desc: "Ornements floraux délicats" },
+                        { id: "spiritual", name: "Style Spirituel", desc: "Verset sacré et croix d'alliance" },
+                        { id: "terracotta_gold", name: "Style Terracotta & Or", desc: "Lignes terracotta et touches dorées" },
+                        { id: "african_chic", name: "Style Chic Ivoirien", desc: "Géométrie inspirée de nos traditions" },
                       ].map((style) => {
                         const isSel = form.sansPhotoStyle === style.id;
                         return (
@@ -875,7 +875,7 @@ export default function InvitationCreatorPage() {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">RÃ©fÃ©rence et texte du verset biblique</label>
+                  <label className="block font-bold text-stone-700 mb-1">Référence et texte du verset biblique</label>
                   <input
                     type="text"
                     value={form.customVerse}
@@ -916,15 +916,15 @@ export default function InvitationCreatorPage() {
               </div>
             )}
 
-            {/* TAB 4: CÃ‰RÃ‰MONIES & LIEUX */}
+            {/* TAB 4: CÉRÉMONIES & LIEUX */}
             {activeTab === "ceremonies" && (
               <div className="space-y-4 animate-in fade-in">
                 <div>
                   <h4 className="font-serif font-bold text-stone-900 text-sm">
-                    CÃ©rÃ©monies Ã  afficher sur le faire-part
+                    Cérémonies à afficher sur le faire-part
                   </h4>
                   <p className="text-[11px] text-stone-500">
-                    Activez les cÃ©rÃ©monies souhaitÃ©es et personnalisez leurs coordonnÃ©es.
+                    Activez les cérémonies souhaitées et personnalisez leurs coordonnées.
                   </p>
                 </div>
 
@@ -932,8 +932,8 @@ export default function InvitationCreatorPage() {
                   {[
                     { id: "dot", label: "Dot Traditionnelle", icon: Heart },
                     { id: "civil", label: "Mariage Civil", icon: Landmark },
-                    { id: "church", label: "BÃ©nÃ©diction Nuptiale", icon: Church },
-                    { id: "reception", label: "Grande RÃ©ception & Banquet", icon: PartyPopper },
+                    { id: "church", label: "Bénédiction Nuptiale", icon: Church },
+                    { id: "reception", label: "Grande Réception & Banquet", icon: PartyPopper },
                   ].map((c) => {
                     const isChecked = form.ceremoniesSelected.includes(c.id);
                     const details = form.ceremoniesDetails?.[c.id] || {};
@@ -952,7 +952,7 @@ export default function InvitationCreatorPage() {
                             <span>{c.label}</span>
                           </label>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isChecked ? "bg-emerald-50 text-emerald-800" : "bg-stone-100 text-stone-500"}`}>
-                            {isChecked ? "Visible" : "MasquÃ©"}
+                            {isChecked ? "Visible" : "Masqué"}
                           </span>
                         </div>
 
@@ -1007,7 +1007,7 @@ export default function InvitationCreatorPage() {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Lien Google Maps / ItinÃ©raire</label>
+                  <label className="block font-bold text-stone-700 mb-1">Lien Google Maps / Itinéraire</label>
                   <input
                     type="url"
                     value={form.venueMapUrl}
@@ -1019,7 +1019,7 @@ export default function InvitationCreatorPage() {
               </div>
             )}
 
-            {/* TAB 5: SECTIONS VISIBLES / MASQUÃ‰ES */}
+            {/* TAB 5: SECTIONS VISIBLES / MASQUÉES */}
             {activeTab === "sections" && (
               <div className="space-y-4 animate-in fade-in">
                 <div>
@@ -1027,20 +1027,20 @@ export default function InvitationCreatorPage() {
                     Affichage des Sections du Mini-Site
                   </h4>
                   <p className="text-[11px] text-stone-500">
-                    Choisissez exactement les sections qui apparaÃ®tront sur votre faire-part public.
+                    Choisissez exactement les sections qui apparaîtront sur votre faire-part public.
                   </p>
                 </div>
 
                 <div className="space-y-2">
                   {[
-                    { key: "showCountdown", label: "Compte Ã  rebours dynamique jusqu'au mariage" },
+                    { key: "showCountdown", label: "Compte à rebours dynamique jusqu'au mariage" },
                     { key: "showVerse", label: "Section Verset biblique d'alliance" },
-                    { key: "showStory", label: "Section Notre histoire & TÃ©moignage" },
-                    { key: "showProgramme", label: "Section Programme des cÃ©rÃ©monies" },
-                    { key: "showLocations", label: "Section Lieux, accÃ¨s et itinÃ©raires" },
+                    { key: "showStory", label: "Section Notre histoire & Témoignage" },
+                    { key: "showProgramme", label: "Section Programme des cérémonies" },
+                    { key: "showLocations", label: "Section Lieux, accès et itinéraires" },
                     { key: "showRsvp", label: "Section Formulaire RSVP interactif" },
                     { key: "showCagnotte", label: "Section Cagnotte du foyer" },
-                    { key: "showQrCode", label: "Section QR Code d'accÃ¨s rapide" },
+                    { key: "showQrCode", label: "Section QR Code d'accès rapide" },
                   ].map((sec) => {
                     const isChecked = (form as any)[sec.key];
                     return (
@@ -1067,14 +1067,14 @@ export default function InvitationCreatorPage() {
                     Cagnotte Foyer & Premier Loyer (Lien de Paiement Libre)
                   </h4>
                   <p className="text-[11px] text-stone-500">
-                    InsÃ©rez votre propre lien de contribution (Wave, Orange Money, etc.) sans aucune commission prÃ©levÃ©e.
+                    Insérez votre propre lien de contribution (Wave, Orange Money, etc.) sans aucune commission prélevée.
                   </p>
                 </div>
 
                 <label className="flex items-center justify-between p-3.5 rounded-2xl bg-white border border-stone-200 cursor-pointer">
                   <div>
                     <strong className="block text-stone-900 text-xs">Activer la section Cagnotte</strong>
-                    <span className="text-[10px] text-stone-500">Permet Ã  vos invitÃ©s de contribuer en ligne</span>
+                    <span className="text-[10px] text-stone-500">Permet à vos invités de contribuer en ligne</span>
                   </div>
                   <input
                     type="checkbox"
@@ -1087,13 +1087,13 @@ export default function InvitationCreatorPage() {
                 {form.cagnotteEnabled && (
                   <div className="space-y-3 p-4 rounded-2xl bg-stone-50/80 border border-stone-200">
                     <div>
-                      <label className="block font-bold text-stone-700 mb-1">Moyen de paiement proposÃ©</label>
+                      <label className="block font-bold text-stone-700 mb-1">Moyen de paiement proposé</label>
                       <select
                         value={form.cagnottePaymentMethod}
                         onChange={(e) => setForm({ ...form, cagnottePaymentMethod: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl bg-white border border-stone-200 text-stone-800 text-xs"
                       >
-                        <option value="wave">Wave CÃ´te d'Ivoire</option>
+                        <option value="wave">Wave Côte d'Ivoire</option>
                         <option value="orange_money">Orange Money</option>
                         <option value="mtn_money">MTN Mobile Money</option>
                         <option value="moov_money">Moov Money</option>
@@ -1145,12 +1145,12 @@ export default function InvitationCreatorPage() {
                     Configuration du Formulaire RSVP
                   </h4>
                   <p className="text-[11px] text-stone-500">
-                    DÃ©finissez la date limite et les informations requises pour vos invitÃ©s.
+                    Définissez la date limite et les informations requises pour vos invités.
                   </p>
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Date limite de rÃ©ponse RSVP *</label>
+                  <label className="block font-bold text-stone-700 mb-1">Date limite de réponse RSVP *</label>
                   <input
                     type="text"
                     value={form.rsvpDeadline}
@@ -1161,12 +1161,12 @@ export default function InvitationCreatorPage() {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Informations complÃ©mentaires aux invitÃ©s</label>
+                  <label className="block font-bold text-stone-700 mb-1">Informations complémentaires aux invités</label>
                   <textarea
                     rows={2}
                     value={form.additionalInfo}
                     onChange={(e) => setForm({ ...form, additionalInfo: e.target.value })}
-                    placeholder="Ex: Tenue d'honneur, parking gardÃ©, recommandations..."
+                    placeholder="Ex: Tenue d'honneur, parking gardé, recommandations..."
                     className="w-full px-3.5 py-2 rounded-xl bg-white border border-stone-200 text-stone-900 leading-relaxed"
                   ></textarea>
                 </div>
@@ -1176,7 +1176,7 @@ export default function InvitationCreatorPage() {
             {/* Save & Update action */}
             <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <span className="text-stone-500 text-[11px]">
-                Enregistre et synchronise immÃ©diatement le faire-part public.
+                Enregistre et synchronise immédiatement le faire-part public.
               </span>
 
               <button
@@ -1204,7 +1204,7 @@ export default function InvitationCreatorPage() {
               <div className="space-y-0.5">
                 <strong className="text-stone-900 font-serif text-sm block">QR Code Officiel</strong>
                 <p className="text-stone-600">
-                  Ã€ imprimer sur vos cartons d'invitation papier ou sur les programmes de messe.
+                  À imprimer sur vos cartons d'invitation papier ou sur les programmes de messe.
                 </p>
               </div>
             </div>
@@ -1216,7 +1216,7 @@ export default function InvitationCreatorPage() {
                 className="px-4 py-2.5 rounded-xl bg-stone-900 hover:bg-[#C05638] text-white font-bold flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
               >
                 <Download className="w-4 h-4" />
-                <span>TÃ©lÃ©charger</span>
+                <span>Télécharger</span>
               </a>
             )}
           </div>
@@ -1228,8 +1228,8 @@ export default function InvitationCreatorPage() {
           <div className="flex items-center justify-between p-3 rounded-2xl glass-panel border border-stone-200 text-xs">
             <div className="flex items-center gap-2">
               <Eye className="w-4 h-4 text-[#C05638]" />
-              <span className="font-bold text-stone-800">AperÃ§u RÃ©el du Faire-Part</span>
-              <span className="text-stone-400 text-[10px] hidden sm:inline">(Mise Ã  jour instantanÃ©e)</span>
+              <span className="font-bold text-stone-800">Aperçu Réel du Faire-Part</span>
+              <span className="text-stone-400 text-[10px] hidden sm:inline">(Mise à jour instantanée)</span>
             </div>
 
             <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl border border-stone-200">
@@ -1390,24 +1390,24 @@ export default function InvitationCreatorPage() {
 
       </div>
 
-      {/* 3. DÃ‰TAIL DES RÃ‰PONSES RSVP REÃ‡UES */}
+      {/* 3. DÉTAIL DES RÉPONSES RSVP REÇUES */}
       <div ref={rsvpAnchorRef} className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-6">
         <div className="flex items-center justify-between border-b border-stone-100 pb-4">
           <div className="flex items-center gap-2">
             <Users className="w-5 h-5 text-[#C05638]" />
             <h3 className="font-serif font-bold text-stone-900 text-lg">
-              RÃ‰PONSES RSVP REÃ‡UES EN DIRECT
+              RÉPONSES RSVP REÇUES EN DIRECT
             </h3>
           </div>
           <span className="text-xs text-stone-500">
-            Total : <strong>{rsvpStats.totalResponses} rÃ©ponses</strong>
+            Total : <strong>{rsvpStats.totalResponses} réponses</strong>
           </span>
         </div>
 
         <div className="space-y-3">
           {recentRsvps.length === 0 ? (
             <div className="p-8 text-center bg-white rounded-2xl border border-stone-200 text-xs text-stone-500">
-              Aucune rÃ©ponse RSVP enregistrÃ©e pour l'instant. Partagez votre lien de faire-part pour recevoir les confirmations de vos invitÃ©s.
+              Aucune réponse RSVP enregistrée pour l'instant. Partagez votre lien de faire-part pour recevoir les confirmations de vos invités.
             </div>
           ) : (
             <div className="space-y-2.5">
@@ -1430,10 +1430,10 @@ export default function InvitationCreatorPage() {
                         )}
                       </div>
                       {rsvp.messageForCouple && (
-                        <p className="text-stone-600 italic">Â« {rsvp.messageForCouple} Â»</p>
+                        <p className="text-stone-600 italic">« {rsvp.messageForCouple} »</p>
                       )}
                       {rsvp.prayerWishes && (
-                        <p className="text-[#C05638] font-serif text-[11px]">PriÃ¨re : {rsvp.prayerWishes}</p>
+                        <p className="text-[#C05638] font-serif text-[11px]">Prière : {rsvp.prayerWishes}</p>
                       )}
                     </div>
 
@@ -1446,7 +1446,7 @@ export default function InvitationCreatorPage() {
                           : "bg-stone-100 text-stone-600"
                       }`}
                     >
-                      {isConfirmed ? "PrÃ©sent(e) confirmÃ©(e)" : isMaybe ? "En rÃ©flexion" : "EmpÃªchÃ©(e)"}
+                      {isConfirmed ? "Présent(e) confirmé(e)" : isMaybe ? "En réflexion" : "Empêché(e)"}
                     </span>
                   </div>
                 );
@@ -1459,3 +1459,4 @@ export default function InvitationCreatorPage() {
     </div>
   );
 }
+

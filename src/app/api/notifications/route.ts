@@ -6,7 +6,7 @@ import { eq, desc, or, and } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const list = await db
@@ -31,7 +31,7 @@ export async function GET() {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -42,7 +42,7 @@ export async function PATCH(req: Request) {
       .update(notifications)
       .set({ isRead: true })
       .where(eq(notifications.coupleId, session.coupleId));
-    return Response.json({ success: true, message: "Toutes les notifications sont marquÃ©es lues." });
+    return Response.json({ success: true, message: "Toutes les notifications sont marquées lues." });
   }
 
   if (id) {
@@ -56,3 +56,4 @@ export async function PATCH(req: Request) {
 
   return Response.json({ success: false, message: "Invalide" }, { status: 400 });
 }
+

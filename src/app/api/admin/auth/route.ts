@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 
   if (action === "logout") {
     cookieStore.delete("wm_admin_session");
-    return Response.json({ success: true, message: "DÃ©connexion admin rÃ©ussie" });
+    return Response.json({ success: true, message: "Déconnexion admin réussie" });
   }
 
   if (!email || !password) {
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
   const { passwordHash: _, ...safeAdmin } = admin;
   return Response.json({
     success: true,
-    message: "Authentification Administrateur rÃ©ussie",
+    message: "Authentification Administrateur réussie",
     admin: safeAdmin,
   });
 }
@@ -96,7 +96,7 @@ export async function PATCH(req: Request) {
       return Response.json({ success: false, message: "Mot de passe actuel incorrect." }, { status: 401 });
     }
     if (String(newPassword).length < 8) {
-      return Response.json({ success: false, message: "Le nouveau mot de passe doit contenir au moins 8 caractÃ¨res." }, { status: 400 });
+      return Response.json({ success: false, message: "Le nouveau mot de passe doit contenir au moins 8 caractères." }, { status: 400 });
     }
   }
 
@@ -110,5 +110,6 @@ export async function PATCH(req: Request) {
     .returning();
 
   const { passwordHash: _, ...safeAdmin } = updated;
-  return Response.json({ success: true, message: "ParamÃ¨tres administrateur mis Ã  jour.", admin: safeAdmin });
+  return Response.json({ success: true, message: "Paramètres administrateur mis à jour.", admin: safeAdmin });
 }
+

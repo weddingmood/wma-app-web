@@ -135,13 +135,13 @@ export default function BudgetPage() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
             <Wallet className="w-3.5 h-3.5" />
-            <span>Gestion FinanciÃ¨re en FCFA</span>
+            <span>Gestion Financière en FCFA</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-            Budget & DÃ©penses du Couple
+            Budget & Dépenses du Couple
           </h1>
           <p className="text-stone-600 text-xs sm:text-sm mt-1">
-            RÃ¨gle de sagesse : toute dÃ©pense supÃ©rieure Ã  <strong>50 000 FCFA</strong> requiert la double validation conjointe (Elle & Lui).
+            Règle de sagesse : toute dépense supérieure à <strong>50 000 FCFA</strong> requiert la double validation conjointe (Elle & Lui).
           </p>
         </div>
 
@@ -150,7 +150,7 @@ export default function BudgetPage() {
             onClick={() => setIsCategoryModalOpen(true)}
             className="px-4 py-2.5 rounded-2xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-800 text-xs font-semibold transition-colors cursor-pointer"
           >
-            + CatÃ©gorie
+            + Catégorie
           </button>
           <button
             onClick={() => setIsExpenseModalOpen(true)}
@@ -158,7 +158,7 @@ export default function BudgetPage() {
             style={{ backgroundColor: activeTheme.primary }}
           >
             <Plus className="w-4 h-4" />
-            <span>Engager une DÃ©pense</span>
+            <span>Engager une Dépense</span>
           </button>
         </div>
       </div>
@@ -167,15 +167,15 @@ export default function BudgetPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         <div className="p-5 rounded-2xl glass-panel border border-stone-200 shadow-2xs">
-          <span className="text-[11px] font-bold text-stone-500 uppercase">Budget PrÃ©visionnel Total</span>
+          <span className="text-[11px] font-bold text-stone-500 uppercase">Budget Prévisionnel Total</span>
           <div className="text-2xl font-serif font-bold text-stone-900 mt-1">
             {summary.totalBudget.toLocaleString("fr-FR")} FCFA
           </div>
-          <span className="text-xs text-stone-500">FixÃ© pour les 4 cÃ©rÃ©monies</span>
+          <span className="text-xs text-stone-500">Fixé pour les 4 cérémonies</span>
         </div>
 
         <div className="p-5 rounded-2xl glass-panel border border-stone-200 shadow-2xs">
-          <span className="text-[11px] font-bold text-stone-500 uppercase">EngagÃ© & ValidÃ©</span>
+          <span className="text-[11px] font-bold text-stone-500 uppercase">Engagé & Validé</span>
           <div className="text-2xl font-serif font-bold text-amber-700 mt-1">
             {summary.totalCommitted.toLocaleString("fr-FR")} FCFA
           </div>
@@ -185,11 +185,11 @@ export default function BudgetPage() {
         </div>
 
         <div className="p-5 rounded-2xl glass-panel border border-stone-200 shadow-2xs">
-          <span className="text-[11px] font-bold text-stone-500 uppercase">Acomptes DÃ©jÃ  VersÃ©s</span>
+          <span className="text-[11px] font-bold text-stone-500 uppercase">Acomptes Déjà Versés</span>
           <div className="text-2xl font-serif font-bold text-emerald-700 mt-1">
             {summary.totalSpent.toLocaleString("fr-FR")} FCFA
           </div>
-          <span className="text-xs text-emerald-600 font-medium">DÃ©caissÃ© en trÃ©sorerie</span>
+          <span className="text-xs text-emerald-600 font-medium">Décaissé en trésorerie</span>
         </div>
 
         <div className="p-5 rounded-2xl glass-panel border border-stone-200 shadow-2xs">
@@ -197,7 +197,7 @@ export default function BudgetPage() {
           <div className="text-2xl font-serif font-bold text-blue-700 mt-1">
             {summary.remainingBudget.toLocaleString("fr-FR")} FCFA
           </div>
-          <span className="text-xs text-stone-500">Marge de sÃ©curitÃ©</span>
+          <span className="text-xs text-stone-500">Marge de sécurité</span>
         </div>
 
       </div>
@@ -209,10 +209,10 @@ export default function BudgetPage() {
             <ShieldCheck className="w-6 h-6 text-amber-800" />
             <div>
               <h3 className="font-serif font-bold text-amber-950 text-base">
-                DÃ©penses SupÃ©rieures Ã  50 000 FCFA en Attente d'Accord Conjoint
+                Dépenses Supérieures à 50 000 FCFA en Attente d'Accord Conjoint
               </h3>
               <p className="text-xs text-amber-800">
-                La transparence financiÃ¨re sanctifie votre couple. Donnez votre accord pour valider ces paiements.
+                La transparence financière sanctifie votre couple. Donnez votre accord pour valider ces paiements.
               </p>
             </div>
           </div>
@@ -228,10 +228,10 @@ export default function BudgetPage() {
                   <div>
                     <div className="font-serif font-bold text-stone-900 text-sm">{e.title}</div>
                     <div className="text-xs text-stone-500 mt-0.5">
-                      Montant : <strong className="text-amber-800 font-bold">{e.amount.toLocaleString("fr-FR")} FCFA</strong> â€¢ Prestataire : {e.recipient || "Non spÃ©cifiÃ©"}
+                      Montant : <strong className="text-amber-800 font-bold">{e.amount.toLocaleString("fr-FR")} FCFA</strong> • Prestataire : {e.recipient || "Non spécifié"}
                     </div>
                     <div className="text-[11px] text-stone-400 mt-1">
-                      Accord David (Lui) : {e.partner1Approved ? "ValidÃ©" : "En attente"} | Accord Ruth (Elle) : {e.partner2Approved ? "ValidÃ©" : "En attente"}
+                      Accord Époux (Lui) : {e.partner1Approved ? "Validé" : "En attente"} | Accord Épouse (Elle) : {e.partner2Approved ? "Validé" : "En attente"}
                     </div>
                   </div>
 
@@ -246,7 +246,7 @@ export default function BudgetPage() {
                       onClick={() => handleExpenseAction(e.id, "approve")}
                       className="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs cursor-pointer"
                     >
-                      Valider la dÃ©pense
+                      Valider la dépense
                     </button>
                   </div>
                 </div>
@@ -262,7 +262,7 @@ export default function BudgetPage() {
         <div className="lg:col-span-5 space-y-4">
           <div className="p-6 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
             <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
-              RÃ©partition par Poste BudgÃ©taire
+              Répartition par Poste Budgétaire
             </h3>
 
             <div className="space-y-3">
@@ -285,7 +285,7 @@ export default function BudgetPage() {
                       ></div>
                     </div>
                     <div className="flex items-center justify-between text-[11px] text-stone-500">
-                      <span>EngagÃ© : {committed.toLocaleString("fr-FR")} FCFA</span>
+                      <span>Engagé : {committed.toLocaleString("fr-FR")} FCFA</span>
                       <span>{pct} %</span>
                     </div>
                   </div>
@@ -299,12 +299,12 @@ export default function BudgetPage() {
         <div className="lg:col-span-7 space-y-4">
           <div className="p-6 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
             <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
-              DÃ©penses & Ã‰chÃ©ances EnregistrÃ©es
+              Dépenses & Échéances Enregistrées
             </h3>
 
             <div className="space-y-2.5">
               {expensesList.length === 0 ? (
-                <p className="text-xs text-stone-500 text-center py-8">Aucune dÃ©pense enregistrÃ©e.</p>
+                <p className="text-xs text-stone-500 text-center py-8">Aucune dépense enregistrée.</p>
               ) : (
                 expensesList.map((e: any) => {
                   const isApproved = e.validationStatus === "approved_by_both";
@@ -316,10 +316,10 @@ export default function BudgetPage() {
                       <div className="space-y-0.5">
                         <div className="font-serif font-bold text-stone-900 text-sm">{e.title}</div>
                         <div className="text-xs text-stone-500">
-                          Acompte versÃ© : <strong>{e.advancePaid?.toLocaleString("fr-FR")} FCFA</strong> â€¢ Reste dÃ» : <strong>{e.remainingAmount?.toLocaleString("fr-FR")} FCFA</strong>
+                          Acompte versé : <strong>{e.advancePaid?.toLocaleString("fr-FR")} FCFA</strong> • Reste dû : <strong>{e.remainingAmount?.toLocaleString("fr-FR")} FCFA</strong>
                         </div>
                         {e.dueDate && (
-                          <div className="text-[11px] text-stone-400">Ã‰chÃ©ance : {e.dueDate}</div>
+                          <div className="text-[11px] text-stone-400">Échéance : {e.dueDate}</div>
                         )}
                       </div>
 
@@ -334,7 +334,7 @@ export default function BudgetPage() {
                               : "bg-amber-100 text-amber-800"
                           }`}
                         >
-                          {isApproved ? "Accord Conjoint ScellÃ©" : "En Validation"}
+                          {isApproved ? "Accord Conjoint Scellé" : "En Validation"}
                         </span>
                       </div>
                     </div>
@@ -353,7 +353,7 @@ export default function BudgetPage() {
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-lg w-full p-6 sm:p-8 space-y-5 overflow-y-auto max-h-[90vh]">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <h3 className="font-serif font-bold text-stone-900 text-lg">
-                Engager une Nouvelle DÃ©pense
+                Engager une Nouvelle Dépense
               </h3>
               <button onClick={() => setIsExpenseModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
                 <X className="w-5 h-5" />
@@ -362,7 +362,7 @@ export default function BudgetPage() {
 
             <form onSubmit={handleCreateExpense} className="space-y-4 text-xs">
               <div>
-                <label className="block text-stone-700 font-bold mb-1">LibellÃ© de la dÃ©pense *</label>
+                <label className="block text-stone-700 font-bold mb-1">Libellé de la dépense *</label>
                 <input
                   type="text"
                   required
@@ -386,7 +386,7 @@ export default function BudgetPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Acompte PayÃ© (FCFA)</label>
+                  <label className="block text-stone-700 font-bold mb-1">Acompte Payé (FCFA)</label>
                   <input
                     type="number"
                     placeholder="Ex: 200000"
@@ -399,20 +399,20 @@ export default function BudgetPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">CatÃ©gorie</label>
+                  <label className="block text-stone-700 font-bold mb-1">Catégorie</label>
                   <select
                     value={expenseForm.categoryId}
                     onChange={(e) => setExpenseForm({ ...expenseForm, categoryId: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"
                   >
-                    <option value="">SÃ©lectionner une catÃ©gorie</option>
+                    <option value="">Sélectionner une catégorie</option>
                     {categories.map((c: any) => (
                       <option key={c.id} value={c.id}>{c.name}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Date d'Ã©chÃ©ance</label>
+                  <label className="block text-stone-700 font-bold mb-1">Date d'échéance</label>
                   <input
                     type="date"
                     value={expenseForm.dueDate}
@@ -423,7 +423,7 @@ export default function BudgetPage() {
               </div>
 
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Prestataire / BÃ©nÃ©ficiaire</label>
+                <label className="block text-stone-700 font-bold mb-1">Prestataire / Bénéficiaire</label>
                 <input
                   type="text"
                   placeholder="Ex: Espace Riviera Golf / Bijouterie Royale"
@@ -434,7 +434,7 @@ export default function BudgetPage() {
               </div>
 
               <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-[11px]">
-                Toute dÃ©pense supÃ©rieure Ã  50 000 FCFA est soumise Ã  la validation conjointe de votre conjoint.
+                Toute dépense supérieure à 50 000 FCFA est soumise à la validation conjointe de votre conjoint.
               </div>
 
               <div className="pt-3 flex justify-end gap-2 border-t border-stone-100">
@@ -450,7 +450,7 @@ export default function BudgetPage() {
                   className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
-                  Enregistrer la dÃ©pense
+                  Enregistrer la dépense
                 </button>
               </div>
             </form>
@@ -463,7 +463,7 @@ export default function BudgetPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in">
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-md w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-              <h3 className="font-serif font-bold text-stone-900 text-base">Ajouter un Poste BudgÃ©taire</h3>
+              <h3 className="font-serif font-bold text-stone-900 text-base">Ajouter un Poste Budgétaire</h3>
               <button onClick={() => setIsCategoryModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
@@ -481,7 +481,7 @@ export default function BudgetPage() {
                 />
               </div>
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Montant allouÃ© (FCFA)</label>
+                <label className="block text-stone-700 font-bold mb-1">Montant alloué (FCFA)</label>
                 <input
                   type="number"
                   placeholder="Ex: 300000"
@@ -503,7 +503,7 @@ export default function BudgetPage() {
                   className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
-                  CrÃ©er
+                  Créer
                 </button>
               </div>
             </form>
@@ -514,3 +514,4 @@ export default function BudgetPage() {
     </div>
   );
 }
+

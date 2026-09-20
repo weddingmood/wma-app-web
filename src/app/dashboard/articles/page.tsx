@@ -49,13 +49,13 @@ export default function ArticlesPage() {
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
           <BookOpen className="w-3.5 h-3.5" />
-          <span>Bon Ã  Savoir â€¢ CÃ´te d'Ivoire</span>
+          <span>Bon à Savoir • Côte d'Ivoire</span>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-          LÃ©gislation, Coutumes & DÃ©marches Officielles
+          Législation, Coutumes & Démarches Officielles
         </h1>
         <p className="text-stone-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
-          Comprendre la loi ivoirienne de 2019 sur le mariage civil, les rites traditionnels de dot selon les ethnies (Akan, Krou, MandÃ©, Gour) et les rÃ¨gles de biens.
+          Comprendre la loi ivoirienne de 2019 sur le mariage civil, les rites traditionnels de dot selon les ethnies (Akan, Krou, Mandé, Gour) et les règles de biens.
         </p>
 
         {/* Category Filter */}
@@ -71,7 +71,7 @@ export default function ArticlesPage() {
               }`}
               style={selectedCategory === cat ? { backgroundColor: activeTheme.primary } : {}}
             >
-              {cat === "all" ? "Tous les Sujets" : cat === "civil" ? "Mariage Civil" : cat === "dot" ? "Dot Traditionnelle" : cat === "documents" ? "PiÃ¨ces Administratives" : "Ã‰glise & Pastorale"}
+              {cat === "all" ? "Tous les Sujets" : cat === "civil" ? "Mariage Civil" : cat === "dot" ? "Dot Traditionnelle" : cat === "documents" ? "Pièces Administratives" : "Église & Pastorale"}
             </button>
           ))}
         </div>
@@ -87,7 +87,7 @@ export default function ArticlesPage() {
               <div className="border-b border-stone-100 pb-4 space-y-2">
                 <div className="flex items-center justify-between text-xs text-stone-500">
                   <span className="font-bold text-[#C05638] uppercase">{selectedArticle.organism || "Source Officielle"}</span>
-                  <span>VÃ©rifiÃ© le {selectedArticle.verifiedAt || "RÃ©cemment"}</span>
+                  <span>Vérifié le {selectedArticle.verifiedAt || "Récemment"}</span>
                 </div>
                 <h2 className="font-serif text-2xl font-bold text-stone-900">
                   {selectedArticle.title}
@@ -115,14 +115,14 @@ export default function ArticlesPage() {
             </div>
           ) : (
             <div className="p-8 text-center bg-white rounded-3xl border border-stone-200 text-xs text-stone-500">
-              SÃ©lectionnez un article pour lire le guide complet.
+              Sélectionnez un article pour lire le guide complet.
             </div>
           )}
 
           {/* Practical Courses & Guides */}
           <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-4">
             <h3 className="font-serif font-bold text-stone-900 text-lg">
-              Parcours & Guides MÃ©thodologiques
+              Parcours & Guides Méthodologiques
             </h3>
             <div className="space-y-4">
               {coursesList.map((course) => (
@@ -137,7 +137,7 @@ export default function ArticlesPage() {
                   
                   {course.steps && (
                     <div className="space-y-2 pt-2">
-                      <span className="text-[11px] font-bold text-stone-800 uppercase">Ã‰tapes clÃ©s :</span>
+                      <span className="text-[11px] font-bold text-stone-800 uppercase">Étapes clés :</span>
                       {course.steps.map((st: any, sIdx: number) => (
                         <div key={sIdx} className="text-xs text-stone-700 flex items-start gap-2">
                           <span className="font-bold text-[#C05638] shrink-0">{st.stepNumber}.</span>
@@ -192,3 +192,4 @@ export default function ArticlesPage() {
     </div>
   );
 }
+

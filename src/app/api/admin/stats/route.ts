@@ -5,7 +5,7 @@ import { couples, payments, tasks, libraryBooks, articles, quizAttempts, devotio
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.isAdmin) {
-    return Response.json({ success: false, message: "AccÃ¨s administrateur requis" }, { status: 403 });
+    return Response.json({ success: false, message: "Accès administrateur requis" }, { status: 403 });
   }
 
   const allCouples = await db.select().from(couples);
@@ -63,3 +63,4 @@ export async function GET() {
     },
   });
 }
+

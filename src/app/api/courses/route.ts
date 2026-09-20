@@ -8,3 +8,4 @@ export async function GET() {
   const list = await db.select().from(courses).orderBy(asc(courses.orderIndex));
   return Response.json({ success: true, courses: list });
 }
+

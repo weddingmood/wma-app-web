@@ -6,7 +6,7 @@ import { eq, desc } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   let [inv] = await db
@@ -38,17 +38,17 @@ export async function GET() {
         weddingDate: couple.weddingDate || "15 Novembre 2025",
         weddingTime: "10h00",
         venueName: couple.venue || "Espace Nuptial Riviera Golf",
-        venueAddress: couple.city ? `${couple.city}, CÃ´te d'Ivoire` : "Abidjan, CÃ´te d'Ivoire",
-        customVerse: couple.bibleVerse || "EcclÃ©siaste 4:12 - La corde Ã  trois fils ne se rompt pas facilement.",
+        venueAddress: couple.city ? `${couple.city}, Côte d'Ivoire` : "Abidjan, Côte d'Ivoire",
+        customVerse: couple.bibleVerse || "Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement.",
         hasPhoto: true,
         heroImageUrl: prefs?.coverPhotoUrl || couple.partner1Photo || couple.partner2Photo || "",
         cardTemplate: "terracotta_royal",
         photoLayout: "arched",
         ceremoniesSelected: ["dot", "civil", "church", "reception"],
-        dotDate: "Samedi 13 Septembre 2025 Ã  10h00",
-        civilDate: "Samedi 15 Novembre 2025 Ã  09h30",
-        churchDate: "Samedi 15 Novembre 2025 Ã  11h30",
-        receptionDate: "Samedi 15 Novembre 2025 Ã  14h00",
+        dotDate: "Samedi 13 Septembre 2025 à 10h00",
+        civilDate: "Samedi 15 Novembre 2025 à 09h30",
+        churchDate: "Samedi 15 Novembre 2025 à 11h30",
+        receptionDate: "Samedi 15 Novembre 2025 à 14h00",
         rsvpDeadline: "31 Octobre 2025",
       })
       .returning();
@@ -121,7 +121,7 @@ export async function GET() {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -154,3 +154,4 @@ export async function PATCH(req: Request) {
 
   return Response.json({ success: true, invitation: updated });
 }
+

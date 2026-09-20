@@ -79,7 +79,7 @@ export default function PublicInvitationPage() {
       slug={slug}
       heroTitle={inv.heroTitle || "Invitation au Mariage"}
       subTitle={inv.subTitle || "Nous nous marions"}
-      coupleNames={`${couple?.partner1Name || "David"} & ${couple?.partner2Name || "Ruth"}`}
+      coupleNames={`${couple?.partner1Name || "Époux"} & ${couple?.partner2Name || "Épouse"}`}
       weddingDate={inv.weddingDate || couple?.weddingDate || "15 Novembre 2025"}
       weddingTime={inv.weddingTime || "10:00"}
       city={couple?.city || "Abidjan"}

@@ -13,8 +13,8 @@ export function CallModal() {
 
   const otherPartnerName =
     activePartner === "partner1"
-      ? couple?.partner2Name || "Ruth (FiancÃ©e)"
-      : couple?.partner1Name || "David (FiancÃ©)";
+      ? couple?.partner2Name || "Épouse (Fiancée)"
+      : couple?.partner1Name || "Époux (Fiancé)";
 
   const otherPartnerPhoto =
     activePartner === "partner1"
@@ -59,7 +59,7 @@ export function CallModal() {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <span className="text-xs font-semibold tracking-wider uppercase text-emerald-400">
-              {callType === "video" ? "Appel VidÃ©o Direct" : "Appel Audio Direct"}
+              {callType === "video" ? "Appel Vidéo Direct" : "Appel Audio Direct"}
             </span>
           </div>
           <div className="text-xs px-3 py-1 bg-stone-800 rounded-full font-mono text-stone-300">
@@ -79,7 +79,7 @@ export function CallModal() {
               <div className="absolute top-4 right-4 w-28 h-36 rounded-2xl overflow-hidden border-2 border-white/40 shadow-lg bg-stone-800">
                 <div className="w-full h-full flex flex-col items-center justify-center bg-stone-800 text-stone-400 text-xs text-center p-2">
                   <User className="w-6 h-6 mb-1 text-stone-500" />
-                  <span>Ma camÃ©ra</span>
+                  <span>Ma caméra</span>
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@ export function CallModal() {
               </div>
               <h3 className="text-2xl font-serif font-bold text-white mb-1">{otherPartnerName}</h3>
               <p className="text-sm text-stone-400">
-                {callStatus === "connecting" ? "Appel de votre fiancÃ©(e)..." : "En communication privÃ©e"}
+                {callStatus === "connecting" ? "Appel de votre fiancé(e)..." : "En communication privée"}
               </p>
             </div>
           )}
@@ -121,7 +121,7 @@ export function CallModal() {
               className={`p-4 rounded-full transition-all cursor-pointer ${
                 isVideoOff ? "bg-red-600 text-white" : "bg-stone-800 hover:bg-stone-700 text-stone-200"
               }`}
-              title={isVideoOff ? "Activer la camÃ©ra" : "Couper la camÃ©ra"}
+              title={isVideoOff ? "Activer la caméra" : "Couper la caméra"}
             >
               {isVideoOff ? <VideoOff className="w-6 h-6" /> : <Video className="w-6 h-6" />}
             </button>
@@ -139,3 +139,4 @@ export function CallModal() {
     </div>
   );
 }
+

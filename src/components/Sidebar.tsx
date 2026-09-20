@@ -39,48 +39,48 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   const navGroups = [
     {
-      title: "VUE GÃ‰NÃ‰RALE",
+      title: "VUE GÉNÉRALE",
       items: [
         { href: "/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
       ],
     },
     {
-      title: "NOTRE MARIAGE (Que prÃ©parer ?)",
+      title: "NOTRE MARIAGE (Que préparer ?)",
       items: [
-        { href: "/dashboard/notre-mariage", label: "Vue CÃ©rÃ©monies (Dot, Mairie)", icon: HeartHandshake },
-        { href: "/dashboard/tasks", label: "TÃ¢ches & PrÃ©paratifs", icon: CheckSquare },
+        { href: "/dashboard/notre-mariage", label: "Vue Cérémonies (Dot, Mairie)", icon: HeartHandshake },
+        { href: "/dashboard/tasks", label: "Tâches & Préparatifs", icon: CheckSquare },
         { href: "/dashboard/chronogramme", label: "Chronogramme J-90", icon: Clock },
-        { href: "/dashboard/calendar", label: "Calendrier PartagÃ©", icon: Calendar },
-        { href: "/dashboard/budget", label: "Budget & DÃ©penses (DÃ¨s 50K)", icon: Wallet },
-        { href: "/dashboard/decisions", label: "DÃ©cisions du Couple", icon: Scale },
+        { href: "/dashboard/calendar", label: "Calendrier Partagé", icon: Calendar },
+        { href: "/dashboard/budget", label: "Budget & Dépenses (Dès 50K)", icon: Wallet },
+        { href: "/dashboard/decisions", label: "Décisions du Couple", icon: Scale },
       ],
     },
     {
       title: "NOUS DEUX & DIEU (Grandir ensemble)",
       items: [
-        { href: "/dashboard/devotions", label: "7 ThÃ¨mes Bibliques", icon: BookOpen },
-        { href: "/dashboard/prayers", label: "Journal de PriÃ¨re", icon: BookMarked },
+        { href: "/dashboard/devotions", label: "7 Thèmes Bibliques", icon: BookOpen },
+        { href: "/dashboard/prayers", label: "Journal de Prière", icon: BookMarked },
         { href: "/dashboard/commandments", label: "Les 10 Commandements", icon: ScrollText },
-        { href: "/dashboard/quizzes", label: "Quiz & ComplicitÃ©", icon: HelpCircle },
+        { href: "/dashboard/quizzes", label: "Quiz & Complicité", icon: HelpCircle },
       ],
     },
     {
-      title: "JEUX (Passer du temps Ã  deux)",
+      title: "JEUX (Passer du temps à deux)",
       items: [
-        { href: "/dashboard/jeux", label: "Espace Jeux (AwalÃ©, Ludo)", icon: Gamepad2 },
+        { href: "/dashboard/jeux", label: "Espace Jeux (Awalé, Ludo)", icon: Gamepad2 },
       ],
     },
     {
-      title: "BON Ã€ SAVOIR (Comprendre)",
+      title: "BON À SAVOIR (Comprendre)",
       items: [
-        { href: "/dashboard/articles", label: "Guides & DÃ©marches CI", icon: BookOpen },
-        { href: "/dashboard/library", label: "BibliothÃ¨que Pastorale", icon: BookMarked },
+        { href: "/dashboard/articles", label: "Guides & Démarches CI", icon: BookOpen },
+        { href: "/dashboard/library", label: "Bibliothèque Pastorale", icon: BookMarked },
       ],
     },
     {
-      title: "INVITÃ‰S & INVITATIONS",
+      title: "INVITÉS & INVITATIONS",
       items: [
-        { href: "/dashboard/guests", label: "Gestion des InvitÃ©s & QR", icon: Users },
+        { href: "/dashboard/guests", label: "Gestion des Invités & QR", icon: Users },
         { href: "/dashboard/invitation", label: "Site d'Invitation & RSVP", icon: Send },
         { href: "/dashboard/cagnotte", label: "Cagnotte Premier Loyer", icon: Wallet },
       ],
@@ -88,14 +88,14 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     {
       title: "COMMUNICATION & JOUR J",
       items: [
-        { href: "/dashboard/chat", label: "Messagerie PrivÃ©e", icon: MessageSquare },
-        { href: "/dashboard/jour-j", label: "Espace SpÃ©cial Jour J", icon: Sparkles },
+        { href: "/dashboard/chat", label: "Messagerie Privée", icon: MessageSquare },
+        { href: "/dashboard/jour-j", label: "Espace Spécial Jour J", icon: Sparkles },
       ],
     },
     {
-      title: "EXPÃ‰RIENCE & COMPTE",
+      title: "EXPÉRIENCE & COMPTE",
       items: [
-        { href: "/dashboard/preferences", label: "20 ThÃ¨mes & Affichage", icon: Palette },
+        { href: "/dashboard/preferences", label: "20 Thèmes & Affichage", icon: Palette },
         { href: "/dashboard/subscription", label: "Abonnement Wave (2 000 FCFA)", icon: CreditCard },
         { href: "/telechargement", label: "Application Mobile & APK", icon: Smartphone },
       ],
@@ -133,8 +133,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               {couple?.status === "active"
                 ? "Compte Actif"
                 : couple?.status === "verification"
-                ? "Paiement en VÃ©rification"
-                : "PÃ©riode d'Essai (3 jours)"}
+                ? "Paiement en Vérification"
+                : "Période d'Essai (3 jours)"}
             </span>
             <span
               className="w-2 h-2 rounded-full"
@@ -145,7 +145,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             {couple?.partner1Name} & {couple?.partner2Name}
           </div>
           <div className="text-[11px] text-stone-500 truncate mt-0.5">
-            {couple?.city || "Abidjan"} â€¢ {couple?.weddingDate || "Mariage 2025"}
+            {couple?.city || "Abidjan"} • {couple?.weddingDate || "Mariage 2025"}
           </div>
         </div>
 
@@ -199,3 +199,4 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     </>
   );
 }
+

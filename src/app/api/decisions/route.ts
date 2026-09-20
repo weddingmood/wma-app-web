@@ -6,7 +6,7 @@ import { eq, and, desc } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const decs = await db
@@ -21,7 +21,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -54,8 +54,8 @@ export async function POST(req: Request) {
   await db.insert(notifications).values({
     coupleId: session.coupleId,
     recipient: isP1 ? "partner2" : "partner1",
-    title: "Nouvelle dÃ©cision de couple Ã  trancher",
-    message: `${session.partnerName} a ouvert la dÃ©cision "${title}".`,
+    title: "Nouvelle décision de couple à trancher",
+    message: `${session.partnerName} a ouvert la décision "${title}".`,
     type: "decision",
     linkUrl: "/dashboard/decisions",
   });
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -83,7 +83,7 @@ export async function PATCH(req: Request) {
     .limit(1);
 
   if (!existing) {
-    return Response.json({ success: false, message: "DÃ©cision introuvable" }, { status: 404 });
+    return Response.json({ success: false, message: "Décision introuvable" }, { status: 404 });
   }
 
   const isP1 = session.activePartner === "partner1";
@@ -116,3 +116,4 @@ export async function PATCH(req: Request) {
 
   return Response.json({ success: true, decision: updated });
 }
+

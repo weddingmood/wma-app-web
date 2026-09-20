@@ -105,7 +105,7 @@ export default function TasksPage() {
   };
 
   const handleDeleteTask = async (id: number) => {
-    if (!confirm("Voulez-vous supprimer cette t√¢che ?")) return;
+    if (!confirm("Voulez-vous supprimer cette t‚che ?")) return;
     try {
       await fetch(`/api/tasks?id=${id}`, { method: "DELETE" });
       fetchTasks();
@@ -139,10 +139,10 @@ export default function TasksPage() {
             <span>Organisation & Actions du Couple</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-            T√¢ches & Pr√©paratifs du Mariage
+            T‚ches & PrÈparatifs du Mariage
           </h1>
           <p className="text-stone-600 text-xs sm:text-sm mt-1">
-            {completedCount} sur {tasksList.length} t√¢ches termin√©es ({progressPercent} %)
+            {completedCount} sur {tasksList.length} t‚ches terminÈes ({progressPercent} %)
           </p>
         </div>
 
@@ -152,7 +152,7 @@ export default function TasksPage() {
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Plus className="w-4 h-4" />
-          <span>Ajouter une T√¢che</span>
+          <span>Ajouter une T‚che</span>
         </button>
       </div>
 
@@ -164,7 +164,7 @@ export default function TasksPage() {
           <Search className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
           <input
             type="text"
-            placeholder="Rechercher une t√¢che..."
+            placeholder="Rechercher une t‚che..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-900 focus:outline-none focus:border-stone-400"
@@ -177,17 +177,17 @@ export default function TasksPage() {
           onChange={(e) => setCategoryFilter(e.target.value)}
           className="px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-800 focus:outline-none"
         >
-          <option value="all">Toutes Cat√©gories</option>
+          <option value="all">Toutes CatÈgories</option>
           <option value="dot">Dot Traditionnelle</option>
           <option value="civil">Mariage Civil</option>
-          <option value="spirituel">Spirituel & √âglise</option>
-          <option value="reception">R√©ception & Salle</option>
+          <option value="spirituel">Spirituel & …glise</option>
+          <option value="reception">RÈception & Salle</option>
           <option value="traiteur">Traiteur & Repas</option>
           <option value="tenues">Tenues & Alliances</option>
-          <option value="photo_video">Photo & Vid√©o</option>
+          <option value="photo_video">Photo & VidÈo</option>
           <option value="musique">Musique & Chantres</option>
           <option value="logistique">Logistique & Transport</option>
-          <option value="general">G√©n√©ral</option>
+          <option value="general">GÈnÈral</option>
         </select>
 
         {/* Assignee Filter */}
@@ -198,8 +198,8 @@ export default function TasksPage() {
         >
           <option value="all">Tous Responsables</option>
           <option value="both">Nous deux</option>
-          <option value="him">David (Lui)</option>
-          <option value="her">Ruth (Elle)</option>
+          <option value="him">…poux (Lui)</option>
+          <option value="her">…pouse (Elle)</option>
         </select>
 
         {/* Status Filter */}
@@ -209,9 +209,9 @@ export default function TasksPage() {
           className="px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-800 focus:outline-none"
         >
           <option value="all">Tous Statuts</option>
-          <option value="todo">√Ä faire</option>
+          <option value="todo">¿ faire</option>
           <option value="in_progress">En cours</option>
-          <option value="completed">Termin√©</option>
+          <option value="completed">TerminÈ</option>
           <option value="delayed">En retard</option>
         </select>
 
@@ -219,13 +219,13 @@ export default function TasksPage() {
 
       {/* Tasks Grid */}
       {loading ? (
-        <div className="text-center py-12 text-stone-500 text-xs">Chargement des t√¢ches...</div>
+        <div className="text-center py-12 text-stone-500 text-xs">Chargement des t‚ches...</div>
       ) : filteredTasks.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-3xl border border-stone-200 p-8 space-y-3">
           <CheckSquare className="w-12 h-12 text-stone-300 mx-auto" />
-          <h3 className="font-serif font-bold text-stone-800 text-base">Aucune t√¢che trouv√©e</h3>
+          <h3 className="font-serif font-bold text-stone-800 text-base">Aucune t‚che trouvÈe</h3>
           <p className="text-xs text-stone-500 max-w-sm mx-auto">
-            Ajoutez votre premi√®re t√¢che pour coordonner les pr√©paratifs avec votre fianc√©(e).
+            Ajoutez votre premiËre t‚che pour coordonner les prÈparatifs avec votre fiancÈ(e).
           </p>
         </div>
       ) : (
@@ -250,7 +250,7 @@ export default function TasksPage() {
                           ? "bg-emerald-600 border-emerald-600 text-white"
                           : "border-stone-300 hover:border-emerald-600 text-transparent"
                       }`}
-                      title={isDone ? "Marquer √† faire" : "Marquer termin√©"}
+                      title={isDone ? "Marquer ‡ faire" : "Marquer terminÈ"}
                     >
                       <CheckCircle2 className="w-4 h-4 fill-current" />
                     </button>
@@ -293,8 +293,8 @@ export default function TasksPage() {
                       {t.assignee === "both"
                         ? "Nous deux"
                         : t.assignee === "him"
-                        ? "David (Lui)"
-                        : "Ruth (Elle)"}
+                        ? "…poux (Lui)"
+                        : "…pouse (Elle)"}
                     </span>
                   </div>
                 </div>
@@ -303,13 +303,13 @@ export default function TasksPage() {
                 <div className="flex items-center justify-between pt-3 mt-3 border-t border-stone-100 text-[11px] text-stone-500">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-stone-400" />
-                    <span>{t.dueDate || "Sans √©ch√©ance"}</span>
+                    <span>{t.dueDate || "Sans ÈchÈance"}</span>
                   </div>
 
                   <button
                     onClick={() => handleDeleteTask(t.id)}
                     className="p-1 text-stone-400 hover:text-red-600 transition-colors"
-                    title="Supprimer la t√¢che"
+                    title="Supprimer la t‚che"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -327,7 +327,7 @@ export default function TasksPage() {
             
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <h3 className="font-serif font-bold text-stone-900 text-lg">
-                Nouvelle T√¢che de Pr√©paration
+                Nouvelle T‚che de PrÈparation
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -340,7 +340,7 @@ export default function TasksPage() {
             <form onSubmit={handleCreateTask} className="space-y-4 text-xs">
               
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Titre de la t√¢che *</label>
+                <label className="block text-stone-700 font-bold mb-1">Titre de la t‚che *</label>
                 <input
                   type="text"
                   required
@@ -352,10 +352,10 @@ export default function TasksPage() {
               </div>
 
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Description & D√©tails</label>
+                <label className="block text-stone-700 font-bold mb-1">Description & DÈtails</label>
                 <textarea
                   rows={2}
-                  placeholder="Instructions particuli√®res, lieu, contacts..."
+                  placeholder="Instructions particuliËres, lieu, contacts..."
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   className="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 focus:outline-none focus:border-stone-400"
@@ -364,7 +364,7 @@ export default function TasksPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Cat√©gorie</label>
+                  <label className="block text-stone-700 font-bold mb-1">CatÈgorie</label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -372,14 +372,14 @@ export default function TasksPage() {
                   >
                     <option value="dot">Dot Traditionnelle</option>
                     <option value="civil">Mariage Civil</option>
-                    <option value="spirituel">Spirituel & √âglise</option>
-                    <option value="reception">R√©ception & Salle</option>
+                    <option value="spirituel">Spirituel & …glise</option>
+                    <option value="reception">RÈception & Salle</option>
                     <option value="traiteur">Traiteur & Repas</option>
                     <option value="tenues">Tenues & Alliances</option>
-                    <option value="photo_video">Photo & Vid√©o</option>
+                    <option value="photo_video">Photo & VidÈo</option>
                     <option value="musique">Musique & Chantres</option>
                     <option value="logistique">Logistique & Transport</option>
-                    <option value="general">G√©n√©ral</option>
+                    <option value="general">GÈnÈral</option>
                   </select>
                 </div>
 
@@ -391,15 +391,15 @@ export default function TasksPage() {
                     className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 focus:outline-none"
                   >
                     <option value="both">Nous deux</option>
-                    <option value="him">David (Lui)</option>
-                    <option value="her">Ruth (Elle)</option>
+                    <option value="him">…poux (Lui)</option>
+                    <option value="her">…pouse (Elle)</option>
                   </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Date d'√©ch√©ance</label>
+                  <label className="block text-stone-700 font-bold mb-1">Date d'ÈchÈance</label>
                   <input
                     type="date"
                     value={formData.dueDate}
@@ -409,7 +409,7 @@ export default function TasksPage() {
                 </div>
 
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Priorit√©</label>
+                  <label className="block text-stone-700 font-bold mb-1">PrioritÈ</label>
                   <select
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
@@ -448,3 +448,4 @@ export default function TasksPage() {
     </div>
   );
 }
+

@@ -98,10 +98,10 @@ export default function QuizzesPage() {
           <span>Quiz Bibliques & Connexion du Couple</span>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-          ComplicitÃ© Biblique & Situations de Couple
+          Complicité Biblique & Situations de Couple
         </h1>
         <p className="text-stone-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
-          Testez vos connaissances de l'Ã‰criture, confrontez vos rÃ©actions face aux situations rÃ©alistes de mariage en CÃ´te d'Ivoire et approfondissez vos Ã©changes.
+          Testez vos connaissances de l'Écriture, confrontez vos réactions face aux situations réalistes de mariage en Côte d'Ivoire et approfondissez vos échanges.
         </p>
 
         {/* Category Tabs */}
@@ -129,7 +129,7 @@ export default function QuizzesPage() {
             style={activeCategory === "situation_reelle" ? { backgroundColor: activeTheme.primary } : {}}
           >
             <MapPin className="w-4 h-4 shrink-0" />
-            <span>2. Situations RÃ©elles en CÃ´te d'Ivoire (3 par jour)</span>
+            <span>2. Situations Réelles en Côte d'Ivoire (3 par jour)</span>
           </button>
 
           <button
@@ -152,7 +152,7 @@ export default function QuizzesPage() {
         
         <div className="p-5 rounded-3xl glass-panel border border-stone-200 shadow-2xs flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold text-stone-500 uppercase">Score de ComplicitÃ©</span>
+            <span className="text-[11px] font-bold text-stone-500 uppercase">Score de Complicité</span>
             <div className="text-3xl font-serif font-extrabold text-[#C05638] mt-0.5">
               {scoreData.complicityScore} %
             </div>
@@ -164,7 +164,7 @@ export default function QuizzesPage() {
 
         <div className="p-5 rounded-3xl glass-panel border border-stone-200 shadow-2xs flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold text-stone-500 uppercase">Questions RÃ©pondues</span>
+            <span className="text-[11px] font-bold text-stone-500 uppercase">Questions Répondues</span>
             <div className="text-2xl font-serif font-bold text-stone-900 mt-0.5">
               {scoreData.totalAttempts} sessions
             </div>
@@ -178,7 +178,7 @@ export default function QuizzesPage() {
           <div>
             <span className="text-[11px] font-bold text-stone-500 uppercase">Engagement 7 Jours</span>
             <div className="text-xs font-serif font-bold text-stone-800 mt-1">
-              {scoreData.hasSevenDayReward ? "Objectif franchi avec succÃ¨s" : "7 jours consÃ©cutifs requis"}
+              {scoreData.hasSevenDayReward ? "Objectif franchi avec succès" : "7 jours consécutifs requis"}
             </div>
           </div>
           <div className="p-3 rounded-2xl bg-amber-100 text-amber-800">
@@ -193,7 +193,7 @@ export default function QuizzesPage() {
         <div className="text-center py-12 text-stone-500 text-xs">Chargement des questions...</div>
       ) : !currentQ ? (
         <div className="p-8 text-center bg-white rounded-3xl border border-stone-200">
-          <p className="text-stone-600 text-xs">Aucune question disponible dans cette catÃ©gorie.</p>
+          <p className="text-stone-600 text-xs">Aucune question disponible dans cette catégorie.</p>
         </div>
       ) : (
         <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-6">
@@ -203,7 +203,7 @@ export default function QuizzesPage() {
               Question {currentIdx + 1} sur {questions.length}
             </span>
             <span className="text-stone-500">
-              Tour de rÃ©ponse : <strong>{partnerName}</strong>
+              Tour de réponse : <strong>{partnerName}</strong>
             </span>
           </div>
 
@@ -257,11 +257,11 @@ export default function QuizzesPage() {
             <div className="p-4 rounded-2xl glass-card-warm border border-[#EAE2D5] text-xs space-y-1.5 animate-in fade-in">
               <div className="flex items-center gap-2 text-stone-900 font-bold">
                 <Sparkles className="w-4 h-4 text-[#C05638]" />
-                <span>Ã‰clairage pastoral :</span>
+                <span>Éclairage pastoral :</span>
               </div>
               <p className="text-stone-700 leading-relaxed">{resultData?.explanation}</p>
               {resultData?.bibleRef && (
-                <span className="text-[11px] font-bold text-[#C05638]">RÃ©fÃ©rence : {resultData.bibleRef}</span>
+                <span className="text-[11px] font-bold text-[#C05638]">Référence : {resultData.bibleRef}</span>
               )}
             </div>
           )}
@@ -275,7 +275,7 @@ export default function QuizzesPage() {
                 className="px-6 py-2.5 rounded-xl bg-[#C05638] disabled:opacity-50 text-white font-bold text-xs shadow-md cursor-pointer hover:bg-[#A84429]"
                 style={{ backgroundColor: activeTheme.primary }}
               >
-                Valider ma rÃ©ponse
+                Valider ma réponse
               </button>
             ) : (
               <button
@@ -294,3 +294,4 @@ export default function QuizzesPage() {
     </div>
   );
 }
+

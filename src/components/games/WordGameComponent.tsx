@@ -41,8 +41,8 @@ interface Props {
 }
 
 export function WordGameComponent({
-  p1Name = "David",
-  p2Name = "Ruth",
+  p1Name = "Époux",
+  p2Name = "Épouse",
   coupleId,
   onMatchFinish,
 }: Props) {
@@ -137,7 +137,7 @@ export function WordGameComponent({
 
     const check = validateAndScoreWordPlacement(gameState.board, currentTurnPlaced);
     if (!check.isValid) {
-      setValidationError(check.error || "Mot invalide selon le dictionnaire franÃ§ais.");
+      setValidationError(check.error || "Mot invalide selon le dictionnaire français.");
       playInvalidSound();
       return;
     }
@@ -185,7 +185,7 @@ export function WordGameComponent({
           score: check.score,
         },
       ],
-      lastMessage: `${isP1 ? p1Name : p2Name} a posÃ© '${check.wordsFormed.join(", ")}' et marque ${check.score} points !`,
+      lastMessage: `${isP1 ? p1Name : p2Name} a posé '${check.wordsFormed.join(", ")}' et marque ${check.score} points !`,
     };
 
     setGameState(nextState);
@@ -244,7 +244,7 @@ export function WordGameComponent({
                   score: check.score,
                 },
               ],
-              lastMessage: `L'ordinateur a posÃ© '${check.wordsFormed.join(", ")}' (+${check.score} pts).`,
+              lastMessage: `L'ordinateur a posé '${check.wordsFormed.join(", ")}' (+${check.score} pts).`,
             };
             setGameState(nextState);
             saveLocalState(nextState);
@@ -254,7 +254,7 @@ export function WordGameComponent({
           setGameState((prev) => ({
             ...prev,
             turn: "partner1",
-            lastMessage: "L'ordinateur n'a pas trouvÃ© de combinaison et passe son tour.",
+            lastMessage: "L'ordinateur n'a pas trouvé de combinaison et passe son tour.",
           }));
         }
       }, 1000);
@@ -276,7 +276,7 @@ export function WordGameComponent({
   const getCellLabel = (mult: string) => {
     switch (mult) {
       case "center":
-        return "â˜…";
+        return "?";
       case "tm":
         return "TM";
       case "dm":
@@ -317,10 +317,10 @@ export function WordGameComponent({
           </div>
           <div>
             <h3 className="font-serif font-bold text-stone-900 text-sm sm:text-base">
-              DÃ©fi des Mots
+              Défi des Mots
             </h3>
             <span className="text-[11px] text-stone-500">
-              Grille 11x11, multiplicateurs Scrabble, dictionnaire franÃ§ais complet et tirage de 7 lettres
+              Grille 11x11, multiplicateurs Scrabble, dictionnaire français complet et tirage de 7 lettres
             </span>
           </div>
         </div>
@@ -353,7 +353,7 @@ export function WordGameComponent({
           <button
             onClick={() => setShowRulesModal(true)}
             className="p-2 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 cursor-pointer"
-            title="Consulter les rÃ¨gles des Mots"
+            title="Consulter les règles des Mots"
           >
             <HelpCircle className="w-4 h-4" />
           </button>
@@ -384,7 +384,7 @@ export function WordGameComponent({
               </span>
               {gameState.turn === "partner2" && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">
-                  Ã€ son tour
+                  À son tour
                 </span>
               )}
             </div>
@@ -409,7 +409,7 @@ export function WordGameComponent({
               </span>
               {gameState.turn === "partner1" && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-100 text-[#C05638]">
-                  Ã€ votre tour
+                  À votre tour
                 </span>
               )}
             </div>
@@ -551,7 +551,7 @@ export function WordGameComponent({
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-lg w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <h3 className="font-serif font-bold text-stone-900 text-base">
-                RÃ¨gles du DÃ©fi des Mots
+                Règles du Défi des Mots
               </h3>
               <button
                 onClick={() => setShowRulesModal(false)}
@@ -563,17 +563,17 @@ export function WordGameComponent({
 
             <div className="space-y-2.5 text-stone-700 leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
               <p>
-                <strong>1. Connexion des mots :</strong> Tout nouveau mot posÃ© sur la grille doit Ãªtre connectÃ© horizontalement ou verticalement Ã  une lettre dÃ©jÃ  prÃ©sente.
+                <strong>1. Connexion des mots :</strong> Tout nouveau mot posé sur la grille doit être connecté horizontalement ou verticalement à une lettre déjà présente.
               </p>
               <p>
-                <strong>2. Dictionnaire franÃ§ais :</strong> Tous les mots formÃ©s sont validÃ©s instantanÃ©ment selon le dictionnaire de rÃ©fÃ©rence franÃ§ais.
+                <strong>2. Dictionnaire français :</strong> Tous les mots formés sont validés instantanément selon le dictionnaire de référence français.
               </p>
               <p>
                 <strong>3. Cases multiplicatrices :</strong>
-                <br />â€¢ <strong>DL :</strong> Lettre compte double
-                <br />â€¢ <strong>TL :</strong> Lettre compte triple
-                <br />â€¢ <strong>DM :</strong> Mot compte double
-                <br />â€¢ <strong>TM :</strong> Mot compte triple
+                <br />• <strong>DL :</strong> Lettre compte double
+                <br />• <strong>TL :</strong> Lettre compte triple
+                <br />• <strong>DM :</strong> Mot compte double
+                <br />• <strong>TM :</strong> Mot compte triple
               </p>
               <p>
                 <strong>4. Bonus 7 lettres :</strong> Poser les 7 lettres de votre chevalet en un seul coup accorde un bonus de <strong>30 points</strong>.
@@ -592,3 +592,4 @@ export function WordGameComponent({
     </div>
   );
 }
+

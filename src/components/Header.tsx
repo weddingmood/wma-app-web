@@ -77,11 +77,11 @@ export function Header({ onToggleSidebar }: HeaderProps) {
 
   const getSyncBadge = () => {
     switch (syncState) {
-      case "SynchronisÃ©":
+      case "Synchronisé":
         return (
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
             <Wifi className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="hidden sm:inline">SynchronisÃ©</span>
+            <span className="hidden sm:inline">Synchronisé</span>
           </span>
         );
       case "Synchronisation en cours":
@@ -131,7 +131,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={triggerSync}
-              title="Cliquez pour synchroniser immÃ©diatement"
+              title="Cliquez pour synchroniser immédiatement"
               className="cursor-pointer transition-opacity hover:opacity-80"
             >
               {getSyncBadge()}
@@ -158,7 +158,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                     : "text-stone-600 hover:text-stone-900"
                 }`}
                 style={activePartner === "partner1" ? { backgroundColor: activeTheme.primary } : {}}
-                title="Basculer sur le compte de David (Lui)"
+                title="Basculer sur le compte de Époux (Lui)"
               >
                 Lui
               </button>
@@ -170,7 +170,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                     : "text-stone-600 hover:text-stone-900"
                 }`}
                 style={activePartner === "partner2" ? { backgroundColor: activeTheme.primary } : {}}
-                title="Basculer sur le compte de Ruth (Elle)"
+                title="Basculer sur le compte de Épouse (Elle)"
               >
                 Elle
               </button>
@@ -202,7 +202,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                     {partnerName.split(" ")[0]}
                   </span>
                   <span className="text-[10px] text-stone-500 capitalize leading-tight">
-                    {activePartner === "partner1" ? "FiancÃ©" : "FiancÃ©e"}
+                    {activePartner === "partner1" ? "Fiancé" : "Fiancée"}
                   </span>
                 </div>
               </button>
@@ -239,7 +239,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                     className="w-full py-2 px-3 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-semibold flex items-center gap-2 cursor-pointer transition-colors"
                   >
                     <Sliders className="w-4 h-4 text-stone-500" />
-                    <span>Personnalisation & ThÃ¨mes</span>
+                    <span>Personnalisation & Thèmes</span>
                   </Link>
                 </div>
               )}
@@ -249,7 +249,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
             <button
               onClick={() => startCall("audio")}
               className="p-2 text-stone-600 hover:text-[#C05638] hover:bg-white rounded-full transition-colors cursor-pointer"
-              title="Appel audio avec votre fiancÃ©(e)"
+              title="Appel audio avec votre fiancé(e)"
             >
               <Phone className="w-4 h-4" />
             </button>
@@ -258,7 +258,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
             <button
               onClick={() => startCall("video")}
               className="p-2 text-stone-600 hover:text-[#C05638] hover:bg-white rounded-full transition-colors cursor-pointer"
-              title="Appel vidÃ©o direct"
+              title="Appel vidéo direct"
             >
               <Video className="w-4 h-4" />
             </button>
@@ -348,7 +348,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
               <div className="flex justify-center">
                 <img
                   src={photoInput || partnerPhoto}
-                  alt="AperÃ§u"
+                  alt="Aperçu"
                   className="w-24 h-24 rounded-full object-cover border-4 border-[#D4AF37] shadow-md"
                 />
               </div>
@@ -390,3 +390,4 @@ export function Header({ onToggleSidebar }: HeaderProps) {
     </>
   );
 }
+

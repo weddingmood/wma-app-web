@@ -65,13 +65,13 @@ export default function LibraryPage() {
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
           <BookMarked className="w-3.5 h-3.5" />
-          <span>BibliothÃ¨que & Ouvrages Pastoraux</span>
+          <span>Bibliothèque & Ouvrages Pastoraux</span>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-          Livres RecommandÃ©s pour BÃ¢tir Votre Foyer
+          Livres Recommandés pour Bâtir Votre Foyer
         </h1>
         <p className="text-stone-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
-          Lectures chrÃ©tiennes sÃ©lectionnÃ©es sur la communication, les finances, la puretÃ© et la priÃ¨re avec lecteur intÃ©grÃ© et reprise automatique.
+          Lectures chrétiennes sélectionnées sur la communication, les finances, la pureté et la prière avec lecteur intégré et reprise automatique.
         </p>
       </div>
 
@@ -85,7 +85,7 @@ export default function LibraryPage() {
               className="flex items-center gap-1.5 text-xs font-bold text-stone-600 hover:text-stone-900"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Retour Ã  la BibliothÃ¨que</span>
+              <span>Retour à la Bibliothèque</span>
             </button>
 
             <span className="text-xs font-semibold text-stone-500">
@@ -100,7 +100,7 @@ export default function LibraryPage() {
                 {selectedBook.title}
               </h2>
               <p className="text-xs text-stone-500 mt-1">
-                Auteur : {selectedBook.author} â€¢ Ã‰dition : {selectedBook.pastor || "Pastoral"}
+                Auteur : {selectedBook.author} • Édition : {selectedBook.pastor || "Pastoral"}
               </p>
             </div>
 
@@ -148,7 +148,7 @@ export default function LibraryPage() {
                 }}
                 className="px-4 py-2 rounded-xl bg-stone-100 disabled:opacity-40 text-stone-700 text-xs font-semibold"
               >
-                Chapitre prÃ©cÃ©dent
+                Chapitre précédent
               </button>
 
               <button
@@ -229,3 +229,4 @@ export default function LibraryPage() {
     </div>
   );
 }
+

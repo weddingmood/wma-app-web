@@ -6,7 +6,7 @@ import { desc, count, sql } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.isAdmin) {
-    return Response.json({ success: false, message: "AccÃ¨s administrateur requis" }, { status: 403 });
+    return Response.json({ success: false, message: "Accès administrateur requis" }, { status: 403 });
   }
 
   // Fetch all game history records
@@ -35,3 +35,4 @@ export async function GET() {
     recentGames: allHistory,
   });
 }
+

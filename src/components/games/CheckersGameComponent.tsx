@@ -38,8 +38,8 @@ interface Props {
 }
 
 export function CheckersGameComponent({
-  p1Name = "David",
-  p2Name = "Ruth",
+  p1Name = "Époux",
+  p2Name = "Épouse",
   coupleId,
   onMatchFinish,
 }: Props) {
@@ -231,7 +231,7 @@ export function CheckersGameComponent({
               onChange={(e) => handleReset("ai", e.target.value as CheckersAiLevel)}
               className="px-2.5 py-1.5 rounded-xl bg-white border border-stone-200 text-stone-800 text-xs font-semibold cursor-pointer"
             >
-              <option value="debutant">DÃ©butant</option>
+              <option value="debutant">Débutant</option>
               <option value="facile">Facile</option>
               <option value="moyen">Moyen</option>
               <option value="difficile">Difficile</option>
@@ -242,7 +242,7 @@ export function CheckersGameComponent({
           <button
             onClick={() => setShowRulesModal(true)}
             className="p-2 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 cursor-pointer"
-            title="Consulter les rÃ¨gles des Dames"
+            title="Consulter les règles des Dames"
           >
             <HelpCircle className="w-4 h-4" />
           </button>
@@ -269,16 +269,16 @@ export function CheckersGameComponent({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-stone-900">
-                {gameMode === "ai" ? "Ordinateur" : p2Name} (DorÃ©)
+                {gameMode === "ai" ? "Ordinateur" : p2Name} (Doré)
               </span>
               {gameState.turn === "partner2" && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">
-                  {isAiThinking ? "RÃ©flexion..." : "Ã€ jouer"}
+                  {isAiThinking ? "Réflexion..." : "À jouer"}
                 </span>
               )}
             </div>
             <div className="text-xs text-stone-600 mt-1">
-              PiÃ¨ces : <strong className="text-stone-900 font-bold">{gameState.piecesCount.partner2}</strong> | Dames : <strong className="text-amber-800 font-bold">{gameState.kingsCount.partner2}</strong>
+              Pièces : <strong className="text-stone-900 font-bold">{gameState.piecesCount.partner2}</strong> | Dames : <strong className="text-amber-800 font-bold">{gameState.kingsCount.partner2}</strong>
             </div>
           </div>
           <Crown className="w-7 h-7 text-[#D4AF37]" />
@@ -298,12 +298,12 @@ export function CheckersGameComponent({
               </span>
               {gameState.turn === "partner1" && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-100 text-[#C05638]">
-                  Ã€ vous de jouer
+                  À vous de jouer
                 </span>
               )}
             </div>
             <div className="text-xs text-stone-600 mt-1">
-              PiÃ¨ces : <strong className="text-stone-900 font-bold">{gameState.piecesCount.partner1}</strong> | Dames : <strong className="text-[#C05638] font-bold">{gameState.kingsCount.partner1}</strong>
+              Pièces : <strong className="text-stone-900 font-bold">{gameState.piecesCount.partner1}</strong> | Dames : <strong className="text-[#C05638] font-bold">{gameState.kingsCount.partner1}</strong>
             </div>
           </div>
           <Crown className="w-7 h-7 text-[#C05638]" />
@@ -372,7 +372,7 @@ export function CheckersGameComponent({
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-lg w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <h3 className="font-serif font-bold text-stone-900 text-base">
-                RÃ¨gles Officielles du Jeu de Dames
+                Règles Officielles du Jeu de Dames
               </h3>
               <button
                 onClick={() => setShowRulesModal(false)}
@@ -384,19 +384,19 @@ export function CheckersGameComponent({
 
             <div className="space-y-2.5 text-stone-700 leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
               <p>
-                <strong>1. DÃ©placement simple :</strong> Les pions se dÃ©placent d'une case vers l'avant sur les cases sombres.
+                <strong>1. Déplacement simple :</strong> Les pions se déplacent d'une case vers l'avant sur les cases sombres.
               </p>
               <p>
-                <strong>2. Prise obligatoire :</strong> Si un pion adjacent Ã  un pion adverse peut sauter par-dessus vers une case vide derriÃ¨re, la prise est obligatoire.
+                <strong>2. Prise obligatoire :</strong> Si un pion adjacent à un pion adverse peut sauter par-dessus vers une case vide derrière, la prise est obligatoire.
               </p>
               <p>
-                <strong>3. Promotion en Dame :</strong> Lorsqu'un pion atteint la derniÃ¨re rangÃ©e opposÃ©e, il est couronnÃ© Dame.
+                <strong>3. Promotion en Dame :</strong> Lorsqu'un pion atteint la dernière rangée opposée, il est couronné Dame.
               </p>
               <p>
-                <strong>4. Pouvoirs de la Dame :</strong> La Dame peut avancer et reculer diagonalement pour se dÃ©placer et capturer les piÃ¨ces adverses.
+                <strong>4. Pouvoirs de la Dame :</strong> La Dame peut avancer et reculer diagonalement pour se déplacer et capturer les pièces adverses.
               </p>
               <p>
-                <strong>5. Victoire :</strong> Capturez toutes les piÃ¨ces adverses ou bloquez complÃ¨tement l'adversaire.
+                <strong>5. Victoire :</strong> Capturez toutes les pièces adverses ou bloquez complètement l'adversaire.
               </p>
             </div>
 
@@ -412,3 +412,4 @@ export function CheckersGameComponent({
     </div>
   );
 }
+

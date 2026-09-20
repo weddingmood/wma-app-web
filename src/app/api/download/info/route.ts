@@ -29,3 +29,4 @@ export async function GET() {
     method: "TWA Bubblewrap + PWA",
   });
 }
+

@@ -29,8 +29,8 @@ export default function JeuxPage() {
   const [statsData, setStatsData] = useState<any>(null);
   const [loadingStats, setLoadingStats] = useState(true);
 
-  const p1Name = couple?.partner1Name || "David";
-  const p2Name = couple?.partner2Name || "Ruth";
+  const p1Name = couple?.partner1Name || "Époux";
+  const p2Name = couple?.partner2Name || "Épouse";
 
   // Fetch games history and statistics
   const fetchGameStats = async () => {
@@ -85,8 +85,8 @@ export default function JeuxPage() {
     {
       id: "ludo",
       title: "Ludo Nuptial",
-      category: "Plateau & StratÃ©gie",
-      description: "La course sacrÃ©e vers l'autel de mariage : 4 pions, circuit de 52 cases, Ã©toiles sÃ©curisÃ©es et lancers de dÃ© animÃ©s.",
+      category: "Plateau & Stratégie",
+      description: "La course sacrée vers l'autel de mariage : 4 pions, circuit de 52 cases, étoiles sécurisées et lancers de dé animés.",
       badge: "Multijoueur & IA",
       primaryColor: "#C05638",
       icon: Dice5,
@@ -94,19 +94,19 @@ export default function JeuxPage() {
     },
     {
       id: "awale",
-      title: "AwalÃ© Traditionnel",
-      category: "HÃ©ritage Ivoirien",
-      description: "Le grand jeu de stratÃ©gie africain : semailles anti-horaires de 48 graines, captures en cascade de 2 ou 3 graines et rÃ¨gle de l'affamÃ©.",
+      title: "Awalé Traditionnel",
+      category: "Héritage Ivoirien",
+      description: "Le grand jeu de stratégie africain : semailles anti-horaires de 48 graines, captures en cascade de 2 ou 3 graines et règle de l'affamé.",
       badge: "6 Niveaux d'IA & Analyse",
       primaryColor: "#7A4E2D",
       icon: Trophy,
-      features: ["6 Niveaux d'IA", "Conseils PÃ©dagogiques", "Revue de partie", "RÃ¨gles Oware"],
+      features: ["6 Niveaux d'IA", "Conseils Pédagogiques", "Revue de partie", "Règles Oware"],
     },
     {
       id: "dames",
       title: "Jeu de Dames",
-      category: "RÃ©flexion & Tactique",
-      description: "Plateau de 64 cases, dÃ©placements diagonaux, prises obligatoires par saut et couronnement triomphal en Dame.",
+      category: "Réflexion & Tactique",
+      description: "Plateau de 64 cases, déplacements diagonaux, prises obligatoires par saut et couronnement triomphal en Dame.",
       badge: "5 Niveaux de Tactique",
       primaryColor: "#B37D28",
       icon: Crown,
@@ -114,13 +114,13 @@ export default function JeuxPage() {
     },
     {
       id: "mots",
-      title: "DÃ©fi des Mots",
+      title: "Défi des Mots",
       category: "Lettres & Vocabulaire",
-      description: "Grille 11x11 avec cases multiplicatrices (DL, TL, DM, TM), validation par dictionnaire franÃ§ais et chevalet de 7 lettres.",
-      badge: "Dictionnaire Officiel & DÃ©fi",
+      description: "Grille 11x11 avec cases multiplicatrices (DL, TL, DM, TM), validation par dictionnaire français et chevalet de 7 lettres.",
+      badge: "Dictionnaire Officiel & Défi",
       primaryColor: "#145A32",
       icon: BookOpen,
-      features: ["Dictionnaire franÃ§ais", "Multiplicateurs", "DÃ©fi Quotidien", "Mode Anagrammes"],
+      features: ["Dictionnaire français", "Multiplicateurs", "Défi Quotidien", "Mode Anagrammes"],
     },
   ];
 
@@ -132,13 +132,13 @@ export default function JeuxPage() {
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-bold border border-orange-100 mb-2">
               <Gamepad2 className="w-3.5 h-3.5" />
-              <span>Salle de Jeux & ComplicitÃ© â€¢ Wedding Mood</span>
+              <span>Salle de Jeux & Complicité • Wedding Mood</span>
             </div>
             <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
               Espace Jeux du Couple
             </h1>
             <p className="text-stone-600 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-              Quatre grands jeux classiques revisitÃ©s avec Ã©lÃ©gance : Ludo, AwalÃ©, Dames et DÃ©fi des Mots. Jouez Ã  deux sur le mÃªme Ã©cran, en ligne ou contre l'ordinateur.
+              Quatre grands jeux classiques revisités avec élégance : Ludo, Awalé, Dames et Défi des Mots. Jouez à deux sur le même écran, en ligne ou contre l'ordinateur.
             </p>
           </div>
 
@@ -172,7 +172,7 @@ export default function JeuxPage() {
                   : "text-stone-600 hover:text-stone-900"
               }`}
             >
-              AwalÃ©
+              Awalé
             </button>
             <button
               onClick={() => setActiveGame("dames")}
@@ -216,7 +216,7 @@ export default function JeuxPage() {
                 Nos 4 Jeux de Table
               </h2>
               <p className="text-xs text-stone-500 mt-0.5">
-                SÃ©lectionnez un jeu pour lancer une partie en couple ou contre l'ordinateur.
+                Sélectionnez un jeu pour lancer une partie en couple ou contre l'ordinateur.
               </p>
             </div>
           </div>
@@ -293,7 +293,7 @@ export default function JeuxPage() {
         />
       )}
 
-      {/* 5. JEU 2: AWALÃ‰ IVOIRIEN */}
+      {/* 5. JEU 2: AWALÉ IVOIRIEN */}
       {activeGame === "awale" && (
         <AwaleGameComponent
           p1Name={p1Name}
@@ -313,7 +313,7 @@ export default function JeuxPage() {
         />
       )}
 
-      {/* 7. JEU 4: DÃ‰FI DES MOTS */}
+      {/* 7. JEU 4: DÉFI DES MOTS */}
       {activeGame === "mots" && (
         <WordGameComponent
           p1Name={p1Name}
@@ -325,3 +325,4 @@ export default function JeuxPage() {
     </div>
   );
 }
+

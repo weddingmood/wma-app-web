@@ -174,17 +174,17 @@ export function createInitialLudoTokens(color: LudoColor): LudoToken[] {
 
 export function createInitialLudoGame(
   mode: "couple" | "ai" | "4p" = "couple",
-  p1Name = "David",
-  p2Name = "Ruth"
+  p1Name = "…poux",
+  p2Name = "…pouse"
 ): LudoGameState {
   let players: LudoPlayer[] = [];
 
   if (mode === "4p") {
     players = [
       { id: "partner1", name: p1Name, color: "terracotta", isAi: false, tokens: createInitialLudoTokens("terracotta"), tokensAtGoal: 0 },
-      { id: "emerald_p", name: "T√©moin 1", color: "emerald", isAi: true, tokens: createInitialLudoTokens("emerald"), tokensAtGoal: 0 },
+      { id: "emerald_p", name: "TÈmoin 1", color: "emerald", isAi: true, tokens: createInitialLudoTokens("emerald"), tokensAtGoal: 0 },
       { id: "partner2", name: p2Name, color: "gold", isAi: false, tokens: createInitialLudoTokens("gold"), tokensAtGoal: 0 },
-      { id: "ivory_p", name: "T√©moin 2", color: "ivory", isAi: true, tokens: createInitialLudoTokens("ivory"), tokensAtGoal: 0 },
+      { id: "ivory_p", name: "TÈmoin 2", color: "ivory", isAi: true, tokens: createInitialLudoTokens("ivory"), tokensAtGoal: 0 },
     ];
   } else if (mode === "ai") {
     players = [
@@ -192,7 +192,7 @@ export function createInitialLudoGame(
       { id: "ai", name: "Ordinateur (IA)", color: "gold", isAi: true, tokens: createInitialLudoTokens("gold"), tokensAtGoal: 0 },
     ];
   } else {
-    // 2 Players Couple mode (David: Terracotta vs Ruth: Gold)
+    // 2 Players Couple mode (…poux: Terracotta vs …pouse: Gold)
     players = [
       { id: "partner1", name: p1Name, color: "terracotta", isAi: false, tokens: createInitialLudoTokens("terracotta"), tokensAtGoal: 0 },
       { id: "partner2", name: p2Name, color: "gold", isAi: false, tokens: createInitialLudoTokens("gold"), tokensAtGoal: 0 },
@@ -211,7 +211,7 @@ export function createInitialLudoGame(
     winner: null,
     status: "ongoing",
     history: [],
-    lastMessage: `C'est √† ${players[0].name} de lancer le d√© !`,
+    lastMessage: `C'est ‡ ${players[0].name} de lancer le dÈ !`,
   };
 }
 
@@ -351,24 +351,24 @@ export function executeLudoTokenMove(
   let message = "";
 
   if (winner) {
-    message = `F√©licitations ! ${currentPlayer.name} remporte la victoire au Ludo !`;
+    message = `FÈlicitations ! ${currentPlayer.name} remporte la victoire au Ludo !`;
   } else if (bonusRoll) {
     nextPlayerIdx = activePlayerIndex;
     message = capturedColor !== null
-      ? `${currentPlayer.name} a captur√© un pion adverse ! Vous rejouez gr√¢ce au bonus.`
+      ? `${currentPlayer.name} a capturÈ un pion adverse ! Vous rejouez gr‚ce au bonus.`
       : reachedGoal
-      ? `${currentPlayer.name} a fait entrer un pion √† l'autel ! Vous rejouez.`
-      : `${currentPlayer.name} a obtenu un 6 ! Relancez le d√©.`;
+      ? `${currentPlayer.name} a fait entrer un pion ‡ l'autel ! Vous rejouez.`
+      : `${currentPlayer.name} a obtenu un 6 ! Relancez le dÈ.`;
   } else {
     nextPlayerIdx = (activePlayerIndex + 1) % players.length;
-    message = `Au tour de ${players[nextPlayerIdx].name} de lancer le d√©.`;
+    message = `Au tour de ${players[nextPlayerIdx].name} de lancer le dÈ.`;
   }
 
   const actionText = capturedColor !== null
     ? `Capture pion ${capturedColor}`
     : reachedGoal
-    ? "Arriv√©e √† l'autel"
-    : `D√©placement pion ${tokenId + 1}`;
+    ? "ArrivÈe ‡ l'autel"
+    : `DÈplacement pion ${tokenId + 1}`;
 
   const nextState: LudoGameState = {
     ...state,
@@ -473,3 +473,4 @@ export function pickBestLudoAiToken(
 
   return bestToken;
 }
+

@@ -155,24 +155,24 @@ export function DigitalInvitationExperience({
   showQrCode = true,
   cagnotteEnabled = true,
   cagnotteTitle = "Cagnotte Foyer & Premier Loyer",
-  cagnotteDescription = "Pour les proches qui souhaitent manifester leur gÃ©nÃ©rositÃ© et participer Ã  l'amÃ©nagement du foyer, vous pouvez contribuer directement par votre moyen de paiement habituel.",
+  cagnotteDescription = "Pour les proches qui souhaitent manifester leur générosité et participer à l'aménagement du foyer, vous pouvez contribuer directement par votre moyen de paiement habituel.",
   cagnottePaymentMethod = "wave",
   cagnottePaymentUrl,
   cagnotteButtonText = "Contribuer au foyer",
   ceremoniesSelected = ["dot", "civil", "church", "reception"],
   ceremoniesDetails,
-  dotDate = "Samedi 13 Septembre 2025 Ã  10:00",
-  civilDate = "Samedi 15 Novembre 2025 Ã  09:30",
-  churchDate = "Samedi 15 Novembre 2025 Ã  11:30",
-  receptionDate = "Samedi 15 Novembre 2025 Ã  14:00",
+  dotDate = "Samedi 13 Septembre 2025 à 10:00",
+  civilDate = "Samedi 15 Novembre 2025 à 09:30",
+  churchDate = "Samedi 15 Novembre 2025 à 11:30",
+  receptionDate = "Samedi 15 Novembre 2025 à 14:00",
   additionalInfo,
   isInteractivePreview = false,
   onRsvpSubmit,
 }: FullInvitationData) {
-  const displayName = coupleNames || heroTitle || "David Kouassi & Ruth Yao";
+  const displayName = coupleNames || heroTitle || "Époux Kouassi & Épouse Yao";
   const namesArray = displayName.split("&").map((s) => s.trim());
-  const partner1First = namesArray[0]?.split(" ")[0] || "David";
-  const partner2First = namesArray[1]?.split(" ")[0] || "Ruth";
+  const partner1First = namesArray[0]?.split(" ")[0] || "Époux";
+  const partner2First = namesArray[1]?.split(" ")[0] || "Épouse";
   const initial1 = partner1First.charAt(0) || "D";
   const initial2 = partner2First.charAt(0) || "R";
 
@@ -284,14 +284,14 @@ export function DigitalInvitationExperience({
         setRsvpSubmitting(false);
         if (res.success) {
           setRsvpSubmitted(true);
-          setRsvpResultMessage(res.message || "Votre prÃ©sence a Ã©tÃ© enregistrÃ©e avec joie.");
+          setRsvpResultMessage(res.message || "Votre présence a été enregistrée avec joie.");
         }
       } catch {
         setRsvpSubmitting(false);
       }
     } else {
       setRsvpSubmitted(true);
-      setRsvpResultMessage("Merci ! Votre rÃ©ponse a bien Ã©tÃ© enregistrÃ©e.");
+      setRsvpResultMessage("Merci ! Votre réponse a bien été enregistrée.");
     }
   };
 
@@ -308,7 +308,7 @@ export function DigitalInvitationExperience({
     >
       {/* SECTION 1: HEADER ET COUVERTURE HAUT DE GAMME */}
       <section className="relative min-h-[92vh] flex flex-col items-center justify-between px-4 sm:px-6 py-10 text-center overflow-hidden border-b border-stone-200/50">
-        {/* Halo de lumiÃ¨re blanche & ivoire */}
+        {/* Halo de lumière blanche & ivoire */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-gradient-to-b from-[#FFFDF0]/80 via-white/50 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
         {/* Badge d'accueil & Titres */}
@@ -323,27 +323,27 @@ export function DigitalInvitationExperience({
           </h1>
 
           <p className="text-stone-600 font-serif italic text-xs sm:text-base max-w-lg mx-auto pt-1 leading-relaxed">
-            {introText || "Nous avons la joie de vous inviter Ã  cÃ©lÃ©brer avec nous le dÃ©but de notre foyer."}
+            {introText || "Nous avons la joie de vous inviter à célébrer avec nous le début de notre foyer."}
           </p>
         </div>
 
         {/* ZONE CENTRALE : PHOTO AVEC CADRE CHOISI OU SANS-PHOTO SUBLIME */}
         <div className="relative z-10 w-full max-w-xl py-6 flex justify-center">
           {hasPhoto && heroImageUrl ? (
-            /* COMPOSITIONS SPÃ‰CIALES SELON LE MODÃˆLE CHOISI */
+            /* COMPOSITIONS SPÉCIALES SELON LE MODÈLE CHOISI */
 
-            /* ModÃ¨le 10 : PASSEPORT DE MARIAGE */
+            /* Modèle 10 : PASSEPORT DE MARIAGE */
             cardTemplate === "passeport" ? (
               <div className="w-full max-w-md bg-white rounded-3xl border-2 border-[#1E3A2F]/40 shadow-2xl p-6 space-y-4 text-left relative overflow-hidden">
                 <div className="flex items-center justify-between border-b border-[#1E3A2F]/20 pb-3">
                   <div className="flex items-center gap-2">
                     <Stamp className="w-5 h-5 text-[#C05638]" />
                     <span className="font-mono text-[10px] uppercase tracking-widest text-[#1E3A2F] font-bold">
-                      PASSEPORT D'ALLIANCE NÂ° {slug.toUpperCase().slice(0, 8)}
+                      PASSEPORT D'ALLIANCE N° {slug.toUpperCase().slice(0, 8)}
                     </span>
                   </div>
                   <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
-                    RÃ‰PUBLIQUE DE L'AMOUR
+                    RÉPUBLIQUE DE L'AMOUR
                   </span>
                 </div>
 
@@ -361,12 +361,12 @@ export function DigitalInvitationExperience({
                   </div>
                   <div className="space-y-1.5 text-xs text-stone-700 w-full">
                     <div>
-                      <span className="text-[9px] uppercase font-bold text-stone-400 block">Ã‰poux & Ã‰pouse</span>
+                      <span className="text-[9px] uppercase font-bold text-stone-400 block">Époux & Épouse</span>
                       <strong className="text-stone-900 font-serif text-sm">{partner1First} & {partner2First}</strong>
                     </div>
                     <div>
-                      <span className="text-[9px] uppercase font-bold text-stone-400 block">Date de ValiditÃ©</span>
-                      <strong className="text-stone-900">{weddingDate} (Pour l'Ã©ternitÃ©)</strong>
+                      <span className="text-[9px] uppercase font-bold text-stone-400 block">Date de Validité</span>
+                      <strong className="text-stone-900">{weddingDate} (Pour l'éternité)</strong>
                     </div>
                     <div>
                       <span className="text-[9px] uppercase font-bold text-stone-400 block">Destination</span>
@@ -380,13 +380,13 @@ export function DigitalInvitationExperience({
                 </div>
               </div>
             ) : cardTemplate === "boarding_pass" ? (
-              /* ModÃ¨le 11 : BOARDING PASS (BILLET D'EMBARQUEMENT Ã‰LÃ‰GANT) */
+              /* Modèle 11 : BOARDING PASS (BILLET D'EMBARQUEMENT ÉLÉGANT) */
               <div className="w-full max-w-lg bg-white rounded-3xl border-2 border-blue-200/80 shadow-2xl p-6 space-y-4 text-left relative overflow-hidden">
                 <div className="flex items-center justify-between border-b border-blue-100 pb-3">
                   <div className="flex items-center gap-2 text-blue-900">
                     <Plane className="w-5 h-5 text-[#C05638]" />
                     <span className="font-mono text-xs uppercase tracking-widest font-bold">
-                      BOARDING PASS â€¢ VOL NUPTIAL 2025
+                      BOARDING PASS • VOL NUPTIAL 2025
                     </span>
                   </div>
                   <span className="text-[10px] font-bold text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full">
@@ -428,20 +428,20 @@ export function DigitalInvitationExperience({
 
                 <div className="pt-2 border-t border-dashed border-stone-200 flex items-center justify-between text-[10px] text-stone-500 font-mono">
                   <span>GATE: BONHEUR</span>
-                  <span>SEAT: CÅ’UR Ã€ CÅ’UR</span>
+                  <span>SEAT: CŒUR À CŒUR</span>
                   <span className="font-bold text-[#C05638]">CONFIRMATION REQUISE</span>
                 </div>
               </div>
             ) : cardTemplate === "ticket" ? (
-              /* ModÃ¨le 12 : TICKET Ã‰VÃ‰NEMENTIEL VIP */
+              /* Modèle 12 : TICKET ÉVÉNEMENTIEL VIP */
               <div className="w-full max-w-md bg-white rounded-3xl border-2 border-[#B94A3D]/40 shadow-2xl p-6 space-y-4 text-left relative overflow-hidden">
-                {/* Encoches latÃ©rales du ticket */}
+                {/* Encoches latérales du ticket */}
                 <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-stone-100 border border-stone-300"></div>
                 <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-stone-100 border border-stone-300"></div>
 
                 <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                   <span className="text-[10px] font-bold tracking-widest text-[#B94A3D] uppercase">
-                    INVITATION VIP â€¢ ACCÃˆS CÃ‰LÃ‰BRATION
+                    INVITATION VIP • ACCÈS CÉLÉBRATION
                   </span>
                   <Ticket className="w-5 h-5 text-[#B94A3D]" />
                 </div>
@@ -466,13 +466,13 @@ export function DigitalInvitationExperience({
                 </div>
               </div>
             ) : cardTemplate === "carte_postale" ? (
-              /* ModÃ¨le 9 : CARTE POSTALE Ã‰LÃ‰GANTE */
+              /* Modèle 9 : CARTE POSTALE ÉLÉGANTE */
               <div className="w-full max-w-lg bg-[#FAF6EE] rounded-3xl border-2 border-dashed border-[#B37D28]/60 shadow-2xl p-6 space-y-4 text-left relative">
                 <div className="flex justify-between items-start">
                   <div className="space-y-1 max-w-[240px]">
                     <span className="text-[10px] uppercase font-bold tracking-widest text-[#B37D28]">CARTE D'ALLIANCE</span>
                     <h3 className="font-serif font-bold text-xl text-stone-900">{displayName}</h3>
-                    <p className="font-serif italic text-xs text-stone-600">Â« {customVerse || "Deux valent mieux qu'un..."} Â»</p>
+                    <p className="font-serif italic text-xs text-stone-600">« {customVerse || "Deux valent mieux qu'un..."} »</p>
                   </div>
                   <div className="w-16 h-20 rounded-md border-2 border-dashed border-[#B37D28] p-1 bg-white flex flex-col items-center justify-center text-center">
                     <Heart className="w-4 h-4 text-[#C05638] fill-current" />
@@ -493,7 +493,7 @@ export function DigitalInvitationExperience({
                 </div>
               </div>
             ) : cardTemplate === "polaroid_elegant" ? (
-              /* ModÃ¨le 8 : POLAROID Ã‰LÃ‰GANT */
+              /* Modèle 8 : POLAROID ÉLÉGANT */
               <div className="w-full max-w-xs pt-3 px-3 pb-12 bg-white rounded-2xl shadow-2xl border border-stone-200 mx-auto text-center space-y-3">
                 <div className="w-full h-64 rounded-xl overflow-hidden">
                   <img
@@ -514,7 +514,7 @@ export function DigitalInvitationExperience({
                 </span>
               </div>
             ) : (
-              /* CADRE UNIVERSEL PARAMÃ‰TRABLE PARMI LES 20 FORMES */
+              /* CADRE UNIVERSEL PARAMÉTRABLE PARMI LES 20 FORMES */
               <div className="relative">
                 <div className={`overflow-hidden ${framePreset.containerClass}`}>
                   <img
@@ -562,7 +562,7 @@ export function DigitalInvitationExperience({
               {sansPhotoStyle === "typographic" && (
                 <div className="space-y-3 py-6">
                   <div className="text-xs uppercase tracking-[0.3em] font-bold text-[#B37D28]">
-                    CÃ‰LÃ‰BRATION D'ALLIANCE
+                    CÉLÉBRATION D'ALLIANCE
                   </div>
                   <div className="font-serif font-extrabold text-3xl sm:text-4xl text-stone-900 tracking-wider">
                     {partner1First.toUpperCase()}
@@ -589,7 +589,7 @@ export function DigitalInvitationExperience({
                     {partner1First} & {partner2First}
                   </div>
                   <p className="text-xs font-serif italic text-stone-600 max-w-xs mx-auto">
-                    Â« L'amour est patient, il est plein de bontÃ©. Â» (1 Corinthiens 13:4)
+                    « L'amour est patient, il est plein de bonté. » (1 Corinthiens 13:4)
                   </p>
                   <div className="text-xs font-bold uppercase tracking-wider" style={{ color: primaryColor }}>
                     {weddingDate}
@@ -607,7 +607,7 @@ export function DigitalInvitationExperience({
                     {partner1First} & {partner2First}
                   </div>
                   <div className="p-3 rounded-xl bg-stone-50/70 border border-stone-200 text-xs font-serif italic text-stone-700 leading-relaxed">
-                    Â« {customVerse || "EcclÃ©siaste 4:12 - La corde Ã  trois fils ne se rompt pas facilement."} Â»
+                    « {customVerse || "Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement."} »
                   </div>
                   <div className="text-xs font-bold tracking-wider" style={{ color: accentColor }}>
                     {weddingDate}
@@ -623,7 +623,7 @@ export function DigitalInvitationExperience({
                     {partner1First} <span style={{ color: primaryColor }}>&</span> {partner2First}
                   </div>
                   <div className="text-xs uppercase tracking-widest font-bold" style={{ color: accentColor }}>
-                    {weddingDate} â€¢ {venueName}
+                    {weddingDate} • {venueName}
                   </div>
                   <div className="w-16 h-1 mx-auto rounded-full" style={{ backgroundColor: accentColor }}></div>
                 </div>
@@ -641,7 +641,7 @@ export function DigitalInvitationExperience({
                     {partner1First} & {partner2First}
                   </div>
                   <p className="text-xs text-stone-600 font-medium">
-                    Alliance traditionnelle et bÃ©nÃ©diction en Christ
+                    Alliance traditionnelle et bénédiction en Christ
                   </p>
                   <div className="text-xs font-bold tracking-wider uppercase" style={{ color: primaryColor }}>
                     {weddingDate}
@@ -671,14 +671,14 @@ export function DigitalInvitationExperience({
               className="px-6 py-3 rounded-full text-white font-bold text-xs shadow-lg transition-all flex items-center gap-2 mx-auto cursor-pointer hover:scale-105"
               style={{ backgroundColor: primaryColor }}
             >
-              <span>DÃ©couvrir notre invitation</span>
+              <span>Découvrir notre invitation</span>
               <ChevronDown className="w-4 h-4 animate-bounce" />
             </button>
           </div>
         </div>
       </section>
 
-      {/* SECTION 2: COMPTE Ã€ REBOURS (SI ACTIVÃ‰) */}
+      {/* SECTION 2: COMPTE À REBOURS (SI ACTIVÉ) */}
       {showCountdown && (
         <section id="compte-a-rebours" className="py-16 px-4 sm:px-6 max-w-4xl mx-auto text-center space-y-6">
           <div className="space-y-1">
@@ -686,7 +686,7 @@ export function DigitalInvitationExperience({
               Le Grand Rendez-Vous
             </span>
             <h2 className="font-serif text-2xl sm:text-4xl font-bold text-stone-900">
-              {timeLeft.isPast ? "Notre grand jour a Ã©tÃ© cÃ©lÃ©brÃ© !" : "Notre grand jour dans"}
+              {timeLeft.isPast ? "Notre grand jour a été célébré !" : "Notre grand jour dans"}
             </h2>
           </div>
 
@@ -694,10 +694,10 @@ export function DigitalInvitationExperience({
             <div className="p-6 rounded-3xl bg-white/95 border border-stone-200 shadow-sm max-w-md mx-auto text-center space-y-2">
               <Heart className="w-8 h-8 mx-auto fill-current" style={{ color: primaryColor }} />
               <p className="font-serif text-lg font-bold text-stone-900">
-                CÃ©lÃ©bration accomplie, gloire Ã  Dieu !
+                Célébration accomplie, gloire à Dieu !
               </p>
               <p className="text-xs text-stone-600">
-                Merci Ã  tous nos proches pour vos priÃ¨res, votre prÃ©sence et votre affection.
+                Merci à tous nos proches pour vos prières, votre présence et votre affection.
               </p>
             </div>
           ) : (
@@ -725,7 +725,7 @@ export function DigitalInvitationExperience({
         </section>
       )}
 
-      {/* SECTION 3: NOTRE VERSET D'ALLIANCE (SI ACTIVÃ‰) */}
+      {/* SECTION 3: NOTRE VERSET D'ALLIANCE (SI ACTIVÉ) */}
       {showVerse && customVerse && (
         <section className="py-12 px-4 sm:px-6 max-w-3xl mx-auto text-center space-y-4">
           <div className="p-8 sm:p-10 rounded-3xl bg-white/90 backdrop-blur-md border border-[#D4AF37]/40 shadow-sm space-y-4">
@@ -733,7 +733,7 @@ export function DigitalInvitationExperience({
               Notre Verset d'Alliance
             </span>
             <p className="font-serif italic text-base sm:text-xl text-stone-800 leading-relaxed max-w-xl mx-auto">
-              Â« {customVerse} Â»
+              « {customVerse} »
             </p>
             {pastorWord && (
               <p className="text-xs text-stone-500 font-serif italic pt-1 max-w-md mx-auto">
@@ -744,12 +744,12 @@ export function DigitalInvitationExperience({
         </section>
       )}
 
-      {/* SECTION 4: NOTRE HISTOIRE (SI ACTIVÃ‰E) */}
+      {/* SECTION 4: NOTRE HISTOIRE (SI ACTIVÉE) */}
       {showStory && loveStory && (
         <section className="py-16 px-4 sm:px-6 max-w-4xl mx-auto space-y-6">
           <div className="text-center space-y-1">
             <span className="text-xs uppercase tracking-widest font-bold block" style={{ color: primaryColor }}>
-              TÃ©moignage
+              Témoignage
             </span>
             <h2 className="font-serif text-3xl font-bold text-stone-900">Notre Histoire</h2>
           </div>
@@ -761,23 +761,23 @@ export function DigitalInvitationExperience({
             </p>
             {testimony && (
               <div className="p-5 rounded-2xl bg-amber-50/60 border border-amber-200 text-xs sm:text-sm text-stone-800 italic max-w-xl mx-auto leading-relaxed">
-                Â« {testimony} Â»
+                « {testimony} »
               </div>
             )}
           </div>
         </section>
       )}
 
-      {/* SECTION 5: PROGRAMME Â« NOTRE JOUR Â» (SI ACTIVÃ‰) */}
+      {/* SECTION 5: PROGRAMME « NOTRE JOUR » (SI ACTIVÉ) */}
       {showProgramme && ceremoniesSelected && ceremoniesSelected.length > 0 && (
         <section id="programme" className="py-16 px-4 sm:px-6 max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-1">
             <span className="text-xs uppercase tracking-widest font-bold block" style={{ color: primaryColor }}>
-              DÃ©roulement
+              Déroulement
             </span>
             <h2 className="font-serif text-3xl font-bold text-stone-900">Notre Jour</h2>
             <p className="text-xs text-stone-500 max-w-md mx-auto">
-              Retrouvez les moments forts de notre cÃ©lÃ©bration et leurs horaires.
+              Retrouvez les moments forts de notre célébration et leurs horaires.
             </p>
           </div>
 
@@ -832,7 +832,7 @@ export function DigitalInvitationExperience({
                     <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 font-mono">
                       {ceremoniesDetails?.church?.time || "11:30"}
                     </span>
-                    <h3 className="font-serif font-bold text-xl text-stone-900">BÃ©nÃ©diction Nuptiale</h3>
+                    <h3 className="font-serif font-bold text-xl text-stone-900">Bénédiction Nuptiale</h3>
                     <p className="text-xs text-stone-600">{ceremoniesDetails?.church?.location || churchDate}</p>
                     {ceremoniesDetails?.church?.description && (
                       <p className="text-xs text-stone-500">{ceremoniesDetails.church.description}</p>
@@ -852,7 +852,7 @@ export function DigitalInvitationExperience({
                     <span className="text-xs font-bold uppercase tracking-wider text-purple-800 font-mono">
                       {ceremoniesDetails?.reception?.time || "14:00"}
                     </span>
-                    <h3 className="font-serif font-bold text-xl text-stone-900">Grande RÃ©ception & Banquet</h3>
+                    <h3 className="font-serif font-bold text-xl text-stone-900">Grande Réception & Banquet</h3>
                     <p className="text-xs text-stone-600">{ceremoniesDetails?.reception?.location || receptionDate}</p>
                     {ceremoniesDetails?.reception?.description && (
                       <p className="text-xs text-stone-500">{ceremoniesDetails.reception.description}</p>
@@ -865,14 +865,14 @@ export function DigitalInvitationExperience({
         </section>
       )}
 
-      {/* SECTION 6: LIEUX & ITINÃ‰RAIRES (SI ACTIVÃ‰S) */}
+      {/* SECTION 6: LIEUX & ITINÉRAIRES (SI ACTIVÉS) */}
       {showLocations && (
         <section className="py-16 px-4 sm:px-6 max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-1">
             <span className="text-xs uppercase tracking-widest font-bold block" style={{ color: primaryColor }}>
-              AccÃ¨s & Lieux
+              Accès & Lieux
             </span>
-            <h2 className="font-serif text-3xl font-bold text-stone-900">OÃ¹ nous retrouver</h2>
+            <h2 className="font-serif text-3xl font-bold text-stone-900">Où nous retrouver</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -894,7 +894,7 @@ export function DigitalInvitationExperience({
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold transition-colors cursor-pointer"
                 >
                   <Navigation className="w-3.5 h-3.5" />
-                  <span>Voir l'itinÃ©raire sur la carte</span>
+                  <span>Voir l'itinéraire sur la carte</span>
                   <ExternalLink className="w-3 h-3 text-stone-400" />
                 </a>
               </div>
@@ -904,10 +904,10 @@ export function DigitalInvitationExperience({
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5" style={{ color: accentColor }} />
-                  <h3 className="font-serif font-bold text-lg text-stone-900">Accueil & PonctualitÃ©</h3>
+                  <h3 className="font-serif font-bold text-lg text-stone-900">Accueil & Ponctualité</h3>
                 </div>
                 <p className="text-xs text-stone-600 leading-relaxed">
-                  L'ouverture des portes a lieu 30 minutes avant le dÃ©but des cÃ©rÃ©monies afin de faciliter le placement et le recueillement de tous.
+                  L'ouverture des portes a lieu 30 minutes avant le début des cérémonies afin de faciliter le placement et le recueillement de tous.
                 </p>
               </div>
               <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 text-xs font-semibold text-stone-700">
@@ -918,7 +918,7 @@ export function DigitalInvitationExperience({
         </section>
       )}
 
-      {/* SECTION 7: FORMULAIRE RSVP INTÃ‰GRÃ‰ (SI ACTIVÃ‰) */}
+      {/* SECTION 7: FORMULAIRE RSVP INTÉGRÉ (SI ACTIVÉ) */}
       {showRsvp && (
         <section id="rsvp" className="py-16 px-4 sm:px-6 max-w-2xl mx-auto space-y-6">
           <div className="p-8 sm:p-12 rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200 shadow-xl space-y-6 text-center">
@@ -927,14 +927,14 @@ export function DigitalInvitationExperience({
                 Confirmation
               </span>
               <h2 className="font-serif text-3xl font-bold text-stone-900">
-                Votre prÃ©sence nous ferait plaisir
+                Votre présence nous ferait plaisir
               </h2>
               <p className="text-xs text-stone-600 max-w-md mx-auto pt-1">
-                Merci de nous confirmer votre prÃ©sence afin de nous permettre de prÃ©parer au mieux cette journÃ©e.
+                Merci de nous confirmer votre présence afin de nous permettre de préparer au mieux cette journée.
               </p>
               {rsvpDeadline && (
                 <span className="text-[11px] font-bold block pt-1" style={{ color: accentColor }}>
-                  RÃ©ponse souhaitÃ©e avant le {rsvpDeadline}
+                  Réponse souhaitée avant le {rsvpDeadline}
                 </span>
               )}
             </div>
@@ -946,13 +946,13 @@ export function DigitalInvitationExperience({
                   Merci {guestName ? guestName.split(" ")[0] : ""} !
                 </h3>
                 <p className="text-xs text-emerald-800 leading-relaxed max-w-sm mx-auto">
-                  {rsvpResultMessage || "Votre rÃ©ponse a bien Ã©tÃ© enregistrÃ©e. Nous sommes heureux de vous compter parmi nous."}
+                  {rsvpResultMessage || "Votre réponse a bien été enregistrée. Nous sommes heureux de vous compter parmi nous."}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleFormSubmit} className="space-y-5 text-xs text-left">
                 <div className="space-y-1.5">
-                  <label className="block font-bold text-stone-800">Serez-vous prÃ©sent ? *</label>
+                  <label className="block font-bold text-stone-800">Serez-vous présent ? *</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <button
                       type="button"
@@ -964,7 +964,7 @@ export function DigitalInvitationExperience({
                       }`}
                     >
                       <CheckCircle2 className="w-4 h-4" />
-                      <span>Oui, prÃ©sent</span>
+                      <span>Oui, présent</span>
                     </button>
 
                     <button
@@ -990,17 +990,17 @@ export function DigitalInvitationExperience({
                       }`}
                     >
                       <XCircle className="w-4 h-4" />
-                      <span>Non, empÃªchÃ©</span>
+                      <span>Non, empêché</span>
                     </button>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-800 mb-1">Nom et prÃ©nom *</label>
+                  <label className="block font-bold text-stone-800 mb-1">Nom et prénom *</label>
                   <input
                     type="text"
                     required
-                    placeholder="Ex: FrÃ¨re Marc Kouadio"
+                    placeholder="Ex: Frère Marc Kouadio"
                     value={guestName}
                     onChange={(e) => setGuestName(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-900 text-xs focus:outline-none focus:border-stone-400"
@@ -1009,7 +1009,7 @@ export function DigitalInvitationExperience({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block font-bold text-stone-800 mb-1">TÃ©lÃ©phone ou WhatsApp</label>
+                    <label className="block font-bold text-stone-800 mb-1">Téléphone ou WhatsApp</label>
                     <input
                       type="tel"
                       placeholder="+225 07..."
@@ -1035,7 +1035,7 @@ export function DigitalInvitationExperience({
                   <label className="block font-bold text-stone-800 mb-1">Message au couple</label>
                   <textarea
                     rows={2}
-                    placeholder="Un mot d'encouragement pour les mariÃ©s..."
+                    placeholder="Un mot d'encouragement pour les mariés..."
                     value={messageForCouple}
                     onChange={(e) => setMessageForCouple(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-900 text-xs"
@@ -1043,10 +1043,10 @@ export function DigitalInvitationExperience({
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-800 mb-1">PriÃ¨re ou conseil pour le couple</label>
+                  <label className="block font-bold text-stone-800 mb-1">Prière ou conseil pour le couple</label>
                   <textarea
                     rows={2}
-                    placeholder="Que l'Ã‰ternel bÃ©nisse abondamment votre foyer..."
+                    placeholder="Que l'Éternel bénisse abondamment votre foyer..."
                     value={prayerWishes}
                     onChange={(e) => setPrayerWishes(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-900 text-xs"
@@ -1059,7 +1059,7 @@ export function DigitalInvitationExperience({
                   className="w-full py-3.5 rounded-2xl text-white font-bold text-xs shadow-md transition-all cursor-pointer disabled:opacity-50 hover:scale-[1.01]"
                   style={{ backgroundColor: primaryColor }}
                 >
-                  {rsvpSubmitting ? "Enregistrement..." : "Confirmer ma rÃ©ponse"}
+                  {rsvpSubmitting ? "Enregistrement..." : "Confirmer ma réponse"}
                 </button>
               </form>
             )}
@@ -1067,7 +1067,7 @@ export function DigitalInvitationExperience({
         </section>
       )}
 
-      {/* SECTION 8: CAGNOTTE PERSONNALISÃ‰E (LIEN DE PAIEMENT LIBRE DU COUPLE SANS COMMISSION) */}
+      {/* SECTION 8: CAGNOTTE PERSONNALISÉE (LIEN DE PAIEMENT LIBRE DU COUPLE SANS COMMISSION) */}
       {showCagnotte && cagnotteEnabled && (
         <section className="py-12 px-4 sm:px-6 max-w-2xl mx-auto text-center space-y-4">
           <div className="p-8 rounded-3xl bg-white/95 backdrop-blur-md border border-[#D4AF37]/50 shadow-md space-y-4">
@@ -1089,7 +1089,7 @@ export function DigitalInvitationExperience({
               </a>
             ) : (
               <div className="p-3 bg-stone-50 rounded-xl text-stone-500 text-[11px] max-w-sm mx-auto">
-                Moyen de contribution proposÃ© : {cagnottePaymentMethod.toUpperCase()} (Contactez directement le couple pour les coordonnÃ©es).
+                Moyen de contribution proposé : {cagnottePaymentMethod.toUpperCase()} (Contactez directement le couple pour les coordonnées).
               </div>
             )}
           </div>
@@ -1101,14 +1101,14 @@ export function DigitalInvitationExperience({
         <section className="py-12 px-4 sm:px-6 max-w-sm mx-auto text-center space-y-4">
           <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-3">
             <span className="text-[10px] uppercase font-bold tracking-widest" style={{ color: accentColor }}>
-              AccÃ¨s Direct Smartphone
+              Accès Direct Smartphone
             </span>
             <h4 className="font-serif font-bold text-stone-900 text-lg">QR Code du Faire-Part</h4>
             <div className="flex justify-center p-3 bg-stone-50 rounded-2xl border border-stone-100">
               <img src={qrCodeDataUrl} alt="QR Code Faire-Part" className="w-44 h-44 rounded-xl" />
             </div>
             <p className="text-[11px] text-stone-500">
-              Scannez pour ouvrir l'invitation sur votre tÃ©lÃ©phone ou partager avec un invitÃ©.
+              Scannez pour ouvrir l'invitation sur votre téléphone ou partager avec un invité.
             </p>
           </div>
         </section>
@@ -1125,7 +1125,7 @@ export function DigitalInvitationExperience({
             {partner1First} & {partner2First}
           </div>
           <p className="text-xs text-stone-600 font-serif italic max-w-md mx-auto leading-relaxed pt-1">
-            {finalMessage || "Â« Que l'amour, la foi et la grÃ¢ce de Dieu accompagnent notre foyer. Â»"}
+            {finalMessage || "« Que l'amour, la foi et la grâce de Dieu accompagnent notre foyer. »"}
           </p>
         </div>
 
@@ -1136,7 +1136,7 @@ export function DigitalInvitationExperience({
               className="px-6 py-2.5 rounded-full text-white font-bold text-xs shadow-md transition-all cursor-pointer"
               style={{ backgroundColor: primaryColor }}
             >
-              Confirmer ma prÃ©sence
+              Confirmer ma présence
             </button>
           )}
           <button
@@ -1151,3 +1151,4 @@ export function DigitalInvitationExperience({
     </div>
   );
 }
+

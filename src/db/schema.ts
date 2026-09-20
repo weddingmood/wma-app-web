@@ -29,14 +29,14 @@ export const couples = pgTable("couples", {
   ceremonyTypes: json("ceremony_types").$type<string[]>().default(["dot", "civil", "benediction", "reception"]),
   church: varchar("church", { length: 150 }),
   pastorName: varchar("pastor_name", { length: 150 }),
-  ethnicity: varchar("ethnicity", { length: 100 }), // e.g. BaoulÃ©, BÃ©tÃ©, Agni, Senoufo, etc.
+  ethnicity: varchar("ethnicity", { length: 100 }), // e.g. Baoulé, Bété, Agni, Senoufo, etc.
   traditions: text("traditions"),
-  bibleVerse: text("bible_verse").default("EcclÃ©siaste 4:12 - La corde Ã  trois fils ne se rompt pas facilement."),
+  bibleVerse: text("bible_verse").default("Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement."),
   status: varchar("status", { length: 40 }).default("trial"), // trial, pending_payment, verification, active, expired, suspended, blocked
   trialEndsAt: timestamp("trial_ends_at"),
   passwordHash: text("password_hash").notNull(),
   sharedPasscode: varchar("shared_passcode", { length: 10 }),
-  // Code d'accÃ¨s unique gÃ©nÃ©rÃ© automatiquement (Ex: WM-4821)
+  // Code d'accès unique généré automatiquement (Ex: WM-4821)
   accessCode: varchar("access_code", { length: 20 }),
   // Formule d'abonnement : couple (3 000 FCFA) ou individual (2 000 FCFA)
   planType: varchar("plan_type", { length: 30 }).default("couple"),
@@ -175,7 +175,7 @@ export const decisions = pgTable("decisions", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-// 10. Prayers (Journal de priÃ¨re)
+// 10. Prayers (Journal de prière)
 export const prayers = pgTable("prayers", {
   id: serial("id").primaryKey(),
   coupleId: integer("couple_id").notNull().references(() => couples.id, { onDelete: "cascade" }),
@@ -287,7 +287,7 @@ export const coupleBooksProgress = pgTable("couple_books_progress", {
   lastReadAt: timestamp("last_read_at").defaultNow().notNull(),
 });
 
-// 18. Articles (Bon Ã  savoir)
+// 18. Articles (Bon à savoir)
 export const articles = pgTable("articles", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
@@ -403,7 +403,7 @@ export const invitations = pgTable("invitations", {
   // Cagnotte custom contribution link settings
   cagnotteEnabled: boolean("cagnotte_enabled").default(true),
   cagnotteTitle: varchar("cagnotte_title", { length: 200 }).default("Cagnotte Foyer & Premier Loyer"),
-  cagnotteDescription: text("cagnotte_description").default("Pour les proches qui souhaitent manifester leur gÃ©nÃ©rositÃ© et participer Ã  l'amÃ©nagement du foyer, vous pouvez contribuer directement par votre moyen de paiement habituel."),
+  cagnotteDescription: text("cagnotte_description").default("Pour les proches qui souhaitent manifester leur générosité et participer à l'aménagement du foyer, vous pouvez contribuer directement par votre moyen de paiement habituel."),
   cagnottePaymentMethod: varchar("cagnotte_payment_method", { length: 50 }).default("wave"), // wave, orange_money, mtn_money, moov_money, other
   cagnottePaymentUrl: text("cagnotte_payment_url"),
   cagnotteButtonText: varchar("cagnotte_button_text", { length: 100 }).default("Contribuer au foyer"),
@@ -467,7 +467,7 @@ export const callLogs = pgTable("call_logs", {
   endedAt: timestamp("ended_at"),
 });
 
-// 26. Game Sessions (Ludo, AwalÃ©, Dames, Mots, etc.)
+// 26. Game Sessions (Ludo, Awalé, Dames, Mots, etc.)
 export const gameSessions = pgTable("game_sessions", {
   id: serial("id").primaryKey(),
   coupleId: integer("couple_id").notNull().references(() => couples.id, { onDelete: "cascade" }),
@@ -569,3 +569,4 @@ export const auditLogs = pgTable("audit_logs", {
   ipAddress: varchar("ip_address", { length: 60 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
