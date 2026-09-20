@@ -1,14 +1,53 @@
 ﻿"use client";
 
+import React, { useRef } from "react";
 import Link from "next/link";
-import { Users, Wallet, Calendar, CheckSquare, Gamepad2, AlertCircle, ArrowRight } from "lucide-react";
+import { useTheme } from "@/components/ThemeContext";
+import {
+  Users,
+  Wallet,
+  Calendar,
+  CheckSquare,
+  Gamepad2,
+  AlertCircle,
+  ArrowRight,
+  Camera,
+} from "lucide-react";
 
 export default function DashboardHome() {
-  const couplePhoto = "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&v=" + Date.now();
+  const { couple, updateCoupleProfile } = useTheme();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Utilise la photo enregistrée dans le profil, sinon fallback sur l'image par défaut
+  const couplePhoto =
+    couple?.coverPhoto ||
+    "https://images.unsplash.com/photo-1519741497674-611481863552?w=800";
+
+  // Gestion du téléversement direct depuis le stockage interne
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        if (typeof reader.result === "string") {
+          await updateCoupleProfile({ coverPhoto: reader.result });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="w-full min-h-screen bg-slate-50 px-3 py-4 sm:px-6 max-w-md md:max-w-3xl mx-auto space-y-4 overflow-x-hidden pb-20">
-      
+      {/* Input de fichier caché pour la sélection galerie */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        onChange={handlePhotoUpload}
+        className="hidden"
+      />
+
       {/* 1. CARTE HERO: NOTRE ESPACE DE PRÉPARATION */}
       <div className="relative w-full rounded-2xl overflow-hidden shadow-md bg-stone-900 min-h-[260px] p-4 flex flex-col justify-end">
         <img
@@ -16,14 +55,21 @@ export default function DashboardHome() {
           alt="YVES & Rapha"
           className="absolute inset-0 w-full h-full object-cover opacity-60"
           onError={(e) => {
-            e.currentTarget.src = "https://images.unsplash.com/photo-1519741497674-611481863552?w=800";
+            e.currentTarget.src =
+              "https://images.unsplash.com/photo-1519741497674-611481863552?w=800";
           }}
         />
-        
+
         <div className="relative z-10 bg-white/90 backdrop-blur-md rounded-xl p-4 text-center space-y-2 border border-white/50 shadow-sm">
-          <Link href="/dashboard/profile" className="inline-block text-[10px] font-bold uppercase tracking-wide text-amber-800 bg-amber-100/90 px-3 py-1 rounded-full border border-amber-200 hover:bg-amber-200 transition">
-            📷 Modifier la photo du couple
-          </Link>
+          {/* Bouton pour importer directement depuis la galerie */}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-amber-800 bg-amber-100/90 px-3 py-1.5 rounded-full border border-amber-200 hover:bg-amber-200 transition cursor-pointer"
+          >
+            <Camera className="w-3.5 h-3.5 text-amber-800" />
+            <span>Modifier la photo du couple</span>
+          </button>
 
           <p className="text-[10px] font-semibold text-amber-700 tracking-wider uppercase">
             ✨ Notre Espace de Préparation
@@ -34,17 +80,24 @@ export default function DashboardHome() {
           </h1>
 
           <p className="text-[11px] italic text-stone-600 px-1">
-            « Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement. »
+            « Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas
+            facilement. »
           </p>
-          
+
           <div className="grid grid-cols-2 gap-2 pt-2 text-left">
             <div className="bg-stone-50 p-2 rounded-lg border border-stone-200 text-center">
-              <span className="text-[9px] font-semibold text-stone-400 block uppercase">Compte à rebours</span>
+              <span className="text-[9px] font-semibold text-stone-400 block uppercase">
+                Compte à rebours
+              </span>
               <span className="text-sm font-black text-amber-600">J-454</span>
             </div>
             <div className="bg-stone-50 p-2 rounded-lg border border-stone-200 text-center">
-              <span className="text-[9px] font-semibold text-stone-400 block uppercase">Date du mariage</span>
-              <span className="text-xs font-bold text-stone-800 leading-5">2027-12-18</span>
+              <span className="text-[9px] font-semibold text-stone-400 block uppercase">
+                Date du mariage
+              </span>
+              <span className="text-xs font-bold text-stone-800 leading-5">
+                2027-12-18
+              </span>
             </div>
           </div>
         </div>
@@ -56,12 +109,15 @@ export default function DashboardHome() {
           OÙ EN SOMMES-NOUS ?
         </p>
         <h2 className="text-base font-extrabold text-stone-900">
-          Votre mariage est préparé à <span className="text-amber-600">10 %</span>
+          Votre mariage est préparé à{" "}
+          <span className="text-amber-600">10 %</span>
         </h2>
         <p className="text-xs text-stone-500 leading-relaxed">
-          Calculé automatiquement à partir de vos tâches terminées, vos entretiens spirituels, vos confirmations RSVP et vos commandements validés.
+          Calculé automatiquement à partir de vos tâches terminées, vos
+          entretiens spirituels, vos confirmations RSVP et vos commandements
+          validés.
         </p>
-        
+
         <div className="pt-2">
           <div className="flex justify-between text-xs font-semibold mb-1">
             <span className="text-stone-600">Avancement</span>
@@ -89,50 +145,70 @@ export default function DashboardHome() {
         <p className="text-xs text-stone-600">
           Il doit se faire à Libreville au Gabon
         </p>
-        <Link 
-          href="/dashboard/tasks" 
+        <Link
+          href="/dashboard/tasks"
           className="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition shadow-sm"
         >
           Accéder aux Tâches <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
-      {/* 4. RACCOURCIS MODULES DU DASHBOARD */}
+      {/* 4. RACCOURSIS MODULES DU DASHBOARD */}
       <div className="grid grid-cols-2 gap-3 pt-2">
-        <Link href="/dashboard/tasks" className="p-3 bg-white rounded-xl border border-stone-200 shadow-sm hover:border-amber-300 transition flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg"><CheckSquare className="w-5 h-5" /></div>
+        <Link
+          href="/dashboard/tasks"
+          className="p-3 bg-white rounded-xl border border-stone-200 shadow-sm hover:border-amber-300 transition flex items-center gap-3"
+        >
+          <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg">
+            <CheckSquare className="w-5 h-5" />
+          </div>
           <div>
             <h3 className="font-bold text-stone-900 text-xs">Tâches</h3>
             <p className="text-[10px] text-stone-500">0 / 1 terminées</p>
           </div>
         </Link>
 
-        <Link href="/dashboard/guests" className="p-3 bg-white rounded-xl border border-stone-200 shadow-sm hover:border-amber-300 transition flex items-center gap-3">
-          <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg"><Users className="w-5 h-5" /></div>
+        <Link
+          href="/dashboard/guests"
+          className="p-3 bg-white rounded-xl border border-stone-200 shadow-sm hover:border-amber-300 transition flex items-center gap-3"
+        >
+          <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg">
+            <Users className="w-5 h-5" />
+          </div>
           <div>
             <h3 className="font-bold text-stone-900 text-xs">Invités & RSVP</h3>
             <p className="text-[10px] text-stone-500">Liste & Présences</p>
           </div>
         </Link>
 
-        <Link href="/dashboard/cagnotte" className="p-3 bg-white rounded-xl border border-stone-200 shadow-sm hover:border-amber-300 transition flex items-center gap-3">
-          <div className="p-2.5 bg-rose-50 text-rose-600 rounded-lg"><Wallet className="w-5 h-5" /></div>
+        <Link
+          href="/dashboard/cagnotte"
+          className="p-3 bg-white rounded-xl border border-stone-200 shadow-sm hover:border-amber-300 transition flex items-center gap-3"
+        >
+          <div className="p-2.5 bg-rose-50 text-rose-600 rounded-lg">
+            <Wallet className="w-5 h-5" />
+          </div>
           <div>
             <h3 className="font-bold text-stone-900 text-xs">Cagnotte</h3>
             <p className="text-[10px] text-stone-500">Gestion des dons</p>
           </div>
         </Link>
 
-        <Link href="/dashboard/jeux" className="p-3 bg-white rounded-xl border border-stone-200 shadow-sm hover:border-amber-300 transition flex items-center gap-3">
-          <div className="p-2.5 bg-purple-50 text-purple-600 rounded-lg"><Gamepad2 className="w-5 h-5" /></div>
+        <Link
+          href="/dashboard/jeux"
+          className="p-3 bg-white rounded-xl border border-stone-200 shadow-sm hover:border-amber-300 transition flex items-center gap-3"
+        >
+          <div className="p-2.5 bg-purple-50 text-purple-600 rounded-lg">
+            <Gamepad2 className="w-5 h-5" />
+          </div>
           <div>
-            <h3 className="font-bold text-stone-900 text-xs">Jeux Duo & Invités</h3>
+            <h3 className="font-bold text-stone-900 text-xs">
+              Jeux Duo & Invités
+            </h3>
             <p className="text-[10px] text-stone-500">Espace partagé</p>
           </div>
         </Link>
       </div>
-
     </div>
   );
 }
-
