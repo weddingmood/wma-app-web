@@ -23,6 +23,14 @@ interface DashTask {
   dueDate?: string | null;
 }
 
+interface MilestoneLite {
+  isCompleted?: boolean | null;
+}
+
+interface GuestLite {
+  rsvpStatus?: string | null;
+}
+
 const DEFAULT_PHOTO =
   "https://images.unsplash.com/photo-1519741497674-611481863552?w=800";
 const DEFAULT_VERSE =
@@ -33,6 +41,16 @@ const PRIORITY_RANK: Record<string, number> = {
   medium: 2,
   low: 3,
 };
+
+async function loadJson(url: string) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
 
 function parseWeddingDate(value?: string | null): Date | null {
   if (!value) return null;
@@ -95,19 +113,21 @@ export default function DashboardHome() {
   const { couple, updateCoupleProfile } = useTheme();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [tasks, setTasks] = useState<DashTask[]>([]);
+  const [milestones, setMilestones] = useState<MilestoneLite[]>([]);
+  const [guests, setGuests] = useState<GuestLite[]>([]);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      try {
-        const res = await fetch("/api/tasks");
-        const data = await res.json();
-        if (!cancelled && data.success && Array.isArray(data.tasks)) {
-          setTasks(data.tasks);
-        }
-      } catch {
-        // Hors connexion : on garde simplement la liste vide
-      }
+      const [t, tl, g] = await Promise.all([
+        loadJson("/api/tasks"),
+        loadJson("/api/timeline"),
+        loadJson("/api/guests"),
+      ]);
+      if (cancelled) return;
+      if (t?.success && Array.isArray(t.tasks)) setTasks(t.tasks);
+      if (tl?.success && Array.isArray(tl.timeline)) setMilestones(tl.timeline);
+      if (g?.success && Array.isArray(g.guests)) setGuests(g.guests);
     })();
     return () => {
       cancelled = true;
@@ -127,7 +147,33 @@ export default function DashboardHome() {
 
   const total = tasks.length;
   const done = tasks.filter((t) => t.status === "completed").length;
-  const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  // Jauge globale : seuls les volets qui contiennent des données comptent
+  const parts = [
+    { key: "tasks", label: "Tâches", done: done, total: total, weight: 50 },
+    {
+      key: "timeline",
+      label: "Chronogramme",
+      done: milestones.filter((m) => m.isCompleted).length,
+      total: milestones.length,
+      weight: 30,
+    },
+    {
+      key: "rsvp",
+      label: "Réponses des invités",
+      done: guests.filter((g) => g.rsvpStatus && g.rsvpStatus !== "pending").length,
+      total: guests.length,
+      weight: 20,
+    },
+  ].filter((p) => p.total > 0);
+  const weightSum = parts.reduce((sum, p) => sum + p.weight, 0);
+  const percent =
+    weightSum > 0
+      ? Math.round(
+          (parts.reduce((sum, p) => sum + (p.done / p.total) * p.weight, 0) / weightSum) *
+            100
+        )
+      : 0;
 
   const nextTask = useMemo(() => {
     return tasks
@@ -241,21 +287,47 @@ export default function DashboardHome() {
           <span className="text-amber-600">{percent} %</span>
         </h2>
         <p className="text-xs text-stone-500 leading-relaxed">
-          Calculé automatiquement à partir de vos tâches terminées.
+          Calculé automatiquement à partir de vos tâches, de votre chronogramme et
+          des réponses de vos invités.
         </p>
 
         <div className="pt-2">
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-stone-600">Avancement</span>
+            <span className="text-stone-600">Avancement global</span>
             <span className="text-amber-600">{percent}%</span>
           </div>
           <div className="w-full bg-stone-100 rounded-full h-2 overflow-hidden">
             <div
-              className="bg-amber-600 h-2 rounded-full transition-all duration-500"
+              className="bg-amber-600 h-2 rounded-full transition-all duration-700"
               style={{ width: percent + "%" }}
             ></div>
           </div>
         </div>
+
+        {parts.length > 0 ? (
+          <div className="pt-3 space-y-2.5">
+            {parts.map((p) => (
+              <div key={p.key}>
+                <div className="flex justify-between text-[11px] font-semibold text-stone-600 mb-1">
+                  <span>{p.label}</span>
+                  <span className="tabular-nums">
+                    {p.done} / {p.total}
+                  </span>
+                </div>
+                <div className="w-full bg-stone-100 rounded-full h-1.5 overflow-hidden">
+                  <div
+                    className="bg-[#D4AF37] h-1.5 rounded-full transition-all duration-700"
+                    style={{ width: Math.round((p.done / p.total) * 100) + "%" }}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-[11px] text-stone-400 pt-2">
+            Ajoutez des tâches ou des invités pour voir votre progression.
+          </p>
+        )}
       </div>
 
       {/* 4. ACTION PRIORITAIRE RECOMMANDÉE */}
