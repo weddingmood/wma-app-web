@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useRef } from "react";
 import Link from "next/link";
@@ -47,57 +47,55 @@ export default function DashboardHome() {
         className="hidden"
       />
 
-      {/* 1. CARTE HERO: NOTRE ESPACE DE PRÉPARATION */}
-      <div className="relative w-full rounded-2xl overflow-hidden shadow-md bg-stone-900 min-h-[260px] p-4 flex flex-col justify-end">
+      {/* 1. PHOTO DU COUPLE : plein cadre, rien par-dessus */}
+      <div className="relative w-full rounded-3xl overflow-hidden shadow-md bg-stone-900 h-[56vh] min-h-[340px] max-h-[520px]">
         <img
           src={couplePhoto}
-          alt="YVES & Rapha"
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          alt="Photo du couple"
+          className="absolute inset-0 w-full h-full object-cover"
           onError={(e) => {
             e.currentTarget.src =
               "https://images.unsplash.com/photo-1519741497674-611481863552?w=800";
           }}
         />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent" />
 
-        <div className="relative z-10 bg-white/90 backdrop-blur-md rounded-xl p-4 text-center space-y-2 border border-white/50 shadow-sm">
-          {/* Bouton déclenchant l'ouverture de la galerie */}
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-amber-800 bg-amber-100/90 px-3 py-1.5 rounded-full border border-amber-200 hover:bg-amber-200 transition cursor-pointer"
-          >
-            <Camera className="w-3.5 h-3.5 text-amber-800" />
-            <span>Modifier la photo du couple</span>
-          </button>
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className="absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 text-[11px] font-semibold text-stone-800 bg-white/85 backdrop-blur px-3 py-1.5 rounded-full shadow hover:bg-white transition cursor-pointer"
+        >
+          <Camera className="w-3.5 h-3.5" />
+          <span>Modifier la photo</span>
+        </button>
 
-          <p className="text-[10px] font-semibold text-amber-700 tracking-wider uppercase">
-            ✨ Notre Espace de Préparation
-          </p>
+        <h1 className="absolute bottom-4 left-4 right-4 z-10 text-2xl font-extrabold text-white drop-shadow">
+          YVES & Rapha
+        </h1>
+      </div>
 
-          <h1 className="text-xl font-extrabold text-stone-900 leading-tight">
-            YVES & Rapha
-          </h1>
-
-          <p className="text-[11px] italic text-stone-600 px-1">
-            « Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas
-            facilement. »
-          </p>
-
-          <div className="grid grid-cols-2 gap-2 pt-2 text-left">
-            <div className="bg-stone-50 p-2 rounded-lg border border-stone-200 text-center">
-              <span className="text-[9px] font-semibold text-stone-400 block uppercase">
-                Compte à rebours
-              </span>
-              <span className="text-sm font-black text-amber-600">J-454</span>
-            </div>
-            <div className="bg-stone-50 p-2 rounded-lg border border-stone-200 text-center">
-              <span className="text-[9px] font-semibold text-stone-400 block uppercase">
-                Date du mariage
-              </span>
-              <span className="text-xs font-bold text-stone-800 leading-5">
-                2027-12-18
-              </span>
-            </div>
+      {/* 2. CALENDRIER : séparé de la photo */}
+      <div className="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm text-center space-y-2">
+        <p className="text-[10px] font-semibold text-amber-700 tracking-wider uppercase">
+          Notre Espace de Préparation
+        </p>
+        <p className="text-[11px] italic text-stone-600 px-1">
+          Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement.
+        </p>
+        <div className="grid grid-cols-2 gap-2 pt-2 text-left">
+          <div className="bg-stone-50 p-2 rounded-lg border border-stone-200 text-center">
+            <span className="text-[9px] font-semibold text-stone-400 block uppercase">
+              Compte à rebours
+            </span>
+            <span className="text-sm font-black text-amber-600">J-454</span>
+          </div>
+          <div className="bg-stone-50 p-2 rounded-lg border border-stone-200 text-center">
+            <span className="text-[9px] font-semibold text-stone-400 block uppercase">
+              Date du mariage
+            </span>
+            <span className="text-xs font-bold text-stone-800 leading-5">
+              2027-12-18
+            </span>
           </div>
         </div>
       </div>
