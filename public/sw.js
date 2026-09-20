@@ -2,7 +2,7 @@
  * Stratégie : cache-first pour les assets statiques, network-first pour les pages/API.
  * Version du cache : incrémenter à chaque déploiement majeur.
  */
-const CACHE_VERSION = "wm-v1.0.0";
+const CACHE_VERSION = "wm-v1.1.0";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 

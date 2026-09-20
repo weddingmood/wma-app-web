@@ -38,14 +38,14 @@ export default function ChatRoom({ coupleId, currentUserId, initialMessages }: C
 
   useEffect(() => {
     const channel = supabase
-      .channel(chat_couple_${coupleId})
+      .channel(`chat_couple_${coupleId}`)
       .on(
         "postgres_changes",
         {
           event: "INSERT",
           schema: "public",
           table: "messages",
-          filter: couple_id=eq.${coupleId},
+          filter: `couple_id=eq.${coupleId}`,
         },
         (payload) => {
           const newMsg = payload.new as Message;
@@ -64,9 +64,9 @@ export default function ChatRoom({ coupleId, currentUserId, initialMessages }: C
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!content.trim() || isSending) returN;
+    if (!content.trim() || isSending) return;
 
-    isSending(true);
+    setIsSending(true);
     const textToSend = content;
     setContent("");
     const result = await sendMessage({
@@ -79,7 +79,7 @@ export default function ChatRoom({ coupleId, currentUserId, initialMessages }: C
       console.error("Erreur d'envoi:", result.error);
       setContent(textToSend);
     }
-    isSending(false);
+    setIsSending(false);
   };
 
   return (
@@ -94,7 +94,7 @@ export default function ChatRoom({ coupleId, currentUserId, initialMessages }: C
           return (
             <div
               key={msg.id}
-              className={flex flex-col ${isMe ? "items-end" : "items-start"}`}
+              className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
             >
               <div
                 className={`max-w-[75%] px-4 py-2 rounded-2xl text-sm ${
@@ -111,13 +111,13 @@ export default function ChatRoom({ coupleId, currentUserId, initialMessages }: C
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={withSend} className="p-3 border-t border-gray-100 flex gap-2">
+      <form onSubmit={handleSend} className="p-3 border-t border-gray-100 flex gap-2">
         <input
           type="text"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="Écrivez votre message..."
-          className="flex-1 px-3 py=2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+          placeholder="Ã‰crivez votre message..."
+          className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
         />
         <button
           type="submit"

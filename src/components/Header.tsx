@@ -15,10 +15,12 @@ import {
   Menu,
   X,
   Camera,
+  Heart,
+  User,
   Sliders,
-  Upload,
 } from "lucide-react";
 import { OFFICIAL_WHATSAPP_URL } from "@/lib/constants";
+import { fileToCompressedDataUrl } from "@/lib/image-upload";
 
 interface HeaderProps {
   onToggleSidebar?: () => void;
@@ -63,16 +65,15 @@ export function Header({ onToggleSidebar }: HeaderProps) {
     }
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (typeof reader.result === "string") {
-          setPhotoInput(reader.result);
-        }
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+    try {
+      setPhotoInput(await fileToCompressedDataUrl(file, { maxSize: 512, quality: 0.8 }));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      e.target.value = "";
     }
   };
 
@@ -125,7 +126,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
       <header className="sticky top-0 z-40 w-full glass-panel border-b border-stone-200 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
           
-          {/* Left */}
+          {/* Left: Mobile Toggle & Official Logo on pure white base */}
           <div className="flex items-center gap-3">
             <button
               onClick={onToggleSidebar}
@@ -139,7 +140,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
             </Link>
           </div>
 
-          {/* Center */}
+          {/* Center: Sync Status & Couple Greeting */}
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={triggerSync}
@@ -157,10 +158,10 @@ export function Header({ onToggleSidebar }: HeaderProps) {
             )}
           </div>
 
-          {/* Right */}
+          {/* Right: Partner Switcher, User Avatar, Audio/Video, WhatsApp, Notifications */}
           <div className="flex items-center gap-2 sm:gap-3">
             
-            {/* Active Partner Switcher */}
+            {/* Active Partner Switcher Pills (Elle / Lui) */}
             <div className="relative inline-flex items-center bg-white/90 p-1 rounded-2xl border border-stone-200 shadow-2xs text-xs">
               <button
                 onClick={() => switchPartner("partner1")}
@@ -170,6 +171,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                     : "text-stone-600 hover:text-stone-900"
                 }`}
                 style={activePartner === "partner1" ? { backgroundColor: activeTheme.primary } : {}}
+                title="Basculer sur le compte de Époux (Lui)"
               >
                 Lui
               </button>
@@ -181,16 +183,18 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                     : "text-stone-600 hover:text-stone-900"
                 }`}
                 style={activePartner === "partner2" ? { backgroundColor: activeTheme.primary } : {}}
+                title="Basculer sur le compte de Épouse (Elle)"
               >
                 Elle
               </button>
             </div>
 
-            {/* Profile Avatar */}
+            {/* User Profile Avatar with Click Menu */}
             <div className="relative">
               <button
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                 className="flex items-center gap-2 p-1 pl-1.5 pr-2.5 rounded-2xl glass-card-warm border border-stone-200 hover:border-stone-300 transition-all cursor-pointer shadow-2xs"
+                title="Mon profil et ma photo"
               >
                 <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-xs bg-stone-100 shrink-0">
                   <img
@@ -198,6 +202,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                     alt={partnerName}
                     className="w-full h-full object-cover"
                     onError={(e) => {
+                      // Fallback if image fails
                       (e.target as HTMLElement).style.display = "none";
                     }}
                   />
@@ -215,6 +220,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                 </div>
               </button>
 
+              {/* Profile Dropdown Menu */}
               {showProfileMenu && (
                 <div className="absolute right-0 mt-2 w-64 glass-panel rounded-3xl shadow-xl border border-stone-200 p-4 z-50 animate-in fade-in space-y-3">
                   <div className="flex items-center gap-3 border-b border-stone-100 pb-3">
@@ -232,6 +238,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                   <button
                     onClick={() => {
                       setShowProfileMenu(false);
+                      setPhotoInput(partnerPhoto);
                       setIsPhotoModalOpen(true);
                     }}
                     className="w-full py-2 px-3 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-semibold flex items-center gap-2 cursor-pointer transition-colors"
@@ -252,38 +259,42 @@ export function Header({ onToggleSidebar }: HeaderProps) {
               )}
             </div>
 
-            {/* Quick Audio Call */}
+            {/* Quick Audio Call Button */}
             <button
               onClick={() => startCall("audio")}
               className="p-2 text-stone-600 hover:text-[#C05638] hover:bg-white rounded-full transition-colors cursor-pointer"
+              title="Appel audio avec votre fiancé(e)"
             >
               <Phone className="w-4 h-4" />
             </button>
 
-            {/* Quick Video Call */}
+            {/* Quick Video Call Button */}
             <button
               onClick={() => startCall("video")}
               className="p-2 text-stone-600 hover:text-[#C05638] hover:bg-white rounded-full transition-colors cursor-pointer"
+              title="Appel vidéo direct"
             >
               <Video className="w-4 h-4" />
             </button>
 
-            {/* WhatsApp */}
+            {/* WhatsApp Support CI */}
             <a
               href={OFFICIAL_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-xs"
+              title="Assistance WhatsApp Officielle (+225 70 50 13 56)"
             >
               <MessageCircle className="w-3.5 h-3.5" />
               <span>WhatsApp</span>
             </a>
 
-            {/* Notifications */}
+            {/* Notifications Trigger */}
             <div className="relative">
               <button
                 onClick={fetchNotifs}
                 className="relative p-2 text-stone-600 hover:text-stone-900 rounded-full hover:bg-white transition-colors cursor-pointer"
+                title="Notifications du couple"
               >
                 <Bell className="w-4 h-4" />
                 {unreadNotifications > 0 && (
@@ -291,6 +302,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                 )}
               </button>
 
+              {/* Notification Drawer Dropdown with Glass Translucency */}
               {showNotifMenu && (
                 <div className="absolute right-0 mt-2 w-80 glass-panel rounded-3xl shadow-xl border border-stone-200 p-4 z-50 animate-in fade-in slide-in-from-top-2">
                   <div className="flex items-center justify-between pb-3 border-b border-stone-100 mb-3">
@@ -330,7 +342,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
         </div>
       </header>
 
-      {/* Modal Changement Photo Profil */}
+      {/* Photo Change Modal */}
       {isPhotoModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in">
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-md w-full p-6 space-y-4 text-xs">
@@ -356,19 +368,19 @@ export function Header({ onToggleSidebar }: HeaderProps) {
               </div>
 
               <div>
-                <label className="block text-stone-700 font-bold mb-2">
-                  Choisir une photo depuis votre galerie / stockage interne :
-                </label>
-                <label className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl border-2 border-dashed border-[#C05638] bg-orange-50/50 hover:bg-orange-50 text-[#C05638] font-bold cursor-pointer transition-colors">
-                  <Upload className="w-4 h-4" />
-                  <span>Importer depuis la galerie</span>
+                <label className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-[#C05638] bg-orange-50/50 hover:bg-orange-50 text-[#C05638] font-bold cursor-pointer transition-colors">
+                  <Camera className="w-4 h-4" />
+                  <span>Choisir dans la galerie</span>
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={handleFileUpload}
+                    onChange={handlePhotoFile}
                     className="hidden"
                   />
                 </label>
+                <p className="text-[11px] text-stone-500 mt-2 text-center">
+                  Sélectionnez une photo de votre appareil, elle sera redimensionnée automatiquement.
+                </p>
               </div>
 
               <div className="pt-2 flex justify-end gap-2 border-t border-stone-100">
@@ -381,7 +393,8 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
+                  disabled={!photoInput || photoInput === partnerPhoto}
+                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429] disabled:opacity-50"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Enregistrer
@@ -394,3 +407,4 @@ export function Header({ onToggleSidebar }: HeaderProps) {
     </>
   );
 }
+

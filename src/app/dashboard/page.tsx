@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
 import React, { useRef } from "react";
 import Link from "next/link";
 import { useTheme } from "@/components/ThemeContext";
+import { fileToCompressedDataUrl } from "@/lib/image-upload";
 import {
   Users,
   Wallet,
@@ -14,25 +15,25 @@ import {
 } from "lucide-react";
 
 export default function DashboardHome() {
-  const { couple, updateCoupleProfile } = useTheme();
+  const { preferences, updatePreferences } = useTheme();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Utilise la photo enregistrée dans le profil ou l'image par défaut
   const couplePhoto =
-    couple?.coverPhoto ||
+    preferences.coverPhotoUrl ||
     "https://images.unsplash.com/photo-1519741497674-611481863552?w=800";
 
   // Gestion du téléversement depuis la galerie / stockage local
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        if (typeof reader.result === "string") {
-          await updateCoupleProfile({ coverPhoto: reader.result });
-        }
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+    try {
+      const dataUrl = await fileToCompressedDataUrl(file, { maxSize: 1200, quality: 0.8 });
+      await updatePreferences({ coverPhotoUrl: dataUrl });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      e.target.value = "";
     }
   };
 
