@@ -14,6 +14,7 @@ export interface CoupleProfile {
   partner2Role?: string | null;
   partner1Photo?: string | null;
   partner2Photo?: string | null;
+  coverPhoto?: string | null;
   weddingDate?: string | null;
   city?: string | null;
   venue?: string | null;

@@ -1,13 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Production optimisée pour Vercel + Node.js + Supabase
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "images.pexels.com" },
       { protocol: "https", hostname: "**.supabase.co" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "images.pexels.com" },
     ],
     formats: ["image/avif", "image/webp"],
   },
