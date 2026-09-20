@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Users, Wallet, Calendar, CheckSquare, Gamepad2, AlertCircle, ArrowRight } from "lucide-react";
 
 export default function DashboardHome() {
-  const couplePhoto = "https://images.unsplash.com/photo-1519741497674-611481863552?w=800";
+  const couplePhoto = "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&v=" + Date.now();
 
   return (
     <div className="w-full min-h-screen bg-slate-50 px-3 py-4 sm:px-6 max-w-md md:max-w-3xl mx-auto space-y-4 overflow-x-hidden pb-20">
@@ -135,3 +135,4 @@ export default function DashboardHome() {
     </div>
   );
 }
+
