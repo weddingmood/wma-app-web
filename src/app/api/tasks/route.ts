@@ -1,6 +1,6 @@
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
-import { tasks } from "@/db/schema";
+import { tasks, notifications } from "@/db/schema";
 import { eq, desc, and } from "drizzle-orm";
 
 export async function GET(req: Request) {
@@ -57,6 +57,21 @@ export async function POST(req: Request) {
       createdBy: session.activePartner,
     })
     .returning();
+
+  // Notification douce pour l'autre partenaire (n'empêche jamais la création de la tâche)
+  try {
+    const isPartner1 = session.activePartner === "partner1";
+    await db.insert(notifications).values({
+      coupleId: session.coupleId,
+      recipient: isPartner1 ? "partner2" : "partner1",
+      title: "Nouvelle tâche ajoutée",
+      message: session.partnerName + " a ajouté la tâche « " + title + " ».",
+      type: "task",
+      linkUrl: "/dashboard/tasks",
+    });
+  } catch (err) {
+    console.error("Notification de tâche non créée:", err);
+  }
 
   return Response.json({ success: true, task: newTask });
 }
