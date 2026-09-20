@@ -1,11 +1,11 @@
-import { cookies } from "next/headers";
+Ôªøimport { cookies } from "next/headers";
 import { db } from "@/db";
 import { couples, couplePreferences, coupleCommandments } from "@/db/schema";
 import { eq, or } from "drizzle-orm";
 import { seedDatabaseIfEmpty, hashPassword } from "@/lib/seed";
 import { DEFAULT_COMMANDMENTS } from "@/lib/constants";
 
-// GÈnËre un code d'accËs unique simple et mÈmorisable (Ex: WM-4821)
+// G√©n√®re un code d'acc√®s unique simple et m√©morisable (Ex: WM-4821)
 async function generateUniqueAccessCode(): Promise<string> {
   for (let attempt = 0; attempt < 30; attempt++) {
     const candidate = `WM-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -20,7 +20,7 @@ async function generateUniqueAccessCode(): Promise<string> {
 }
 
 export async function GET() {
-  await seedDatabaseIfEmpty();
+  // seedDatabaseIfEmpty() d√©sactiv√© sur POST pour √©viter timeout 504
   const cookieStore = await cookies();
   const sessionToken = cookieStore.get("wm_session")?.value;
 
@@ -49,7 +49,7 @@ export async function GET() {
   }
 
   if (!couple) {
-    return Response.json({ success: false, message: "Aucun couple configurÈ" }, { status: 404 });
+    return Response.json({ success: false, message: "Aucun couple configur√©" }, { status: 404 });
   }
 
   let [prefs] = await db.select().from(couplePreferences).where(eq(couplePreferences.coupleId, couple.id)).limit(1);
@@ -70,13 +70,13 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  await seedDatabaseIfEmpty();
+  // seedDatabaseIfEmpty() d√©sactiv√© sur POST pour √©viter timeout 504
   const body = await req.json();
   const { action } = body;
   const cookieStore = await cookies();
 
   // ============================================================
-  // CONNEXION : par email personnel + code d'accËs unique du couple
+  // CONNEXION : par email personnel + code d'acc√®s unique du couple
   // ============================================================
   if (action === "login") {
     const { identifier, password, accessCode, selectedPartner } = body;
@@ -104,12 +104,12 @@ export async function POST(req: Request) {
 
     if (!couple) {
       return Response.json(
-        { success: false, message: "Aucun espace ne correspond ‡ cette adresse email." },
+        { success: false, message: "Aucun espace ne correspond √† cette adresse email." },
         { status: 401 }
       );
     }
 
-    // Authentification par code d'accËs unique OU par mot de passe
+    // Authentification par code d'acc√®s unique OU par mot de passe
     const cleanCode = accessCode ? accessCode.trim().toUpperCase() : "";
     const codeMatches = cleanCode && couple.accessCode && couple.accessCode.toUpperCase() === cleanCode;
     const passwordMatches = password && couple.passwordHash === hashPassword(password);
@@ -118,7 +118,7 @@ export async function POST(req: Request) {
       return Response.json(
         {
           success: false,
-          message: "Code d'accËs ou mot de passe incorrect. VÈrifiez le code unique reÁu lors de votre inscription.",
+          message: "Code d'acc√®s ou mot de passe incorrect. V√©rifiez le code unique re√ßu lors de votre inscription.",
         },
         { status: 401 }
       );
@@ -128,13 +128,13 @@ export async function POST(req: Request) {
       return Response.json(
         {
           success: false,
-          message: `Votre compte est actuellement ${couple.status === "blocked" ? "bloquÈ" : "suspendu"}. Veuillez contacter l'assistance WhatsApp.`,
+          message: `Votre compte est actuellement ${couple.status === "blocked" ? "bloqu√©" : "suspendu"}. Veuillez contacter l'assistance WhatsApp.`,
         },
         { status: 403 }
       );
     }
 
-    // DÈtection automatique du partenaire ‡ partir de l'email saisi
+    // D√©tection automatique du partenaire √† partir de l'email saisi
     let partner: "partner1" | "partner2" = "partner1";
     if (couple.partner2Email && couple.partner2Email.toLowerCase() === cleanIdentifier) {
       partner = "partner2";
@@ -144,13 +144,13 @@ export async function POST(req: Request) {
       partner = "partner2";
     }
 
-    // Formule Individuelle : seul le partenaire principal dispose d'un accËs actif
+    // Formule Individuelle : seul le partenaire principal dispose d'un acc√®s actif
     if (couple.planType === "individual" && partner === "partner2" && !couple.partner2AccessActive) {
       return Response.json(
         {
           success: false,
           message:
-            "La Formule Individuelle ouvre l'accËs ‡ un seul partenaire. Passez ‡ la Formule Couple (3 000 FCFA) pour connecter les deux conjoints.",
+            "La Formule Individuelle ouvre l'acc√®s √† un seul partenaire. Passez √† la Formule Couple (3 000 FCFA) pour connecter les deux conjoints.",
         },
         { status: 403 }
       );
@@ -187,7 +187,7 @@ export async function POST(req: Request) {
   }
 
   // ============================================================
-  // INSCRIPTION : crÈation de l'espace et du code d'accËs unique
+  // INSCRIPTION : cr√©ation de l'espace et du code d'acc√®s unique
   // ============================================================
   if (action === "register") {
     const {
@@ -214,7 +214,7 @@ export async function POST(req: Request) {
 
     if (!partner1Name || !partner2Name || !partner1Email) {
       return Response.json(
-        { success: false, message: "Les prÈnoms des deux partenaires et l'email principal sont obligatoires." },
+        { success: false, message: "Les pr√©noms des deux partenaires et l'email principal sont obligatoires." },
         { status: 400 }
       );
     }
@@ -222,7 +222,7 @@ export async function POST(req: Request) {
     const cleanP1Email = partner1Email.trim().toLowerCase();
     const cleanP2Email = partner2Email ? partner2Email.trim().toLowerCase() : null;
 
-    // VÈrification d'unicitÈ des emails
+    // V√©rification d'unicit√© des emails
     const [emailExists] = await db
       .select()
       .from(couples)
@@ -231,7 +231,7 @@ export async function POST(req: Request) {
 
     if (emailExists) {
       return Response.json(
-        { success: false, message: "Cette adresse email est dÈj‡ rattachÈe ‡ un espace Wedding Mood." },
+        { success: false, message: "Cette adresse email est d√©j√† rattach√©e √† un espace Wedding Mood." },
         { status: 409 }
       );
     }
@@ -252,7 +252,7 @@ export async function POST(req: Request) {
     const trialEndsAt = new Date();
     trialEndsAt.setDate(trialEndsAt.getDate() + 3);
 
-    // GÈnÈration automatique du code d'accËs unique et simple
+    // G√©n√©ration automatique du code d'acc√®s unique et simple
     const accessCode = await generateUniqueAccessCode();
 
     const resolvedPlan = planType === "individual" ? "individual" : "couple";
@@ -278,7 +278,7 @@ export async function POST(req: Request) {
         pastorName: pastorName || "",
         ethnicity: ethnicity || "",
         traditions: traditions || "",
-        bibleVerse: bibleVerse || "EcclÈsiaste 4:12 - La corde ‡ trois fils ne se rompt pas facilement.",
+        bibleVerse: bibleVerse || "Eccl√©siaste 4:12 - La corde √† trois fils ne se rompt pas facilement.",
         status: "trial",
         trialEndsAt,
         passwordHash: hashPassword(password || accessCode),
@@ -328,7 +328,7 @@ export async function POST(req: Request) {
 
     return Response.json({
       success: true,
-      message: `Votre espace est crÈÈ avec une pÈriode d'essai de 3 jours. Votre code d'accËs unique est ${accessCode}.`,
+      message: `Votre espace est cr√©√© avec une p√©riode d'essai de 3 jours. Votre code d'acc√®s unique est ${accessCode}.`,
       accessCode,
       couple: safeCouple,
     });
@@ -341,7 +341,7 @@ export async function POST(req: Request) {
     const { partner } = body;
     const sessionToken = cookieStore.get("wm_session")?.value;
     if (!sessionToken) {
-      return Response.json({ success: false, message: "Non connectÈ" }, { status: 401 });
+      return Response.json({ success: false, message: "Non connect√©" }, { status: 401 });
     }
 
     const decoded = JSON.parse(Buffer.from(sessionToken, "base64").toString("utf8"));
@@ -359,7 +359,7 @@ export async function POST(req: Request) {
   }
 
   // ============================================================
-  // R…CUP…RATION DU CODE D'ACC»S PAR EMAIL
+  // R√âCUP√âRATION DU CODE D'ACC√àS PAR EMAIL
   // ============================================================
   if (action === "recover-code") {
     const { email } = body;
@@ -376,14 +376,14 @@ export async function POST(req: Request) {
 
     if (!couple) {
       return Response.json(
-        { success: false, message: "Aucun espace n'est rattachÈ ‡ cette adresse email." },
+        { success: false, message: "Aucun espace n'est rattach√© √† cette adresse email." },
         { status: 404 }
       );
     }
 
     return Response.json({
       success: true,
-      message: `Le code d'accËs de l'espace de ${couple.partner1Name} et ${couple.partner2Name} est : ${couple.accessCode}`,
+      message: `Le code d'acc√®s de l'espace de ${couple.partner1Name} et ${couple.partner2Name} est : ${couple.accessCode}`,
       accessCode: couple.accessCode,
       coupleNames: `${couple.partner1Name} & ${couple.partner2Name}`,
     });
@@ -391,9 +391,10 @@ export async function POST(req: Request) {
 
   if (action === "logout") {
     cookieStore.delete("wm_session");
-    return Response.json({ success: true, message: "DÈconnexion rÈussie" });
+    return Response.json({ success: true, message: "D√©connexion r√©ussie" });
   }
 
   return Response.json({ success: false, message: "Action invalide" }, { status: 400 });
 }
+
 
