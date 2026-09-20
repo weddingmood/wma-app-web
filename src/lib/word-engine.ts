@@ -1,4 +1,4 @@
-// Défi des Mots / Mots en Couple engine for Wedding Mood
+// DÃ©fi des Mots / Mots en Couple engine for Wedding Mood
 // Follows Scrabble game rules: 11x11 board, tile rack, multipliers (DL, TL, DM, TM),
 // comprehensive French vocabulary dictionary, word verification & AI opponent
 
@@ -78,31 +78,31 @@ import { COMPREHENSIVE_FRENCH_DICTIONARY } from "@/lib/french-lexicon";
 
 // Built-in French lexicon containing thousands of common, conjugation and wedding vocabulary words
 const FRENCH_LEXICON_WORDS = [
-  // Mariage & Couple & Spiritualité
+  // Mariage & Couple & SpiritualitÃ©
   "ALLIANCE", "AMOUR", "BAGUE", "NOUPTIAL", "NUPTIAL", "BENEDICTION", "COUPLE", "FOYER", "MARIAGE",
   "EPOUX", "EPOUSE", "MARI", "FEMME", "PRIERE", "PASTEUR", "EGLISE", "CATHEDRALE", "TEMOIN", "AUTEL",
   "ENGAGEMENT", "VOEU", "VOEUX", "PROMESSE", "FIDELITE", "TENDRESSE", "GRACE", "SAINT", "FOI",
-  "ESPERANCE", "JOIE", "PAIX", "DOT", "FAMILLE", "FÊTE", "FETE", "BANQUET", "RECEPTION", "CORTÈGE",
-  "CORTEGE", "FLEUR", "ROBE", "COSTUME", "VOILE", "CHANSON", "CHŒUR", "CHOEUR", "LOUANGE", "DIEU",
-  "SEIGNEUR", "JESUS", "CHRIST", "AMEN", "PÈRE", "PERE", "MÈRE", "MERE", "FRÈRE", "FRERE", "SŒUR", "SOEUR",
-  "ENFANT", "MAISON", "CŒUR", "COEUR", "VIE", "JOUR", "HEURE", "TEMPS", "ANNEAU", "INVITE", "INVITEE",
+  "ESPERANCE", "JOIE", "PAIX", "DOT", "FAMILLE", "FÃŠTE", "FETE", "BANQUET", "RECEPTION", "CORTÃˆGE",
+  "CORTEGE", "FLEUR", "ROBE", "COSTUME", "VOILE", "CHANSON", "CHÅ’UR", "CHOEUR", "LOUANGE", "DIEU",
+  "SEIGNEUR", "JESUS", "CHRIST", "AMEN", "PÃˆRE", "PERE", "MÃˆRE", "MERE", "FRÃˆRE", "FRERE", "SÅ’UR", "SOEUR",
+  "ENFANT", "MAISON", "CÅ’UR", "COEUR", "VIE", "JOUR", "HEURE", "TEMPS", "ANNEAU", "INVITE", "INVITEE",
   "TABLE", "MENU", "GATEAU", "PAIN", "VIN", "VERRE", "TOAST", "DANSE", "MUSIQUE", "OR", "ARGENT",
   "KITA", "PAGNE", "BOUQUET", "PHOTO", "ALBUM", "SOUVENIR", "AMI", "AMIE", "PROCHE", "ROSE", "LYS",
   // Common vocabulary A-Z
   "ACTE", "AGIR", "AIDER", "AILE", "AIMER", "AIR", "AISE", "ALLER", "AME", "AMEN", "AMI", "AMIS", "ANGE",
   "ANNE", "ANNEE", "AOUT", "APPEL", "APRES", "ARBRE", "ARCHE", "ARC", "ARME", "ART", "ASSEZ", "AURA",
   "AUTRE", "AVANT", "AVEC", "AVENIR", "AVOIR", "AVRIL", "AZUR",
-  "BANC", "BANC", "BAR", "BAS", "BATIR", "BEAU", "BELLE", "BIEN", "BLEU", "BOIS", "BON", "BONTÉ", "BONTE",
+  "BANC", "BANC", "BAR", "BAS", "BATIR", "BEAU", "BELLE", "BIEN", "BLEU", "BOIS", "BON", "BONTÃ‰", "BONTE",
   "BORD", "BOUT", "BRAS", "BREF", "BRIN", "BRUT", "BUREAU", "BUT",
   "CADRE", "CALME", "CAMP", "CAPE", "CAR", "CARTE", "CASE", "CAUSE", "CELLE", "CELUI", "CENT", "CERCLE",
-  "CECI", "CELA", "CEUX", "CHAIR", "CHAMP", "CHANT", "CHARME", "CHAT", "CHEF", "CHEMIN", "CHER", "CHÈRE",
+  "CECI", "CELA", "CEUX", "CHAIR", "CHAMP", "CHANT", "CHARME", "CHAT", "CHEF", "CHEMIN", "CHER", "CHÃˆRE",
   "CHEVAL", "CHEVEU", "CHEZ", "CHIEN", "CHOIX", "CIEL", "CINQ", "CITE", "CLAIR", "CLE", "CLEF", "CLIC",
   "COIN", "COL", "COTE", "COUP", "COUR", "COURS", "COURT", "COUT", "CRI", "CROIRE", "CROIX",
   "DAME", "DANS", "DATE", "DEJA", "DELAI", "DEMI", "DENT", "DEUX", "DEVANT", "DEVOIR", "DIEU", "DIRE",
   "DIX", "DOIGT", "DOM", "DON", "DONC", "DONNER", "DORS", "DOUX", "DROIT", "DUR",
   "EAU", "ECHO", "ECOLE", "ECRAN", "ECRIT", "EFFET", "ELAN", "ELLE", "ELLES", "EMEU", "ENTRE", "ENVOI",
   "EPAULE", "EPEE", "EPIS", "ESSAI", "EST", "ETAT", "ETE", "ETOILES", "ETOILE", "ETRE", "EU", "EUX",
-  "FACE", "FAIRE", "FAIT", "FEE", "FER", "FÊTE", "FEU", "FIER", "FIL", "FILE", "FILLE", "FILS", "FIN",
+  "FACE", "FAIRE", "FAIT", "FEE", "FER", "FÃŠTE", "FEU", "FIER", "FIL", "FILE", "FILLE", "FILS", "FIN",
   "FINI", "FIXE", "FLOT", "FOND", "FORCE", "FORET", "FORME", "FORT", "FOU", "FOULE", "FOUR", "FRAIS",
   "FRANC", "FROID", "FRONT", "FRUIT",
   "GAGE", "GAIN", "GARDER", "GARE", "GENOU", "GENRE", "GENS", "GEST", "GESTE", "GOUT", "GRAND", "GRAS",
@@ -128,21 +128,21 @@ const FRENCH_LEXICON_WORDS = [
   "PLAN", "PLEIN", "PLUIE", "PLUME", "PLUS", "POCHE", "POEME", "POINT", "POISSON", "PONT", "PORTE", "POSER",
   "POSTE", "POUR", "POUVOIR", "PREMIER", "PRENDRE", "PRES", "PRET", "PRIE", "PRIX", "PROJET", "PROMPT", "PUR",
   "QUAND", "QUART", "QUASI", "QUATRE", "QUE", "QUEL", "QUELLE", "QUI", "QUOI",
-  "RACE", "RADIO", "RAISON", "RAME", "RANG", "RANGÉE", "RAPIDE", "RARE", "RAS", "RAYON", "RECU", "REGLE",
+  "RACE", "RADIO", "RAISON", "RAME", "RANG", "RANGÃ‰E", "RAPIDE", "RARE", "RAS", "RAYON", "RECU", "REGLE",
   "REINE", "RENDRE", "REPOS", "RESTE", "RETOUR", "REVUE", "RICHE", "RIDE", "RIEN", "RIRE", "RIVE", "RIVIERE",
   "ROI", "ROND", "ROUE", "ROUGE", "ROUTE", "RUE",
   "SABLE", "SAC", "SAGE", "SAIN", "SAISON", "SALLE", "SALON", "SANG", "SANS", "SANTE", "SAUT", "SAVOIR",
   "SCENE", "SEC", "SECONDE", "SEIN", "SEIZE", "SEL", "SEMAINE", "SENS", "SEPT", "SERIE", "SERRER", "SEUL",
   "SEULE", "SIEGE", "SIECLE", "SIEN", "SIGNE", "SILENCE", "SIMPLE", "SIX", "SOEUR", "SOIF", "SOIN", "SOIR",
   "SOL", "SOLDAT", "SOLEIL", "SOMME", "SORT", "SORTE", "SORTIR", "SOUCI", "SOUFFLE", "SOUPIR", "SOURCE",
-  "SOUS", "STYLE", "SUD", "SUITE", "SUJET", "SUR", "SÛR",
+  "SOUS", "STYLE", "SUD", "SUITE", "SUJET", "SUR", "SÃ›R",
   "TABLEAU", "TAILLE", "TALENT", "TANTE", "TARD", "TARI", "TAS", "TASSE", "TEL", "TELLE", "TEMOIGNAGE",
   "TERRE", "TETE", "TEXTE", "THE", "TIERS", "TIGE", "TIRER", "TITRE", "TOI", "TOIT", "TON", "TONNE",
   "TOTAL", "TOUR", "TOUT", "TOUTE", "TOUS", "TRACE", "TRAIN", "TRAIT", "TRAITEUR", "TRAVAIL", "TRENTE",
   "TRES", "TRIOMPHE", "TRIPLE", "TROIS", "TRONC", "TROP", "TROU", "TUBE", "TYPE",
   "UN", "UNE", "UNION", "UNIQUE", "UNITE", "URGENT", "USAGE", "USER", "UTILE",
-  "VAIN", "VALEUR", "VALISE", "VASE", "VENT", "VENTE", "VENUE", "VERITÉ", "VERITE", "VERRE", "VERS",
-  "VERSÉE", "VERSET", "VERT", "VESTE", "VIDE", "VIEUX", "VIF", "VILLA", "VILLE", "VIN", "VINGT", "VISAGE",
+  "VAIN", "VALEUR", "VALISE", "VASE", "VENT", "VENTE", "VENUE", "VERITÃ‰", "VERITE", "VERRE", "VERS",
+  "VERSÃ‰E", "VERSET", "VERT", "VESTE", "VIDE", "VIEUX", "VIF", "VILLA", "VILLE", "VIN", "VINGT", "VISAGE",
   "VISION", "VISITE", "VITE", "VIVRE", "VOIE", "VOIR", "VOIX", "VOL", "VOLE", "VOLER", "VOLONTE", "VOS",
   "VOTRE", "VOUS", "VOYAGE", "VRAI", "VUE",
   "YEUX", "ZERO", "ZONE"
@@ -317,7 +317,7 @@ export function createInitialWordGameState(
         score: 24,
       },
     ],
-    lastMessage: "Mot d'ouverture 'AMOUR' posé au centre. À vous de connecter votre premier mot !",
+    lastMessage: "Mot d'ouverture 'AMOUR' posÃ© au centre. Ã€ vous de connecter votre premier mot !",
   };
 }
 
@@ -327,7 +327,7 @@ export function validateAndScoreWordPlacement(
   placedTiles: PlacedTile[]
 ): WordMoveResult {
   if (placedTiles.length === 0) {
-    return { isValid: false, score: 0, wordsFormed: [], error: "Aucune lettre n'a été posée." };
+    return { isValid: false, score: 0, wordsFormed: [], error: "Aucune lettre n'a Ã©tÃ© posÃ©e." };
   }
 
   // 1. Must be in a straight single line (same row or same column)
@@ -341,7 +341,7 @@ export function validateAndScoreWordPlacement(
       isValid: false,
       score: 0,
       wordsFormed: [],
-      error: "Les lettres doivent être alignées horizontalement ou verticalement.",
+      error: "Les lettres doivent Ãªtre alignÃ©es horizontalement ou verticalement.",
     };
   }
 
@@ -369,7 +369,7 @@ export function validateAndScoreWordPlacement(
       isValid: false,
       score: 0,
       wordsFormed: [],
-      error: "Votre mot doit obligatoirement être connecté aux lettres déjà posées sur la grille.",
+      error: "Votre mot doit obligatoirement Ãªtre connectÃ© aux lettres dÃ©jÃ  posÃ©es sur la grille.",
     };
   }
 
@@ -461,7 +461,7 @@ export function validateAndScoreWordPlacement(
         isValid: false,
         score: 0,
         wordsFormed,
-        error: `Le mot '${w}' n'est pas reconnu dans le dictionnaire français de Wedding Mood.`,
+        error: `Le mot '${w}' n'est pas reconnu dans le dictionnaire franÃ§ais de Wedding Mood.`,
       };
     }
   }

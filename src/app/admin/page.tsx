@@ -162,19 +162,19 @@ export default function AdminPage() {
         flashMsg(label);
         loadAdminData();
       } else {
-        flashMsg(d.message || "Action refusée");
+        flashMsg(d.message || "Action refusÃ©e");
       }
     } catch (err) {
       console.error(err);
-      flashMsg("Erreur réseau");
+      flashMsg("Erreur rÃ©seau");
     }
   };
 
   const handleDeleteCouple = async (id: number) => {
-    if (!confirm("Voulez-vous supprimer définitivement ce compte couple ? Cette action est irréversible.")) return;
+    if (!confirm("Voulez-vous supprimer dÃ©finitivement ce compte couple ? Cette action est irrÃ©versible.")) return;
     try {
       await fetch(`/api/admin/couples?id=${id}`, { method: "DELETE" });
-      flashMsg("Compte supprimé");
+      flashMsg("Compte supprimÃ©");
       loadAdminData();
     } catch (err) {
       console.error(err);
@@ -189,7 +189,7 @@ export default function AdminPage() {
         body: JSON.stringify({ id, action }),
       });
       const d = await res.json();
-      flashMsg(d.message || "Décision enregistrée");
+      flashMsg(d.message || "DÃ©cision enregistrÃ©e");
       loadAdminData();
     } catch (err) {
       console.error(err);
@@ -210,20 +210,20 @@ export default function AdminPage() {
         }),
       });
       const d = await res.json();
-      setSettingsMsg(d.message || (d.success ? "Enregistré" : "Erreur"));
+      setSettingsMsg(d.message || (d.success ? "EnregistrÃ©" : "Erreur"));
       if (d.success && d.admin) {
         setAdminUser(d.admin);
         setCurrentPassword("");
         setNewPassword("");
       }
     } catch {
-      setSettingsMsg("Erreur réseau");
+      setSettingsMsg("Erreur rÃ©seau");
     }
   };
 
   const handleExportCsv = () => {
     const rows = [
-      ["ID", "Couple", "Email 1", "Email 2", "Code", "Formule", "Montant", "Statut", "Ville", "Mariage", "Créé le"],
+      ["ID", "Couple", "Email 1", "Email 2", "Code", "Formule", "Montant", "Statut", "Ville", "Mariage", "CrÃ©Ã© le"],
       ...filteredCouples.map((c) => [
         c.id,
         `${c.partner1Name} & ${c.partner2Name}`,
@@ -305,13 +305,13 @@ export default function AdminPage() {
               type="submit"
               className="w-full py-3 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white font-bold text-xs shadow-md transition-all cursor-pointer"
             >
-              Se Connecter à l'Administration
+              Se Connecter Ã  l'Administration
             </button>
           </form>
 
           <div className="text-center">
             <a href="/dashboard" className="text-xs text-stone-500 hover:text-stone-800">
-              ? Retour à l'application couple
+              ? Retour Ã  l'application couple
             </a>
           </div>
         </div>
@@ -347,8 +347,8 @@ export default function AdminPage() {
               <Shield className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-serif font-bold text-sm sm:text-base text-stone-900">Wedding Mood • Administration</span>
-              <span className="hidden sm:inline-block text-[10px] text-stone-500 ml-2 font-bold uppercase">Côte d'Ivoire</span>
+              <span className="font-serif font-bold text-sm sm:text-base text-stone-900">Wedding Mood â€¢ Administration</span>
+              <span className="hidden sm:inline-block text-[10px] text-stone-500 ml-2 font-bold uppercase">CÃ´te d'Ivoire</span>
             </div>
           </div>
 
@@ -358,16 +358,16 @@ export default function AdminPage() {
                 onClick={() => setActiveTab("payments")}
                 className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-100 text-amber-900 text-xs font-bold hover:bg-amber-200 cursor-pointer"
               >
-                {pendingPayments.length} paiement(s) à valider
+                {pendingPayments.length} paiement(s) Ã  valider
               </button>
             )}
             <span className="text-xs text-stone-600 hidden sm:inline">
-              Connecté : <strong>{adminUser?.name || "Super Admin"}</strong>
+              ConnectÃ© : <strong>{adminUser?.name || "Super Admin"}</strong>
             </span>
             <button
               onClick={loadAdminData}
               className="p-2 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 cursor-pointer"
-              title="Actualiser les données"
+              title="Actualiser les donnÃ©es"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
             </button>
@@ -376,7 +376,7 @@ export default function AdminPage() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-700 text-xs font-semibold cursor-pointer shadow-2xs"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span>Déconnexion</span>
+              <span>DÃ©connexion</span>
             </button>
           </div>
         </div>
@@ -397,7 +397,7 @@ export default function AdminPage() {
             { id: "payments", label: `Paiements Wave (${pendingPayments.length})`, icon: CreditCard },
             { id: "games", label: "Jeux", icon: Gamepad2 },
             { id: "audit", label: "Journal d'audit", icon: History },
-            { id: "settings", label: "Paramètres", icon: Settings },
+            { id: "settings", label: "ParamÃ¨tres", icon: Settings },
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -429,15 +429,15 @@ export default function AdminPage() {
               </div>
 
               <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
-                <span className="text-[11px] font-bold text-stone-500 uppercase">En Période d'Essai</span>
+                <span className="text-[11px] font-bold text-stone-500 uppercase">En PÃ©riode d'Essai</span>
                 <div className="text-3xl font-serif font-extrabold text-blue-700">{stats.trialCouples}</div>
                 <span className="text-xs text-blue-600">3 jours gratuits</span>
               </div>
 
               <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
-                <span className="text-[11px] font-bold text-stone-500 uppercase">En Vérification</span>
+                <span className="text-[11px] font-bold text-stone-500 uppercase">En VÃ©rification</span>
                 <div className="text-3xl font-serif font-extrabold text-amber-700">{stats.verificationCouples}</div>
-                <span className="text-xs text-amber-600">{stats.pendingPaymentsCount} paiement(s) à traiter</span>
+                <span className="text-xs text-amber-600">{stats.pendingPaymentsCount} paiement(s) Ã  traiter</span>
               </div>
 
               <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
@@ -445,7 +445,7 @@ export default function AdminPage() {
                 <div className="text-2xl font-serif font-extrabold text-emerald-700">
                   {stats.totalRevenueFCFA.toLocaleString("fr-FR")} FCFA
                 </div>
-                <span className="text-xs text-emerald-600">Couple : {stats.revenueCouple?.toLocaleString("fr-FR")} • Indiv. : {stats.revenueIndividual?.toLocaleString("fr-FR")}</span>
+                <span className="text-xs text-emerald-600">Couple : {stats.revenueCouple?.toLocaleString("fr-FR")} â€¢ Indiv. : {stats.revenueIndividual?.toLocaleString("fr-FR")}</span>
               </div>
             </div>
 
@@ -459,11 +459,11 @@ export default function AdminPage() {
                 <div className="text-2xl font-serif font-bold text-stone-700">{stats.individualPlan}</div>
               </div>
               <div className="p-5 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
-                <span className="text-[11px] font-bold text-stone-500 uppercase">Suspendus / Bloqués</span>
+                <span className="text-[11px] font-bold text-stone-500 uppercase">Suspendus / BloquÃ©s</span>
                 <div className="text-2xl font-serif font-bold text-red-700">{(stats.suspendedCouples || 0) + (stats.blockedCouples || 0)}</div>
               </div>
               <div className="p-5 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
-                <span className="text-[11px] font-bold text-stone-500 uppercase">Paiements Vérifiés</span>
+                <span className="text-[11px] font-bold text-stone-500 uppercase">Paiements VÃ©rifiÃ©s</span>
                 <div className="text-2xl font-serif font-bold text-emerald-700">{stats.verifiedPaymentsCount}</div>
               </div>
             </div>
@@ -478,7 +478,7 @@ export default function AdminPage() {
                 <Search className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
-                  placeholder="Rechercher nom, email, code d'accès, slug..."
+                  placeholder="Rechercher nom, email, code d'accÃ¨s, slug..."
                   value={searchCouple}
                   onChange={(e) => setSearchCouple(e.target.value)}
                   className="w-full pl-9 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none"
@@ -493,10 +493,10 @@ export default function AdminPage() {
                 <option value="all">Tous les Statuts</option>
                 <option value="active">Actif</option>
                 <option value="trial">Essai (3j)</option>
-                <option value="verification">Paiement en Vérification</option>
+                <option value="verification">Paiement en VÃ©rification</option>
                 <option value="pending_payment">En attente de paiement</option>
                 <option value="suspended">Suspendu</option>
-                <option value="blocked">Bloqué</option>
+                <option value="blocked">BloquÃ©</option>
               </select>
 
               <select
@@ -524,10 +524,10 @@ export default function AdminPage() {
                   <thead className="bg-[#FCFAF7] border-b border-stone-100 text-[11px] text-stone-500 font-bold uppercase tracking-wider">
                     <tr>
                       <th className="p-4">Couple & Emails</th>
-                      <th className="p-4">Code d'Accès</th>
+                      <th className="p-4">Code d'AccÃ¨s</th>
                       <th className="p-4">Formule Premium</th>
                       <th className="p-4">Statut</th>
-                      <th className="p-4 text-right">Contrôles Premium</th>
+                      <th className="p-4 text-right">ContrÃ´les Premium</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-stone-100">
@@ -535,20 +535,20 @@ export default function AdminPage() {
                       <tr key={c.id} className="hover:bg-stone-50/60 align-top">
                         <td className="p-4">
                           <strong className="text-stone-900 text-sm block">{c.partner1Name} & {c.partner2Name}</strong>
-                          <span className="text-[11px] text-stone-500 block">{c.partner1Email} {c.partner1AccessActive === false && "(désactivé)"}</span>
+                          <span className="text-[11px] text-stone-500 block">{c.partner1Email} {c.partner1AccessActive === false && "(dÃ©sactivÃ©)"}</span>
                           {c.partner2Email && (
-                            <span className="text-[11px] text-stone-500 block">{c.partner2Email} {c.partner2AccessActive === false && "(désactivé)"}</span>
+                            <span className="text-[11px] text-stone-500 block">{c.partner2Email} {c.partner2AccessActive === false && "(dÃ©sactivÃ©)"}</span>
                           )}
-                          <span className="text-[10px] text-stone-400 font-mono">{c.weddingDate || "Date non fixée"} • {c.city || "Abidjan"} • {c.progressPercent}%</span>
+                          <span className="text-[10px] text-stone-400 font-mono">{c.weddingDate || "Date non fixÃ©e"} â€¢ {c.city || "Abidjan"} â€¢ {c.progressPercent}%</span>
                         </td>
                         <td className="p-4">
                           <span className="font-mono font-bold text-sm text-[#C05638] px-2.5 py-1 rounded-lg bg-orange-50 border border-orange-200 whitespace-nowrap">
-                            {c.accessCode || "Non généré"}
+                            {c.accessCode || "Non gÃ©nÃ©rÃ©"}
                           </span>
                           <button
-                            onClick={() => handleCouplePatch(c.id, { regenerateCode: true }, `Nouveau code généré pour ${c.partner1Name}`)}
+                            onClick={() => handleCouplePatch(c.id, { regenerateCode: true }, `Nouveau code gÃ©nÃ©rÃ© pour ${c.partner1Name}`)}
                             className="mt-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100 text-stone-700 font-bold text-[10px] hover:bg-stone-200 cursor-pointer"
-                            title="Régénérer le code d'accès"
+                            title="RÃ©gÃ©nÃ©rer le code d'accÃ¨s"
                           >
                             <KeyRound className="w-3 h-3" />
                             Nouveau code
@@ -598,7 +598,7 @@ export default function AdminPage() {
                           </span>
                           {c.trialEndsAt && c.status === "trial" && (
                             <div className="text-[10px] text-stone-400 mt-1">
-                              Essai jusqu’au {new Date(c.trialEndsAt).toLocaleDateString("fr-FR")}
+                              Essai jusquâ€™au {new Date(c.trialEndsAt).toLocaleDateString("fr-FR")}
                             </div>
                           )}
                         </td>
@@ -606,7 +606,7 @@ export default function AdminPage() {
                           <div className="flex flex-col items-end gap-1.5">
                             {c.status !== "active" && (
                               <button
-                                onClick={() => handleCouplePatch(c.id, { activatePremium: true }, `Pack Premium activé pour ${c.partner1Name} & ${c.partner2Name}`)}
+                                onClick={() => handleCouplePatch(c.id, { activatePremium: true }, `Pack Premium activÃ© pour ${c.partner1Name} & ${c.partner2Name}`)}
                                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-600 text-white font-bold text-[11px] hover:bg-emerald-700 cursor-pointer shadow-xs"
                                 title="Valider le Pack Premium complet et activer les deux partenaires"
                               >
@@ -624,23 +624,23 @@ export default function AdminPage() {
                                 </button>
                               ) : (
                                 <button
-                                  onClick={() => handleCouplePatch(c.id, { status: "active" }, "Compte activé")}
+                                  onClick={() => handleCouplePatch(c.id, { status: "active" }, "Compte activÃ©")}
                                   className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold text-[10px] cursor-pointer"
                                 >
                                   Activer
                                 </button>
                               )}
                               <button
-                                onClick={() => handleCouplePatch(c.id, { status: c.status === "blocked" ? "active" : "blocked" }, c.status === "blocked" ? "Compte débloqué" : "Compte bloqué")}
+                                onClick={() => handleCouplePatch(c.id, { status: c.status === "blocked" ? "active" : "blocked" }, c.status === "blocked" ? "Compte dÃ©bloquÃ©" : "Compte bloquÃ©")}
                                 className="px-2.5 py-1 rounded-lg bg-stone-900 text-white font-bold text-[10px] cursor-pointer inline-flex items-center gap-1"
                               >
                                 <Ban className="w-3 h-3" />
-                                {c.status === "blocked" ? "Débloquer" : "Bloquer"}
+                                {c.status === "blocked" ? "DÃ©bloquer" : "Bloquer"}
                               </button>
                             </div>
                             <div className="flex items-center gap-1.5">
                               <button
-                                onClick={() => handleCouplePatch(c.id, { extendTrialDays: 7 }, "Essai prolongé de 7 jours")}
+                                onClick={() => handleCouplePatch(c.id, { extendTrialDays: 7 }, "Essai prolongÃ© de 7 jours")}
                                 className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 font-bold text-[10px] hover:bg-blue-100 cursor-pointer border border-blue-200"
                                 title="Prolonger l'essai de 7 jours"
                               >
@@ -648,16 +648,16 @@ export default function AdminPage() {
                                 +7j essai
                               </button>
                               <button
-                                onClick={() => handleCouplePatch(c.id, { partner2AccessActive: !c.partner2AccessActive }, c.partner2AccessActive ? "Accès partenaire 2 désactivé" : "Accès partenaire 2 activé")}
+                                onClick={() => handleCouplePatch(c.id, { partner2AccessActive: !c.partner2AccessActive }, c.partner2AccessActive ? "AccÃ¨s partenaire 2 dÃ©sactivÃ©" : "AccÃ¨s partenaire 2 activÃ©")}
                                 className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 text-stone-700 font-bold text-[10px] hover:bg-stone-100 cursor-pointer"
-                                title="Activer / désactiver l'accès du second partenaire"
+                                title="Activer / dÃ©sactiver l'accÃ¨s du second partenaire"
                               >
                                 {c.partner2AccessActive === false ? "Activer P2" : "Couper P2"}
                               </button>
                               <button
                                 onClick={() => handleDeleteCouple(c.id)}
                                 className="p-1.5 text-stone-400 hover:text-red-600 cursor-pointer"
-                                title="Supprimer définitivement"
+                                title="Supprimer dÃ©finitivement"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -679,10 +679,10 @@ export default function AdminPage() {
             <div className="bg-white rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
               <div className="p-5 border-b border-stone-100">
                 <h3 className="font-serif font-bold text-stone-900 text-base">
-                  Validation des Packs Premium — Règlements Wave (Couple 3 000 FCFA / Individuel 2 000 FCFA)
+                  Validation des Packs Premium â€” RÃ¨glements Wave (Couple 3 000 FCFA / Individuel 2 000 FCFA)
                 </h3>
                 <p className="text-stone-500 text-xs">
-                  Vérifiez la référence Wave, puis validez pour activer immédiatement le Pack Premium complet du couple.
+                  VÃ©rifiez la rÃ©fÃ©rence Wave, puis validez pour activer immÃ©diatement le Pack Premium complet du couple.
                 </p>
               </div>
 
@@ -692,10 +692,10 @@ export default function AdminPage() {
                     <tr>
                       <th className="p-4">Couple & Payeur</th>
                       <th className="p-4">Montant & Formule</th>
-                      <th className="p-4">Référence Wave</th>
+                      <th className="p-4">RÃ©fÃ©rence Wave</th>
                       <th className="p-4">Preuve</th>
                       <th className="p-4">Statut</th>
-                      <th className="p-4 text-right">Décision Admin</th>
+                      <th className="p-4 text-right">DÃ©cision Admin</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-stone-100">
@@ -745,7 +745,7 @@ export default function AdminPage() {
                                 : "bg-amber-100 text-amber-800"
                             }`}
                           >
-                            {p.status === "verified" ? "Validé ?" : p.status === "rejected" ? "Rejeté" : p.status === "need_new_proof" ? "Nouvelle preuve" : "En attente"}
+                            {p.status === "verified" ? "ValidÃ© ?" : p.status === "rejected" ? "RejetÃ©" : p.status === "need_new_proof" ? "Nouvelle preuve" : "En attente"}
                           </span>
                         </td>
                         <td className="p-4 text-right">
@@ -797,7 +797,7 @@ export default function AdminPage() {
                 <div className="font-serif font-black text-2xl text-stone-900">
                   {gamesAdminData?.totalMatches || 0}
                 </div>
-                <span className="text-stone-500 text-[11px]">Enregistrées en base</span>
+                <span className="text-stone-500 text-[11px]">EnregistrÃ©es en base</span>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
@@ -805,15 +805,15 @@ export default function AdminPage() {
                 <div className="font-serif font-black text-2xl text-[#C05638]">
                   {gamesAdminData?.breakdown?.ludo || 0}
                 </div>
-                <span className="text-stone-500 text-[11px]">Parties jouées</span>
+                <span className="text-stone-500 text-[11px]">Parties jouÃ©es</span>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
-                <span className="text-[10px] font-bold text-stone-400 uppercase">Awalé Ivoirien</span>
+                <span className="text-[10px] font-bold text-stone-400 uppercase">AwalÃ© Ivoirien</span>
                 <div className="font-serif font-black text-2xl text-[#7A4E2D]">
                   {gamesAdminData?.breakdown?.awale || 0}
                 </div>
-                <span className="text-stone-500 text-[11px]">Parties jouées</span>
+                <span className="text-stone-500 text-[11px]">Parties jouÃ©es</span>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
@@ -821,22 +821,22 @@ export default function AdminPage() {
                 <div className="font-serif font-black text-2xl text-amber-700">
                   {(gamesAdminData?.breakdown?.dames || 0) + (gamesAdminData?.breakdown?.mots || 0)}
                 </div>
-                <span className="text-stone-500 text-[11px]">Parties jouées</span>
+                <span className="text-stone-500 text-[11px]">Parties jouÃ©es</span>
               </div>
             </div>
 
             <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-4">
               <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                 <h3 className="font-serif font-bold text-stone-900 text-base">
-                  Historique Récent des Parties de Couples
+                  Historique RÃ©cent des Parties de Couples
                 </h3>
                 <span className="text-stone-500 text-xs">
-                  Dernières parties enregistrées
+                  DerniÃ¨res parties enregistrÃ©es
                 </span>
               </div>
 
               {gamesAdminData?.recentGames?.length === 0 ? (
-                <p className="text-stone-500 text-center py-6">Aucune partie encore enregistrée.</p>
+                <p className="text-stone-500 text-center py-6">Aucune partie encore enregistrÃ©e.</p>
               ) : (
                 <div className="space-y-2">
                   {gamesAdminData?.recentGames?.map((match: any) => (
@@ -847,7 +847,7 @@ export default function AdminPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-bold text-stone-900 capitalize font-serif text-sm">
-                            {match.gameType === "awale" ? "Awalé Ivoirien" : match.gameType === "ludo" ? "Ludo Nuptial" : match.gameType === "dames" ? "Jeu de Dames" : "Défi des Mots"}
+                            {match.gameType === "awale" ? "AwalÃ© Ivoirien" : match.gameType === "ludo" ? "Ludo Nuptial" : match.gameType === "dames" ? "Jeu de Dames" : "DÃ©fi des Mots"}
                           </span>
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-stone-200 text-stone-700 font-bold uppercase">
                             {match.mode}
@@ -860,7 +860,7 @@ export default function AdminPage() {
 
                       <div className="flex items-center gap-3">
                         <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">
-                          Gagnant : {match.winner === "partner1" ? match.player1Name : match.winner === "partner2" ? match.player2Name : match.winner === "draw" ? "Égalité" : "IA"}
+                          Gagnant : {match.winner === "partner1" ? match.player1Name : match.winner === "partner2" ? match.player2Name : match.winner === "draw" ? "Ã‰galitÃ©" : "IA"}
                         </span>
                         <span className="text-[10px] text-stone-400">
                           {match.completedAt ? new Date(match.completedAt).toLocaleDateString() : ""}
@@ -879,17 +879,17 @@ export default function AdminPage() {
           <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-4 animate-in fade-in">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <h3 className="font-serif font-bold text-stone-900 text-base">Journal d'audit des actions sensibles</h3>
-              <span className="text-xs text-stone-500">{auditList.length} entrée(s)</span>
+              <span className="text-xs text-stone-500">{auditList.length} entrÃ©e(s)</span>
             </div>
             {auditList.length === 0 ? (
-              <p className="text-stone-500 text-center py-6 text-xs">Aucune action sensible enregistrée pour le moment.</p>
+              <p className="text-stone-500 text-center py-6 text-xs">Aucune action sensible enregistrÃ©e pour le moment.</p>
             ) : (
               <div className="space-y-2 max-h-[480px] overflow-y-auto">
                 {auditList.map((log: any) => (
                   <div key={log.id} className="p-3 rounded-2xl bg-stone-50 border border-stone-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <strong className="text-stone-900">{log.action}</strong>
-                      <span className="text-stone-500"> — {log.coupleName} • par {log.adminName}</span>
+                      <span className="text-stone-500"> â€” {log.coupleName} â€¢ par {log.adminName}</span>
                       {log.details && <p className="text-stone-600 text-[11px] mt-0.5">{log.details}</p>}
                     </div>
                     <span className="text-[10px] text-stone-400 whitespace-nowrap">
@@ -924,7 +924,7 @@ export default function AdminPage() {
                 />
               </div>
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Nom affiché</label>
+                <label className="block text-stone-700 font-bold mb-1">Nom affichÃ©</label>
                 <input
                   type="text"
                   value={settingsName}
@@ -942,7 +942,7 @@ export default function AdminPage() {
                 />
               </div>
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Nouveau mot de passe (min. 8 caractères)</label>
+                <label className="block text-stone-700 font-bold mb-1">Nouveau mot de passe (min. 8 caractÃ¨res)</label>
                 <input
                   type="password"
                   value={newPassword}
@@ -954,20 +954,20 @@ export default function AdminPage() {
                 type="submit"
                 className="w-full py-3 rounded-2xl bg-stone-900 text-white font-bold hover:bg-stone-800 cursor-pointer"
               >
-                Enregistrer les paramètres
+                Enregistrer les paramÃ¨tres
               </button>
             </form>
 
             <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-4 text-xs">
               <h3 className="font-serif font-bold text-stone-900 text-base border-b border-stone-100 pb-3">
-                Règles du Pack Premium
+                RÃ¨gles du Pack Premium
               </h3>
               <ul className="space-y-2.5 text-stone-700 leading-relaxed">
-                <li><strong>Pack Couple — 3 000 FCFA :</strong> accès complet et simultané des deux partenaires, tous modules débloqués.</li>
-                <li><strong>Pack Individuel — 2 000 FCFA :</strong> accès complet d’un seul partenaire ; le second reste désactivé.</li>
-                <li><strong>Validation :</strong> « Valider & Activer Premium » active le statut, la formule et les deux accès, puis notifie le couple avec son code.</li>
+                <li><strong>Pack Couple â€” 3 000 FCFA :</strong> accÃ¨s complet et simultanÃ© des deux partenaires, tous modules dÃ©bloquÃ©s.</li>
+                <li><strong>Pack Individuel â€” 2 000 FCFA :</strong> accÃ¨s complet dâ€™un seul partenaire ; le second reste dÃ©sactivÃ©.</li>
+                <li><strong>Validation :</strong> Â« Valider & Activer Premium Â» active le statut, la formule et les deux accÃ¨s, puis notifie le couple avec son code.</li>
                 <li><strong>Essai :</strong> 3 jours gratuits, prolongeables par tranches de 7 jours depuis le tableau Couples.</li>
-                <li><strong>Traçabilité :</strong> chaque activation, suspension, blocage et changement de formule est consigné dans le journal d’audit.</li>
+                <li><strong>TraÃ§abilitÃ© :</strong> chaque activation, suspension, blocage et changement de formule est consignÃ© dans le journal dâ€™audit.</li>
               </ul>
             </div>
           </div>

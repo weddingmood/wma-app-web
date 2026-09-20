@@ -30,8 +30,8 @@ interface Props {
 }
 
 export function PlayerProfileCard({
-  p1Name = "Époux",
-  p2Name = "Épouse",
+  p1Name = "Ã‰poux",
+  p2Name = "Ã‰pouse",
   p1Photo,
   p2Photo,
   stats,
@@ -61,10 +61,10 @@ export function PlayerProfileCard({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-stone-100 pb-4">
         <div>
           <span className="text-[11px] font-bold uppercase tracking-widest text-[#C05638] block">
-            Espace Compétition Saine & Complicité
+            Espace CompÃ©tition Saine & ComplicitÃ©
           </span>
           <h3 className="font-serif font-bold text-stone-900 text-lg sm:text-xl">
-            Profils des Joueurs • {p1Name} & {p2Name}
+            Profils des Joueurs â€¢ {p1Name} & {p2Name}
           </h3>
         </div>
 
@@ -75,16 +75,16 @@ export function PlayerProfileCard({
               ? "bg-emerald-50 text-emerald-800 border-emerald-200"
               : "bg-stone-100 text-stone-600 border-stone-200"
           }`}
-          title="Activer ou désactiver les effets sonores des jeux"
+          title="Activer ou dÃ©sactiver les effets sonores des jeux"
         >
           {soundOn ? <Volume2 className="w-4 h-4 text-emerald-600" /> : <VolumeX className="w-4 h-4 text-stone-400" />}
-          <span>{soundOn ? "Sons Activés" : "Sons Coupés"}</span>
+          <span>{soundOn ? "Sons ActivÃ©s" : "Sons CoupÃ©s"}</span>
         </button>
       </div>
 
       {/* Two Player Profiles Side-by-Side */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Partner 1 (Époux) */}
+        {/* Partner 1 (Ã‰poux) */}
         <div className="p-5 rounded-3xl glass-card-warm border border-[#EAE2D5] space-y-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#C05638] shadow-xs shrink-0">
@@ -96,7 +96,7 @@ export function PlayerProfileCard({
             </div>
             <div>
               <h4 className="font-serif font-bold text-stone-900 text-base">{p1Name}</h4>
-              <span className="text-[11px] text-[#C05638] font-semibold">Terracotta • Sud</span>
+              <span className="text-[11px] text-[#C05638] font-semibold">Terracotta â€¢ Sud</span>
             </div>
           </div>
 
@@ -116,7 +116,7 @@ export function PlayerProfileCard({
           </div>
         </div>
 
-        {/* Partner 2 (Épouse) */}
+        {/* Partner 2 (Ã‰pouse) */}
         <div className="p-5 rounded-3xl glass-card-warm border border-[#EAE2D5] space-y-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#D4AF37] shadow-xs shrink-0">
@@ -128,7 +128,7 @@ export function PlayerProfileCard({
             </div>
             <div>
               <h4 className="font-serif font-bold text-stone-900 text-base">{p2Name}</h4>
-              <span className="text-[11px] text-[#B37D28] font-semibold">Or • Nord</span>
+              <span className="text-[11px] text-[#B37D28] font-semibold">Or â€¢ Nord</span>
             </div>
           </div>
 
@@ -153,21 +153,21 @@ export function PlayerProfileCard({
       {stats?.statsByGame && (
         <div className="pt-2">
           <span className="text-xs font-bold text-stone-800 block mb-2.5">
-            Statistiques Détaillées par Jeu :
+            Statistiques DÃ©taillÃ©es par Jeu :
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
             {[
               { id: "ludo", name: "Ludo Nuptial", color: "#C05638" },
-              { id: "awale", name: "Awalé Ivoirien", color: "#7A4E2D" },
+              { id: "awale", name: "AwalÃ© Ivoirien", color: "#7A4E2D" },
               { id: "dames", name: "Jeu de Dames", color: "#D4AF37" },
-              { id: "mots", name: "Défi des Mots", color: "#145A32" },
+              { id: "mots", name: "DÃ©fi des Mots", color: "#145A32" },
             ].map((g) => {
               const gStats = stats.statsByGame?.[g.id] || { played: 0, p1Wins: 0, p2Wins: 0 };
               return (
                 <div key={g.id} className="p-3 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-1">
                   <span className="font-bold text-stone-900 block truncate">{g.name}</span>
                   <div className="text-[11px] text-stone-500">
-                    Jouées : <strong>{gStats.played}</strong>
+                    JouÃ©es : <strong>{gStats.played}</strong>
                   </div>
                   <div className="text-[10px] text-stone-600 flex justify-between">
                     <span>{p1Name} : {gStats.p1Wins}</span>

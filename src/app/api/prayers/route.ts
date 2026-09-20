@@ -6,7 +6,7 @@ import { eq, and, desc } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const couplePrayers = await db
@@ -21,14 +21,14 @@ export async function GET() {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
   const { title, prayerText, category, prayerDate } = body;
 
   if (!title || !prayerText) {
-    return Response.json({ success: false, message: "Titre et texte de prière obligatoires." }, { status: 400 });
+    return Response.json({ success: false, message: "Titre et texte de priÃ¨re obligatoires." }, { status: 400 });
   }
 
   const isP1 = session.activePartner === "partner1";
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -71,7 +71,7 @@ export async function PATCH(req: Request) {
     .limit(1);
 
   if (!existing) {
-    return Response.json({ success: false, message: "Prière introuvable" }, { status: 404 });
+    return Response.json({ success: false, message: "PriÃ¨re introuvable" }, { status: 404 });
   }
 
   if (action === "toggle-partner-pray") {
@@ -103,7 +103,7 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -114,6 +114,6 @@ export async function DELETE(req: Request) {
   }
 
   await db.delete(prayers).where(and(eq(prayers.id, Number(id)), eq(prayers.coupleId, session.coupleId)));
-  return Response.json({ success: true, message: "Prière supprimée" });
+  return Response.json({ success: true, message: "PriÃ¨re supprimÃ©e" });
 }
 

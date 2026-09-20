@@ -6,7 +6,7 @@ import { eq, desc } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const [couple] = await db.select().from(couples).where(eq(couples.id, session.coupleId)).limit(1);
@@ -49,14 +49,14 @@ export async function GET() {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
   const { name, allocatedAmount, iconKey, colorKey } = body;
 
   if (!name) {
-    return Response.json({ success: false, message: "Nom de catégorie requis" }, { status: 400 });
+    return Response.json({ success: false, message: "Nom de catÃ©gorie requis" }, { status: 400 });
   }
 
   const [newCat] = await db

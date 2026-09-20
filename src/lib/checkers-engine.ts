@@ -92,7 +92,7 @@ export function createInitialCheckersState(
     history: [],
     gameMode,
     aiLevel,
-    lastMessage: "La partie de Dames commence. À Époux d'ouvrir le jeu !",
+    lastMessage: "La partie de Dames commence. Ã€ Ã‰poux d'ouvrir le jeu !",
   };
 }
 
@@ -261,20 +261,20 @@ export function executeCheckersMove(
 
   let status: "ongoing" | "finished" = "ongoing";
   let winner: CheckersPlayer | "draw" | null = null;
-  let msg = `${turn === "partner1" ? "Époux" : "Épouse"} a joué son coup.`;
+  let msg = `${turn === "partner1" ? "Ã‰poux" : "Ã‰pouse"} a jouÃ© son coup.`;
 
   if (capturedCount > 0) {
-    msg = `${turn === "partner1" ? "Époux" : "Épouse"} a capturé une pièce adverse !`;
+    msg = `${turn === "partner1" ? "Ã‰poux" : "Ã‰pouse"} a capturÃ© une piÃ¨ce adverse !`;
   }
   if (becameKing) {
-    msg = `Couronnement ! La pièce de ${turn === "partner1" ? "Époux" : "Épouse"} devient Dame.`;
+    msg = `Couronnement ! La piÃ¨ce de ${turn === "partner1" ? "Ã‰poux" : "Ã‰pouse"} devient Dame.`;
   }
 
   // Victory check: Opponent has no pieces left or no legal moves
   if (newPiecesCount[nextTurn] === 0 || oppMoves.length === 0) {
     status = "finished";
     winner = turn;
-    msg = `Victoire éclatante de ${turn === "partner1" ? "Époux" : "Épouse"} au jeu de Dames !`;
+    msg = `Victoire Ã©clatante de ${turn === "partner1" ? "Ã‰poux" : "Ã‰pouse"} au jeu de Dames !`;
   }
 
   return {
@@ -347,7 +347,7 @@ export function computeBestCheckersAiMove(
   if (legal.length === 0) return null;
   if (legal.length === 1) return legal[0];
 
-  // 1. Débutant: Random legal move, slight capture preference
+  // 1. DÃ©butant: Random legal move, slight capture preference
   if (level === "debutant") {
     const captures = legal.filter((m) => m.captured && m.captured.length > 0);
     if (captures.length > 0 && Math.random() > 0.4) {

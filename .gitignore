@@ -38,3 +38,5 @@ node_modules
 .next
 .env*.local
 .env
+
+*.zip

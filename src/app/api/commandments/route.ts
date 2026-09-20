@@ -7,7 +7,7 @@ import { DEFAULT_COMMANDMENTS } from "@/lib/constants";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   let cmds = await db
@@ -53,7 +53,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -72,7 +72,7 @@ export async function POST(req: Request) {
         partner2Confirmed: false,
       });
     }
-    return Response.json({ success: true, message: "10 Commandements réinitialisés avec succès." });
+    return Response.json({ success: true, message: "10 Commandements rÃ©initialisÃ©s avec succÃ¨s." });
   }
 
   if (!text) {
@@ -98,7 +98,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -149,7 +149,7 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -160,6 +160,6 @@ export async function DELETE(req: Request) {
   }
 
   await db.delete(coupleCommandments).where(and(eq(coupleCommandments.id, Number(id)), eq(coupleCommandments.coupleId, session.coupleId)));
-  return Response.json({ success: true, message: "Commandement supprimé" });
+  return Response.json({ success: true, message: "Commandement supprimÃ©" });
 }
 

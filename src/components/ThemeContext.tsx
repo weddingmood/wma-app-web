@@ -38,7 +38,7 @@ export interface CouplePreferences {
   coverPhotoUrl?: string | null;
 }
 
-export type SyncState = "SynchronisÈ" | "Synchronisation en cours" | "Hors connexion" | "Modifications en attente";
+export type SyncState = "Synchronis√©" | "Synchronisation en cours" | "Hors connexion" | "Modifications en attente";
 
 interface ThemeContextType {
   couple: CoupleProfile | null;
@@ -77,7 +77,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [couple, setCouple] = useState<CoupleProfile | null>(null);
   const [preferences, setPreferences] = useState<CouplePreferences>(defaultPreferences);
   const [activePartner, setActivePartner] = useState<"partner1" | "partner2">("partner1");
-  const [syncState, setSyncState] = useState<SyncState>("SynchronisÈ");
+  const [syncState, setSyncState] = useState<SyncState>("Synchronis√©");
   const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [isCallOpen, setIsCallOpen] = useState(false);
   const [callType, setCallType] = useState<"audio" | "video">("video");
@@ -126,7 +126,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const handleOnline = () => {
       setSyncState("Synchronisation en cours");
       setTimeout(() => {
-        setSyncState("SynchronisÈ");
+        setSyncState("Synchronis√©");
       }, 1200);
     };
 
@@ -168,7 +168,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify(newPrefs),
       });
       if (res.ok) {
-        setSyncState("SynchronisÈ");
+        setSyncState("Synchronis√©");
       } else {
         setSyncState("Modifications en attente");
       }
@@ -193,7 +193,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         if (data.couple) {
           setCouple(data.couple);
         }
-        setSyncState("SynchronisÈ");
+        setSyncState("Synchronis√©");
       } else {
         setSyncState("Modifications en attente");
       }
@@ -210,7 +210,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ queue: [] }),
       });
-      setTimeout(() => setSyncState("SynchronisÈ"), 800);
+      setTimeout(() => setSyncState("Synchronis√©"), 800);
     } catch {
       setSyncState("Hors connexion");
     }
@@ -227,13 +227,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const partnerName =
     activePartner === "partner2"
-      ? couple?.partner2Name || "…pouse (Elle)"
-      : couple?.partner1Name || "…poux (Lui)";
+      ? couple?.partner2Name || "√âpouse (Elle)"
+      : couple?.partner1Name || "√âpoux (Lui)";
 
   const partnerRole =
     activePartner === "partner2"
-      ? "FiancÈe & Future MariÈe"
-      : "FiancÈ & Futur MariÈ";
+      ? "Fianc√©e & Future Mari√©e"
+      : "Fianc√© & Futur Mari√©";
 
   const partnerPhoto =
     activePartner === "partner2"
@@ -242,8 +242,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const otherPartnerName =
     activePartner === "partner1"
-      ? couple?.partner2Name || "…pouse (Elle)"
-      : couple?.partner1Name || "…poux (Lui)";
+      ? couple?.partner2Name || "√âpouse (Elle)"
+      : couple?.partner1Name || "√âpoux (Lui)";
 
   const otherPartnerPhoto =
     activePartner === "partner1"

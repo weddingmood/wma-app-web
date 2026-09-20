@@ -6,7 +6,7 @@ import { eq, asc, and } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   // Fetch registered calendar events
@@ -27,12 +27,12 @@ export async function GET() {
     .map((t) => ({
       id: 100000 + t.id,
       coupleId: t.coupleId,
-      title: `[Tâche] ${t.title}`,
+      title: `[TÃ¢che] ${t.title}`,
       description: t.description || `Responsable : ${t.assignee === "both" ? "Nous deux" : t.assignee}`,
       eventDate: t.dueDate!,
       startTime: "09:00",
       endTime: "10:00",
-      location: "Préparatifs",
+      location: "PrÃ©paratifs",
       category: "tache",
       reminderMinutes: 60,
       linkedTaskId: t.id,
@@ -52,7 +52,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -84,7 +84,7 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -97,13 +97,13 @@ export async function DELETE(req: Request) {
   const numericId = Number(id);
   if (numericId >= 100000) {
     // Linked task event - delete not directly allowed on calendar route
-    return Response.json({ success: true, message: "Événement lié à une tâche" });
+    return Response.json({ success: true, message: "Ã‰vÃ©nement liÃ© Ã  une tÃ¢che" });
   }
 
   await db
     .delete(calendarEvents)
     .where(and(eq(calendarEvents.id, numericId), eq(calendarEvents.coupleId, session.coupleId)));
 
-  return Response.json({ success: true, message: "Événement supprimé" });
+  return Response.json({ success: true, message: "Ã‰vÃ©nement supprimÃ©" });
 }
 

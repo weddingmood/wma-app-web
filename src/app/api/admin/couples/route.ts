@@ -6,7 +6,7 @@ import { eq, desc } from "drizzle-orm";
 export async function GET(req: Request) {
   const session = await getCurrentSession();
   if (!session?.isAdmin) {
-    return Response.json({ success: false, message: "Accès administrateur requis" }, { status: 403 });
+    return Response.json({ success: false, message: "AccÃ¨s administrateur requis" }, { status: 403 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -93,7 +93,7 @@ async function logAudit(adminId: number | undefined, coupleId: number, action: s
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.isAdmin) {
-    return Response.json({ success: false, message: "Accès administrateur requis" }, { status: 403 });
+    return Response.json({ success: false, message: "AccÃ¨s administrateur requis" }, { status: 403 });
   }
 
   const body = await req.json();
@@ -129,12 +129,12 @@ export async function PATCH(req: Request) {
     updates.planAmount = 3000;
     updates.partner1AccessActive = true;
     updates.partner2AccessActive = true;
-    await logAudit(session.adminId, Number(id), "activate_premium", "Pack Premium Couple activé manuellement par l'administrateur.");
+    await logAudit(session.adminId, Number(id), "activate_premium", "Pack Premium Couple activÃ© manuellement par l'administrateur.");
     await db.insert(notifications).values({
       coupleId: Number(id),
       recipient: "both",
-      title: "Pack Premium activé",
-      message: `Félicitations ! Votre Pack Premium Couple est actif. Code d'accès : ${existing.accessCode}. Connectez-vous chacun avec votre email personnel.`,
+      title: "Pack Premium activÃ©",
+      message: `FÃ©licitations ! Votre Pack Premium Couple est actif. Code d'accÃ¨s : ${existing.accessCode}. Connectez-vous chacun avec votre email personnel.`,
       type: "payment",
       linkUrl: "/dashboard/subscription",
     });
@@ -148,22 +148,22 @@ export async function PATCH(req: Request) {
     updates.planAmount = planAmount !== undefined ? Number(planAmount) : planType === "individual" ? 2000 : 3000;
     if (planType === "individual") updates.partner2AccessActive = false;
     if (planType === "couple") updates.partner2AccessActive = true;
-    await logAudit(session.adminId, Number(id), "change_plan", `Formule modifiée vers ${planType}.`);
+    await logAudit(session.adminId, Number(id), "change_plan", `Formule modifiÃ©e vers ${planType}.`);
   }
   if (partner1AccessActive !== undefined) updates.partner1AccessActive = Boolean(partner1AccessActive);
   if (partner2AccessActive !== undefined) updates.partner2AccessActive = Boolean(partner2AccessActive);
 
-  // Prolongation de la période d'essai
+  // Prolongation de la pÃ©riode d'essai
   if (extendTrialDays && Number(extendTrialDays) > 0) {
     const base = existing.trialEndsAt ? new Date(existing.trialEndsAt) : new Date();
     const start = base.getTime() > Date.now() ? base : new Date();
     start.setDate(start.getDate() + Number(extendTrialDays));
     updates.trialEndsAt = start;
     if (existing.status === "expired") updates.status = "trial";
-    await logAudit(session.adminId, Number(id), "extend_trial", `Essai prolongé de ${extendTrialDays} jour(s).`);
+    await logAudit(session.adminId, Number(id), "extend_trial", `Essai prolongÃ© de ${extendTrialDays} jour(s).`);
   }
 
-  // Régénération du code d'accès unique
+  // RÃ©gÃ©nÃ©ration du code d'accÃ¨s unique
   if (regenerateCode) {
     let newCode = "";
     for (let attempt = 0; attempt < 30; attempt++) {
@@ -176,11 +176,11 @@ export async function PATCH(req: Request) {
     }
     if (!newCode) newCode = `WM-${Date.now().toString().slice(-6)}`;
     updates.accessCode = newCode;
-    await logAudit(session.adminId, Number(id), "regenerate_code", `Nouveau code d'accès généré : ${newCode}.`);
+    await logAudit(session.adminId, Number(id), "regenerate_code", `Nouveau code d'accÃ¨s gÃ©nÃ©rÃ© : ${newCode}.`);
   }
 
   if (status === "suspended" || status === "blocked" || status === "active") {
-    await logAudit(session.adminId, Number(id), `status_${status}`, `Statut du compte passé à "${status}".`);
+    await logAudit(session.adminId, Number(id), `status_${status}`, `Statut du compte passÃ© Ã  "${status}".`);
   }
 
   const [updated] = await db
@@ -195,7 +195,7 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: Request) {
   const session = await getCurrentSession();
   if (!session?.isAdmin) {
-    return Response.json({ success: false, message: "Accès administrateur requis" }, { status: 403 });
+    return Response.json({ success: false, message: "AccÃ¨s administrateur requis" }, { status: 403 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -205,8 +205,8 @@ export async function DELETE(req: Request) {
     return Response.json({ success: false, message: "ID manquant" }, { status: 400 });
   }
 
-  await logAudit(session.adminId, Number(id), "delete_couple", "Compte couple supprimé par l'administrateur.");
+  await logAudit(session.adminId, Number(id), "delete_couple", "Compte couple supprimÃ© par l'administrateur.");
   await db.delete(couples).where(eq(couples.id, Number(id)));
-  return Response.json({ success: true, message: "Compte couple supprimé avec succès." });
+  return Response.json({ success: true, message: "Compte couple supprimÃ© avec succÃ¨s." });
 }
 

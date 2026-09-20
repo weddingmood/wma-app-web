@@ -35,7 +35,7 @@ export default function SubscriptionPage() {
   const [successMsg, setSuccessMsg] = useState("");
   const [copiedCode, setCopiedCode] = useState(false);
 
-  // Formule sélectionnée : couple (3 000 FCFA) ou individual (2 000 FCFA)
+  // Formule sÃ©lectionnÃ©e : couple (3 000 FCFA) ou individual (2 000 FCFA)
   const [selectedPlan, setSelectedPlan] = useState<"couple" | "individual">("couple");
 
   const [form, setForm] = useState({
@@ -167,7 +167,7 @@ export default function SubscriptionPage() {
   };
 
   const handleShareAccessWhatsApp = () => {
-    const msg = `Bonjour ! Voici notre accès partagé Wedding Mood :\n\nEspace : ${payInfo?.partner1Name} & ${payInfo?.partner2Name}\nCode d'accès unique : ${payInfo?.accessCode}\n\nConnecte-toi avec ton adresse email et ce code pour rejoindre notre espace de préparation.`;
+    const msg = `Bonjour ! Voici notre accÃ¨s partagÃ© Wedding Mood :\n\nEspace : ${payInfo?.partner1Name} & ${payInfo?.partner2Name}\nCode d'accÃ¨s unique : ${payInfo?.accessCode}\n\nConnecte-toi avec ton adresse email et ce code pour rejoindre notre espace de prÃ©paration.`;
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, "_blank");
   };
 
@@ -176,15 +176,15 @@ export default function SubscriptionPage() {
   const getStatusBadge = () => {
     switch (status) {
       case "active":
-        return <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs">Compte Actif (Accès Illimité)</span>;
+        return <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs">Compte Actif (AccÃ¨s IllimitÃ©)</span>;
       case "verification":
-        return <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-bold text-xs">Paiement en Vérification</span>;
+        return <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-bold text-xs">Paiement en VÃ©rification</span>;
       case "pending_payment":
         return <span className="px-3 py-1 rounded-full bg-orange-100 text-orange-800 font-bold text-xs">En Attente de Paiement</span>;
       case "suspended":
         return <span className="px-3 py-1 rounded-full bg-red-100 text-red-800 font-bold text-xs">Compte Suspendu</span>;
       default:
-        return <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 font-bold text-xs">Période d'Essai (3 Jours)</span>;
+        return <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 font-bold text-xs">PÃ©riode d'Essai (3 Jours)</span>;
     }
   };
 
@@ -197,17 +197,17 @@ export default function SubscriptionPage() {
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
           <CreditCard className="w-3.5 h-3.5" />
-          <span>Abonnement Wave Manuel & Accès Partagé</span>
+          <span>Abonnement Wave Manuel & AccÃ¨s PartagÃ©</span>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-          Formules d'Accès Wedding Mood
+          Formules d'AccÃ¨s Wedding Mood
         </h1>
         <p className="text-stone-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
-          Choisissez la formule adaptée à votre couple. Le règlement s'effectue manuellement via Wave Côte d'Ivoire, puis notre équipe valide votre accès sous 2h à 24h.
+          Choisissez la formule adaptÃ©e Ã  votre couple. Le rÃ¨glement s'effectue manuellement via Wave CÃ´te d'Ivoire, puis notre Ã©quipe valide votre accÃ¨s sous 2h Ã  24h.
         </p>
       </div>
 
-      {/* Statut du Compte & Code d'Accès Unique */}
+      {/* Statut du Compte & Code d'AccÃ¨s Unique */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Carte Statut */}
@@ -235,12 +235,12 @@ export default function SubscriptionPage() {
           </a>
         </div>
 
-        {/* Carte Code d'Accès Unique */}
+        {/* Carte Code d'AccÃ¨s Unique */}
         <div className="p-6 rounded-3xl glass-card-warm border border-[#D4AF37]/50 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
             <KeyRound className="w-5 h-5 text-[#B37D28]" />
             <span className="text-[11px] font-bold text-stone-600 uppercase">
-              Code d'Accès Unique du Couple
+              Code d'AccÃ¨s Unique du Couple
             </span>
           </div>
 
@@ -252,14 +252,14 @@ export default function SubscriptionPage() {
               <button
                 onClick={handleCopyCode}
                 className="p-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 cursor-pointer transition-colors"
-                title="Copier le code d'accès"
+                title="Copier le code d'accÃ¨s"
               >
                 {copiedCode ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
               </button>
               <button
                 onClick={handleRegenerateCode}
                 className="p-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 cursor-pointer transition-colors"
-                title="Générer un nouveau code"
+                title="GÃ©nÃ©rer un nouveau code"
               >
                 <RefreshCw className="w-4 h-4" />
               </button>
@@ -267,7 +267,7 @@ export default function SubscriptionPage() {
           </div>
 
           <p className="text-[11px] text-stone-600 leading-relaxed">
-            Ce code unique permet aux <strong>deux partenaires</strong> de se connecter depuis leurs propres téléphones en saisissant simplement leur adresse email personnelle et ce code.
+            Ce code unique permet aux <strong>deux partenaires</strong> de se connecter depuis leurs propres tÃ©lÃ©phones en saisissant simplement leur adresse email personnelle et ce code.
           </p>
 
           <button
@@ -275,12 +275,12 @@ export default function SubscriptionPage() {
             className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs flex items-center justify-center gap-2 cursor-pointer"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Transmettre l'accès à mon conjoint via WhatsApp</span>
+            <span>Transmettre l'accÃ¨s Ã  mon conjoint via WhatsApp</span>
           </button>
         </div>
       </div>
 
-      {/* SÉLECTION DES DEUX FORMULES */}
+      {/* SÃ‰LECTION DES DEUX FORMULES */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {PRICING_PLANS.map((plan) => {
           const isSelected = selectedPlan === plan.id;
@@ -309,7 +309,7 @@ export default function SubscriptionPage() {
 
                   {plan.isRecommended && (
                     <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#C05638] text-white shadow-xs">
-                      Recommandée
+                      RecommandÃ©e
                     </span>
                   )}
                 </div>
@@ -341,7 +341,7 @@ export default function SubscriptionPage() {
                   }`}
                   style={isSelected ? { backgroundColor: activeTheme.primary } : {}}
                 >
-                  {isSelected ? "Formule sélectionnée" : "Choisir cette formule"}
+                  {isSelected ? "Formule sÃ©lectionnÃ©e" : "Choisir cette formule"}
                 </button>
 
                 <a
@@ -369,7 +369,7 @@ export default function SubscriptionPage() {
               Adresses Email des Deux Partenaires
             </h3>
             <p className="text-xs text-stone-500">
-              Chaque partenaire se connecte avec son adresse email personnelle et le code d'accès unique du couple.
+              Chaque partenaire se connecte avec son adresse email personnelle et le code d'accÃ¨s unique du couple.
             </p>
           </div>
         </div>
@@ -378,27 +378,27 @@ export default function SubscriptionPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-stone-700 font-bold mb-1">
-                Email de {payInfo?.partner1Name || "Époux"} (Partenaire 1) *
+                Email de {payInfo?.partner1Name || "Ã‰poux"} (Partenaire 1) *
               </label>
               <input
                 type="email"
                 required
                 value={emailsForm.newPartner1Email}
                 onChange={(e) => setEmailsForm({ ...emailsForm, newPartner1Email: e.target.value })}
-                placeholder="Époux@exemple.ci"
+                placeholder="Ã‰poux@exemple.ci"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-900"
               />
             </div>
 
             <div>
               <label className="block text-stone-700 font-bold mb-1">
-                Email de {payInfo?.partner2Name || "Épouse"} (Partenaire 2)
+                Email de {payInfo?.partner2Name || "Ã‰pouse"} (Partenaire 2)
               </label>
               <input
                 type="email"
                 value={emailsForm.newPartner2Email}
                 onChange={(e) => setEmailsForm({ ...emailsForm, newPartner2Email: e.target.value })}
-                placeholder="Épouse@exemple.ci"
+                placeholder="Ã‰pouse@exemple.ci"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-900"
               />
             </div>
@@ -408,11 +408,11 @@ export default function SubscriptionPage() {
             {emailsSaved ? (
               <span className="text-emerald-700 font-bold flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4" />
-                Adresses enregistrées avec succès !
+                Adresses enregistrÃ©es avec succÃ¨s !
               </span>
             ) : (
               <span className="text-[11px] text-stone-500">
-                Les deux partenaires accèdent au même espace partagé et synchronisé.
+                Les deux partenaires accÃ¨dent au mÃªme espace partagÃ© et synchronisÃ©.
               </span>
             )}
 
@@ -433,10 +433,10 @@ export default function SubscriptionPage() {
           <ShieldCheck className="w-5 h-5 text-[#C05638]" />
           <div>
             <h3 className="font-serif font-bold text-stone-900 text-lg">
-              Confirmer Mon Règlement Wave
+              Confirmer Mon RÃ¨glement Wave
             </h3>
             <p className="text-xs text-stone-500">
-              Après avoir effectué le paiement sur Wave, renseignez la référence de transaction pour activer votre accès.
+              AprÃ¨s avoir effectuÃ© le paiement sur Wave, renseignez la rÃ©fÃ©rence de transaction pour activer votre accÃ¨s.
             </p>
           </div>
         </div>
@@ -450,9 +450,9 @@ export default function SubscriptionPage() {
 
         <div className="p-4 rounded-2xl glass-card-warm border border-[#EAE2D5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
           <div>
-            <span className="text-stone-500 font-medium block">Formule sélectionnée :</span>
+            <span className="text-stone-500 font-medium block">Formule sÃ©lectionnÃ©e :</span>
             <strong className="font-serif font-bold text-stone-900 text-base">
-              {selectedPlan === "couple" ? "Formule Couple" : "Formule Individuelle"} • {selectedPlan === "couple" ? "3 000" : "2 000"} FCFA
+              {selectedPlan === "couple" ? "Formule Couple" : "Formule Individuelle"} â€¢ {selectedPlan === "couple" ? "3 000" : "2 000"} FCFA
             </strong>
           </div>
 
@@ -470,7 +470,7 @@ export default function SubscriptionPage() {
         <form onSubmit={handleSubmitProof} className="space-y-4 text-xs">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-stone-700 font-bold mb-1">Montant Payé (FCFA) *</label>
+              <label className="block text-stone-700 font-bold mb-1">Montant PayÃ© (FCFA) *</label>
               <input
                 type="number"
                 required
@@ -506,7 +506,7 @@ export default function SubscriptionPage() {
 
           <div>
             <label className="block text-stone-700 font-bold mb-1">
-              Référence de Transaction Wave (SMS de confirmation) *
+              RÃ©fÃ©rence de Transaction Wave (SMS de confirmation) *
             </label>
             <input
               type="text"
@@ -520,7 +520,7 @@ export default function SubscriptionPage() {
 
           <div>
             <label className="block text-stone-700 font-bold mb-1">
-              Lien de la Capture d'Écran (Optionnel)
+              Lien de la Capture d'Ã‰cran (Optionnel)
             </label>
             <input
               type="url"
@@ -537,16 +537,16 @@ export default function SubscriptionPage() {
             className="w-full py-3.5 rounded-2xl bg-[#C05638] text-white font-bold text-xs shadow-md hover:bg-[#A84429] transition-all disabled:opacity-50 cursor-pointer"
             style={{ backgroundColor: activeTheme.primary }}
           >
-            {submitting ? "Soumission en cours..." : "Soumettre ma preuve de paiement pour vérification"}
+            {submitting ? "Soumission en cours..." : "Soumettre ma preuve de paiement pour vÃ©rification"}
           </button>
         </form>
       </div>
 
-      {/* Historique des Règlements */}
+      {/* Historique des RÃ¨glements */}
       {payInfo?.payments?.length > 0 && (
         <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
           <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
-            Historique des Règlements Soumis
+            Historique des RÃ¨glements Soumis
           </h3>
 
           <div className="space-y-3 text-xs">
@@ -565,7 +565,7 @@ export default function SubscriptionPage() {
                     </span>
                   </div>
                   <div className="text-stone-500 font-mono text-[11px] mt-0.5">
-                    Réf : {p.referenceNumber} • {p.paymentDate}
+                    RÃ©f : {p.referenceNumber} â€¢ {p.paymentDate}
                   </div>
                   {p.payerEmail && (
                     <div className="text-stone-400 text-[10px]">Payeur : {p.payerEmail}</div>
@@ -587,10 +587,10 @@ export default function SubscriptionPage() {
                   }`}
                 >
                   {p.status === "verified"
-                    ? "Paiement Validé"
+                    ? "Paiement ValidÃ©"
                     : p.status === "rejected"
-                    ? "Paiement Rejeté"
-                    : "En Vérification"}
+                    ? "Paiement RejetÃ©"
+                    : "En VÃ©rification"}
                 </span>
               </div>
             ))}

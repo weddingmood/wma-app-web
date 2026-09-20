@@ -37,35 +37,35 @@ export function MobileNavigation() {
   // 5 Essential mobile bottom destinations
   const bottomNavItems = [
     { href: "/dashboard", label: "Accueil", icon: Home },
-    { href: "/dashboard/tasks", label: "Préparatifs", icon: CheckSquare },
+    { href: "/dashboard/tasks", label: "PrÃ©paratifs", icon: CheckSquare },
     { href: "/dashboard/devotions", label: "Nous deux", icon: Heart },
     { href: "/dashboard/budget", label: "Budget", icon: Wallet },
   ];
 
   const fullDrawerLinks = [
     { title: "NOTRE MARIAGE", items: [
-      { href: "/dashboard/notre-mariage", label: "Vue Cérémonies", icon: HeartHandshake },
+      { href: "/dashboard/notre-mariage", label: "Vue CÃ©rÃ©monies", icon: HeartHandshake },
       { href: "/dashboard/chronogramme", label: "Chronogramme J-90", icon: Clock },
-      { href: "/dashboard/calendar", label: "Calendrier Partagé", icon: Calendar },
-      { href: "/dashboard/decisions", label: "Décisions du Couple", icon: Scale },
+      { href: "/dashboard/calendar", label: "Calendrier PartagÃ©", icon: Calendar },
+      { href: "/dashboard/decisions", label: "DÃ©cisions du Couple", icon: Scale },
     ]},
-    { title: "SPIRITUALITÉ & COMPLICITÉ", items: [
-      { href: "/dashboard/prayers", label: "Journal de Prière", icon: BookMarked },
+    { title: "SPIRITUALITÃ‰ & COMPLICITÃ‰", items: [
+      { href: "/dashboard/prayers", label: "Journal de PriÃ¨re", icon: BookMarked },
       { href: "/dashboard/commandments", label: "Les 10 Commandements", icon: ScrollText },
       { href: "/dashboard/quizzes", label: "Quiz de Couple", icon: HelpCircle },
-      { href: "/dashboard/jeux", label: "Jeux & Awalé", icon: Gamepad2 },
-      { href: "/dashboard/chat", label: "Messagerie Privée", icon: MessageSquare },
+      { href: "/dashboard/jeux", label: "Jeux & AwalÃ©", icon: Gamepad2 },
+      { href: "/dashboard/chat", label: "Messagerie PrivÃ©e", icon: MessageSquare },
     ]},
-    { title: "INVITÉS & GRAND JOUR", items: [
-      { href: "/dashboard/guests", label: "Gestion des Invités", icon: Users },
+    { title: "INVITÃ‰S & GRAND JOUR", items: [
+      { href: "/dashboard/guests", label: "Gestion des InvitÃ©s", icon: Users },
       { href: "/dashboard/invitation", label: "Carte d'Invitation & RSVP", icon: Send },
       { href: "/dashboard/cagnotte", label: "Cagnotte Premier Loyer", icon: Wallet },
       { href: "/dashboard/jour-j", label: "Espace Jour J", icon: Sparkles },
     ]},
     { title: "RESSOURCES & COMPTE", items: [
       { href: "/dashboard/articles", label: "Guides & Lois CI", icon: BookOpen },
-      { href: "/dashboard/library", label: "Bibliothèque", icon: BookMarked },
-      { href: "/dashboard/preferences", label: "Personnalisation & Thèmes", icon: Sliders },
+      { href: "/dashboard/library", label: "BibliothÃ¨que", icon: BookMarked },
+      { href: "/dashboard/preferences", label: "Personnalisation & ThÃ¨mes", icon: Sliders },
       { href: "/dashboard/subscription", label: "Abonnement Wave", icon: CreditCard },
       { href: "/telechargement", label: "Application Mobile & APK", icon: Smartphone },
     ]},

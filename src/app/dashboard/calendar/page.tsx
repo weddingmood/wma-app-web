@@ -108,8 +108,8 @@ export default function CalendarPage() {
   const firstDayIndex = new Date(year, month, 1).getDay(); // 0 is Sunday
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const monthNames = [
-    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
-    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+    "Janvier", "FÃ©vrier", "Mars", "Avril", "Mai", "Juin",
+    "Juillet", "AoÃ»t", "Septembre", "Octobre", "Novembre", "DÃ©cembre"
   ];
 
   // Map events to date strings
@@ -130,13 +130,13 @@ export default function CalendarPage() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
             <CalendarIcon className="w-3.5 h-3.5" />
-            <span>Agenda Synchronisé du Couple</span>
+            <span>Agenda SynchronisÃ© du Couple</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-            Calendrier Interactif des Préparatifs
+            Calendrier Interactif des PrÃ©paratifs
           </h1>
           <p className="text-stone-600 text-xs sm:text-sm mt-1">
-            Connecté à vos tâches, entretiens pastoraux, séances de répétition, dégustations et rendez-vous d'état civil.
+            ConnectÃ© Ã  vos tÃ¢ches, entretiens pastoraux, sÃ©ances de rÃ©pÃ©tition, dÃ©gustations et rendez-vous d'Ã©tat civil.
           </p>
         </div>
 
@@ -149,7 +149,7 @@ export default function CalendarPage() {
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Plus className="w-4 h-4" />
-          <span>Ajouter un Événement</span>
+          <span>Ajouter un Ã‰vÃ©nement</span>
         </button>
       </div>
 
@@ -169,7 +169,7 @@ export default function CalendarPage() {
               <button
                 onClick={prevMonth}
                 className="p-2 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-700 cursor-pointer transition-colors"
-                title="Mois précédent"
+                title="Mois prÃ©cÃ©dent"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -279,7 +279,7 @@ export default function CalendarPage() {
             <div className="p-3.5 rounded-2xl glass-card-warm border border-amber-200/80 flex items-center gap-3 text-xs text-amber-950">
               <Heart className="w-5 h-5 text-amber-600 shrink-0 fill-current" />
               <div>
-                <strong>Célébration du Mariage :</strong> Prévue le {couple.weddingDate}. Cet événement est automatiquement mis en avant sur votre calendrier.
+                <strong>CÃ©lÃ©bration du Mariage :</strong> PrÃ©vue le {couple.weddingDate}. Cet Ã©vÃ©nement est automatiquement mis en avant sur votre calendrier.
               </div>
             </div>
           )}
@@ -291,7 +291,7 @@ export default function CalendarPage() {
           <div className="p-6 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
             
             <div className="border-b border-stone-100 pb-3">
-              <span className="text-[10px] uppercase font-bold text-stone-400">Date sélectionnée</span>
+              <span className="text-[10px] uppercase font-bold text-stone-400">Date sÃ©lectionnÃ©e</span>
               <h3 className="font-serif font-bold text-stone-900 text-lg">
                 {selectedDate}
               </h3>
@@ -353,7 +353,7 @@ export default function CalendarPage() {
                       )}
                       {ev.isTaskLinked && (
                         <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
-                          Tâche connectée
+                          TÃ¢che connectÃ©e
                         </span>
                       )}
                     </div>
@@ -382,7 +382,7 @@ export default function CalendarPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in">
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-md w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-              <h3 className="font-serif font-bold text-stone-900 text-base">Planifier un Événement</h3>
+              <h3 className="font-serif font-bold text-stone-900 text-base">Planifier un Ã‰vÃ©nement</h3>
               <button onClick={() => setIsModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
@@ -390,11 +390,11 @@ export default function CalendarPage() {
 
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Titre de l'événement *</label>
+                <label className="block text-stone-700 font-bold mb-1">Titre de l'Ã©vÃ©nement *</label>
                 <input
                   type="text"
                   required
-                  placeholder="Ex: Entretien prénuptial N°5 avec le Pasteur"
+                  placeholder="Ex: Entretien prÃ©nuptial NÂ°5 avec le Pasteur"
                   value={form.title}
                   onChange={(e) => setForm({ ...form, title: e.target.value })}
                   className="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"
@@ -405,7 +405,7 @@ export default function CalendarPage() {
                 <label className="block text-stone-700 font-bold mb-1">Description / Notes</label>
                 <textarea
                   rows={2}
-                  placeholder="Détails, documents à apporter..."
+                  placeholder="DÃ©tails, documents Ã  apporter..."
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   className="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"
@@ -424,7 +424,7 @@ export default function CalendarPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-stone-700 font-bold mb-1">Heure de début</label>
+                  <label className="block text-stone-700 font-bold mb-1">Heure de dÃ©but</label>
                   <input
                     type="time"
                     value={form.startTime}

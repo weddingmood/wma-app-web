@@ -48,7 +48,7 @@ export function PwaInstallPrompt() {
         <div className="flex-1 min-w-0">
           <p className="font-serif font-bold text-stone-900 text-sm">Installer Wedding Mood</p>
           <p className="text-xs text-stone-500 mt-0.5">
-            Ajoutez l’application sur votre écran d’accueil pour un accès rapide, même hors connexion.
+            Ajoutez lâ€™application sur votre Ã©cran dâ€™accueil pour un accÃ¨s rapide, mÃªme hors connexion.
           </p>
           <div className="flex items-center gap-2 mt-3">
             <button

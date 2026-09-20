@@ -14,7 +14,7 @@ interface SyncItem {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
           .insert(tasks)
           .values({
             coupleId: session.coupleId,
-            title: String(item.data.title || "Tâche"),
+            title: String(item.data.title || "TÃ¢che"),
             description: String(item.data.description || ""),
             category: String(item.data.category || "general"),
             assignee: String(item.data.assignee || "both"),
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
           .insert(prayers)
           .values({
             coupleId: session.coupleId,
-            title: String(item.data.title || "Prière"),
+            title: String(item.data.title || "PriÃ¨re"),
             prayerText: String(item.data.prayerText || ""),
             category: String(item.data.category || "couple"),
             prayerDate: new Date().toISOString().split("T")[0],
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
 
   return Response.json({
     success: true,
-    syncStatus: "Synchronisé",
+    syncStatus: "SynchronisÃ©",
     results,
     syncedAt: new Date().toISOString(),
   });

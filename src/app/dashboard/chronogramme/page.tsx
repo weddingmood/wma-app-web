@@ -72,13 +72,13 @@ export default function ChronogrammePage() {
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
           <Clock className="w-3.5 h-3.5" />
-          <span>Chronogramme Maître J-90 à Jour J</span>
+          <span>Chronogramme MaÃ®tre J-90 Ã  Jour J</span>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
           Le Fil Conducteur de Notre Mariage
         </h1>
         <p className="text-stone-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
-          Un itinéraire minutieux pas-à-pas intégrant familles, dot coutumière, état civil, cours pastoraux, prestataires et sanctification du couple jusqu'à l'autel.
+          Un itinÃ©raire minutieux pas-Ã -pas intÃ©grant familles, dot coutumiÃ¨re, Ã©tat civil, cours pastoraux, prestataires et sanctification du couple jusqu'Ã  l'autel.
         </p>
 
         {/* Phase Filter Tabs */}
@@ -155,7 +155,7 @@ export default function ChronogrammePage() {
                           : "bg-orange-100 text-[#C05638]"
                       }`}
                     >
-                      {item.phase === "JOUR_J" ? "CÉLÉBRATION JOUR J" : item.phase}
+                      {item.phase === "JOUR_J" ? "CÃ‰LÃ‰BRATION JOUR J" : item.phase}
                     </span>
                     <span className="text-xs font-semibold text-stone-500 capitalize">
                       {item.category}

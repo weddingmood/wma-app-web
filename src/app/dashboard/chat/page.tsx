@@ -19,8 +19,8 @@ export default function ChatPage() {
 
   const otherPartnerName =
     activePartner === "partner1"
-      ? couple?.partner2Name || "Épouse (Fiancée)"
-      : couple?.partner1Name || "Époux (Fiancé)";
+      ? couple?.partner2Name || "Ã‰pouse (FiancÃ©e)"
+      : couple?.partner1Name || "Ã‰poux (FiancÃ©)";
 
   const fetchMessages = async () => {
     try {
@@ -101,7 +101,7 @@ export default function ChatPage() {
               {otherPartnerName}
             </h3>
             <span className="text-[11px] text-stone-500">
-              Espace Intime Privé : {syncState}
+              Espace Intime PrivÃ© : {syncState}
             </span>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function ChatPage() {
           <button
             onClick={() => startCall("video")}
             className="p-2.5 rounded-xl bg-white/80 hover:bg-white text-stone-700 transition-colors cursor-pointer border border-stone-200"
-            title="Lancer un appel vidéo"
+            title="Lancer un appel vidÃ©o"
           >
             <Video className="w-4 h-4" />
           </button>
@@ -132,7 +132,7 @@ export default function ChatPage() {
             <Heart className="w-10 h-10 text-[#C05638]" />
             <h4 className="font-serif font-bold text-stone-800 text-base">Votre sanctuaire de messages</h4>
             <p className="text-xs text-stone-500 max-w-xs">
-              Écrivez à votre fiancé(e). Les messages sont protégés et conservés même sans connexion active.
+              Ã‰crivez Ã  votre fiancÃ©(e). Les messages sont protÃ©gÃ©s et conservÃ©s mÃªme sans connexion active.
             </p>
           </div>
         ) : (
@@ -181,7 +181,7 @@ export default function ChatPage() {
       <form onSubmit={handleSend} className="p-3 sm:p-4 bg-white/90 border-t border-stone-200 flex items-center gap-2">
         <input
           type="text"
-          placeholder={`Écrire un message à ${otherPartnerName.split(" ")[0]}...`}
+          placeholder={`Ã‰crire un message Ã  ${otherPartnerName.split(" ")[0]}...`}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className="flex-1 px-4 py-2.5 rounded-2xl bg-stone-50 border border-stone-200 text-xs text-stone-900 focus:outline-none focus:border-stone-400"

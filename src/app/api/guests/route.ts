@@ -7,7 +7,7 @@ import crypto from "crypto";
 export async function GET(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -49,7 +49,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -81,7 +81,7 @@ export async function POST(req: Request) {
   }
 
   if (!firstName) {
-    return Response.json({ success: false, message: "Prénom requis" }, { status: 400 });
+    return Response.json({ success: false, message: "PrÃ©nom requis" }, { status: 400 });
   }
 
   const qrToken = `WM-${session.coupleId}-${crypto.randomBytes(3).toString("hex").toUpperCase()}`;
@@ -111,7 +111,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -128,7 +128,7 @@ export async function PATCH(req: Request) {
     .limit(1);
 
   if (!existing) {
-    return Response.json({ success: false, message: "Invité introuvable" }, { status: 404 });
+    return Response.json({ success: false, message: "InvitÃ© introuvable" }, { status: 404 });
   }
 
   if (action === "check-in") {
@@ -159,7 +159,7 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
@@ -170,6 +170,6 @@ export async function DELETE(req: Request) {
   }
 
   await db.delete(guests).where(and(eq(guests.id, Number(id)), eq(guests.coupleId, session.coupleId)));
-  return Response.json({ success: true, message: "Invité supprimé" });
+  return Response.json({ success: true, message: "InvitÃ© supprimÃ©" });
 }
 

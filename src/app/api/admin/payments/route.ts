@@ -6,7 +6,7 @@ import { eq, desc } from "drizzle-orm";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.isAdmin) {
-    return Response.json({ success: false, message: "Accès administrateur requis" }, { status: 403 });
+    return Response.json({ success: false, message: "AccÃ¨s administrateur requis" }, { status: 403 });
   }
 
   const allPayments = await db.select().from(payments).orderBy(desc(payments.createdAt));
@@ -35,7 +35,7 @@ export async function GET() {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.isAdmin) {
-    return Response.json({ success: false, message: "Accès administrateur requis" }, { status: 403 });
+    return Response.json({ success: false, message: "AccÃ¨s administrateur requis" }, { status: 403 });
   }
 
   const body = await req.json();
@@ -55,14 +55,14 @@ export async function PATCH(req: Request) {
       .update(payments)
       .set({
         status: "verified",
-        adminNotes: adminNotes || "Paiement Wave vérifié et validé par l'administrateur.",
+        adminNotes: adminNotes || "Paiement Wave vÃ©rifiÃ© et validÃ© par l'administrateur.",
         reviewedAt: new Date(),
         reviewedBy: session.adminId || null,
       })
       .where(eq(payments.id, Number(id)))
       .returning();
 
-    // Activation du compte selon la formule réglée
+    // Activation du compte selon la formule rÃ©glÃ©e
     const isCouplePlan = payment.planType !== "individual";
 
     const [activatedCouple] = await db
@@ -78,19 +78,19 @@ export async function PATCH(req: Request) {
       .where(eq(couples.id, payment.coupleId))
       .returning();
 
-    // Notification incluant le code d'accès unique du couple
+    // Notification incluant le code d'accÃ¨s unique du couple
     await db.insert(notifications).values({
       coupleId: payment.coupleId,
       recipient: "both",
       title: "Compte Wedding Mood Actif !",
       message: isCouplePlan
-        ? `Votre règlement de ${(payment.amount || 3000).toLocaleString("fr-FR")} FCFA est validé. Les deux partenaires peuvent désormais se connecter avec leur email personnel et le code d'accès ${activatedCouple.accessCode}.`
-        : `Votre règlement de ${(payment.amount || 2000).toLocaleString("fr-FR")} FCFA est validé. Votre accès individuel est actif avec le code ${activatedCouple.accessCode}.`,
+        ? `Votre rÃ¨glement de ${(payment.amount || 3000).toLocaleString("fr-FR")} FCFA est validÃ©. Les deux partenaires peuvent dÃ©sormais se connecter avec leur email personnel et le code d'accÃ¨s ${activatedCouple.accessCode}.`
+        : `Votre rÃ¨glement de ${(payment.amount || 2000).toLocaleString("fr-FR")} FCFA est validÃ©. Votre accÃ¨s individuel est actif avec le code ${activatedCouple.accessCode}.`,
       type: "payment",
       linkUrl: "/dashboard/subscription",
     });
 
-    return Response.json({ success: true, message: "Paiement validé avec succès", payment: updatedPayment });
+    return Response.json({ success: true, message: "Paiement validÃ© avec succÃ¨s", payment: updatedPayment });
   }
 
   if (action === "reject") {
@@ -98,7 +98,7 @@ export async function PATCH(req: Request) {
       .update(payments)
       .set({
         status: "rejected",
-        rejectionReason: rejectionReason || "Référence Wave introuvable ou non conforme.",
+        rejectionReason: rejectionReason || "RÃ©fÃ©rence Wave introuvable ou non conforme.",
         adminNotes: adminNotes || "",
         reviewedAt: new Date(),
         reviewedBy: session.adminId || null,
@@ -114,7 +114,7 @@ export async function PATCH(req: Request) {
       })
       .where(eq(couples.id, payment.coupleId));
 
-    return Response.json({ success: true, message: "Paiement rejeté", payment: updatedPayment });
+    return Response.json({ success: true, message: "Paiement rejetÃ©", payment: updatedPayment });
   }
 
   if (action === "request_new_proof") {
@@ -122,7 +122,7 @@ export async function PATCH(req: Request) {
       .update(payments)
       .set({
         status: "need_new_proof",
-        rejectionReason: rejectionReason || "Preuve illisible ou incomplète. Veuillez renvoyer une capture d'écran nette.",
+        rejectionReason: rejectionReason || "Preuve illisible ou incomplÃ¨te. Veuillez renvoyer une capture d'Ã©cran nette.",
         adminNotes: adminNotes || "",
         reviewedAt: new Date(),
         reviewedBy: session.adminId || null,
@@ -138,9 +138,9 @@ export async function PATCH(req: Request) {
       })
       .where(eq(couples.id, payment.coupleId));
 
-    return Response.json({ success: true, message: "Nouvelle preuve demandée", payment: updatedPayment });
+    return Response.json({ success: true, message: "Nouvelle preuve demandÃ©e", payment: updatedPayment });
   }
 
-  return Response.json({ success: false, message: "Action non supportée" }, { status: 400 });
+  return Response.json({ success: false, message: "Action non supportÃ©e" }, { status: 400 });
 }
 

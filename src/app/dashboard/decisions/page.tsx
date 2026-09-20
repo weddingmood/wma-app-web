@@ -85,13 +85,13 @@ export default function DecisionsPage() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
             <Scale className="w-3.5 h-3.5" />
-            <span>Unité & Concertation du Couple</span>
+            <span>UnitÃ© & Concertation du Couple</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-            Décisions Majeures du Foyer
+            DÃ©cisions Majeures du Foyer
           </h1>
           <p className="text-stone-600 text-xs sm:text-sm mt-1">
-            Prenez les grandes décisions d'un commun accord avec historique des avis et validation mutuelle.
+            Prenez les grandes dÃ©cisions d'un commun accord avec historique des avis et validation mutuelle.
           </p>
         </div>
 
@@ -101,19 +101,19 @@ export default function DecisionsPage() {
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Plus className="w-4 h-4" />
-          <span>Proposer une Décision</span>
+          <span>Proposer une DÃ©cision</span>
         </button>
       </div>
 
       {/* Decisions Stream */}
       <div className="space-y-4">
         {loading ? (
-          <div className="text-center py-12 text-stone-500 text-xs">Chargement des décisions...</div>
+          <div className="text-center py-12 text-stone-500 text-xs">Chargement des dÃ©cisions...</div>
         ) : decisions.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-3xl border border-stone-200 p-8 space-y-2">
             <Scale className="w-10 h-10 text-stone-300 mx-auto" />
-            <h3 className="font-serif font-bold text-stone-800 text-base">Aucune décision en cours</h3>
-            <p className="text-xs text-stone-500">Ouvrez une proposition pour recueillir l'accord de votre fiancé(e).</p>
+            <h3 className="font-serif font-bold text-stone-800 text-base">Aucune dÃ©cision en cours</h3>
+            <p className="text-xs text-stone-500">Ouvrez une proposition pour recueillir l'accord de votre fiancÃ©(e).</p>
           </div>
         ) : (
           decisions.map((d) => {
@@ -122,7 +122,7 @@ export default function DecisionsPage() {
             const isP1 = activePartner === "partner1";
             const myVote = isP1 ? d.partner1Decision : d.partner2Decision;
             const otherVote = isP1 ? d.partner2Decision : d.partner1Decision;
-            const otherName = isP1 ? couple?.partner2Name || "Épouse" : couple?.partner1Name || "Époux";
+            const otherName = isP1 ? couple?.partner2Name || "Ã‰pouse" : couple?.partner1Name || "Ã‰poux";
 
             return (
               <div
@@ -154,7 +154,7 @@ export default function DecisionsPage() {
                         : "bg-amber-100 text-amber-800"
                     }`}
                   >
-                    {isApproved ? "Accord Conjoint Trouvé ?" : isRejected ? "Décision Écartée ?" : "En Concertation"}
+                    {isApproved ? "Accord Conjoint TrouvÃ© ?" : isRejected ? "DÃ©cision Ã‰cartÃ©e ?" : "En Concertation"}
                   </span>
                 </div>
 
@@ -164,7 +164,7 @@ export default function DecisionsPage() {
 
                 {d.proposalDetails && (
                   <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 text-xs text-stone-800">
-                    <strong className="block text-stone-900 mb-1">Détails de la proposition :</strong>
+                    <strong className="block text-stone-900 mb-1">DÃ©tails de la proposition :</strong>
                     {d.proposalDetails}
                   </div>
                 )}
@@ -173,11 +173,11 @@ export default function DecisionsPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
                   <div className="p-3 rounded-xl bg-white border border-stone-200 space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-stone-800">{couple?.partner1Name || "Époux (Lui)"}</span>
+                      <span className="font-bold text-stone-800">{couple?.partner1Name || "Ã‰poux (Lui)"}</span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                         d.partner1Decision === "approved" ? "bg-emerald-100 text-emerald-700" : d.partner1Decision === "rejected" ? "bg-red-100 text-red-700" : "bg-stone-100 text-stone-500"
                       }`}>
-                        {d.partner1Decision === "approved" ? "Approuvé" : d.partner1Decision === "rejected" ? "Refusé" : "En attente"}
+                        {d.partner1Decision === "approved" ? "ApprouvÃ©" : d.partner1Decision === "rejected" ? "RefusÃ©" : "En attente"}
                       </span>
                     </div>
                     <p className="text-stone-600 text-[11px] italic">{d.partner1Comment || "Pas de commentaire"}</p>
@@ -185,11 +185,11 @@ export default function DecisionsPage() {
 
                   <div className="p-3 rounded-xl bg-white border border-stone-200 space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-stone-800">{couple?.partner2Name || "Épouse (Elle)"}</span>
+                      <span className="font-bold text-stone-800">{couple?.partner2Name || "Ã‰pouse (Elle)"}</span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                         d.partner2Decision === "approved" ? "bg-emerald-100 text-emerald-700" : d.partner2Decision === "rejected" ? "bg-red-100 text-red-700" : "bg-stone-100 text-stone-500"
                       }`}>
-                        {d.partner2Decision === "approved" ? "Approuvé" : d.partner2Decision === "rejected" ? "Refusé" : "En attente"}
+                        {d.partner2Decision === "approved" ? "ApprouvÃ©" : d.partner2Decision === "rejected" ? "RefusÃ©" : "En attente"}
                       </span>
                     </div>
                     <p className="text-stone-600 text-[11px] italic">{d.partner2Comment || "Pas de commentaire"}</p>
@@ -200,7 +200,7 @@ export default function DecisionsPage() {
                 {!isApproved && !isRejected && (
                   <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
                     <button
-                      onClick={() => handleVote(d.id, "rejected", "Je préfère que nous réévaluions cette option.")}
+                      onClick={() => handleVote(d.id, "rejected", "Je prÃ©fÃ¨re que nous rÃ©Ã©valuions cette option.")}
                       className="px-4 py-2 rounded-xl bg-red-50 text-red-700 hover:bg-red-100 text-xs font-semibold"
                     >
                       Refuser l'option
@@ -224,7 +224,7 @@ export default function DecisionsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in">
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-md w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-              <h3 className="font-serif font-bold text-stone-900 text-base">Soumettre une Décision de Couple</h3>
+              <h3 className="font-serif font-bold text-stone-900 text-base">Soumettre une DÃ©cision de Couple</h3>
               <button onClick={() => setIsModalOpen(false)} className="p-1 rounded-lg text-stone-400">
                 <X className="w-5 h-5" />
               </button>
@@ -232,7 +232,7 @@ export default function DecisionsPage() {
 
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Titre de la décision *</label>
+                <label className="block text-stone-700 font-bold mb-1">Titre de la dÃ©cision *</label>
                 <input
                   type="text"
                   required
@@ -244,7 +244,7 @@ export default function DecisionsPage() {
               </div>
 
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Impact Financier Estimé (FCFA)</label>
+                <label className="block text-stone-700 font-bold mb-1">Impact Financier EstimÃ© (FCFA)</label>
                 <input
                   type="number"
                   placeholder="Ex: 350000"
@@ -255,7 +255,7 @@ export default function DecisionsPage() {
               </div>
 
               <div>
-                <label className="block text-stone-700 font-bold mb-1">Options & Détails</label>
+                <label className="block text-stone-700 font-bold mb-1">Options & DÃ©tails</label>
                 <textarea
                   rows={2}
                   placeholder="Explication des options et arguments..."
@@ -289,7 +289,7 @@ export default function DecisionsPage() {
                   className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
-                  Ouvrir la décision
+                  Ouvrir la dÃ©cision
                 </button>
               </div>
             </form>

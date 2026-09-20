@@ -13,7 +13,7 @@ import {
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const [couple] = await db.select().from(couples).where(eq(couples.id, session.coupleId)).limit(1);
@@ -57,7 +57,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
 
   const [couple] = await db.select().from(couples).where(eq(couples.id, session.coupleId)).limit(1);
 
-  // Mise à jour de l'adresse email du second partenaire
+  // Mise Ã  jour de l'adresse email du second partenaire
   if (action === "update-partner-emails") {
     const { newPartner1Email, newPartner2Email } = body;
 
@@ -81,13 +81,13 @@ export async function POST(req: Request) {
 
     return Response.json({
       success: true,
-      message: "Les adresses email des partenaires ont été mises à jour. Chacun peut désormais se connecter avec son email et le code d'accès unique.",
+      message: "Les adresses email des partenaires ont Ã©tÃ© mises Ã  jour. Chacun peut dÃ©sormais se connecter avec son email et le code d'accÃ¨s unique.",
       partner1Email: updated.partner1Email,
       partner2Email: updated.partner2Email,
     });
   }
 
-  // Régénération du code d'accès unique
+  // RÃ©gÃ©nÃ©ration du code d'accÃ¨s unique
   if (action === "regenerate-code") {
     const newCode = `WM-${Math.floor(1000 + Math.random() * 9000)}`;
     const [updated] = await db
@@ -98,17 +98,17 @@ export async function POST(req: Request) {
 
     return Response.json({
       success: true,
-      message: `Nouveau code d'accès généré : ${newCode}`,
+      message: `Nouveau code d'accÃ¨s gÃ©nÃ©rÃ© : ${newCode}`,
       accessCode: updated.accessCode,
     });
   }
 
-  // Soumission manuelle de la preuve de règlement Wave
+  // Soumission manuelle de la preuve de rÃ¨glement Wave
   if (!referenceNumber || !paymentDate) {
     return Response.json(
       {
         success: false,
-        message: "La référence de transaction Wave et la date de paiement sont obligatoires.",
+        message: "La rÃ©fÃ©rence de transaction Wave et la date de paiement sont obligatoires.",
       },
       { status: 400 }
     );
@@ -132,7 +132,7 @@ export async function POST(req: Request) {
     })
     .returning();
 
-  // Mise à jour du statut du couple et de la formule choisie
+  // Mise Ã  jour du statut du couple et de la formule choisie
   await db
     .update(couples)
     .set({
@@ -149,8 +149,8 @@ export async function POST(req: Request) {
     success: true,
     message:
       resolvedPlan === "couple"
-        ? "Preuve de règlement de 3 000 FCFA enregistrée. Après validation, les deux partenaires accéderont à l'espace avec le code unique."
-        : "Preuve de règlement de 2 000 FCFA enregistrée. Votre accès individuel sera activé après vérification.",
+        ? "Preuve de rÃ¨glement de 3 000 FCFA enregistrÃ©e. AprÃ¨s validation, les deux partenaires accÃ©deront Ã  l'espace avec le code unique."
+        : "Preuve de rÃ¨glement de 2 000 FCFA enregistrÃ©e. Votre accÃ¨s individuel sera activÃ© aprÃ¨s vÃ©rification.",
     payment: newPayment,
   });
 }

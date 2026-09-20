@@ -44,8 +44,8 @@ interface Props {
 }
 
 export function LudoGameComponent({
-  p1Name = "Époux",
-  p2Name = "Épouse",
+  p1Name = "Ã‰poux",
+  p2Name = "Ã‰pouse",
   coupleId,
   onMatchFinish,
 }: Props) {
@@ -109,7 +109,7 @@ export function LudoGameComponent({
             canRoll: true,
             movableTokenIds: [],
             activePlayerIndex: nextIdx,
-            lastMessage: `3 six consécutifs ! Règle Ludo King : ${activePlayer.name} passe son tour. Au tour de ${gameState.players[nextIdx].name}.`,
+            lastMessage: `3 six consÃ©cutifs ! RÃ¨gle Ludo King : ${activePlayer.name} passe son tour. Au tour de ${gameState.players[nextIdx].name}.`,
           };
           setGameState(updatedState);
           saveLocalState(updatedState);
@@ -156,7 +156,7 @@ export function LudoGameComponent({
             consecutiveSixes: newConsecutiveSixes,
             canRoll: false,
             movableTokenIds: movable,
-            lastMessage: `${activePlayer.name} a obtenu un ${rolled} ! Cliquez sur le pion clignotant à déplacer.`,
+            lastMessage: `${activePlayer.name} a obtenu un ${rolled} ! Cliquez sur le pion clignotant Ã  dÃ©placer.`,
           };
           setGameState(updatedState);
           saveLocalState(updatedState);
@@ -348,10 +348,10 @@ export function LudoGameComponent({
           </div>
           <div>
             <h3 className="font-serif font-bold text-stone-900 text-sm sm:text-base">
-              Ludo King • Célébration Nuptiale
+              Ludo King â€¢ CÃ©lÃ©bration Nuptiale
             </h3>
             <span className="text-[11px] text-stone-500">
-              Véritable plateau 15x15 en croix, 52 cases réelles, étoiles sécurisées et sortie sur un 6
+              VÃ©ritable plateau 15x15 en croix, 52 cases rÃ©elles, Ã©toiles sÃ©curisÃ©es et sortie sur un 6
             </span>
           </div>
         </div>
@@ -393,7 +393,7 @@ export function LudoGameComponent({
           <button
             onClick={() => setShowRulesModal(true)}
             className="p-2 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 cursor-pointer"
-            title="Consulter les règles Ludo King"
+            title="Consulter les rÃ¨gles Ludo King"
           >
             <HelpCircle className="w-4 h-4" />
           </button>
@@ -433,12 +433,12 @@ export function LudoGameComponent({
                 </span>
                 {isTurn && (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-stone-900 text-white animate-pulse">
-                    À vous
+                    Ã€ vous
                   </span>
                 )}
               </div>
               <div className="text-[11px] text-stone-600 flex justify-between items-center mt-1">
-                <span>Pions à l'autel :</span>
+                <span>Pions Ã  l'autel :</span>
                 <strong className="text-stone-900 font-bold">{p.tokensAtGoal} / 4</strong>
               </div>
             </div>
@@ -576,7 +576,7 @@ export function LudoGameComponent({
           {/* Animated 3D Pip Dice Box */}
           <div className="p-6 rounded-3xl glass-panel border border-stone-200 shadow-sm text-center space-y-4">
             <span className="text-[11px] font-bold uppercase tracking-widest text-stone-400 block">
-              Lancer de Dé (Ludo King)
+              Lancer de DÃ© (Ludo King)
             </span>
 
             {/* Realistic 3D Pip Dice */}
@@ -591,7 +591,7 @@ export function LudoGameComponent({
                     ? "bg-gradient-to-br from-white to-[#FAF6EE] hover:scale-105 ring-4 ring-amber-300/80"
                     : "bg-white/80 opacity-90"
                 }`}
-                title="Cliquez pour lancer le dé"
+                title="Cliquez pour lancer le dÃ©"
               >
                 {renderDiceFace(gameState.diceValue)}
               </button>
@@ -606,13 +606,13 @@ export function LudoGameComponent({
               {isRolling
                 ? "Lancement en cours..."
                 : gameState.canRoll
-                ? `Lancer le Dé (${activePlayer.name})`
-                : "Sélectionnez un pion clignotant"}
+                ? `Lancer le DÃ© (${activePlayer.name})`
+                : "SÃ©lectionnez un pion clignotant"}
             </button>
 
             {gameState.consecutiveSixes > 0 && (
               <div className="text-[11px] text-amber-800 font-bold">
-                Six consécutifs : {gameState.consecutiveSixes} / 3 (À 3, tour annulé)
+                Six consÃ©cutifs : {gameState.consecutiveSixes} / 3 (Ã€ 3, tour annulÃ©)
               </div>
             )}
           </div>
@@ -621,21 +621,21 @@ export function LudoGameComponent({
           <div className="p-5 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-3">
             <div className="flex items-center gap-1.5 text-xs font-bold text-stone-800">
               <MessageSquare className="w-4 h-4 text-[#C05638]" />
-              <span>Réactions du Couple</span>
+              <span>RÃ©actions du Couple</span>
             </div>
 
             {quickReaction && (
               <div className="p-2.5 rounded-xl bg-orange-50 text-[#C05638] text-xs font-serif italic text-center animate-in fade-in">
-                « {quickReaction} »
+                Â« {quickReaction} Â»
               </div>
             )}
 
             <div className="grid grid-cols-2 gap-1.5 text-[11px]">
               {[
-                "Bien joué !",
-                "À toi de briller !",
-                "Pas de pitié !",
-                "Revanche demandée !",
+                "Bien jouÃ© !",
+                "Ã€ toi de briller !",
+                "Pas de pitiÃ© !",
+                "Revanche demandÃ©e !",
               ].map((msg, idx) => (
                 <button
                   key={idx}
@@ -656,7 +656,7 @@ export function LudoGameComponent({
           <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-lg w-full p-6 sm:p-8 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <h3 className="font-serif font-bold text-stone-900 text-base">
-                Règles Officielles de Ludo King
+                RÃ¨gles Officielles de Ludo King
               </h3>
               <button
                 onClick={() => setShowRulesModal(false)}
@@ -668,19 +668,19 @@ export function LudoGameComponent({
 
             <div className="space-y-2.5 text-stone-700 leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
               <p>
-                <strong>1. Sortie de base sur un 6 :</strong> Obtenez un <strong>6</strong> au dé pour faire sortir un pion de votre camp vers votre case de départ.
+                <strong>1. Sortie de base sur un 6 :</strong> Obtenez un <strong>6</strong> au dÃ© pour faire sortir un pion de votre camp vers votre case de dÃ©part.
               </p>
               <p>
-                <strong>2. Relance sur un 6 :</strong> Tout 6 obtenu accorde immédiatement un nouveau lancer de dé. Si vous obtenez <strong>3 six consécutifs</strong>, votre tour est automatiquement annulé et passe au joueur suivant.
+                <strong>2. Relance sur un 6 :</strong> Tout 6 obtenu accorde immÃ©diatement un nouveau lancer de dÃ©. Si vous obtenez <strong>3 six consÃ©cutifs</strong>, votre tour est automatiquement annulÃ© et passe au joueur suivant.
               </p>
               <p>
-                <strong>3. Capture d'un pion :</strong> Si votre pion atterrit sur la même case qu'un pion adverse (hors cases étoiles sécurisées), le pion adverse est renvoyé à sa base et vous gagnez un lancer bonus.
+                <strong>3. Capture d'un pion :</strong> Si votre pion atterrit sur la mÃªme case qu'un pion adverse (hors cases Ã©toiles sÃ©curisÃ©es), le pion adverse est renvoyÃ© Ã  sa base et vous gagnez un lancer bonus.
               </p>
               <p>
-                <strong>4. Cases étoiles sécurisées :</strong> Les 8 cases marquées d'une étoile protègent les pions contre toute capture.
+                <strong>4. Cases Ã©toiles sÃ©curisÃ©es :</strong> Les 8 cases marquÃ©es d'une Ã©toile protÃ¨gent les pions contre toute capture.
               </p>
               <p>
-                <strong>5. Victoire à l'Autel :</strong> Le premier joueur qui conduit ses 4 pions au centre de l'autel remporte la victoire !
+                <strong>5. Victoire Ã  l'Autel :</strong> Le premier joueur qui conduit ses 4 pions au centre de l'autel remporte la victoire !
               </p>
             </div>
 

@@ -69,13 +69,13 @@ export default function DevotionsPage() {
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
           <BookOpen className="w-3.5 h-3.5" />
-          <span>Nous deux & Dieu • Les 7 Piliers Fondateurs</span>
+          <span>Nous deux & Dieu â€¢ Les 7 Piliers Fondateurs</span>
         </div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900">
-          Préparation Spirituelle & Édification du Couple
+          PrÃ©paration Spirituelle & Ã‰dification du Couple
         </h1>
         <p className="text-stone-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
-          Un parcours biblique structuré pour bâtir un mariage sur le Roc. Chaque thème réunit enseignement pastoral, verset clé, réflexion, questions intimes et prière conjointe.
+          Un parcours biblique structurÃ© pour bÃ¢tir un mariage sur le Roc. Chaque thÃ¨me rÃ©unit enseignement pastoral, verset clÃ©, rÃ©flexion, questions intimes et priÃ¨re conjointe.
         </p>
 
         {/* 7 Themes Horizontal Navigator */}
@@ -98,7 +98,7 @@ export default function DevotionsPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className={`text-[10px] font-bold ${isSelected ? "text-white/80" : "text-stone-400"}`}>
-                    Thème {d.themeNumber}
+                    ThÃ¨me {d.themeNumber}
                   </span>
                   {isDone && (
                     <CheckCircle2 className={`w-3.5 h-3.5 ${isSelected ? "text-white" : "text-emerald-600"}`} />
@@ -125,7 +125,7 @@ export default function DevotionsPage() {
               <div className="border-b border-stone-100 pb-4 space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs uppercase font-bold text-[#C05638] tracking-wider">
-                    Jalon : {currentDev.timelinePhase || "J-90"} • Thème {currentDev.themeNumber} / 7
+                    Jalon : {currentDev.timelinePhase || "J-90"} â€¢ ThÃ¨me {currentDev.themeNumber} / 7
                   </span>
                   <span className="text-xs text-stone-500 font-medium">
                     {currentDev.pastorName || "Direction Pastorale"}
@@ -142,7 +142,7 @@ export default function DevotionsPage() {
                   {currentDev.scriptureRef}
                 </span>
                 <p className="font-serif text-base sm:text-lg italic text-stone-900 leading-relaxed">
-                  « {currentDev.scriptureText} »
+                  Â« {currentDev.scriptureText} Â»
                 </p>
               </div>
 
@@ -157,12 +157,12 @@ export default function DevotionsPage() {
               {/* Reflection & Couple Question */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-xs space-y-1">
-                  <strong className="block text-amber-900 font-bold">Réflexion Personnelle :</strong>
+                  <strong className="block text-amber-900 font-bold">RÃ©flexion Personnelle :</strong>
                   <p className="text-stone-700 leading-relaxed">{currentDev.reflection}</p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-purple-50/70 border border-purple-200 text-xs space-y-1">
-                  <strong className="block text-purple-900 font-bold">Question de Dialogue à Deux :</strong>
+                  <strong className="block text-purple-900 font-bold">Question de Dialogue Ã  Deux :</strong>
                   <p className="text-stone-700 leading-relaxed">{currentDev.coupleQuestion}</p>
                 </div>
               </div>
@@ -170,10 +170,10 @@ export default function DevotionsPage() {
               {/* Prayer Model */}
               <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-2 text-xs">
                 <strong className="block text-emerald-900 font-bold uppercase tracking-wider">
-                  Prière du Couple :
+                  PriÃ¨re du Couple :
                 </strong>
                 <p className="font-serif text-sm italic text-stone-800 leading-relaxed">
-                  « {currentDev.prayerModel} »
+                  Â« {currentDev.prayerModel} Â»
                 </p>
               </div>
 
@@ -188,8 +188,8 @@ export default function DevotionsPage() {
                     {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current" />}
                   </button>
                   <div>
-                    <div className="font-serif font-bold text-sm text-stone-900">Méditation Audio du Pasteur</div>
-                    <div className="text-[11px] text-stone-500">Prédication et prière de bénédiction (4 min)</div>
+                    <div className="font-serif font-bold text-sm text-stone-900">MÃ©ditation Audio du Pasteur</div>
+                    <div className="text-[11px] text-stone-500">PrÃ©dication et priÃ¨re de bÃ©nÃ©diction (4 min)</div>
                   </div>
                 </div>
                 <Volume2 className="w-5 h-5 text-[#C05638] shrink-0" />
@@ -204,29 +204,29 @@ export default function DevotionsPage() {
             {/* Status Card */}
             <div className="p-6 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
               <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
-                Validation Spirituelle à Deux
+                Validation Spirituelle Ã  Deux
               </h3>
 
               <div className="space-y-3 text-xs">
                 <div className="flex items-center justify-between p-3 rounded-xl bg-white/80 border border-stone-200">
-                  <span className="font-semibold text-stone-700">{couple?.partner1Name || "Époux (Lui)"}</span>
+                  <span className="font-semibold text-stone-700">{couple?.partner1Name || "Ã‰poux (Lui)"}</span>
                   <span
                     className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                       currentDev.partner1Completed ? "bg-emerald-100 text-emerald-800" : "bg-stone-200 text-stone-600"
                     }`}
                   >
-                    {currentDev.partner1Completed ? "Médité & Prié" : "En attente"}
+                    {currentDev.partner1Completed ? "MÃ©ditÃ© & PriÃ©" : "En attente"}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between p-3 rounded-xl bg-white/80 border border-stone-200">
-                  <span className="font-semibold text-stone-700">{couple?.partner2Name || "Épouse (Elle)"}</span>
+                  <span className="font-semibold text-stone-700">{couple?.partner2Name || "Ã‰pouse (Elle)"}</span>
                   <span
                     className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                       currentDev.partner2Completed ? "bg-emerald-100 text-emerald-800" : "bg-stone-200 text-stone-600"
                     }`}
                   >
-                    {currentDev.partner2Completed ? "Médité & Prié" : "En attente"}
+                    {currentDev.partner2Completed ? "MÃ©ditÃ© & PriÃ©" : "En attente"}
                   </span>
                 </div>
               </div>
@@ -234,11 +234,11 @@ export default function DevotionsPage() {
               {/* Personal Notes */}
               <div>
                 <label className="block text-stone-700 font-bold text-xs mb-1">
-                  Nos Notes & Révélations de Prière
+                  Nos Notes & RÃ©vÃ©lations de PriÃ¨re
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="Ce que Dieu nous a inspiré durant ce temps..."
+                  placeholder="Ce que Dieu nous a inspirÃ© durant ce temps..."
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 focus:outline-none"
@@ -252,11 +252,11 @@ export default function DevotionsPage() {
               >
                 {activePartner === "partner1"
                   ? currentDev.partner1Completed
-                    ? "Modifier mon statut (Déjà Médité)"
-                    : "Confirmer mon temps de prière (Époux)"
+                    ? "Modifier mon statut (DÃ©jÃ  MÃ©ditÃ©)"
+                    : "Confirmer mon temps de priÃ¨re (Ã‰poux)"
                   : currentDev.partner2Completed
-                  ? "Modifier mon statut (Déjà Médité)"
-                  : "Confirmer mon temps de prière (Épouse)"}
+                  ? "Modifier mon statut (DÃ©jÃ  MÃ©ditÃ©)"
+                  : "Confirmer mon temps de priÃ¨re (Ã‰pouse)"}
               </button>
             </div>
 
