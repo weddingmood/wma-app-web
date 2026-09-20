@@ -6,7 +6,6 @@ import { useTheme } from "@/components/ThemeContext";
 import {
   Users,
   Wallet,
-  Calendar,
   CheckSquare,
   Gamepad2,
   AlertCircle,
@@ -18,12 +17,12 @@ export default function DashboardHome() {
   const { couple, updateCoupleProfile } = useTheme();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Utilise la photo enregistrée dans le profil, sinon fallback sur l'image par défaut
+  // Utilise la photo enregistrée dans le profil ou l'image par défaut
   const couplePhoto =
     couple?.coverPhoto ||
     "https://images.unsplash.com/photo-1519741497674-611481863552?w=800";
 
-  // Gestion du téléversement direct depuis le stockage interne
+  // Gestion du téléversement depuis la galerie / stockage local
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -39,7 +38,7 @@ export default function DashboardHome() {
 
   return (
     <div className="w-full min-h-screen bg-slate-50 px-3 py-4 sm:px-6 max-w-md md:max-w-3xl mx-auto space-y-4 overflow-x-hidden pb-20">
-      {/* Input de fichier caché pour la sélection galerie */}
+      {/* Input de fichier masqué pour la sélection locale */}
       <input
         type="file"
         ref={fileInputRef}
@@ -61,7 +60,7 @@ export default function DashboardHome() {
         />
 
         <div className="relative z-10 bg-white/90 backdrop-blur-md rounded-xl p-4 text-center space-y-2 border border-white/50 shadow-sm">
-          {/* Bouton pour importer directement depuis la galerie */}
+          {/* Bouton déclenchant l'ouverture de la galerie */}
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
