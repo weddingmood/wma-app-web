@@ -91,7 +91,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       if (res.ok) {
         const data = await res.json();
         if (data.success && data.couple) {
-          setCouple(data.couple);
+          setCouple({ ...data.couple, coverPhoto: data.preferences?.coverPhotoUrl ?? null });
           if (data.preferences) {
             setPreferences({
               themeId: data.preferences.themeId || 1,
@@ -178,7 +178,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const updateCoupleProfile = async (profileUpdates: Partial<CoupleProfile>) => {
+  const updateCoupleProfile = async (profileUpdates: Partial<CoupleProfile>) => { const { coverPhoto, ...profileRest } = profileUpdates; if (coverPhoto !== undefined) { await updatePreferences({ coverPhotoUrl: coverPhoto }); if (couple) { setCouple({ ...couple, coverPhoto }); } if (Object.keys(profileRest).length === 0) { return; } }
     if (couple) {
       setCouple({ ...couple, ...profileUpdates });
     }
@@ -187,12 +187,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       const res = await fetch("/api/couples", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(profileUpdates),
+        body: JSON.stringify(profileRest),
       });
       if (res.ok) {
         const data = await res.json();
         if (data.couple) {
-          setCouple(data.couple);
+          setCouple((prev) => ({ ...data.couple, coverPhoto: prev?.coverPhoto ?? null }));
         }
         setSyncState("Synchronisé");
       } else {
