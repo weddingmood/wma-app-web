@@ -1,4 +1,5 @@
-﻿import { cookies } from "next/headers";
+import { cookies } from "next/headers";
+import { signToken, verifyToken } from "@/lib/session-token";
 import { db } from "@/db";
 import { couples, couplePreferences, coupleCommandments } from "@/db/schema";
 import { eq, or } from "drizzle-orm";
@@ -22,34 +23,22 @@ async function generateUniqueAccessCode(): Promise<string> {
 export async function GET() {
   // seedDatabaseIfEmpty() désactivé sur POST pour éviter timeout 504
   const cookieStore = await cookies();
-  const sessionToken = cookieStore.get("wm_session")?.value;
+  const decoded = verifyToken<{ coupleId: number; activePartner?: string }>(
+    cookieStore.get("wm_session")?.value,
+    "couple"
+  );
 
-  let coupleId: number | null = null;
-  let activePartner: "partner1" | "partner2" = "partner1";
-
-  if (sessionToken) {
-    try {
-      const decoded = JSON.parse(Buffer.from(sessionToken, "base64").toString("utf8"));
-      coupleId = decoded.coupleId;
-      activePartner = decoded.activePartner === "partner2" ? "partner2" : "partner1";
-    } catch {
-      // ignore
-    }
+  // Plus de couple par défaut : sans session valide, rien n'est renvoyé.
+  if (!decoded?.coupleId) {
+    return Response.json({ success: false, message: "Non connecté" }, { status: 401 });
   }
 
-  let couple;
-  if (coupleId) {
-    const [c] = await db.select().from(couples).where(eq(couples.id, coupleId)).limit(1);
-    couple = c;
-  }
+  const activePartner: "partner1" | "partner2" =
+    decoded.activePartner === "partner2" ? "partner2" : "partner1";
 
+  const [couple] = await db.select().from(couples).where(eq(couples.id, decoded.coupleId)).limit(1);
   if (!couple) {
-    const [defaultCouple] = await db.select().from(couples).limit(1);
-    couple = defaultCouple;
-  }
-
-  if (!couple) {
-    return Response.json({ success: false, message: "Aucun couple configuré" }, { status: 404 });
+    return Response.json({ success: false, message: "Session invalide" }, { status: 401 });
   }
 
   let [prefs] = await db.select().from(couplePreferences).where(eq(couplePreferences.coupleId, couple.id)).limit(1);
@@ -156,13 +145,10 @@ export async function POST(req: Request) {
       );
     }
 
-    const sessionPayload = Buffer.from(
-      JSON.stringify({
-        coupleId: couple.id,
-        coupleSlug: couple.slug,
-        activePartner: partner,
-      })
-    ).toString("base64");
+    const sessionPayload = signToken(
+      { typ: "couple", coupleId: couple.id, coupleSlug: couple.slug, activePartner: partner },
+      60 * 60 * 24 * 30
+    );
 
     cookieStore.set("wm_session", sessionPayload, {
       path: "/",
@@ -309,13 +295,10 @@ export async function POST(req: Request) {
       });
     }
 
-    const sessionPayload = Buffer.from(
-      JSON.stringify({
-        coupleId: newCouple.id,
-        coupleSlug: newCouple.slug,
-        activePartner: "partner1",
-      })
-    ).toString("base64");
+    const sessionPayload = signToken(
+      { typ: "couple", coupleId: newCouple.id, coupleSlug: newCouple.slug, activePartner: "partner1" },
+      60 * 60 * 24 * 30
+    );
 
     cookieStore.set("wm_session", sessionPayload, {
       path: "/",
@@ -344,10 +327,24 @@ export async function POST(req: Request) {
       return Response.json({ success: false, message: "Non connecté" }, { status: 401 });
     }
 
-    const decoded = JSON.parse(Buffer.from(sessionToken, "base64").toString("utf8"));
+    const decoded = verifyToken<{ coupleId: number; coupleSlug?: string; activePartner?: string }>(
+      sessionToken,
+      "couple"
+    );
+    if (!decoded) {
+      return Response.json({ success: false, message: "Session invalide" }, { status: 401 });
+    }
     decoded.activePartner = partner === "partner2" ? "partner2" : "partner1";
 
-    const newPayload = Buffer.from(JSON.stringify(decoded)).toString("base64");
+    const newPayload = signToken(
+      {
+        typ: "couple",
+        coupleId: decoded.coupleId,
+        coupleSlug: decoded.coupleSlug,
+        activePartner: decoded.activePartner,
+      },
+      60 * 60 * 24 * 30
+    );
     cookieStore.set("wm_session", newPayload, {
       path: "/",
       httpOnly: true,

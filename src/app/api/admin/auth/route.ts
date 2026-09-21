@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { admins } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { seedDatabaseIfEmpty, hashPassword } from "@/lib/seed";
+import { signToken, verifyToken } from "@/lib/session-token";
 
 export async function GET() {
   await seedDatabaseIfEmpty();
@@ -14,7 +15,8 @@ export async function GET() {
   }
 
   try {
-    const decoded = JSON.parse(Buffer.from(adminToken, "base64").toString("utf8"));
+    const decoded = verifyToken<{ adminId: number }>(adminToken, "admin");
+    if (!decoded) throw new Error("Session invalide");
     const [admin] = await db.select().from(admins).where(eq(admins.id, decoded.adminId)).limit(1);
     if (!admin) {
       return Response.json({ authenticated: false }, { status: 401 });
@@ -52,7 +54,7 @@ export async function POST(req: Request) {
     return Response.json({ success: false, message: "Identifiants administrateur incorrects." }, { status: 401 });
   }
 
-  const payload = Buffer.from(JSON.stringify({ adminId: admin.id, role: admin.role })).toString("base64");
+  const payload = signToken({ typ: "admin", adminId: admin.id, role: admin.role }, 60 * 60 * 24 * 7);
   cookieStore.set("wm_admin_session", payload, {
     path: "/",
     httpOnly: true,
@@ -77,7 +79,8 @@ export async function PATCH(req: Request) {
 
   let adminId: number | null = null;
   try {
-    const decoded = JSON.parse(Buffer.from(adminToken, "base64").toString("utf8"));
+    const decoded = verifyToken<{ adminId: number }>(adminToken, "admin");
+    if (!decoded) throw new Error("Session invalide");
     adminId = decoded.adminId;
   } catch {
     return Response.json({ success: false, message: "Session invalide." }, { status: 401 });
