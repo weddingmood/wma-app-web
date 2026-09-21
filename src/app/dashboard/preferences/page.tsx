@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { useTheme } from "@/components/ThemeContext";
@@ -133,7 +133,7 @@ export default function PreferencesPage() {
                 }`}
               >
                 <div className="text-xs font-bold text-stone-900">{f.name}</div>
-                <div className={`text-base font-serif text-stone-700 mt-2 ${f.fontClass}`}>
+                <div className={`text-base font-serif text-stone-700 mt-2 ${f.fontClass}`} style={{ fontFamily: f.cssFamily }}>
                   « La corde à trois fils ne se rompt pas »
                 </div>
               </button>

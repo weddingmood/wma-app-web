@@ -327,11 +327,15 @@ export const COLOR_THEMES: ThemeDefinition[] = [
 ];
 
 export const FONTS_LIST = [
-  { id: "cormorant", name: "Cormorant Garamond (Classique & Noble)", fontClass: "font-serif" },
-  { id: "playfair", name: "Playfair Display (Élégant & Solennel)", fontClass: "font-serif" },
-  { id: "cinzel", name: "Cinzel (Royal & Biblique)", fontClass: "font-serif" },
-  { id: "montserrat", name: "Montserrat (Moderne & Épuré)", fontClass: "font-sans" },
-  { id: "jakarta", name: "Plus Jakarta Sans (Minimaliste & Clair)", fontClass: "font-sans" },
+  { id: "cormorant", name: "Cormorant Garamond (Classique & Noble)", fontClass: "font-serif", cssFamily: "'Cormorant Garamond', Georgia, serif" },
+  { id: "playfair", name: "Playfair Display (Élégant & Solennel)", fontClass: "font-serif", cssFamily: "'Playfair Display', Georgia, serif" },
+  { id: "cinzel", name: "Cinzel (Royal & Biblique)", fontClass: "font-serif", cssFamily: "'Cinzel', serif" },
+  { id: "montserrat", name: "Montserrat (Moderne & pur)", fontClass: "font-sans", cssFamily: "'Montserrat', sans-serif" },
+  { id: "jakarta", name: "Plus Jakarta Sans (Minimaliste & Clair)", fontClass: "font-sans", cssFamily: "'Plus Jakarta Sans', sans-serif" },
+  { id: "greatvibes", name: "Great Vibes (Titres calligraphiés)", fontClass: "font-serif", cssFamily: "'Great Vibes', cursive" },
+  { id: "pinyon", name: "Pinyon Script (Invitation de gala)", fontClass: "font-serif", cssFamily: "'Pinyon Script', cursive" },
+  { id: "dancing", name: "Dancing Script (Romantique & Vivante)", fontClass: "font-serif", cssFamily: "'Dancing Script', cursive" },
+  { id: "parisienne", name: "Parisienne (Chic & Léger)", fontClass: "font-serif", cssFamily: "'Parisienne', cursive" },
 ];
 
 export const DEFAULT_COMMANDMENTS = [
