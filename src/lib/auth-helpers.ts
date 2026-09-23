@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { couples, admins } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import crypto from "crypto";
+import { verifyToken } from "@/lib/session-token";
 
 export function hashPassword(plainText: string): string {
   return crypto.createHash("sha256").update(plainText).digest("hex");
@@ -22,10 +23,11 @@ export async function getCurrentSession(): Promise<SessionData | null> {
   const sessionToken = cookieStore.get("wm_session")?.value;
   const adminToken = cookieStore.get("wm_admin_session")?.value;
 
-  if (adminToken) {
+  // Les jetons sont signés : un cookie fabriqué ou modifié à la main est refusé.
+  const adminDecoded = verifyToken<{ adminId: number }>(adminToken, "admin");
+  if (adminDecoded) {
     try {
-      const decoded = JSON.parse(Buffer.from(adminToken, "base64").toString("utf8"));
-      const [admin] = await db.select().from(admins).where(eq(admins.id, decoded.adminId)).limit(1);
+      const [admin] = await db.select().from(admins).where(eq(admins.id, adminDecoded.adminId)).limit(1);
       if (admin) {
         return {
           isAdmin: true,
@@ -35,16 +37,16 @@ export async function getCurrentSession(): Promise<SessionData | null> {
         };
       }
     } catch {
-      // ignore token parse error
+      // ignore token lookup error
     }
   }
 
-  if (sessionToken) {
+  const coupleDecoded = verifyToken<{ coupleId: number; activePartner?: string }>(sessionToken, "couple");
+  if (coupleDecoded) {
     try {
-      const decoded = JSON.parse(Buffer.from(sessionToken, "base64").toString("utf8"));
-      const [couple] = await db.select().from(couples).where(eq(couples.id, decoded.coupleId)).limit(1);
+      const [couple] = await db.select().from(couples).where(eq(couples.id, coupleDecoded.coupleId)).limit(1);
       if (couple) {
-        const activePartner = decoded.activePartner === "partner2" ? "partner2" : "partner1";
+        const activePartner = coupleDecoded.activePartner === "partner2" ? "partner2" : "partner1";
         const partnerName = activePartner === "partner2" ? couple.partner2Name : couple.partner1Name;
         return {
           coupleId: couple.id,
@@ -59,19 +61,6 @@ export async function getCurrentSession(): Promise<SessionData | null> {
     }
   }
 
-  // Fallback: If no session cookie is present, get the default demo couple (Époux & Épouse)
-  // so the application is immediately interactive and persistent out of the box
-  const [defaultCouple] = await db.select().from(couples).limit(1);
-  if (defaultCouple) {
-    return {
-      coupleId: defaultCouple.id,
-      coupleSlug: defaultCouple.slug,
-      activePartner: "partner1",
-      partnerName: defaultCouple.partner1Name,
-      isAdmin: false,
-    };
-  }
-
+  // Plus de "couple par défaut" : sans session valide, personne n'est connecté.
   return null;
 }
-
