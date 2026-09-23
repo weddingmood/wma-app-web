@@ -570,3 +570,22 @@ export const auditLogs = pgTable("audit_logs", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// 32. Providers (Marketplace Prestataires : Traiteur, Decorateur, Photographe, DJ...)
+export const providers = pgTable("providers", {
+  id: serial("id").primaryKey(),
+  businessName: varchar("business_name", { length: 200 }).notNull(),
+  contactName: varchar("contact_name", { length: 150 }).notNull(),
+  service: varchar("service", { length: 60 }).notNull(), // traiteur, decorateur, photographe, videaste, dj_sono, salle, makeup_coiffure, robe_tenues, patisserie, fleuriste, transport, animation_mc, autre
+  city: varchar("city", { length: 100 }).notNull().default("Abidjan"),
+  whatsapp: varchar("whatsapp", { length: 50 }).notNull(),
+  email: varchar("email", { length: 160 }),
+  priceFrom: integer("price_from").default(0), // en FCFA
+  description: text("description"),
+  photos: json("photos").$type<string[]>().default([]),
+  status: varchar("status", { length: 30 }).default("pending"), // pending, approved, rejected, suspended
+  adminNotes: text("admin_notes"),
+  reviewedAt: timestamp("reviewed_at"),
+  reviewedBy: integer("reviewed_by").references(() => admins.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
