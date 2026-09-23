@@ -1,6 +1,7 @@
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { timelineEvents } from "@/db/schema";
+import { refuserSiEssaiExpire } from "@/lib/access-guard";
 import { eq, asc, and } from "drizzle-orm";
 
 export async function GET() {
@@ -23,6 +24,8 @@ export async function PATCH(req: Request) {
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
+  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
+  if (blocageEcriture) return blocageEcriture;
 
   const body = await req.json();
   const { id, isCompleted } = body;
