@@ -1,6 +1,7 @@
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { couplePreferences } from "@/db/schema";
+import { refuserSiEssaiExpire } from "@/lib/access-guard";
 import { eq } from "drizzle-orm";
 import { COLOR_THEMES, FONTS_LIST } from "@/lib/constants";
 
@@ -44,6 +45,8 @@ export async function PATCH(req: Request) {
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
+  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
+  if (blocageEcriture) return blocageEcriture;
 
   const body = await req.json();
   const { themeId, fontFamily, displayMode, density, fontSize, coverPhotoUrl } = body;
