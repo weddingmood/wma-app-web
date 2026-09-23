@@ -5,6 +5,7 @@ import {
   Shield,
   Users,
   CreditCard,
+  Store,
   CheckCircle2,
   Search,
   BarChart3,
@@ -23,7 +24,7 @@ import {
   EyeOff,
 } from "lucide-react";
 
-type AdminTab = "stats" | "couples" | "payments" | "games" | "audit" | "settings";
+type AdminTab = "stats" | "couples" | "payments" | "providers" | "games" | "audit" | "settings";
 
 export default function AdminPage() {
   const [isAdminAuth, setIsAdminAuth] = useState(false);
@@ -40,6 +41,7 @@ export default function AdminPage() {
   const [stats, setStats] = useState<any>(null);
   const [couplesList, setCouplesList] = useState<any[]>([]);
   const [paymentsList, setPaymentsList] = useState<any[]>([]);
+  const [providersList, setProvidersList] = useState<any[]>([]);
   const [gamesAdminData, setGamesAdminData] = useState<any>(null);
   const [auditList, setAuditList] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -110,13 +112,18 @@ export default function AdminPage() {
   const loadAdminData = async () => {
     setLoading(true);
     try {
-      const [statsRes, couplesRes, paymentsRes, gamesRes, auditRes] = await Promise.all([
+      const [statsRes, couplesRes, paymentsRes, providersRes, gamesRes, auditRes] = await Promise.all([
         fetch("/api/admin/stats"),
         fetch("/api/admin/couples"),
         fetch("/api/admin/payments"),
+        fetch("/api/admin/providers"),
         fetch("/api/admin/games"),
         fetch("/api/admin/audit"),
       ]);
+      if (providersRes.ok) {
+        const pr = await providersRes.json();
+        if (pr.success) setProvidersList(pr.providers || []);
+      }
 
       if (statsRes.ok) {
         const s = await statsRes.json();
@@ -181,7 +188,22 @@ export default function AdminPage() {
     }
   };
 
-  const handlePaymentAction = async (id: number, action: "accept" | "reject" | "request_new_proof") => {
+
+
+  const handleProviderAction = async (id: number, action: "approve" | "reject" | "suspend") => {
+    try {
+      const res = await fetch("/api/admin/providers", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, action }),
+      });
+      const d = await res.json();
+      flashMsg(d.message || "Decision enregistree");
+      loadAdminData();
+    } catch (err) {
+      console.error(err);
+    }
+  };  const handlePaymentAction = async (id: number, action: "accept" | "reject" | "request_new_proof") => {
     try {
       const res = await fetch("/api/admin/payments", {
         method: "PATCH",
@@ -337,6 +359,7 @@ export default function AdminPage() {
   });
 
   const pendingPayments = paymentsList.filter((p) => p.status === "pending");
+  const pendingProviders = providersList.filter((p) => p.status === "pending");
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-stone-900 pb-16">
@@ -395,6 +418,7 @@ export default function AdminPage() {
             { id: "stats", label: "Tableau de Bord", icon: BarChart3 },
             { id: "couples", label: "Couples & Premium", icon: Users },
             { id: "payments", label: `Paiements Wave (${pendingPayments.length})`, icon: CreditCard },
+            { id: "providers", label: `Prestataires (${pendingProviders.length})`, icon: Store },
             { id: "games", label: "Jeux", icon: Gamepad2 },
             { id: "audit", label: "Journal d'audit", icon: History },
             { id: "settings", label: "Paramètres", icon: Settings },
@@ -771,6 +795,116 @@ export default function AdminPage() {
                               {p.status !== "rejected" && (
                                 <button
                                   onClick={() => handlePaymentAction(p.id, "reject")}
+                                  className="px-2.5 py-1 rounded-xl bg-red-100 text-red-800 font-bold text-[10px] hover:bg-red-200 cursor-pointer"
+                                >
+                                  Rejeter
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB PROVIDERS */}
+        {activeTab === "providers" && (
+          <div className="space-y-4 animate-in fade-in text-xs">
+            <div className="bg-white rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
+              <div className="p-5 border-b border-stone-100">
+                <h3 className="font-serif font-bold text-stone-900 text-base">
+                  Validation des Prestataires — Marketplace
+                </h3>
+                <p className="text-stone-500 text-xs">
+                  Verifiez les photos et le WhatsApp, puis validez pour rendre la fiche visible publiquement.
+                </p>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left min-w-[900px]">
+                  <thead className="bg-[#FCFAF7] border-b border-stone-100 text-[11px] text-stone-500 font-bold uppercase tracking-wider">
+                    <tr>
+                      <th className="p-4">Entreprise & Contact</th>
+                      <th className="p-4">Service & Ville</th>
+                      <th className="p-4">WhatsApp</th>
+                      <th className="p-4">Photos</th>
+                      <th className="p-4">Statut</th>
+                      <th className="p-4 text-right">Decision Admin</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-stone-100">
+                    {providersList.map((prov) => (
+                      <tr key={prov.id} className="hover:bg-stone-50/60">
+                        <td className="p-4">
+                          <strong className="text-stone-900 block">{prov.businessName}</strong>
+                          <span className="text-[10px] text-stone-500 block">{prov.contactName}</span>
+                          {prov.email && (
+                            <span className="text-[10px] text-stone-400 block">{prov.email}</span>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          <strong className="font-serif font-bold text-stone-900 block">{prov.service}</strong>
+                          <span className="text-[10px] text-stone-500">{prov.city}</span>
+                          {prov.priceFrom > 0 && (
+                            <span className="text-[10px] text-stone-400 block">
+                              A partir de {prov.priceFrom?.toLocaleString("fr-FR")} FCFA
+                            </span>
+                          )}
+                        </td>
+                        <td className="p-4 font-mono font-bold text-blue-800">{prov.whatsapp}</td>
+                        <td className="p-4">
+                          {prov.photos && prov.photos.length > 0 ? (
+                            <span className="text-emerald-700 font-bold">{prov.photos.length} photo(s)</span>
+                          ) : (
+                            <span className="text-stone-400">Aucune</span>
+                          )}
+                          {prov.adminNotes && (
+                            <p className="text-[10px] text-stone-500 mt-1 max-w-[220px]">{prov.adminNotes}</p>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          <span
+                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${
+                              prov.status === "approved"
+                                ? "bg-emerald-100 text-emerald-800"
+                                : prov.status === "rejected"
+                                ? "bg-red-100 text-red-800"
+                                : prov.status === "suspended"
+                                ? "bg-stone-200 text-stone-700"
+                                : "bg-amber-100 text-amber-800"
+                            }`}
+                          >
+                            {prov.status === "approved" ? "Valide" : prov.status === "rejected" ? "Rejete" : prov.status === "suspended" ? "Suspendu" : "En attente"}
+                          </span>
+                        </td>
+                        <td className="p-4 text-right">
+                          <div className="flex flex-col items-end gap-1.5">
+                            {prov.status !== "approved" && (
+                              <button
+                                onClick={() => handleProviderAction(prov.id, "approve")}
+                                className="px-3 py-1.5 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 cursor-pointer inline-flex items-center gap-1"
+                              >
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                Valider
+                              </button>
+                            )}
+                            <div className="flex items-center gap-1.5">
+                              {prov.status !== "suspended" && prov.status === "approved" && (
+                                <button
+                                  onClick={() => handleProviderAction(prov.id, "suspend")}
+                                  className="px-2.5 py-1 rounded-xl bg-amber-100 text-amber-900 font-bold text-[10px] hover:bg-amber-200 cursor-pointer"
+                                >
+                                  Suspendre
+                                </button>
+                              )}
+                              {prov.status !== "rejected" && (
+                                <button
+                                  onClick={() => handleProviderAction(prov.id, "reject")}
                                   className="px-2.5 py-1 rounded-xl bg-red-100 text-red-800 font-bold text-[10px] hover:bg-red-200 cursor-pointer"
                                 >
                                   Rejeter
