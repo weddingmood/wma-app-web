@@ -1,6 +1,7 @@
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { coupleCommandments } from "@/db/schema";
+import { refuserSiEssaiExpire } from "@/lib/access-guard";
 import { eq, asc, and } from "drizzle-orm";
 import { DEFAULT_COMMANDMENTS } from "@/lib/constants";
 
@@ -55,6 +56,8 @@ export async function POST(req: Request) {
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
+  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
+  if (blocageEcriture) return blocageEcriture;
 
   const body = await req.json();
   const { action, text, importanceWhy, commitmentText, orderIndex } = body;
@@ -100,6 +103,8 @@ export async function PATCH(req: Request) {
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
+  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
+  if (blocageEcriture) return blocageEcriture;
 
   const body = await req.json();
   const { id, action, text, importanceWhy, commitmentText } = body;
@@ -151,6 +156,8 @@ export async function DELETE(req: Request) {
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
+  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
+  if (blocageEcriture) return blocageEcriture;
 
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
