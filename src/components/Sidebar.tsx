@@ -182,19 +182,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           ))}
         </nav>
 
-        {/* Footer Admin Link */}
-        <div className="p-3 border-t border-stone-100 bg-stone-50/60 flex flex-col gap-2">
-          <Link
-            href="/admin"
-            className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-200/60 transition-colors"
-          >
-            <span className="flex items-center gap-2">
-              <Shield className="w-3.5 h-3.5 text-stone-500" />
-              Espace Administrateur
-            </span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-stone-200 text-stone-700 font-bold">Gestion</span>
-          </Link>
-        </div>
+        {/* Le lien admin a ete retire du menu public : acces uniquement via /wma-admin-2026-secure */}
       </aside>
     </>
   );
