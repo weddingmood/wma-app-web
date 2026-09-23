@@ -1,6 +1,7 @@
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { calendarEvents, tasks } from "@/db/schema";
+import { refuserSiEssaiExpire } from "@/lib/access-guard";
 import { eq, asc, and } from "drizzle-orm";
 
 export async function GET() {
@@ -54,6 +55,8 @@ export async function POST(req: Request) {
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
+  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
+  if (blocageEcriture) return blocageEcriture;
 
   const body = await req.json();
   const { title, description, eventDate, startTime, endTime, location, category, reminderMinutes } = body;
@@ -86,6 +89,8 @@ export async function DELETE(req: Request) {
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
+  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
+  if (blocageEcriture) return blocageEcriture;
 
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
