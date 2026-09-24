@@ -1,0 +1,98 @@
+﻿C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\auth\route.ts:1: import { cookies } from "next/headers";
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\auth\route.ts:1: import { cookies } from "next/headers";
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\download\apk\route.ts:16: headers: {
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\games\ludo\route.ts:2: import { cookies } from "next/headers";
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\articles\page.tsx:155: {/* Sidebar Articles Menu (Right) */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:64: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:92: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:109: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\cagnotte\page.tsx:1: "use client"; import React, { useState, useEffect } from "react"; import { Wallet, Eye, EyeOff, Loader2 } from "lucide-react"; export default function CagnottePage() { const [data, setData] = useState<any>(null); const [loading, setLoading] = useState(true); const [toggling, setToggling] = useState(false); const fetchCagnotte = async () => { try { setLoading(true); const res = await fetch("/api/cagnotte"); if (res.ok) { const d = await res.json(); if (d.success) setData(d); } } catch (err) { console.error(err); } finally { setLoading(false); } }; useEffect(() => { fetchCagnotte(); }, []); const handleToggleVisibility = async () => { if (!data?.cagnotte) return; try { setToggling(true); const res = await fetch("/api/cagnotte/toggle", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ isVisible: !data.cagnotte.isVisible }) }); if (res.ok) { const updated = await res.json(); setData((prev: any) => ({ ...prev, cagnotte: { ...prev.cagnotte, isVisible: updated.isVisible } })); } } catch (err) { console.error(err); } finally { setToggling(false); } }; return ( <div className="p-4 sm:p-6 max-w-4xl mx-auto space-y-4 sm:space-y-6"> <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl border border-stone-200 shadow-sm"> <div> <h1 className="text-xl sm:text-2xl font-bold text-stone-900 flex items-center gap-2"><Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-rose-500" /> Cagnotte des Mariés</h1> <p className="text-xs text-stone-500 mt-1">Gérez la cagnotte en ligne et définissez la visibilité pour vos invités.</p> </div> {data?.cagnotte && ( <button onClick={handleToggleVisibility} disabled={toggling} className={`w-full sm:w-auto px-4 py-3 sm:py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition ${data.cagnotte.isVisible ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200" : "bg-stone-100 text-stone-600 hover:bg-stone-200 border border-stone-300"}`}> {toggling ? <Loader2 className="w-4 h-4 animate-spin" /> : data.cagnotte.isVisible ? <Eye className="w-4 h-4 text-emerald-600" /> : <EyeOff className="w-4 h-4 text-stone-500" />} {data.cagnotte.isVisible ? "Cagnotte Visible aux Invités" : "Cagnotte Masquée aux Invités"} </button> )} </div> {loading ? ( <div className="p-12 text-center text-xs text-stone-400">Chargement de la cagnotte...</div> ) : ( <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Total Récolté</span> <p className="text-xl sm:text-2xl font-extrabold text-stone-900 mt-1">{data?.cagnotte?.totalAmount || 0} FCFA</p> </div> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Nombre de Contributions</span> <p className="text-xl sm:text-2xl font-extrabold text-stone-900 mt-1">{data?.contributions?.length || 0}</p> </div> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Statut Visibilité</span> <p className="text-xs sm:text-sm font-bold mt-2 flex items-center gap-1.5">{data?.cagnotte?.isVisible ? <><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Actif sur le site</> : <><span className="w-2 h-2 rounded-full bg-stone-400"></span> Masqué</>}</p> </div> </div> )} </div> ); }
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:66: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:96: // Month navigation helpers
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:162: {/* Calendar Header with Controls */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:196: {/* Weekday headers */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:71: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:89: {/* Chat Header */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chronogramme\page.tsx:131: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:48: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:62: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:77: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:48: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:71: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:56: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:124: {/* Header */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:201: {/* Sidebar: Couple Dual Validation & Personal Notes */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:74: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:101: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:81: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:67: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:129: {/* 1. Header Salle de Jeux */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:145: {/* Quick Hub Navigation Pills */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:67: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:83: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:48: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\notre-mariage\page.tsx:98: {/* Header Banner */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\notre-mariage\page.tsx:111: {/* Tab Navigation */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\notre-mariage\page.tsx:188: {/* Sidebar Info Card: Couple Specific Info */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:56: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:78: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:92: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:64: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:103: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:128: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:149: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:70: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:98: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\layout.tsx:1: import Sidebar from "@/components/dashboard/Sidebar"; import TrialBanner from "@/components/TrialBanner"; export default function DashboardLayout({ children }: { children: React.ReactNode }) { return ( <div className="min-h-screen bg-stone-50 flex flex-col md:flex-row"> <Sidebar /> <main className="flex-1 md:pl-64 w-full min-h-screen transition-all duration-300"> <div className="w-full max-w-7xl mx-auto p-2 sm:p-4 md:p-6"> <TrialBanner /> {children} </div> </main> </div> ); }
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:60: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\invitation\[slug]\page.tsx:4: import { useParams } from "next/navigation";
+C:\Users\YvesACHY\Documents\wma app web\src\app\invitation\[slug]\page.tsx:44: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:82: <header className="sticky top-0 z-40 glass-panel border-b border-stone-200">
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:95: </header>
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:86: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:106: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:164: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:197: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:210: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:227: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:366: <header className="sticky top-0 z-40 glass-panel border-b border-stone-200 text-stone-900 shadow-2xs">
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:406: </header>
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:415: {/* Navigation Tabs */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:5: import { useRouter } from "next/navigation";
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:73: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:103: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:131: {/* Navigation Top Header with Glass Translucent Effect */}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:245: {/* Emblem Header inside preview */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\dashboard\Sidebar.tsx:1: "use client"; import Link from "next/link"; import { usePathname } from "next/navigation"; import { LayoutDashboard, Users, Wallet, Calendar, User, Menu, X } from "lucide-react"; import { useState } from "react"; const navItems = [ { label: "Tableau de bord", href: "/dashboard", icon: LayoutDashboard }, { label: "Profils & Mariage", href: "/dashboard/profile", icon: User }, { label: "Invités & RSVP", href: "/dashboard/guests", icon: Users }, { label: "Cagnotte", href: "/dashboard/cagnotte", icon: Wallet }, { label: "Planning", href: "/dashboard/planning", icon: Calendar }, ]; export default function Sidebar() { const pathname = usePathname(); const [isOpen, setIsOpen] = useState(false); return ( <> <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-stone-200 sticky top-0 z-40"> <span className="font-extrabold text-lg text-stone-900 tracking-tight">Wedding Mood</span> <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-xl text-stone-700 hover:bg-stone-100 transition"> {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />} </button> </div> {isOpen && ( <div className="fixed inset-0 bg-stone-900/40 z-30 md:hidden backdrop-blur-sm" onClick={() => setIsOpen(false)} /> )} <aside className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white border-r border-stone-200 p-5 flex flex-col justify-between transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}> <div className="space-y-6"> <div className="hidden md:block"> <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Wedding Mood</h1> <p className="text-xs text-stone-400 mt-0.5">Espace Organisation</p> </div> <nav className="space-y-1.5"> {navItems.map((item) => { const Icon = item.icon; const isActive = pathname === item.href; return ( <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)} className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-semibold transition ${isActive ? "bg-purple-50 text-purple-700 font-bold" : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"}`}> <Icon className={`w-4 h-4 ${isActive ? "text-purple-600" : "text-stone-400"}`} /> {item.label} </Link> ); })} </nav> </div> </aside> </> ); }
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:283: {/* Top Header & Modes */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:373: {/* Players Scores Header */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:260: {/* Players Header */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:343: {/* Top Header & Modes */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:411: {/* Players Header & Turn Indicator */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:371: {/* Scores Header */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\CallModal.tsx:57: {/* Header bar */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:31: Navigation,
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:309: {/* SECTION 1: HEADER ET COUVERTURE HAUT DE GAMME */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:896: <Navigation className="w-3.5 h-3.5" />
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:23: interface HeaderProps {
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:24: onToggleSidebar?: () => void;
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:27: export function Header({ onToggleSidebar }: HeaderProps) {
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:125: <header className="sticky top-0 z-40 w-full glass-panel border-b border-stone-200 shadow-xs">
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:131: onClick={onToggleSidebar}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:331: </header>
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:5: import { usePathname } from "next/navigation";
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:32: export function MobileNavigation() {
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:38: const bottomNavItems = [
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:76: {/* Fixed bottom navigation for mobile */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:79: {bottomNavItems.map((item) => {
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:5: import { usePathname } from "next/navigation";
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:31: interface SidebarProps {
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:36: export function Sidebar({ isOpen, onClose }: SidebarProps) {
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:115: {/* Sidebar container with Glass styling */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:121: {/* Header inside sidebar */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:152: {/* Scrollable Navigation */}
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:152: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:168: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:189: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:211: headers: { "Content-Type": "application/json" },
+C:\Users\YvesACHY\Documents\wma app web\src\lib\auth-helpers.ts:1: import { cookies } from "next/headers";

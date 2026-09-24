@@ -1,0 +1,8 @@
+﻿href="/"
+href="/dashboard"
+href="/dashboard/cagnotte"
+href="/dashboard/guests"
+href="/dashboard/jeux"
+href="/dashboard/preferences"
+href="/dashboard/subscription"
+href="/dashboard/tasks"

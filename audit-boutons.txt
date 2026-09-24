@@ -1,0 +1,442 @@
+﻿C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\articles\page.tsx:64: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\articles\page.tsx:66: onClick={() => setSelectedCategory(cat)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\articles\page.tsx:166: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\articles\page.tsx:168: onClick={() => setSelectedArticle(art)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:149: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:150: onClick={() => setIsCategoryModalOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:155: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:156: onClick={() => setIsExpenseModalOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:239: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:240: onClick={() => handleExpenseAction(e.id, "reject")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:245: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:246: onClick={() => handleExpenseAction(e.id, "approve")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:358: <button onClick={() => setIsExpenseModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:441: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:442: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:443: onClick={() => setIsExpenseModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:448: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:467: <button onClick={() => setIsCategoryModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:494: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:495: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:496: onClick={() => setIsCategoryModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:501: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\cagnotte\page.tsx:1: "use client"; import React, { useState, useEffect } from "react"; import { Wallet, Eye, EyeOff, Loader2 } from "lucide-react"; export default function CagnottePage() { const [data, setData] = useState<any>(null); const [loading, setLoading] = useState(true); const [toggling, setToggling] = useState(false); const fetchCagnotte = async () => { try { setLoading(true); const res = await fetch("/api/cagnotte"); if (res.ok) { const d = await res.json(); if (d.success) setData(d); } } catch (err) { console.error(err); } finally { setLoading(false); } }; useEffect(() => { fetchCagnotte(); }, []); const handleToggleVisibility = async () => { if (!data?.cagnotte) return; try { setToggling(true); const res = await fetch("/api/cagnotte/toggle", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ isVisible: !data.cagnotte.isVisible }) }); if (res.ok) { const updated = await res.json(); setData((prev: any) => ({ ...prev, cagnotte: { ...prev.cagnotte, isVisible: updated.isVisible } })); } } catch (err) { console.error(err); } finally { setToggling(false); } }; return ( <div className="p-4 sm:p-6 max-w-4xl mx-auto space-y-4 sm:space-y-6"> <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl border border-stone-200 shadow-sm"> <div> <h1 className="text-xl sm:text-2xl font-bold text-stone-900 flex items-center gap-2"><Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-rose-500" /> Cagnotte des Mariés</h1> <p className="text-xs text-stone-500 mt-1">Gérez la cagnotte en ligne et définissez la visibilité pour vos invités.</p> </div> {data?.cagnotte && ( <button onClick={handleToggleVisibility} disabled={toggling} className={`w-full sm:w-auto px-4 py-3 sm:py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition ${data.cagnotte.isVisible ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200" : "bg-stone-100 text-stone-600 hover:bg-stone-200 border border-stone-300"}`}> {toggling ? <Loader2 className="w-4 h-4 animate-spin" /> : data.cagnotte.isVisible ? <Eye className="w-4 h-4 text-emerald-600" /> : <EyeOff className="w-4 h-4 text-stone-500" />} {data.cagnotte.isVisible ? "Cagnotte Visible aux Invités" : "Cagnotte Masquée aux Invités"} </button> )} </div> {loading ? ( <div className="p-12 text-center text-xs text-stone-400">Chargement de la cagnotte...</div> ) : ( <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Total Récolté</span> <p className="text-xl sm:text-2xl font-extrabold text-stone-900 mt-1">{data?.cagnotte?.totalAmount || 0} FCFA</p> </div> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Nombre de Contributions</span> <p className="text-xl sm:text-2xl font-extrabold text-stone-900 mt-1">{data?.contributions?.length || 0}</p> </div> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Statut Visibilité</span> <p className="text-xs sm:text-sm font-bold mt-2 flex items-center gap-1.5">{data?.cagnotte?.isVisible ? <><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Actif sur le site</> : <><span className="w-2 h-2 rounded-full bg-stone-400"></span> Masqué</>}</p> </div> </div> )} </div> ); }
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:143: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:144: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:169: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:170: onClick={prevMonth}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:176: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:177: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:186: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:187: onClick={nextMonth}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:224: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:226: onClick={() => setSelectedDate(dateStr)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:306: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:307: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:327: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:328: onClick={() => handleDelete(ev.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:365: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:366: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:386: <button onClick={() => setIsModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:449: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:450: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:451: onClick={() => setIsModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:456: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:111: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:112: onClick={() => startCall("audio")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:118: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:119: onClick={() => startCall("video")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:190: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chronogramme\page.tsx:197: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chronogramme\page.tsx:199: onClick={() => setSelectedPhase(p)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chronogramme\page.tsx:307: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chronogramme\page.tsx:308: onClick={() => handleToggle(item.id, isDone)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:112: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:113: onClick={handleResetDefault}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:168: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:169: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:223: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:224: onClick={() => handleToggleConfirm(cmd.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:248: <button onClick={() => setIsEditModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:286: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:287: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:288: onClick={() => setIsEditModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:293: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:98: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:99: onClick={() => setIsModalOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:202: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:203: onClick={() => handleVote(d.id, "rejected", "Je préfère que nous réévaluions cette option.")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:208: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:209: onClick={() => handleVote(d.id, "approved", "D'accord pour avancer avec cette option !")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:228: <button onClick={() => setIsModalOpen(false)} className="p-1 rounded-lg text-stone-400">
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:280: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:281: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:282: onClick={() => setIsModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:287: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:87: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:89: onClick={() => setSelectedThemeId(d.themeNumber)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:183: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:184: onClick={() => setIsPlaying(!isPlaying)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:248: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:249: onClick={handleToggleComplete}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:158: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:159: onClick={() => setIsAddModalOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:277: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:278: onClick={() => handleToggleCheckIn(g.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:290: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:291: onClick={() => handleShowQr(g)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:297: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:298: onClick={() => handleDelete(g.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:319: <button onClick={() => setIsAddModalOpen(false)} className="p-1 rounded-lg text-stone-400">
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:400: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:401: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:402: onClick={() => setIsAddModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:407: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:433: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:434: onClick={() => setQrModalGuest(null)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\invitation\page.tsx:82: onClick={() => fileInputRef.current?.click()}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\invitation\page.tsx:121: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:155: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:156: onClick={() => send({ action: "roll" })}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:172: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:174: onClick={() => send({ action: "move", tokenId: id })}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:186: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:187: onClick={() => send({ action: "new" })}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:224: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:225: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:147: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:148: onClick={() => setActiveGame("hub")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:157: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:158: onClick={() => setActiveGame("ludo")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:167: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:168: onClick={() => setActiveGame("awale")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:177: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:178: onClick={() => setActiveGame("dames")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:187: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:188: onClick={() => setActiveGame("mots")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:271: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:272: onClick={() => setActiveGame(g.id as any)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:117: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:118: onClick={() => setIsLiveWallOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:147: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:148: onClick={() => handleToggleSchedule(item.id, item.isCompleted)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:186: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:187: onClick={() => setIsBlessingModalOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:224: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:225: onClick={() => setIsLiveWallOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:261: <button onClick={() => setIsBlessingModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:303: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:304: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:305: onClick={() => setIsBlessingModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:310: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:83: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:84: onClick={() => setSelectedBook(null)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:110: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:112: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:142: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:144: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:154: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:156: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:215: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:216: onClick={() => handleOpenBook(b)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\notre-mariage\page.tsx:117: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\notre-mariage\page.tsx:119: onClick={() => setActiveTab(c.id as any)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:133: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:134: onClick={() => setIsModalOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:200: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:201: onClick={() => handleTogglePrayed(p.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:214: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:215: onClick={() => setTestimonyModal({ id: p.id, text: "" })}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:221: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:222: onClick={() => handleDelete(p.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:242: <button onClick={() => setIsModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:299: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:300: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:301: onClick={() => setIsModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:306: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:333: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:334: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:335: onClick={() => setTestimonyModal(null)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:340: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:341: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:342: onClick={handleSaveTestimony}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:68: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:70: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:123: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:125: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:155: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:157: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:185: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:187: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:213: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:215: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:246: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\preferences\page.tsx:247: onClick={handleSavePreferences}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\profile\page.tsx:123: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\profile\page.tsx:124: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\profile\page.tsx:125: onClick={() => p.ref.current?.click()}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\profile\page.tsx:204: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:109: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:110: onClick={() => setActiveCategory("connaissance")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:122: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:123: onClick={() => setActiveCategory("situation_reelle")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:135: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:136: onClick={() => setActiveCategory("discussion_couple")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:231: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:234: onClick={() => setSelectedOption(idx)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:272: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:273: onClick={handleSubmitAnswer}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:281: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:282: onClick={handleNext}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:252: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:253: onClick={handleCopyCode}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:259: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:260: onClick={handleRegenerateCode}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:273: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:274: onClick={handleShareAccessWhatsApp}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:335: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:336: onClick={() => handleSelectPlan(plan.id as "couple" | "individual")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:419: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:534: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:149: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:150: onClick={() => setIsModalOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:246: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:247: onClick={() => handleToggleStatus(t)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:309: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:310: onClick={() => handleDeleteTask(t.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:332: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:333: onClick={() => setIsModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:427: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:428: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:429: onClick={() => setIsModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:434: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:237: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:238: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:239: onClick={() => fileInputRef.current?.click()}
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:215: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:216: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:217: onClick={() => removePhoto(i)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:225: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:226: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:227: onClick={() => fileRef.current?.click()}
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:236: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:148: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:149: onClick={handlePwaInstall}
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:182: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:183: onClick={handleApkDownload}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:316: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:317: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:318: onClick={() => setShowPassword(!showPassword)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:326: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:380: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:381: onClick={() => setActiveTab("payments")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:390: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:391: onClick={loadAdminData}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:397: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:398: onClick={handleAdminLogout}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:429: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:431: onClick={() => setActiveTab(tab.id as AdminTab)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:536: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:537: onClick={handleExportCsv}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:572: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:573: onClick={() => handleCouplePatch(c.id, { regenerateCode: true }, `Nouveau code généré pour ${c.partner1Name}`)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:595: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:596: onClick={() => handleCouplePatch(c.id, { planType: "couple" }, "Passage au Pack Couple")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:601: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:602: onClick={() => handleCouplePatch(c.id, { planType: "individual" }, "Passage au Pack Individuel")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:632: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:633: onClick={() => handleCouplePatch(c.id, { activatePremium: true }, `Pack Premium activé pour ${c.partner1Name} & ${c.partner2Name}`)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:643: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:644: onClick={() => handleCouplePatch(c.id, { status: "suspended" }, "Compte suspendu")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:650: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:651: onClick={() => handleCouplePatch(c.id, { status: "active" }, "Compte activé")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:657: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:658: onClick={() => handleCouplePatch(c.id, { status: c.status === "blocked" ? "active" : "blocked" }, c.status === "blocked" ? "Compte débloqué" : "Compte bloqué")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:666: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:667: onClick={() => handleCouplePatch(c.id, { extendTrialDays: 7 }, "Essai prolongé de 7 jours")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:674: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:675: onClick={() => handleCouplePatch(c.id, { partner2AccessActive: !c.partner2AccessActive }, c.partner2AccessActive ? "Accès partenaire 2 désactivé" : "Accès partenaire 2 activé")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:681: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:682: onClick={() => handleDeleteCouple(c.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:778: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:779: onClick={() => handlePaymentAction(p.id, "accept")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:788: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:789: onClick={() => handlePaymentAction(p.id, "request_new_proof")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:796: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:797: onClick={() => handlePaymentAction(p.id, "reject")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:888: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:889: onClick={() => handleProviderAction(prov.id, "approve")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:898: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:899: onClick={() => handleProviderAction(prov.id, "suspend")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:906: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:907: onClick={() => handleProviderAction(prov.id, "reject")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:1087: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:159: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:160: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:201: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:202: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:212: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:213: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:295: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:296: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:545: <button onClick={() => setIsAuthModalOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:579: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:580: onClick={() => setAuthMode("login")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:587: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:588: onClick={() => setAuthMode("register")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:638: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:658: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:659: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:660: onClick={() => setSelectedPlanId("couple")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:673: <button
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:674: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:675: onClick={() => setSelectedPlanId("individual")}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:791: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\chat\ChatRoom.tsx:122: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\dashboard\Sidebar.tsx:1: "use client"; import Link from "next/link"; import { usePathname } from "next/navigation"; import { LayoutDashboard, Users, Wallet, Calendar, User, Menu, X } from "lucide-react"; import { useState } from "react"; const navItems = [ { label: "Tableau de bord", href: "/dashboard", icon: LayoutDashboard }, { label: "Profils & Mariage", href: "/dashboard/profile", icon: User }, { label: "Invités & RSVP", href: "/dashboard/guests", icon: Users }, { label: "Cagnotte", href: "/dashboard/cagnotte", icon: Wallet }, { label: "Planning", href: "/dashboard/planning", icon: Calendar }, ]; export default function Sidebar() { const pathname = usePathname(); const [isOpen, setIsOpen] = useState(false); return ( <> <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-stone-200 sticky top-0 z-40"> <span className="font-extrabold text-lg text-stone-900 tracking-tight">Wedding Mood</span> <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-xl text-stone-700 hover:bg-stone-100 transition"> {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />} </button> </div> {isOpen && ( <div className="fixed inset-0 bg-stone-900/40 z-30 md:hidden backdrop-blur-sm" onClick={() => setIsOpen(false)} /> )} <aside className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white border-r border-stone-200 p-5 flex flex-col justify-between transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}> <div className="space-y-6"> <div className="hidden md:block"> <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Wedding Mood</h1> <p className="text-xs text-stone-400 mt-0.5">Espace Organisation</p> </div> <nav className="space-y-1.5"> {navItems.map((item) => { const Icon = item.icon; const isActive = pathname === item.href; return ( <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)} className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-semibold transition ${isActive ? "bg-purple-50 text-purple-700 font-bold" : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"}`}> <Icon className={`w-4 h-4 ${isActive ? "text-purple-600" : "text-stone-400"}`} /> {item.label} </Link> ); })} </nav> </div> </aside> </> ); }
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:301: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:302: onClick={() => handleReset("couple")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:313: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:314: onClick={() => handleReset("ai")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:342: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:343: onClick={() => setPedagogicalMode(!pedagogicalMode)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:355: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:356: onClick={() => setShowRulesModal(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:363: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:364: onClick={() => handleReset()}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:435: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:436: onClick={() => setReplayMoveIndex(-1)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:480: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:485: onClick={() => handlePitClick(pitIdx)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:527: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:532: onClick={() => handlePitClick(pitIdx)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:610: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:612: onClick={() => setReplayMoveIndex(Math.max(0, (replayMoveIndex === -1 ? gameState.history.length : replayMoveIndex) - 1))}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:618: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:620: onClick={() => setReplayMoveIndex(replayMoveIndex + 1)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:639: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:640: onClick={() => setShowRulesModal(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:668: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\AwaleGameComponent.tsx:669: onClick={() => setShowRulesModal(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:204: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:205: onClick={() => handleReset("couple")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:216: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:217: onClick={() => handleReset("ai")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:242: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:243: onClick={() => setShowRulesModal(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:250: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:251: onClick={() => handleReset()}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:329: onClick={() => handleSquareClick(r, c)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:341: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:342: onClick={(e) => {
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:377: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:378: onClick={() => setShowRulesModal(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:403: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\CheckersGameComponent.tsx:404: onClick={() => setShowRulesModal(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:360: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:361: onClick={() => handleReset("couple")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:371: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:372: onClick={() => handleReset("ai")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:382: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:383: onClick={() => handleReset("4p")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:393: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:394: onClick={() => setShowRulesModal(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:401: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:402: onClick={() => handleReset()}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:528: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:530: onClick={() => handleMoveToken(token.id)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:584: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:585: onClick={handleRollDice}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:600: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:601: onClick={handleRollDice}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:640: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:642: onClick={() => sendReaction(msg)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:661: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:662: onClick={() => setShowRulesModal(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:687: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:688: onClick={() => setShowRulesModal(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\PlayerProfileCard.tsx:71: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\PlayerProfileCard.tsx:72: onClick={toggleSound}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:329: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:330: onClick={() => handleReset("couple")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:341: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:342: onClick={() => handleReset("ai")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:353: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:354: onClick={() => setShowRulesModal(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:361: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:362: onClick={() => handleReset()}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:446: onClick={() => handleSquareClick(r, c)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:502: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:504: onClick={() => handleRackTileClick(idx)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:524: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:525: onClick={handleRecallTiles}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:532: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:533: onClick={handleValidateTurn}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:556: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:557: onClick={() => setShowRulesModal(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:583: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\WordGameComponent.tsx:584: onClick={() => setShowRulesModal(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\profile\ProfileForm.tsx:81: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\CallModal.tsx:108: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\CallModal.tsx:109: onClick={() => setIsMuted(!isMuted)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\CallModal.tsx:119: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\CallModal.tsx:120: onClick={() => setIsVideoOff(!isVideoOff)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\CallModal.tsx:130: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\CallModal.tsx:131: onClick={closeCall}
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:669: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:670: onClick={() => scrollToSection("compte-a-rebours")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:957: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:958: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:959: onClick={() => setAttendanceChoice("confirmed")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:970: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:971: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:972: onClick={() => setAttendanceChoice("maybe")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:983: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:984: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:985: onClick={() => setAttendanceChoice("declined")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:1056: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:1134: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:1135: onClick={() => scrollToSection("rsvp")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:1142: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:1143: onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:130: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:131: onClick={onToggleSidebar}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:144: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:145: onClick={triggerSync}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:165: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:166: onClick={() => switchPartner("partner1")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:176: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:177: onClick={() => switchPartner("partner2")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:191: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:192: onClick={() => setShowProfileMenu(!showProfileMenu)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:232: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:233: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:245: onClick={() => setShowProfileMenu(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:256: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:257: onClick={() => startCall("audio")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:264: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:265: onClick={() => startCall("video")}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:284: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:285: onClick={fetchNotifs}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:298: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:299: onClick={() => setShowNotifMenu(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:341: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:342: onClick={() => setIsPhotoModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:375: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:376: type="button"
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:377: onClick={() => setIsPhotoModalOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:382: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:100: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:101: onClick={() => setIsFullMenuOpen(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:116: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:117: onClick={() => setIsFullMenuOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:138: onClick={() => setIsFullMenuOpen(false)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\PwaInstallPrompt.tsx:54: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\PwaInstallPrompt.tsx:55: onClick={async () => {
+C:\Users\YvesACHY\Documents\wma app web\src\components\PwaInstallPrompt.tsx:65: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\PwaInstallPrompt.tsx:66: onClick={() => {
+C:\Users\YvesACHY\Documents\wma app web\src\components\PwaInstallPrompt.tsx:80: <button
+C:\Users\YvesACHY\Documents\wma app web\src\components\PwaInstallPrompt.tsx:81: onClick={() => setDismissed(true)}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:110: onClick={onClose}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:124: <button onClick={onClose} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:167: onClick={onClose}

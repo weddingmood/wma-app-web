@@ -1,0 +1,133 @@
+﻿C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\audit\route.ts:22: coupleName: l.coupleId ? coupleMap.get(l.coupleId) || `Couple #${l.coupleId}` : "—",
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\audit\route.ts:23: adminName: l.adminId ? adminMap.get(l.adminId) || `Admin #${l.adminId}` : "Système",
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\auth\route.ts:11: const adminToken = cookieStore.get("wm_admin_session")?.value;
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\auth\route.ts:38: cookieStore.delete("wm_admin_session");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\auth\route.ts:75: const adminToken = cookieStore.get("wm_admin_session")?.value;
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\couples\route.ts:13: const status = searchParams.get("status");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\couples\route.ts:14: const plan = searchParams.get("plan");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\couples\route.ts:15: const q = searchParams.get("q");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\couples\route.ts:202: const id = searchParams.get("id");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\couples\route.ts:209: await db.delete(couples).where(eq(couples.id, Number(id)));
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\admin\payments\route.ts:20: const c = coupleMap.get(p.coupleId);
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\articles\route.ts:9: const category = searchParams.get("category");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\articles\route.ts:10: const slug = searchParams.get("slug");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\auth\route.ts:27: cookieStore.get("wm_session")?.value,
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\auth\route.ts:325: const sessionToken = cookieStore.get("wm_session")?.value;
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\auth\route.ts:390: cookieStore.delete("wm_session");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\calendar\route.ts:96: const id = searchParams.get("id");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\calendar\route.ts:109: .delete(calendarEvents)
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\commandments\route.ts:66: await db.delete(coupleCommandments).where(eq(coupleCommandments.coupleId, session.coupleId));
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\commandments\route.ts:163: const id = searchParams.get("id");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\commandments\route.ts:169: await db.delete(coupleCommandments).where(and(eq(coupleCommandments.id, Number(id)), eq(coupleCommandments.coupleId, session.coupleId)));
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\day-j\route.ts:14: const mode = searchParams.get("mode"); // 'screen' or 'all'
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\devotions\route.ts:26: const prog = progressMap.get(d.id);
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\expenses\route.ts:14: const categoryId = searchParams.get("categoryId");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\expenses\route.ts:164: const id = searchParams.get("id");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\expenses\route.ts:170: await db.delete(expenses).where(and(eq(expenses.id, Number(id)), eq(expenses.coupleId, session.coupleId)));
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\games\ludo\route.ts:18: if (!cookieStore.get("wm_session")?.value) return null;
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\games\ludo\route.ts:91: const since = searchParams.get("since");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\games\route.ts:18: const gameType = searchParams.get("gameType") || "ludo";
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\games\route.ts:19: const getHistory = searchParams.get("history");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\guests\route.ts:15: const group = searchParams.get("group");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\guests\route.ts:16: const rsvp = searchParams.get("rsvp");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\guests\route.ts:173: const id = searchParams.get("id");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\guests\route.ts:179: await db.delete(guests).where(and(eq(guests.id, Number(id)), eq(guests.coupleId, session.coupleId)));
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\library\route.ts:15: const category = searchParams.get("category");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\library\route.ts:34: userProgress: progressMap.get(b.id) || { currentChapter: 1, progressPercent: 0, notes: "" },
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\prayers\route.ts:110: const id = searchParams.get("id");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\prayers\route.ts:116: await db.delete(prayers).where(and(eq(prayers.id, Number(id)), eq(prayers.coupleId, session.coupleId)));
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\quizzes\route.ts:15: const category = searchParams.get("category"); // 'connaissance', 'situation_reelle', 'discussion_couple'
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\tasks\route.ts:14: const category = searchParams.get("category");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\tasks\route.ts:15: const status = searchParams.get("status");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\tasks\route.ts:118: const id = searchParams.get("id");
+C:\Users\YvesACHY\Documents\wma app web\src\app\api\tasks\route.ts:124: await db.delete(tasks).where(and(eq(tasks.id, Number(id)), eq(tasks.coupleId, session.coupleId)));
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\articles\page.tsx:20: fetch("/api/articles"),
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\articles\page.tsx:21: fetch("/api/courses"),
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:39: const res = await fetch("/api/budget");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:62: const res = await fetch("/api/expenses", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:90: const res = await fetch("/api/budget", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\budget\page.tsx:107: await fetch("/api/expenses", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\cagnotte\page.tsx:1: "use client"; import React, { useState, useEffect } from "react"; import { Wallet, Eye, EyeOff, Loader2 } from "lucide-react"; export default function CagnottePage() { const [data, setData] = useState<any>(null); const [loading, setLoading] = useState(true); const [toggling, setToggling] = useState(false); const fetchCagnotte = async () => { try { setLoading(true); const res = await fetch("/api/cagnotte"); if (res.ok) { const d = await res.json(); if (d.success) setData(d); } } catch (err) { console.error(err); } finally { setLoading(false); } }; useEffect(() => { fetchCagnotte(); }, []); const handleToggleVisibility = async () => { if (!data?.cagnotte) return; try { setToggling(true); const res = await fetch("/api/cagnotte/toggle", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ isVisible: !data.cagnotte.isVisible }) }); if (res.ok) { const updated = await res.json(); setData((prev: any) => ({ ...prev, cagnotte: { ...prev.cagnotte, isVisible: updated.isVisible } })); } } catch (err) { console.error(err); } finally { setToggling(false); } }; return ( <div className="p-4 sm:p-6 max-w-4xl mx-auto space-y-4 sm:space-y-6"> <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl border border-stone-200 shadow-sm"> <div> <h1 className="text-xl sm:text-2xl font-bold text-stone-900 flex items-center gap-2"><Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-rose-500" /> Cagnotte des Mariés</h1> <p className="text-xs text-stone-500 mt-1">Gérez la cagnotte en ligne et définissez la visibilité pour vos invités.</p> </div> {data?.cagnotte && ( <button onClick={handleToggleVisibility} disabled={toggling} className={`w-full sm:w-auto px-4 py-3 sm:py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition ${data.cagnotte.isVisible ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200" : "bg-stone-100 text-stone-600 hover:bg-stone-200 border border-stone-300"}`}> {toggling ? <Loader2 className="w-4 h-4 animate-spin" /> : data.cagnotte.isVisible ? <Eye className="w-4 h-4 text-emerald-600" /> : <EyeOff className="w-4 h-4 text-stone-500" />} {data.cagnotte.isVisible ? "Cagnotte Visible aux Invités" : "Cagnotte Masquée aux Invités"} </button> )} </div> {loading ? ( <div className="p-12 text-center text-xs text-stone-400">Chargement de la cagnotte...</div> ) : ( <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Total Récolté</span> <p className="text-xl sm:text-2xl font-extrabold text-stone-900 mt-1">{data?.cagnotte?.totalAmount || 0} FCFA</p> </div> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Nombre de Contributions</span> <p className="text-xl sm:text-2xl font-extrabold text-stone-900 mt-1">{data?.contributions?.length || 0}</p> </div> <div className="p-4 sm:p-5 bg-white rounded-2xl border border-stone-200 shadow-sm"> <span className="text-xs text-stone-500 font-medium">Statut Visibilité</span> <p className="text-xs sm:text-sm font-bold mt-2 flex items-center gap-1.5">{data?.cagnotte?.isVisible ? <><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Actif sur le site</> : <><span className="w-2 h-2 rounded-full bg-stone-400"></span> Masqué</>}</p> </div> </div> )} </div> ); }
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:41: const res = await fetch("/api/calendar");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:64: const res = await fetch("/api/calendar", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:89: await fetch(`/api/calendar?id=${id}`, { method: "DELETE" });
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:118: const list = eventsByDate.get(ev.eventDate) || [];
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:123: const selectedDateEvents = eventsByDate.get(selectedDate) || [];
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\calendar\page.tsx:218: const dayEvents = eventsByDate.get(dateStr) || [];
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:27: const res = await fetch("/api/messages");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chat\page.tsx:69: const res = await fetch("/api/messages", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chronogramme\page.tsx:96: const res = await fetch("/api/timeline");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chronogramme\page.tsx:129: const res = await fetch("/api/timeline", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\chronogramme\page.tsx:162: const list = map.get(item.phase);
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:25: const res = await fetch("/api/commandments");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:46: await fetch("/api/commandments", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:60: await fetch("/api/commandments", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\commandments\page.tsx:75: await fetch("/api/commandments", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:23: const res = await fetch("/api/decisions");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:46: const res = await fetch("/api/decisions", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\decisions\page.tsx:69: await fetch("/api/decisions", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:25: const res = await fetch("/api/devotions");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\devotions\page.tsx:54: await fetch("/api/devotions", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:48: const res = await fetch("/api/guests");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:72: const res = await fetch("/api/guests", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:99: await fetch("/api/guests", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\guests\page.tsx:119: await fetch(`/api/guests?id=${id}`, { method: "DELETE" });
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:56: const res = await fetch(url, { cache: "no-store" });
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\ludo-en-ligne\page.tsx:79: const res = await fetch("/api/games/ludo", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:39: const res = await fetch("/api/games?history=1");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jeux\page.tsx:65: await fetch("/api/games", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:35: const res = await fetch("/api/day-j");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:65: await fetch("/api/day-j", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\jour-j\page.tsx:81: const res = await fetch("/api/day-j", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:17: const res = await fetch("/api/library");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\library\page.tsx:46: await fetch("/api/library", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:31: const res = await fetch("/api/prayers");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:54: const res = await fetch("/api/prayers", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:76: await fetch("/api/prayers", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:90: await fetch("/api/prayers", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\prayers\page.tsx:108: await fetch(`/api/prayers?id=${id}`, { method: "DELETE" });
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\profile\page.tsx:19: fetch("/api/auth")
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:34: const res = await fetch(`/api/quizzes?category=${activeCategory}`);
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\quizzes\page.tsx:62: const res = await fetch("/api/quizzes", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:59: const res = await fetch("/api/payments");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:101: const res = await fetch("/api/payments", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:126: const res = await fetch("/api/payments", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:147: const res = await fetch("/api/payments", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:45: const res = await fetch("/api/tasks");
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:68: const res = await fetch("/api/tasks", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:96: await fetch("/api/tasks", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\tasks\page.tsx:110: await fetch(`/api/tasks?id=${id}`, { method: "DELETE" });
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:47: const res = await fetch(url);
+C:\Users\YvesACHY\Documents\wma app web\src\app\devenir-prestataire\page.tsx:58: const res = await fetch("/api/providers", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\invitation\[slug]\page.tsx:19: const res = await fetch(`/api/invitations/${slug}`);
+C:\Users\YvesACHY\Documents\wma app web\src\app\invitation\[slug]\page.tsx:42: const res = await fetch(`/api/invitations/${slug}`, {
+C:\Users\YvesACHY\Documents\wma app web\src\app\marketplace\page.tsx:42: const res = await fetch("/api/providers");
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:28: fetch("/api/download/info")
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:58: const res = await fetch("/api/download/apk");
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:61: const res = await fetch("/api/admin/auth");
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:84: const res = await fetch("/api/admin/auth", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:104: await fetch("/api/admin/auth", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:116: fetch("/api/admin/stats"),
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:117: fetch("/api/admin/couples"),
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:118: fetch("/api/admin/payments"),
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:119: fetch("/api/admin/providers"),
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:120: fetch("/api/admin/games"),
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:121: fetch("/api/admin/audit"),
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:162: const res = await fetch("/api/admin/couples", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:183: await fetch(`/api/admin/couples?id=${id}`, { method: "DELETE" });
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:195: const res = await fetch("/api/admin/providers", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:208: const res = await fetch("/api/admin/payments", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:225: const res = await fetch("/api/admin/auth", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:71: const res = await fetch("/api/auth", {
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:101: const res = await fetch("/api/auth", {
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:267: const list = tokensOnSquare.get(key) || [];
+C:\Users\YvesACHY\Documents\wma app web\src\components\games\LudoGameComponent.tsx:465: const tokensHere = tokensOnSquare.get(key) || [];
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:53: const res = await fetch("/api/notifications");
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:90: const res = await fetch("/api/auth");
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:112: const notifRes = await fetch("/api/notifications");
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:150: await fetch("/api/auth", {
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:166: const res = await fetch("/api/preferences", {
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:187: const res = await fetch("/api/couples", {
+C:\Users\YvesACHY\Documents\wma app web\src\components\ThemeContext.tsx:209: await fetch("/api/sync", {
+C:\Users\YvesACHY\Documents\wma app web\src\lib\auth-helpers.ts:23: const sessionToken = cookieStore.get("wm_session")?.value;
+C:\Users\YvesACHY\Documents\wma app web\src\lib\auth-helpers.ts:24: const adminToken = cookieStore.get("wm_admin_session")?.value;

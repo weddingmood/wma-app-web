@@ -1,0 +1,52 @@
+﻿C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\articles\page.tsx:105: href={selectedArticle.sourceUrl}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\notre-mariage\page.tsx:218: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\notre-mariage\page.tsx:219: href="/dashboard/tasks"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:228: href={OFFICIAL_WHATSAPP_URL}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:348: href={plan.payUrl}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\subscription\page.tsx:460: href={activePayUrl}
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:347: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:348: href="/dashboard/tasks"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:357: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:358: href="/dashboard/tasks"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:372: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:373: href="/dashboard/guests"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:385: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:386: href="/dashboard/cagnotte"
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:398: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\app\dashboard\page.tsx:399: href="/dashboard/jeux"
+C:\Users\YvesACHY\Documents\wma app web\src\app\marketplace\page.tsx:169: href={waveLinkWhatsapp(p.whatsapp, p.businessName)}
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:63: a.href = url;
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:84: <Link href="/" className="flex items-center gap-2">
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:87: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:88: href="/dashboard"
+C:\Users\YvesACHY\Documents\wma app web\src\app\telechargement\page.tsx:239: <Link href="/" className="inline-flex items-center gap-1 hover:text-stone-700 font-semibold">
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:267: a.href = url;
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:335: <a href="/dashboard" className="text-xs text-stone-500 hover:text-stone-800">
+C:\Users\YvesACHY\Documents\wma app web\src\app\wma-admin-2026-secure\page.tsx:752: <a href={p.proofImageUrl} target="_blank" rel="noreferrer" className="text-blue-700 font-bold hover:underline">
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:85: router.push("/dashboard");
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:116: router.push("/dashboard");
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:134: <Link href="/" className="flex items-center">
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:140: <a href="#vision" className="hover:text-[#C05638] transition-colors">Vision Pastorale</a>
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:141: <a href="#modules" className="hover:text-[#C05638] transition-colors">Notre Mariage</a>
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:142: <a href="#spirituel" className="hover:text-[#C05638] transition-colors">7 Thèmes Bibliques</a>
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:143: <a href="#themes" className="hover:text-[#C05638] transition-colors">20 Palettes CI</a>
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:144: <a href="#tarifs" className="hover:text-[#C05638] transition-colors">Abonnement Wave</a>
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:150: href={OFFICIAL_WHATSAPP_URL}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:480: href={plan.payUrl}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:506: href={OFFICIAL_WHATSAPP_URL}
+C:\Users\YvesACHY\Documents\wma app web\src\app\page.tsx:527: <p>Support WhatsApp Officiel : <a href={OFFICIAL_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-[#C05638] font-bold hover:underline">+225 70 50 13 56</a></p>
+C:\Users\YvesACHY\Documents\wma app web\src\components\dashboard\Sidebar.tsx:1: "use client"; import Link from "next/link"; import { usePathname } from "next/navigation"; import { LayoutDashboard, Users, Wallet, Calendar, User, Menu, X } from "lucide-react"; import { useState } from "react"; const navItems = [ { label: "Tableau de bord", href: "/dashboard", icon: LayoutDashboard }, { label: "Profils & Mariage", href: "/dashboard/profile", icon: User }, { label: "Invités & RSVP", href: "/dashboard/guests", icon: Users }, { label: "Cagnotte", href: "/dashboard/cagnotte", icon: Wallet }, { label: "Planning", href: "/dashboard/planning", icon: Calendar }, ]; export default function Sidebar() { const pathname = usePathname(); const [isOpen, setIsOpen] = useState(false); return ( <> <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-stone-200 sticky top-0 z-40"> <span className="font-extrabold text-lg text-stone-900 tracking-tight">Wedding Mood</span> <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-xl text-stone-700 hover:bg-stone-100 transition"> {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />} </button> </div> {isOpen && ( <div className="fixed inset-0 bg-stone-900/40 z-30 md:hidden backdrop-blur-sm" onClick={() => setIsOpen(false)} /> )} <aside className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white border-r border-stone-200 p-5 flex flex-col justify-between transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}> <div className="space-y-6"> <div className="hidden md:block"> <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Wedding Mood</h1> <p className="text-xs text-stone-400 mt-0.5">Espace Organisation</p> </div> <nav className="space-y-1.5"> {navItems.map((item) => { const Icon = item.icon; const isActive = pathname === item.href; return ( <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)} className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-semibold transition ${isActive ? "bg-purple-50 text-purple-700 font-bold" : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"}`}> <Icon className={`w-4 h-4 ${isActive ? "text-purple-600" : "text-stone-400"}`} /> {item.label} </Link> ); })} </nav> </div> </aside> </> ); }
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:888: href={
+C:\Users\YvesACHY\Documents\wma app web\src\components\DigitalInvitationExperience.tsx:1082: href={cagnottePaymentUrl}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:137: <Link href="/dashboard" className="flex items-center p-1 bg-white rounded-2xl shadow-2xs border border-stone-200/60">
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:243: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:244: href="/dashboard/preferences"
+C:\Users\YvesACHY\Documents\wma app web\src\components\Header.tsx:273: href={OFFICIAL_WHATSAPP_URL}
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:83: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:85: href={item.href}
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:135: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\components\MobileNavigation.tsx:137: href={item.href}
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:164: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\components\Sidebar.tsx:166: href={item.href}
+C:\Users\YvesACHY\Documents\wma app web\src\components\TrialBanner.tsx:35: <Link
+C:\Users\YvesACHY\Documents\wma app web\src\components\TrialBanner.tsx:36: href="/dashboard/subscription"

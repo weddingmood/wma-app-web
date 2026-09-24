@@ -1,1 +1,43 @@
-﻿"use client"; import Link from "next/link"; import { usePathname } from "next/navigation"; import { LayoutDashboard, Users, Wallet, Calendar, User, Menu, X } from "lucide-react"; import { useState } from "react"; const navItems = [ { label: "Tableau de bord", href: "/dashboard", icon: LayoutDashboard }, { label: "Profils & Mariage", href: "/dashboard/profile", icon: User }, { label: "Invités & RSVP", href: "/dashboard/guests", icon: Users }, { label: "Cagnotte", href: "/dashboard/cagnotte", icon: Wallet }, { label: "Planning", href: "/dashboard/planning", icon: Calendar }, ]; export default function Sidebar() { const pathname = usePathname(); const [isOpen, setIsOpen] = useState(false); return ( <> <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-stone-200 sticky top-0 z-40"> <span className="font-extrabold text-lg text-stone-900 tracking-tight">Wedding Mood</span> <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-xl text-stone-700 hover:bg-stone-100 transition"> {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />} </button> </div> {isOpen && ( <div className="fixed inset-0 bg-stone-900/40 z-30 md:hidden backdrop-blur-sm" onClick={() => setIsOpen(false)} /> )} <aside className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white border-r border-stone-200 p-5 flex flex-col justify-between transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}> <div className="space-y-6"> <div className="hidden md:block"> <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Wedding Mood</h1> <p className="text-xs text-stone-400 mt-0.5">Espace Organisation</p> </div> <nav className="space-y-1.5"> {navItems.map((item) => { const Icon = item.icon; const isActive = pathname === item.href; return ( <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)} className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-semibold transition ${isActive ? "bg-purple-50 text-purple-700 font-bold" : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"}`}> <Icon className={`w-4 h-4 ${isActive ? "text-purple-600" : "text-stone-400"}`} /> {item.label} </Link> ); })} </nav> </div> </aside> </> ); }
+﻿"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { 
+  LayoutDashboard, Heart, Users, Wallet, 
+  Calendar, Mail, Send, ListChecks, BookHeart,
+  MessageCircle, Gamepad2, Clock, Settings, CreditCard
+} from "lucide-react";
+
+const navItems = [
+  { href: "/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
+  { href: "/dashboard/notre-mariage", label: "Profils & Mariage", icon: Heart },
+  { href: "/dashboard/guests", label: "Invités & RSVP", icon: Users },
+  { href: "/dashboard/cagnotte", label: "Cagnotte", icon: Wallet },
+  { href: "/dashboard/budget", label: "Budget", icon: CreditCard },
+  { href: "/dashboard/chronogramme", label: "Planning", icon: Clock },
+  { href: "/dashboard/calendar", label: "Calendrier", icon: Calendar },
+  { href: "/dashboard/invitation", label: "Carte d'invitation", icon: Mail },
+  { href: "/dashboard/chat", label: "Transfert WhatsApp", icon: Send },
+  { href: "/dashboard/tasks", label: "Tâches", icon: ListChecks },
+  { href: "/dashboard/jour-j", label: "Jour J", icon: BookHeart },
+  { href: "/dashboard/jeux", label: "Jeux Couple", icon: Gamepad2 },
+  { href: "/dashboard/profile", label: "Profil", icon: Settings },
+];
+
+export default function Sidebar() {
+  const pathname = usePathname();
+  return (
+    <aside className="w-64 bg-white border-r min-h-screen p-3 space-y-1">
+      {navItems.map((item) => {
+        const Icon = item.icon;
+        const active = pathname === item.href;
+        return (
+          <Link key={item.href} href={item.href}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors
+            ${active ? "bg-purple-100 text-purple-700" : "text-gray-600 hover:bg-gray-100"}`}>
+            <Icon size={18} /> {item.label}
+          </Link>
+        );
+      })}
+    </aside>
+  );
+}
