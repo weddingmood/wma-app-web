@@ -10,10 +10,15 @@ export const metadata: Metadata = {
     default: "WEDDING MOOD - Préparation au Mariage Chrétien en Côte d'Ivoire",
     template: "%s • Wedding Mood",
   },
-  description: "Application premium d'accompagnement au mariage pour jeunes couples chrétiens en Côte d'Ivoire.",
+  description:
+    "Application premium d'accompagnement au mariage pour jeunes couples chrétiens en Côte d'Ivoire. Dot, Mairie, Église, Budget FCFA, 7 Thèmes Bibliques, Invités, Synchronisation et Jour J.",
   manifest: "/manifest.webmanifest",
   applicationName: "Wedding Mood",
-  appleWebApp: { capable: true, statusBarStyle: "default", title: "Wedding Mood" },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Wedding Mood",
+  },
   formatDetection: { telephone: true },
   icons: {
     icon: [
@@ -33,7 +38,11 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="fr">
       <body className="bg-[#F8FAFC] text-stone-900 antialiased min-h-screen">
@@ -47,3 +56,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
