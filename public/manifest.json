@@ -2,11 +2,14 @@
   "name": "Wedding Mood — Préparation au Mariage",
   "short_name": "WeddingMood",
   "description": "Application premium de préparation au mariage pour jeunes couples chrétiens en Côte d'Ivoire",
+  "id": "/",
   "start_url": "/dashboard?utm_source=pwa",
   "scope": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#F8FAFC",
   "theme_color": "#C05638",
+  "lang": "fr-CI",
   "icons": [
     {
       "src": "/icons/icon-192.png",

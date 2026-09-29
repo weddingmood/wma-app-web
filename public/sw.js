@@ -1,8 +1,8 @@
 /* Wedding Mood — Service Worker (PWA hors-ligne)
- * Stratégie : cache-first pour les assets statiques, network-first pour les pages/API.
- * Version du cache : incrémenter à chaque déploiement majeur.
+ * Les assets sont mis en cache ; les API restent toujours réseau-only pour
+ * éviter de servir hors connexion une session ou un état privé obsolète.
  */
-const CACHE_VERSION = "wm-v1.1.0";
+const CACHE_VERSION = "wm-v1.2.0";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -10,9 +10,12 @@ const PRECACHE_URLS = [
   "/",
   "/offline.html",
   "/manifest.webmanifest",
+  "/favicon.ico",
   "/icons/icon.svg",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
+  "/icons/maskable-512.png",
+  "/icons/apple-touch-icon.png",
 ];
 
 self.addEventListener("install", (event) => {
@@ -64,6 +67,21 @@ self.addEventListener("fetch", (event) => {
   }
   if (url.origin !== self.location.origin) return;
 
+  // Les API contiennent des données privées et ne sont jamais servies depuis
+  // un cache hors ligne. Les commandes POST restent naturellement réseau-only.
+  if (isApiRequest(url)) {
+    event.respondWith(
+      fetch(request).catch(
+        () =>
+          new Response(JSON.stringify({ success: false, message: "Connexion indisponible." }), {
+            status: 503,
+            headers: { "Content-Type": "application/json" },
+          })
+      )
+    );
+    return;
+  }
+
   // Assets statiques : cache-first
   if (isStaticAsset(url)) {
     event.respondWith(
@@ -76,20 +94,6 @@ self.addEventListener("fetch", (event) => {
             return response;
           })
       )
-    );
-    return;
-  }
-
-  // API : network-first avec repli cache (données fraîches prioritaires)
-  if (isApiRequest(url)) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
-          return response;
-        })
-        .catch(() => caches.match(request))
     );
     return;
   }

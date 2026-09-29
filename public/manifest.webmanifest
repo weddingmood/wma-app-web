@@ -12,6 +12,7 @@
   "dir": "ltr",
   "lang": "fr-CI",
   "categories": ["lifestyle", "events", "social"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icons/icon-72.png",
@@ -80,7 +81,7 @@
     {
       "name": "Messagerie",
       "short_name": "Messages",
-      "description:": "Messagerie privée du couple",
+      "description": "Messagerie privée du couple",
       "url": "/dashboard/chat?utm_source=pwa_shortcut",
       "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
     },
@@ -90,22 +91,6 @@
       "description": "Ludo, Awalé, Dames et Défi des Mots",
       "url": "/dashboard/jeux?utm_source=pwa_shortcut",
       "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/icons/screenshot-mobile.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Tableau de bord Wedding Mood sur mobile"
-    },
-    {
-      "src": "/icons/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Tableau de bord Wedding Mood sur ordinateur"
     }
   ]
 }

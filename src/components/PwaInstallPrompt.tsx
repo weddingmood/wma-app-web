@@ -1,23 +1,35 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Smartphone, X, Download } from "lucide-react";
+import { Smartphone, X, Download, Share2 } from "lucide-react";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
+function isIosDevice() {
+  if (typeof navigator === "undefined") return false;
+  const userAgent = navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod/.test(userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
 export function PwaInstallPrompt() {
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [dismissed, setDismissed] = useState(false);
   const [installed, setInstalled] = useState(false);
+  const [ios, setIos] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
       if (localStorage.getItem("wm-pwa-dismissed") === "1") setDismissed(true);
-      if (window.matchMedia("(display-mode: standalone)").matches) setInstalled(true);
+      if (window.matchMedia("(display-mode: standalone)").matches ||
+          ("standalone" in window.navigator && Boolean((window.navigator as Navigator & { standalone?: boolean }).standalone))) {
+        setInstalled(true);
+      }
+      setIos(isIosDevice());
     } catch {
       /* ignore */
     }
@@ -37,31 +49,39 @@ export function PwaInstallPrompt() {
     };
   }, []);
 
-  if (!deferred || dismissed || installed) return null;
+  if ((!deferred && !ios) || dismissed || installed) return null;
 
   return (
     <div className="fixed bottom-20 lg:bottom-6 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-sm z-50 animate-in slide-in-from-bottom-4">
       <div className="glass-panel border border-stone-200 rounded-3xl p-4 shadow-xl flex items-start gap-3">
         <div className="p-2.5 rounded-2xl bg-[#C05638]/10 text-[#C05638] shrink-0">
-          <Smartphone className="w-5 h-5" />
+          {ios ? <Share2 className="w-5 h-5" /> : <Smartphone className="w-5 h-5" />}
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-serif font-bold text-stone-900 text-sm">Installer Wedding Mood</p>
-          <p className="text-xs text-stone-500 mt-0.5">
-            Ajoutez l’application sur votre écran d’accueil pour un accès rapide, même hors connexion.
-          </p>
+          {ios ? (
+            <p className="text-xs text-stone-500 mt-0.5">
+              Touchez <strong>Partager</strong>, puis <strong>Sur l’écran d’accueil</strong> pour installer l’application.
+            </p>
+          ) : (
+            <p className="text-xs text-stone-500 mt-0.5">
+              Ajoutez l’application sur votre écran d’accueil pour un accès rapide, même hors connexion.
+            </p>
+          )}
           <div className="flex items-center gap-2 mt-3">
-            <button
-              onClick={async () => {
-                await deferred.prompt();
-                const { outcome } = await deferred.userChoice;
-                if (outcome === "accepted") setDeferred(null);
-              }}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#C05638] text-white text-xs font-bold hover:bg-[#A84429] cursor-pointer"
-            >
-              <Download className="w-3.5 h-3.5" />
-              Installer
-            </button>
+            {deferred && (
+              <button
+                onClick={async () => {
+                  await deferred.prompt();
+                  const { outcome } = await deferred.userChoice;
+                  if (outcome === "accepted") setDeferred(null);
+                }}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#C05638] text-white text-xs font-bold hover:bg-[#A84429] cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Installer
+              </button>
+            )}
             <button
               onClick={() => {
                 setDismissed(true);
@@ -88,4 +108,3 @@ export function PwaInstallPrompt() {
     </div>
   );
 }
-
