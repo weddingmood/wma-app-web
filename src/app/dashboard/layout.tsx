@@ -1,1 +1,25 @@
-import Sidebar from "@/components/dashboard/Sidebar"; import TrialBanner from "@/components/TrialBanner"; export default function DashboardLayout({ children }: { children: React.ReactNode }) { return ( <div className="min-h-screen bg-stone-50 flex flex-col md:flex-row"> <Sidebar /> <main className="flex-1 md:pl-64 w-full min-h-screen transition-all duration-300"> <div className="w-full max-w-7xl mx-auto p-2 sm:p-4 md:p-6"> <TrialBanner /> {children} </div> </main> </div> ); }
+import Sidebar from "@/components/dashboard/Sidebar";
+import { MobileNavigation } from "@/components/MobileNavigation";
+import TrialBanner from "@/components/TrialBanner";
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex min-h-screen min-w-0 bg-stone-50">
+      {/* Navigation latérale uniquement sur écran large. */}
+      <div className="hidden shrink-0 lg:block lg:w-64">
+        <Sidebar />
+      </div>
+
+      {/* Sur smartphone, le contenu occupe toute la largeur. */}
+      <main className="min-w-0 flex-1 w-full min-h-screen pb-20 lg:pb-0">
+        <div className="mx-auto w-full max-w-7xl min-w-0 p-2 sm:p-4 lg:p-6">
+          <TrialBanner />
+          {children}
+        </div>
+      </main>
+
+      {/* Barre de navigation mobile fixe, déjà prévue par l'application. */}
+      <MobileNavigation />
+    </div>
+  );
+}

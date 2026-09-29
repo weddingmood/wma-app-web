@@ -34,7 +34,6 @@ export function MobileNavigation() {
   const { activeTheme } = useTheme();
   const [isFullMenuOpen, setIsFullMenuOpen] = useState(false);
 
-  // 5 Essential mobile bottom destinations
   const bottomNavItems = [
     { href: "/dashboard", label: "Accueil", icon: Home },
     { href: "/dashboard/tasks", label: "Préparatifs", icon: CheckSquare },
@@ -73,9 +72,12 @@ export function MobileNavigation() {
 
   return (
     <>
-      {/* Fixed bottom navigation for mobile */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 lg:hidden glass-panel border-t border-stone-200/90 py-1.5 px-3 shadow-lg">
-        <div className="flex items-center justify-around">
+      <nav
+        className="fixed bottom-0 left-0 right-0 z-40 border-t border-stone-200/90 bg-white/95 px-3 py-1.5 shadow-lg backdrop-blur lg:hidden"
+        style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom))" }}
+        aria-label="Navigation mobile"
+      >
+        <div className="mx-auto flex max-w-lg items-center justify-around">
           {bottomNavItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
@@ -83,67 +85,45 @@ export function MobileNavigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center justify-center p-1.5 rounded-2xl transition-all ${
-                  isActive
-                    ? "text-[#C05638] font-bold"
-                    : "text-stone-500 hover:text-stone-900"
-                }`}
+                className={`flex min-w-0 flex-col items-center justify-center rounded-2xl p-1.5 transition-all ${isActive ? "font-bold text-[#C05638]" : "text-stone-500 hover:text-stone-900"}`}
                 style={isActive ? { color: activeTheme.primary } : {}}
               >
-                <Icon className={`w-5 h-5 ${isActive ? "stroke-[2.5]" : ""}`} />
-                <span className="text-[10px] mt-0.5">{item.label}</span>
+                <Icon className={`h-5 w-5 ${isActive ? "stroke-[2.5]" : ""}`} />
+                <span className="mt-0.5 max-w-20 truncate text-[10px]">{item.label}</span>
               </Link>
             );
           })}
-
-          {/* Plus / Menu Button */}
           <button
+            type="button"
             onClick={() => setIsFullMenuOpen(true)}
-            className="flex flex-col items-center justify-center p-1.5 rounded-2xl text-stone-500 hover:text-stone-900 cursor-pointer"
+            className="flex min-w-0 flex-col items-center justify-center rounded-2xl p-1.5 text-stone-500 hover:text-stone-900"
+            aria-label="Ouvrir toutes les sections"
           >
-            <MenuIcon className="w-5 h-5" />
-            <span className="text-[10px] mt-0.5">Plus</span>
+            <MenuIcon className="h-5 w-5" />
+            <span className="mt-0.5 text-[10px]">Plus</span>
           </button>
         </div>
       </nav>
 
-      {/* Full Menu Drawer when clicking "Plus" */}
       {isFullMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex flex-col justify-end bg-black/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-t-3xl border-t border-stone-200 p-6 max-h-[85vh] overflow-y-auto space-y-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/60 backdrop-blur-sm lg:hidden" role="dialog" aria-modal="true" aria-label="Toutes les sections">
+          <button type="button" className="absolute inset-0 cursor-default" aria-label="Fermer le menu" onClick={() => setIsFullMenuOpen(false)} />
+          <div className="relative max-h-[85vh] space-y-6 overflow-y-auto rounded-t-3xl border-t border-stone-200 bg-white p-6 shadow-2xl">
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-              <h3 className="font-serif font-bold text-stone-900 text-lg">Toutes les Sections</h3>
-              <button
-                onClick={() => setIsFullMenuOpen(false)}
-                className="p-1 rounded-xl text-stone-400 hover:text-stone-700 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <h3 className="font-serif text-lg font-bold text-stone-900">Toutes les sections</h3>
+              <button type="button" onClick={() => setIsFullMenuOpen(false)} className="rounded-xl p-1 text-stone-400 hover:text-stone-700" aria-label="Fermer le menu"><X className="h-5 w-5" /></button>
             </div>
-
             <div className="space-y-6">
-              {fullDrawerLinks.map((section, sIdx) => (
-                <div key={sIdx} className="space-y-2">
-                  <h4 className="text-[11px] font-bold uppercase tracking-wider text-stone-400">
-                    {section.title}
-                  </h4>
+              {fullDrawerLinks.map((section) => (
+                <div key={section.title} className="space-y-2">
+                  <h4 className="text-[11px] font-bold uppercase tracking-wider text-stone-400">{section.title}</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {section.items.map((item) => {
                       const Icon = item.icon;
                       const isActive = pathname === item.href;
                       return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setIsFullMenuOpen(false)}
-                          className={`flex items-center gap-2.5 p-3 rounded-2xl text-xs font-semibold border transition-all ${
-                            isActive
-                              ? "bg-[#C05638] text-white border-[#C05638]"
-                              : "glass-card-warm border-stone-200 text-stone-700 hover:bg-stone-50"
-                          }`}
-                          style={isActive ? { backgroundColor: activeTheme.primary } : {}}
-                        >
-                          <Icon className="w-4 h-4 shrink-0" />
+                        <Link key={item.href} href={item.href} onClick={() => setIsFullMenuOpen(false)} className={`flex min-w-0 items-center gap-2.5 rounded-2xl border p-3 text-xs font-semibold transition-all ${isActive ? "border-[#C05638] bg-[#C05638] text-white" : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"}`} style={isActive ? { backgroundColor: activeTheme.primary } : {}}>
+                          <Icon className="h-4 w-4 shrink-0" />
                           <span className="truncate">{item.label}</span>
                         </Link>
                       );
@@ -158,4 +138,3 @@ export function MobileNavigation() {
     </>
   );
 }
-
