@@ -16,6 +16,7 @@ import { ok, fail } from "@/lib/platform";
 import { accesDe } from "@/lib/plans";
 import { deroulePublic } from "@/lib/invitation";
 import { montant } from "@/lib/pays";
+import { encadrePaiement } from "@/lib/paiements";
 import {
   coupleParSlug, ceremoniesDuCouple, cagnotteDuCouple, compteurCadeaux,
   questionsQuiz, devinettes
@@ -56,6 +57,7 @@ export async function GET(req: NextRequest, ctx: { params: any }) {
       ville: couple.city || ""
     },
     acces: { premium: acces.premium, palier: acces.palier, lectureSeule: acces.lectureSeule },
+    operateurs: encadrePaiement(couple.country),
     ceremonies: deroule,
     cagnotte: {
       ouverte: collecteOuverte,

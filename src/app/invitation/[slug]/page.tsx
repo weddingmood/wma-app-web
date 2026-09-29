@@ -1,33 +1,43 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Heart } from "lucide-react";
 import { DigitalInvitationExperience } from "@/components/DigitalInvitationExperience";
+import InvitationPublicPillars from "@/components/invitation/InvitationPublicPillars";
+
+type Payload = any;
 
 export default function PublicInvitationPage() {
   const params = useParams();
-  const slug = params?.slug as string;
-
-  const [invData, setInvData] = useState<any>(null);
+  const slug = String(params?.slug || "");
+  const [invData, setInvData] = useState<Payload>(null);
+  const [pillarsData, setPillarsData] = useState<Payload>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let actif = true;
     async function fetchPublicInv() {
       try {
         setLoading(true);
-        const res = await fetch(`/api/invitations/${slug}`);
-        if (res.ok) {
-          const d = await res.json();
-          if (d.success) setInvData(d);
+        const [legacyResponse, pillarsResponse] = await Promise.all([
+          fetch(`/api/invitations/${encodeURIComponent(slug)}`, { cache: "no-store" }),
+          fetch(`/api/invitations/${encodeURIComponent(slug)}/public`, { cache: "no-store" }).catch(() => null),
+        ]);
+        const legacy = await legacyResponse.json();
+        const pillars = pillarsResponse && pillarsResponse.ok ? await pillarsResponse.json() : null;
+        if (actif) {
+          if (legacy.success) setInvData(legacy);
+          setPillarsData(pillars?.success ? pillars : null);
         }
       } catch (err) {
         console.error(err);
       } finally {
-        setLoading(false);
+        if (actif) setLoading(false);
       }
     }
     if (slug) fetchPublicInv();
+    return () => { actif = false; };
   }, [slug]);
 
   const handleRsvpSubmit = async (formData: {
@@ -39,40 +49,25 @@ export default function PublicInvitationPage() {
     messageForCouple?: string;
     prayerWishes?: string;
   }) => {
-    const res = await fetch(`/api/invitations/${slug}`, {
+    const res = await fetch(`/api/invitations/${encodeURIComponent(slug)}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
     const d = await res.json();
-    return {
-      success: d.success,
-      message: d.message,
-    };
+    return { success: d.success, message: d.message };
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] text-stone-600 font-serif text-lg">
-        Chargement de l'invitation de mariage...
-      </div>
-    );
-  }
+  if (loading) return <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] text-stone-600 font-serif text-lg">Chargement de l'invitation de mariage...</div>;
 
   if (!invData?.invitation) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF8F5] p-6 text-center space-y-3">
-        <Heart className="w-12 h-12 text-[#C05638]" />
-        <h1 className="font-serif text-2xl font-bold text-stone-900">Invitation Introuvable</h1>
-        <p className="text-xs text-stone-500 max-w-sm">
-          Cette page d'invitation n'existe pas ou n'est plus accessible.
-        </p>
-      </div>
-    );
+    return <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF8F5] p-6 text-center space-y-3"><Heart className="w-12 h-12 text-[#C05638]" /><h1 className="font-serif text-2xl font-bold text-stone-900">Invitation Introuvable</h1><p className="text-xs text-stone-500 max-w-sm">Cette page d'invitation n'existe pas ou n'est plus accessible.</p></div>;
   }
 
   const inv = invData.invitation;
   const couple = invData.couple;
+  const publicCouple = pillarsData?.couple;
+  const publicBlocks = pillarsData ? <InvitationPublicPillars slug={slug} country={{ code: publicCouple?.pays || "CI", nom: "" }} ceremonies={pillarsData.ceremonies} cagnotte={pillarsData.cagnotte} animations={pillarsData.animations} operateurs={pillarsData.operateurs} couple={publicCouple} /> : undefined;
 
   return (
     <DigitalInvitationExperience
@@ -93,8 +88,8 @@ export default function PublicInvitationPage() {
       pastorWord={inv.pastorWord || ""}
       finalMessage={inv.finalMessage || ""}
       rsvpDeadline={inv.rsvpDeadline || "31 Octobre 2025"}
-      hasPhoto={inv.hasPhoto !== undefined ? inv.hasPhoto : true}
-      heroImageUrl={inv.heroImageUrl || ""}
+      hasPhoto={inv.hasPhoto !== undefined ? inv.hasPhoto : Boolean(inv.heroImageUrl)}
+      heroImageUrl={inv.heroImageUrl || inv.coverPhotoUrl || ""}
       cardTemplate={inv.cardTemplate || "terracotta_or"}
       sansPhotoStyle={inv.sansPhotoStyle || "monogram"}
       photoLayout={inv.photoLayout || "arche"}
@@ -110,11 +105,11 @@ export default function PublicInvitationPage() {
       customTextAlign={inv.customTextAlign || "center"}
       showCountdown={inv.showCountdown !== undefined ? inv.showCountdown : true}
       showStory={inv.showStory !== undefined ? inv.showStory : true}
-      showProgramme={inv.showProgramme !== undefined ? inv.showProgramme : true}
+      showProgramme={pillarsData ? false : (inv.showProgramme !== undefined ? inv.showProgramme : true)}
       showLocations={inv.showLocations !== undefined ? inv.showLocations : true}
       showVerse={inv.showVerse !== undefined ? inv.showVerse : true}
       showRsvp={inv.showRsvp !== undefined ? inv.showRsvp : true}
-      showCagnotte={inv.showCagnotte !== undefined ? inv.showCagnotte : true}
+      showCagnotte={pillarsData ? false : (inv.showCagnotte !== undefined ? inv.showCagnotte : true)}
       showQrCode={inv.showQrCode !== undefined ? inv.showQrCode : true}
       cagnotteEnabled={inv.cagnotteEnabled !== undefined ? inv.cagnotteEnabled : true}
       cagnotteTitle={inv.cagnotteTitle || "Cagnotte Foyer & Premier Loyer"}
@@ -122,17 +117,14 @@ export default function PublicInvitationPage() {
       cagnottePaymentMethod={inv.cagnottePaymentMethod || "wave"}
       cagnottePaymentUrl={inv.cagnottePaymentUrl || undefined}
       cagnotteButtonText={inv.cagnotteButtonText || "Contribuer au foyer"}
-      ceremoniesSelected={
-        Array.isArray(inv.ceremoniesSelected) && inv.ceremoniesSelected.length > 0
-          ? inv.ceremoniesSelected
-          : ["dot", "civil", "church", "reception"]
-      }
+      ceremoniesSelected={Array.isArray(inv.ceremoniesSelected) && inv.ceremoniesSelected.length > 0 ? inv.ceremoniesSelected : ["dot", "civil", "church", "reception"]}
       ceremoniesDetails={inv.ceremoniesDetails || undefined}
       dotDate={inv.dotDate || ""}
       civilDate={inv.civilDate || ""}
       churchDate={inv.churchDate || ""}
       receptionDate={inv.receptionDate || ""}
       additionalInfo={inv.additionalInfo || ""}
+      piliersPublics={publicBlocks}
       onRsvpSubmit={handleRsvpSubmit}
     />
   );

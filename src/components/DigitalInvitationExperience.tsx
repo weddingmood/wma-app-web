@@ -101,6 +101,8 @@ export interface FullInvitationData {
   receptionDate?: string;
   additionalInfo?: string;
   isInteractivePreview?: boolean;
+  /** Blocs publics additionnels : cérémonies, cagnotte et animations. */
+  piliersPublics?: React.ReactNode;
   onRsvpSubmit?: (data: {
     guestName: string;
     email?: string;
@@ -167,6 +169,7 @@ export function DigitalInvitationExperience({
   receptionDate = "Samedi 15 Novembre 2025 à 14:00",
   additionalInfo,
   isInteractivePreview = false,
+  piliersPublics,
   onRsvpSubmit,
 }: FullInvitationData) {
   const displayName = coupleNames || heroTitle || "Époux Kouassi & Épouse Yao";
@@ -1111,6 +1114,12 @@ export function DigitalInvitationExperience({
               Scannez pour ouvrir l'invitation sur votre téléphone ou partager avec un invité.
             </p>
           </div>
+        </section>
+      )}
+
+      {piliersPublics && (
+        <section id="six-piliers" aria-label="Services de l'invitation">
+          {piliersPublics}
         </section>
       )}
 
