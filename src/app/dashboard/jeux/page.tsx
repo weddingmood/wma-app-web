@@ -23,7 +23,7 @@ import { WordGameComponent } from "@/components/games/WordGameComponent";
 import { PlayerProfileCard } from "@/components/games/PlayerProfileCard";
 
 export default function JeuxPage() {
-  const { couple, activeTheme, partnerPhoto, otherPartnerPhoto } = useTheme();
+  const { couple, activePartner, activeTheme, partnerPhoto, otherPartnerPhoto } = useTheme();
 
   const [activeGame, setActiveGame] = useState<"hub" | "ludo" | "awale" | "dames" | "mots">("hub");
   const [statsData, setStatsData] = useState<any>(null);
@@ -54,31 +54,10 @@ export default function JeuxPage() {
     fetchGameStats();
   }, []);
 
-  // Record completed match to backend
-  const handleMatchFinish = async (
-    winner: string,
-    score1: number,
-    score2: number,
-    mode: string
-  ) => {
-    try {
-      await fetch("/api/games", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "finish_match",
-          gameType: activeGame,
-          winner,
-          score1,
-          score2,
-          mode,
-          durationSeconds: 180,
-        }),
-      });
-      fetchGameStats();
-    } catch {
-      // offline
-    }
+  // Les parties Couple sont historisées par les routes de jeu après validation
+  // serveur. Aucun score, tour ou gagnant fourni par le navigateur n'est écrit.
+  const handleMatchFinish = async () => {
+    await fetchGameStats();
   };
 
   const gameCards = [
@@ -289,6 +268,7 @@ export default function JeuxPage() {
           p1Name={p1Name}
           p2Name={p2Name}
           coupleId={couple?.id}
+          activePartner={activePartner}
           onMatchFinish={handleMatchFinish}
         />
       )}
@@ -299,6 +279,7 @@ export default function JeuxPage() {
           p1Name={p1Name}
           p2Name={p2Name}
           coupleId={couple?.id}
+          activePartner={activePartner}
           onMatchFinish={handleMatchFinish}
         />
       )}
@@ -309,6 +290,7 @@ export default function JeuxPage() {
           p1Name={p1Name}
           p2Name={p2Name}
           coupleId={couple?.id}
+          activePartner={activePartner}
           onMatchFinish={handleMatchFinish}
         />
       )}
@@ -319,6 +301,7 @@ export default function JeuxPage() {
           p1Name={p1Name}
           p2Name={p2Name}
           coupleId={couple?.id}
+          activePartner={activePartner}
           onMatchFinish={handleMatchFinish}
         />
       )}

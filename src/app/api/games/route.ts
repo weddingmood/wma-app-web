@@ -8,6 +8,20 @@ import { createInitialCheckersState } from "@/lib/checkers-engine";
 import { createInitialLudoGame } from "@/lib/ludo-engine";
 import { createInitialWordGameState } from "@/lib/word-engine";
 
+const GAME_TYPES = ["ludo", "awale", "dames", "mots"] as const;
+type GameType = (typeof GAME_TYPES)[number];
+
+function isGameType(value: unknown): value is GameType {
+  return typeof value === "string" && GAME_TYPES.includes(value as GameType);
+}
+
+function initialState(gameType: GameType, p1Name: string, p2Name: string, mode = "couple") {
+  if (gameType === "awale") return createInitialAwaleState(mode as "couple", "moyen", false);
+  if (gameType === "dames") return createInitialCheckersState(mode as "couple", "moyen");
+  if (gameType === "mots") return createInitialWordGameState(mode as "couple");
+  return createInitialLudoGame(mode as "couple", p1Name, p2Name);
+}
+
 export async function GET(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
@@ -27,7 +41,6 @@ export async function GET(req: Request) {
   const p1Name = couple?.partner1Name || "Époux";
   const p2Name = couple?.partner2Name || "Épouse";
 
-  // Fetch past match history for the couple
   const historyRecords = await db
     .select()
     .from(gameHistory)
@@ -35,7 +48,6 @@ export async function GET(req: Request) {
     .orderBy(desc(gameHistory.completedAt))
     .limit(50);
 
-  // Compute player statistics
   const totalGames = historyRecords.length;
   const p1Wins = historyRecords.filter((h) => h.winner === "partner1").length;
   const p2Wins = historyRecords.filter((h) => h.winner === "partner2").length;
@@ -78,16 +90,14 @@ export async function GET(req: Request) {
     });
   }
 
-  // Get active session for requested game
+  if (!isGameType(gameType)) {
+    return Response.json({ success: false, message: "Type de jeu inconnu." }, { status: 400 });
+  }
+
   const [existing] = await db
     .select()
     .from(gameSessions)
-    .where(
-      and(
-        eq(gameSessions.coupleId, session.coupleId),
-        eq(gameSessions.gameType, gameType)
-      )
-    )
+    .where(and(eq(gameSessions.coupleId, session.coupleId), eq(gameSessions.gameType, gameType)))
     .limit(1);
 
   if (existing) {
@@ -96,36 +106,17 @@ export async function GET(req: Request) {
       session: existing,
       couplePlayers: { p1Name, p2Name },
       history: historyRecords.slice(0, 10),
-      stats: {
-        totalGames,
-        p1Wins,
-        p2Wins,
-        statsByGame,
-      },
+      stats: { totalGames, p1Wins, p2Wins, statsByGame },
     });
   }
 
-  // Initialize brand new session with proper game engine
-  let initialGameState: Record<string, unknown> = {};
-
-  if (gameType === "awale") {
-    initialGameState = createInitialAwaleState("couple", "moyen", false) as unknown as Record<string, unknown>;
-  } else if (gameType === "dames") {
-    initialGameState = createInitialCheckersState("couple", "moyen") as unknown as Record<string, unknown>;
-  } else if (gameType === "ludo") {
-    initialGameState = createInitialLudoGame("couple", p1Name, p2Name) as unknown as Record<string, unknown>;
-  } else if (gameType === "mots") {
-    initialGameState = createInitialWordGameState("couple") as unknown as Record<string, unknown>;
-  } else {
-    initialGameState = createInitialLudoGame("couple", p1Name, p2Name) as unknown as Record<string, unknown>;
-  }
-
+  const state = initialState(gameType, p1Name, p2Name);
   const [newSession] = await db
     .insert(gameSessions)
     .values({
       coupleId: session.coupleId,
       gameType,
-      gameState: initialGameState,
+      gameState: state,
       mode: "couple",
       aiLevel: "moyen",
       turn: "partner1",
@@ -141,165 +132,80 @@ export async function GET(req: Request) {
     session: newSession,
     couplePlayers: { p1Name, p2Name },
     history: historyRecords.slice(0, 10),
-    stats: {
-      totalGames,
-      p1Wins,
-      p2Wins,
-      statsByGame,
-    },
+    stats: { totalGames, p1Wins, p2Wins, statsByGame },
   });
 }
 
+/**
+ * Compatibilité de route conservée, mais aucune commande client ne peut plus
+ * écrire un état, un tour, un score ou un gagnant. Les coups Couple passent
+ * par /api/games/online/[gameType], qui verrouille et valide le moteur serveur.
+ */
 export async function POST(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
-  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
-  if (blocageEcriture) return blocageEcriture;
+  const blocked = await refuserSiEssaiExpire(session.coupleId);
+  if (blocked) return blocked;
 
-  const body = await req.json();
-  const {
-    gameType,
-    action,
-    stateUpdates,
-    newTurn,
-    score1,
-    score2,
-    score1Delta,
-    score2Delta,
-    winner,
-    mode,
-    aiLevel,
-    durationSeconds,
-    matchDetails,
-  } = body;
+  const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
+  const gameType = body.gameType;
 
-  const [couple] = await db
-    .select()
-    .from(couples)
-    .where(eq(couples.id, session.coupleId))
-    .limit(1);
-
-  const p1Name = couple?.partner1Name || "Époux";
-  const p2Name = couple?.partner2Name || "Épouse";
-
-  // Check if match was completed to save into gameHistory
-  if (action === "finish_match" || (winner && winner !== null)) {
-    await db.insert(gameHistory).values({
-      coupleId: session.coupleId,
-      gameType: gameType || "ludo",
-      mode: mode || "couple",
-      player1Name: p1Name,
-      player2Name: mode === "ai" ? "Ordinateur" : p2Name,
-      score1: score1 !== undefined ? Number(score1) : 0,
-      score2: score2 !== undefined ? Number(score2) : 0,
-      winner: winner || "draw",
-      durationSeconds: Number(durationSeconds) || 120,
-      details: matchDetails || null,
-    });
+  if (body.action !== "reset" || !isGameType(gameType)) {
+    return Response.json(
+      {
+        success: false,
+        message: "Les parties Couple sont pilotées par une commande de jeu validée côté serveur.",
+      },
+      { status: 400 }
+    );
   }
 
+  const [couple] = await db.select().from(couples).where(eq(couples.id, session.coupleId)).limit(1);
+  const p1Name = couple?.partner1Name || "Époux";
+  const p2Name = couple?.partner2Name || "Épouse";
   const [existing] = await db
     .select()
     .from(gameSessions)
-    .where(
-      and(
-        eq(gameSessions.coupleId, session.coupleId),
-        eq(gameSessions.gameType, gameType)
-      )
-    )
+    .where(and(eq(gameSessions.coupleId, session.coupleId), eq(gameSessions.gameType, gameType)))
     .limit(1);
 
-  // Reset action
-  if (action === "reset") {
-    let freshState: Record<string, unknown> = {};
-    if (gameType === "awale") {
-      freshState = createInitialAwaleState(mode || "couple", aiLevel || "moyen", false) as unknown as Record<string, unknown>;
-    } else if (gameType === "dames") {
-      freshState = createInitialCheckersState(mode || "couple", aiLevel || "moyen") as unknown as Record<string, unknown>;
-    } else if (gameType === "ludo") {
-      freshState = createInitialLudoGame(mode || "couple", p1Name, p2Name) as unknown as Record<string, unknown>;
-    } else if (gameType === "mots") {
-      freshState = createInitialWordGameState(mode || "couple") as unknown as Record<string, unknown>;
-    }
-
-    if (existing) {
-      const [updated] = await db
-        .update(gameSessions)
-        .set({
-          gameState: freshState,
-          mode: mode || existing.mode,
-          aiLevel: aiLevel || existing.aiLevel,
-          turn: "partner1",
-          score1: 0,
-          score2: 0,
-          status: "ongoing",
-          winner: null,
-          lastMoveAt: new Date(),
-          updatedAt: new Date(),
-        })
-        .where(eq(gameSessions.id, existing.id))
-        .returning();
-
-      return Response.json({ success: true, session: updated });
-    }
-  }
-
+  const state = initialState(gameType, p1Name, p2Name);
   if (!existing) {
     const [created] = await db
       .insert(gameSessions)
       .values({
         coupleId: session.coupleId,
         gameType,
-        gameState: stateUpdates || {},
-        mode: mode || "couple",
-        aiLevel: aiLevel || "moyen",
-        turn: newTurn || "partner1",
-        score1: score1 !== undefined ? Number(score1) : Number(score1Delta) || 0,
-        score2: score2 !== undefined ? Number(score2) : Number(score2Delta) || 0,
-        status: winner ? "finished" : "ongoing",
-        winner: winner || null,
+        gameState: state,
+        mode: "couple",
+        aiLevel: "moyen",
+        turn: "partner1",
+        score1: 0,
+        score2: 0,
+        status: "ongoing",
         roomCode: `WM-${Math.floor(1000 + Math.random() * 9000)}`,
-        lastMoveAt: new Date(),
       })
       .returning();
-
     return Response.json({ success: true, session: created });
   }
-
-  const finalScore1 =
-    score1 !== undefined
-      ? Number(score1)
-      : (existing.score1 || 0) + (Number(score1Delta) || 0);
-
-  const finalScore2 =
-    score2 !== undefined
-      ? Number(score2)
-      : (existing.score2 || 0) + (Number(score2Delta) || 0);
-
-  const mergedState = {
-    ...(existing.gameState as object),
-    ...(stateUpdates || {}),
-  };
 
   const [updated] = await db
     .update(gameSessions)
     .set({
-      gameState: mergedState,
-      mode: mode || existing.mode,
-      aiLevel: aiLevel || existing.aiLevel,
-      turn: newTurn !== undefined ? newTurn : existing.turn,
-      score1: finalScore1,
-      score2: finalScore2,
-      status: winner ? "finished" : existing.status,
-      winner: winner !== undefined ? winner : existing.winner,
+      gameState: state,
+      mode: "couple",
+      aiLevel: "moyen",
+      turn: "partner1",
+      score1: 0,
+      score2: 0,
+      status: "ongoing",
+      winner: null,
       lastMoveAt: new Date(),
       updatedAt: new Date(),
     })
     .where(eq(gameSessions.id, existing.id))
     .returning();
-
   return Response.json({ success: true, session: updated });
 }
-

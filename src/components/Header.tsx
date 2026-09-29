@@ -17,6 +17,7 @@ import {
   Camera,
   Sliders,
   Upload,
+  ShieldCheck,
 } from "lucide-react";
 import { OFFICIAL_WHATSAPP_URL } from "@/lib/constants";
 
@@ -32,7 +33,6 @@ export function Header({ onToggleSidebar }: HeaderProps) {
     partnerPhoto,
     partnerRole,
     syncState,
-    switchPartner,
     startCall,
     triggerSync,
     unreadNotifications,
@@ -160,30 +160,16 @@ export function Header({ onToggleSidebar }: HeaderProps) {
           {/* Right */}
           <div className="flex items-center gap-2 sm:gap-3">
             
-            {/* Active Partner Switcher */}
-            <div className="relative inline-flex items-center bg-white/90 p-1 rounded-2xl border border-stone-200 shadow-2xs text-xs">
-              <button
-                onClick={() => switchPartner("partner1")}
-                className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-                  activePartner === "partner1"
-                    ? "bg-[#C05638] text-white shadow-xs font-semibold"
-                    : "text-stone-600 hover:text-stone-900"
-                }`}
-                style={activePartner === "partner1" ? { backgroundColor: activeTheme.primary } : {}}
-              >
-                Lui
-              </button>
-              <button
-                onClick={() => switchPartner("partner2")}
-                className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-                  activePartner === "partner2"
-                    ? "bg-[#C05638] text-white shadow-xs font-semibold"
-                    : "text-stone-600 hover:text-stone-900"
-                }`}
-                style={activePartner === "partner2" ? { backgroundColor: activeTheme.primary } : {}}
-              >
-                Elle
-              </button>
+            {/* Identité déterminée par la session signée : aucun changement côté client */}
+            <div
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-white/90 border border-stone-200 shadow-2xs text-xs"
+              title="Votre identité est fixée par votre connexion personnelle"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="hidden sm:inline text-stone-500">Session</span>
+              <span className="font-bold text-stone-900">
+                {activePartner === "partner1" ? "Lui" : "Elle"}
+              </span>
             </div>
 
             {/* Profile Avatar */}

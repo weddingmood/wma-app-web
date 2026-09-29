@@ -55,7 +55,6 @@ interface ThemeContextType {
   unreadNotifications: number;
   isCallOpen: boolean;
   callType: "audio" | "video";
-  switchPartner: (p: "partner1" | "partner2") => Promise<void>;
   updatePreferences: (newPrefs: Partial<CouplePreferences>) => Promise<void>;
   updateCoupleProfile: (profileUpdates: Partial<CoupleProfile>) => Promise<void>;
   refreshCoupleData: () => Promise<void>;
@@ -143,20 +142,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener("offline", handleOffline);
     };
   }, [refreshCoupleData]);
-
-  const switchPartner = async (p: "partner1" | "partner2") => {
-    setActivePartner(p);
-    try {
-      await fetch("/api/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "switch-partner", partner: p }),
-      });
-      await refreshCoupleData();
-    } catch {
-      // offline fallback
-    }
-  };
 
   const updatePreferences = async (newPrefs: Partial<CouplePreferences>) => {
     const merged = { ...preferences, ...newPrefs };
@@ -280,7 +265,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         unreadNotifications,
         isCallOpen,
         callType,
-        switchPartner,
         updatePreferences,
         updateCoupleProfile,
         refreshCoupleData,

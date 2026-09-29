@@ -68,7 +68,7 @@ export async function POST(req: Request) {
   // CONNEXION : par email personnel + code d'accès unique du couple
   // ============================================================
   if (action === "login") {
-    const { identifier, password, accessCode, selectedPartner } = body;
+    const { identifier, password, accessCode } = body;
 
     if (!identifier) {
       return Response.json(
@@ -129,8 +129,6 @@ export async function POST(req: Request) {
       partner = "partner2";
     } else if (couple.partner1Email.toLowerCase() === cleanIdentifier) {
       partner = "partner1";
-    } else if (selectedPartner === "partner2") {
-      partner = "partner2";
     }
 
     // Formule Individuelle : seul le partenaire principal dispose d'un accès actif
@@ -318,41 +316,19 @@ export async function POST(req: Request) {
   }
 
   // ============================================================
-  // BASCULE DE PARTENAIRE ACTIF
+  // IDENTITÉ DE SESSION IMMUTABLE
   // ============================================================
+  // L'identité active est déterminée à la connexion à partir de l'email
+  // personnel, puis portée par le jeton signé. Aucun appel client ne peut
+  // transformer une session partner1 en session partner2 (ou inversement).
   if (action === "switch-partner") {
-    const { partner } = body;
-    const sessionToken = cookieStore.get("wm_session")?.value;
-    if (!sessionToken) {
-      return Response.json({ success: false, message: "Non connecté" }, { status: 401 });
-    }
-
-    const decoded = verifyToken<{ coupleId: number; coupleSlug?: string; activePartner?: string }>(
-      sessionToken,
-      "couple"
-    );
-    if (!decoded) {
-      return Response.json({ success: false, message: "Session invalide" }, { status: 401 });
-    }
-    decoded.activePartner = partner === "partner2" ? "partner2" : "partner1";
-
-    const newPayload = signToken(
+    return Response.json(
       {
-        typ: "couple",
-        coupleId: decoded.coupleId,
-        coupleSlug: decoded.coupleSlug,
-        activePartner: decoded.activePartner,
+        success: false,
+        message: "L'identité ne peut pas être changée depuis une session. Connectez-vous avec votre propre adresse email.",
       },
-      60 * 60 * 24 * 30
+      { status: 403 }
     );
-    cookieStore.set("wm_session", newPayload, {
-      path: "/",
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24 * 30,
-    });
-
-    return Response.json({ success: true, activePartner: decoded.activePartner });
   }
 
   // ============================================================

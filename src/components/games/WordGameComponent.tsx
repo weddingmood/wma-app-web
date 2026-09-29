@@ -37,6 +37,8 @@ interface Props {
   p1Name?: string;
   p2Name?: string;
   coupleId?: number;
+  /** Identité fixée par la session signée, jamais choisie par le jeu. */
+  activePartner?: "partner1" | "partner2";
   onMatchFinish?: (winner: string, score1: number, score2: number, mode: string) => void;
 }
 
@@ -44,6 +46,7 @@ export function WordGameComponent({
   p1Name = "Époux",
   p2Name = "Épouse",
   coupleId,
+  activePartner = "partner1",
   onMatchFinish,
 }: Props) {
   const [gameMode, setGameMode] = useState<"couple" | "ai" | "daily" | "training">("couple");
@@ -63,8 +66,24 @@ export function WordGameComponent({
   const [trainingWordInput, setTrainingWordInput] = useState("");
   const [trainingScore, setTrainingScore] = useState(0);
 
-  // Persistence
+  // Le mode Couple lit et écrit uniquement l'état Défi des Mots validé par le serveur.
+  const syncOnlineState = async () => {
+    try {
+      const response = await fetch("/api/games/online/mots", { cache: "no-store" });
+      const data = await response.json();
+      if (response.ok && data.success && data.game) setGameState(data.game);
+    } catch {
+      // La prochaine synchronisation réessaiera.
+    }
+  };
+
   useEffect(() => {
+    if (gameMode === "couple") {
+      syncOnlineState();
+      const timer = setInterval(syncOnlineState, 2000);
+      return () => clearInterval(timer);
+    }
+
     try {
       const saved = localStorage.getItem(`wm_word_${coupleId || "local"}`);
       if (saved) {
@@ -74,7 +93,7 @@ export function WordGameComponent({
     } catch {
       // ignore
     }
-  }, [coupleId]);
+  }, [coupleId, gameMode]);
 
   const saveLocalState = (st: WordGameState) => {
     try {
@@ -85,16 +104,20 @@ export function WordGameComponent({
   };
 
   const isP1 = gameState.turn === "partner1";
+  const canActAsCurrentPlayer =
+    gameMode !== "couple" || gameState.turn === activePartner;
   const activeRack = isP1 ? gameState.rack1 : gameState.rack2;
 
   // Handle rack tile click
   const handleRackTileClick = (index: number) => {
+    if (!canActAsCurrentPlayer) return;
     setSelectedRackIndex(selectedRackIndex === index ? null : index);
     setValidationError(null);
   };
 
   // Handle board square click
   const handleSquareClick = (r: number, c: number) => {
+    if (!canActAsCurrentPlayer) return;
     const cell = gameState.board[r][c];
 
     // 1. If clicking a newly placed tile, retrieve it back to rack!
@@ -128,10 +151,42 @@ export function WordGameComponent({
   };
 
   // Submit and validate word
-  const handleValidateTurn = () => {
+  const handleValidateTurn = async () => {
+    if (!canActAsCurrentPlayer) return;
     if (currentTurnPlaced.length === 0) {
       setValidationError("Posez au moins une lettre sur la grille.");
       playInvalidSound();
+      return;
+    }
+
+    if (gameMode === "couple") {
+      try {
+        const response = await fetch("/api/games/online/mots", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "move",
+            tiles: currentTurnPlaced.map((tile) => ({
+              tileId: tile.tileId,
+              row: tile.row,
+              col: tile.col,
+            })),
+          }),
+        });
+        const data = await response.json();
+        if (response.ok && data.success && data.game) {
+          setGameState(data.game);
+          setCurrentTurnPlaced([]);
+          setSelectedRackIndex(null);
+          setValidationError(null);
+        } else {
+          setValidationError(data.message || "Placement refusé par le serveur.");
+          playInvalidSound();
+        }
+      } catch {
+        setValidationError("Connexion serveur indisponible.");
+        playInvalidSound();
+      }
       return;
     }
 
@@ -197,6 +252,7 @@ export function WordGameComponent({
 
   // Recall all placed tiles back to rack
   const handleRecallTiles = () => {
+    if (!canActAsCurrentPlayer) return;
     setCurrentTurnPlaced([]);
     setSelectedRackIndex(null);
     setValidationError(null);
@@ -268,6 +324,14 @@ export function WordGameComponent({
     setCurrentTurnPlaced([]);
     setSelectedRackIndex(null);
     setValidationError(null);
+    if (newMode === "couple") {
+      void fetch("/api/games/online/mots", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "reset" }),
+      }).then(() => syncOnlineState());
+      return;
+    }
     const fresh = createInitialWordGameState(newMode);
     setGameState(fresh);
     saveLocalState(fresh);
@@ -523,7 +587,7 @@ export function WordGameComponent({
           <div className="flex items-center justify-between gap-2 pt-2 border-t border-stone-200">
             <button
               onClick={handleRecallTiles}
-              disabled={currentTurnPlaced.length === 0}
+              disabled={!canActAsCurrentPlayer || currentTurnPlaced.length === 0}
               className="px-3.5 py-1.5 rounded-xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 text-xs font-semibold disabled:opacity-40 cursor-pointer"
             >
               Rappeler les lettres
@@ -531,7 +595,7 @@ export function WordGameComponent({
 
             <button
               onClick={handleValidateTurn}
-              disabled={currentTurnPlaced.length === 0}
+              disabled={!canActAsCurrentPlayer || currentTurnPlaced.length === 0}
               className="px-5 py-2 rounded-xl bg-[#C05638] hover:bg-[#A84429] text-white text-xs font-bold shadow-md transition-all flex items-center gap-1.5 disabled:opacity-40 cursor-pointer"
             >
               <Check className="w-4 h-4" />

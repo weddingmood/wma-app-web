@@ -34,6 +34,8 @@ interface Props {
   p1Name?: string;
   p2Name?: string;
   coupleId?: number;
+  /** Identité fixée par la session signée, jamais choisie par le jeu. */
+  activePartner?: "partner1" | "partner2";
   onMatchFinish?: (winner: string, score1: number, score2: number, mode: string) => void;
 }
 
@@ -41,6 +43,7 @@ export function CheckersGameComponent({
   p1Name = "Époux",
   p2Name = "Épouse",
   coupleId,
+  activePartner = "partner1",
   onMatchFinish,
 }: Props) {
   const [gameMode, setGameMode] = useState<"couple" | "ai" | "local2p">("couple");
@@ -53,8 +56,24 @@ export function CheckersGameComponent({
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [isAiThinking, setIsAiThinking] = useState(false);
 
-  // Persistence
+  // Le mode Couple lit et écrit uniquement l'état Dames validé par le serveur.
+  const syncOnlineState = async () => {
+    try {
+      const response = await fetch("/api/games/online/dames", { cache: "no-store" });
+      const data = await response.json();
+      if (response.ok && data.success && data.game) setGameState(data.game);
+    } catch {
+      // La prochaine synchronisation réessaiera.
+    }
+  };
+
   useEffect(() => {
+    if (gameMode === "couple") {
+      syncOnlineState();
+      const timer = setInterval(syncOnlineState, 2000);
+      return () => clearInterval(timer);
+    }
+
     try {
       const saved = localStorage.getItem(`wm_checkers_${coupleId || "local"}`);
       if (saved) {
@@ -64,7 +83,31 @@ export function CheckersGameComponent({
     } catch {
       // ignore
     }
-  }, [coupleId]);
+  }, [coupleId, gameMode]);
+
+  const sendOnlineMove = async (move: CheckersMove) => {
+    try {
+      const response = await fetch("/api/games/online/dames", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "move",
+          fromRow: move.fromRow,
+          fromCol: move.fromCol,
+          toRow: move.toRow,
+          toCol: move.toCol,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok && data.success && data.game) {
+        setGameState(data.game);
+      } else {
+        setGameState((previous) => ({ ...previous, lastMessage: data.message || "Coup refusé par le serveur." }));
+      }
+    } catch {
+      setGameState((previous) => ({ ...previous, lastMessage: "Connexion serveur indisponible." }));
+    }
+  };
 
   const saveLocalState = (st: CheckersGameState) => {
     try {
@@ -75,9 +118,12 @@ export function CheckersGameComponent({
   };
 
   const allLegalMoves = getAllLegalMoves(gameState.board, gameState.turn);
+  const canActAsCurrentPlayer =
+    gameMode !== "couple" || gameState.turn === activePartner;
 
   // Click on piece
   const handlePieceClick = (piece: CheckersPiece) => {
+    if (!canActAsCurrentPlayer) return;
     if (gameState.status === "finished") return;
     if (gameState.gameMode === "ai" && gameState.turn === "partner2") return;
     if (piece.player !== gameState.turn) return;
@@ -93,6 +139,7 @@ export function CheckersGameComponent({
 
   // Click on square
   const handleSquareClick = (r: number, c: number) => {
+    if (!canActAsCurrentPlayer) return;
     if (!selectedPiece) return;
 
     const move = legalMovesForSelected.find((m) => m.toRow === r && m.toCol === c);
@@ -105,6 +152,13 @@ export function CheckersGameComponent({
         setSelectedPiece(null);
         setLegalMovesForSelected([]);
       }
+      return;
+    }
+
+    if (gameMode === "couple") {
+      void sendOnlineMove(move);
+      setSelectedPiece(null);
+      setLegalMovesForSelected([]);
       return;
     }
 
@@ -177,6 +231,14 @@ export function CheckersGameComponent({
     setAiLevel(newLevel);
     setSelectedPiece(null);
     setLegalMovesForSelected([]);
+    if (newMode === "couple") {
+      void fetch("/api/games/online/dames", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "reset" }),
+      }).then(() => syncOnlineState());
+      return;
+    }
     const fresh = createInitialCheckersState(newMode, newLevel);
     setGameState(fresh);
     saveLocalState(fresh);

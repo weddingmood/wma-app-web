@@ -41,6 +41,8 @@ interface Props {
   p1Name?: string;
   p2Name?: string;
   coupleId?: number;
+  /** Identité fixée par la session signée, jamais choisie par le jeu. */
+  activePartner?: "partner1" | "partner2";
   onMatchFinish?: (winner: string, score1: number, score2: number, mode: string) => void;
 }
 
@@ -48,6 +50,7 @@ export function AwaleGameComponent({
   p1Name = "Époux",
   p2Name = "Épouse",
   coupleId,
+  activePartner = "partner1",
   onMatchFinish,
 }: Props) {
   const [gameMode, setGameMode] = useState<"couple" | "ai" | "local2p">("couple");
@@ -65,8 +68,25 @@ export function AwaleGameComponent({
   // Hover trajectory simulation (PlayAwale feature)
   const [hoveredPit, setHoveredPit] = useState<number | null>(null);
 
-  // Local persistence
+  // Le mode Couple est synchronisé par l'état serveur. Le localStorage reste
+  // réservé aux parties IA explicitement locales.
+  const syncOnlineState = async () => {
+    try {
+      const response = await fetch("/api/games/online/awale", { cache: "no-store" });
+      const data = await response.json();
+      if (response.ok && data.success && data.game) setGameState(data.game);
+    } catch {
+      // La prochaine synchronisation réessaiera.
+    }
+  };
+
   useEffect(() => {
+    if (gameMode === "couple") {
+      syncOnlineState();
+      const timer = setInterval(syncOnlineState, 2000);
+      return () => clearInterval(timer);
+    }
+
     try {
       const saved = localStorage.getItem(`wm_awale_playawale_${coupleId || "local"}`);
       if (saved) {
@@ -76,7 +96,26 @@ export function AwaleGameComponent({
     } catch {
       // ignore
     }
-  }, [coupleId]);
+  }, [coupleId, gameMode]);
+
+  const sendOnlineMove = async (pitIndex: number) => {
+    try {
+      const response = await fetch("/api/games/online/awale", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "move", pitIndex }),
+      });
+      const data = await response.json();
+      if (response.ok && data.success && data.game) {
+        setGameState(data.game);
+        setReplayMoveIndex(-1);
+      } else {
+        setGameState((previous) => ({ ...previous, lastMessage: data.message || "Coup refusé par le serveur." }));
+      }
+    } catch {
+      setGameState((previous) => ({ ...previous, lastMessage: "Connexion serveur indisponible." }));
+    }
+  };
 
   const saveLocalState = (st: AwaleGameState) => {
     try {
@@ -87,6 +126,8 @@ export function AwaleGameComponent({
   };
 
   const isP1Turn = gameState.turn === "partner1";
+  const canActAsCurrentPlayer =
+    gameMode !== "couple" || gameState.turn === activePartner;
   const legalMoves = getLegalMoves(gameState.pits, gameState.turn);
   const hint: AwaleHint | null = pedagogicalMode ? getAwalePedagogicalHint(gameState) : null;
 
@@ -121,9 +162,14 @@ export function AwaleGameComponent({
 
   // Handle Pit Click (Sowing seeds)
   const handlePitClick = (pitIndex: number) => {
+    if (!canActAsCurrentPlayer) return;
     if (gameState.status === "finished" || replayMoveIndex !== -1) return;
     if (gameState.gameMode === "ai" && gameState.turn === "partner2") return;
     if (!legalMoves.includes(pitIndex)) return;
+    if (gameMode === "couple") {
+      void sendOnlineMove(pitIndex);
+      return;
+    }
 
     const res = executeAwaleMove(gameState, pitIndex);
     if (!res) return;
@@ -188,10 +234,18 @@ export function AwaleGameComponent({
     setGameMode(newMode);
     setAiLevel(newLevel);
     setReplayMoveIndex(-1);
+    setHoveredPit(null);
+    if (newMode === "couple") {
+      void fetch("/api/games/online/awale", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "reset" }),
+      }).then(() => syncOnlineState());
+      return;
+    }
     const fresh = createInitialAwaleState(newMode, newLevel, pedagogicalMode);
     setGameState(fresh);
     saveLocalState(fresh);
-    setHoveredPit(null);
   };
 
   // Stepping through replay
@@ -470,7 +524,7 @@ export function AwaleGameComponent({
             <div className="grid grid-cols-6 gap-2 sm:gap-3.5">
               {[11, 10, 9, 8, 7, 6].map((pitIdx, colIdx) => {
                 const seedCount = displayedPits[pitIdx];
-                const isPlayable = isP1Turn ? false : legalMoves.includes(pitIdx);
+                const isPlayable = canActAsCurrentPlayer && !isP1Turn && legalMoves.includes(pitIdx);
                 const isHinted = hint?.recommendedPit === pitIdx;
                 const isReceiving = previewTrajectory?.pitsReceiving.includes(pitIdx);
                 const isFinalLanding = previewTrajectory?.finalPit === pitIdx;
@@ -517,7 +571,7 @@ export function AwaleGameComponent({
             <div className="grid grid-cols-6 gap-2 sm:gap-3.5 pt-2">
               {[0, 1, 2, 3, 4, 5].map((pitIdx) => {
                 const seedCount = displayedPits[pitIdx];
-                const isPlayable = isP1Turn ? legalMoves.includes(pitIdx) : false;
+                const isPlayable = canActAsCurrentPlayer && isP1Turn && legalMoves.includes(pitIdx);
                 const isHinted = hint?.recommendedPit === pitIdx;
                 const isReceiving = previewTrajectory?.pitsReceiving.includes(pitIdx);
                 const isFinalLanding = previewTrajectory?.finalPit === pitIdx;

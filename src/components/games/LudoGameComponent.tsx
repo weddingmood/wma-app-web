@@ -40,6 +40,8 @@ interface Props {
   p1Name?: string;
   p2Name?: string;
   coupleId?: number;
+  /** Identité fixée par la session signée, jamais choisie par le jeu. */
+  activePartner?: "partner1" | "partner2";
   onMatchFinish?: (winner: string, score1: number, score2: number, mode: string) => void;
 }
 
@@ -47,6 +49,7 @@ export function LudoGameComponent({
   p1Name = "Époux",
   p2Name = "Épouse",
   coupleId,
+  activePartner = "partner1",
   onMatchFinish,
 }: Props) {
   const [gameMode, setGameMode] = useState<"couple" | "ai" | "4p">("couple");
@@ -57,8 +60,25 @@ export function LudoGameComponent({
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [quickReaction, setQuickReaction] = useState<string | null>(null);
 
-  // Sync state with local storage
+  // Le mode Couple utilise la route Ludo transactionnelle ; le localStorage
+  // reste réservé aux modes IA et 4 joueurs explicitement locaux.
+  const syncOnlineState = async () => {
+    try {
+      const response = await fetch("/api/games/ludo", { cache: "no-store" });
+      const data = await response.json();
+      if (response.ok && data.success && data.game) setGameState(data.game);
+    } catch {
+      // La prochaine synchronisation réessaiera.
+    }
+  };
+
   useEffect(() => {
+    if (gameMode === "couple") {
+      syncOnlineState();
+      const timer = setInterval(syncOnlineState, 2000);
+      return () => clearInterval(timer);
+    }
+
     try {
       const saved = localStorage.getItem(`wm_ludo_king_${coupleId || "local"}`);
       if (saved) {
@@ -68,7 +88,32 @@ export function LudoGameComponent({
     } catch {
       // ignore
     }
-  }, [coupleId]);
+  }, [coupleId, gameMode]);
+
+  const sendOnlineAction = async (payload: Record<string, unknown>) => {
+    try {
+      const response = await fetch("/api/games/ludo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+      if (response.ok && data.success && data.game) {
+        setGameState(data.game);
+        if (
+          payload.action === "roll" &&
+          data.game.movableTokenIds?.length === 1 &&
+          data.game.status === "ongoing"
+        ) {
+          await sendOnlineAction({ action: "move", tokenId: data.game.movableTokenIds[0] });
+        }
+      } else if (data.message) {
+        setGameState((previous) => ({ ...previous, lastMessage: data.message }));
+      }
+    } catch {
+      setGameState((previous) => ({ ...previous, lastMessage: "Connexion serveur indisponible." }));
+    }
+  };
 
   const saveLocalState = (st: LudoGameState) => {
     try {
@@ -79,10 +124,17 @@ export function LudoGameComponent({
   };
 
   const activePlayer = gameState.players[gameState.activePlayerIndex];
+  const canActAsCurrentPlayer =
+    gameMode !== "couple" || activePlayer?.id === activePartner;
 
   // Roll dice action following official Ludo King rules
   const handleRollDice = () => {
+    if (!canActAsCurrentPlayer) return;
     if (!gameState.canRoll || isRolling || gameState.status === "finished") return;
+    if (gameMode === "couple") {
+      void sendOnlineAction({ action: "roll" });
+      return;
+    }
 
     setIsRolling(true);
     playDiceRollSound();
@@ -173,6 +225,16 @@ export function LudoGameComponent({
   ) => {
     const dice = forcedDice || stateToUse.diceValue;
     if (!dice) return;
+    if (
+      gameMode === "couple" &&
+      stateToUse.players[stateToUse.activePlayerIndex]?.id !== activePartner
+    ) {
+      return;
+    }
+    if (gameMode === "couple") {
+      void sendOnlineAction({ action: "move", tokenId });
+      return;
+    }
 
     const result = executeLudoTokenMove(stateToUse, tokenId);
 
@@ -219,6 +281,14 @@ export function LudoGameComponent({
   // Restart / Reset Game
   const handleReset = (newMode: "couple" | "ai" | "4p" = gameMode) => {
     setGameMode(newMode);
+    if (newMode === "couple") {
+      void fetch("/api/games/ludo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "new", force: true }),
+      }).then(() => syncOnlineState());
+      return;
+    }
     const fresh = createInitialLudoGame(newMode, p1Name, p2Name);
     setGameState(fresh);
     saveLocalState(fresh);
@@ -583,11 +653,11 @@ export function LudoGameComponent({
             <div className="flex justify-center">
               <button
                 onClick={handleRollDice}
-                disabled={!gameState.canRoll || isRolling || gameState.status === "finished" || activePlayer.isAi}
+                disabled={!canActAsCurrentPlayer || !gameState.canRoll || isRolling || gameState.status === "finished" || activePlayer.isAi}
                 className={`w-24 h-24 rounded-3xl border-2 border-stone-300 shadow-xl flex items-center justify-center transition-all cursor-pointer ${
                   isRolling
                     ? "animate-spin bg-amber-50"
-                    : gameState.canRoll && !activePlayer.isAi
+                    : canActAsCurrentPlayer && gameState.canRoll && !activePlayer.isAi
                     ? "bg-gradient-to-br from-white to-[#FAF6EE] hover:scale-105 ring-4 ring-amber-300/80"
                     : "bg-white/80 opacity-90"
                 }`}
@@ -599,7 +669,7 @@ export function LudoGameComponent({
 
             <button
               onClick={handleRollDice}
-              disabled={!gameState.canRoll || isRolling || gameState.status === "finished" || activePlayer.isAi}
+              disabled={!canActAsCurrentPlayer || !gameState.canRoll || isRolling || gameState.status === "finished" || activePlayer.isAi}
               className="w-full py-3.5 rounded-2xl text-white font-bold text-xs shadow-md transition-all cursor-pointer disabled:opacity-50"
               style={{ backgroundColor: getColorHex(activePlayer.color) }}
             >

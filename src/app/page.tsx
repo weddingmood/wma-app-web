@@ -33,7 +33,6 @@ export default function LandingPage() {
   const router = useRouter();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
-  const [selectedPartner, setSelectedPartner] = useState<"partner1" | "partner2">("partner1");
 
   // Login Form : email personnel + code d'accès unique
   const [loginIdentifier, setLoginIdentifier] = useState("Époux@weddingmood.ci");
@@ -76,7 +75,6 @@ export default function LandingPage() {
           identifier: loginIdentifier,
           accessCode: loginAccessCode,
           password: loginPassword,
-          selectedPartner,
         }),
       });
       const data = await res.json();
