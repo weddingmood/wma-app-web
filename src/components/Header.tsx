@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTheme } from "./ThemeContext";
 import { Logo } from "./Logo";
@@ -46,6 +46,9 @@ export function Header({ onToggleSidebar }: HeaderProps) {
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const [photoInput, setPhotoInput] = useState(partnerPhoto);
 
+  useEffect(() => {
+    setPhotoInput(partnerPhoto);
+  }, [partnerPhoto, activePartner]);
   const fetchNotifs = async () => {
     setShowNotifMenu(!showNotifMenu);
     if (!showNotifMenu) {
@@ -79,13 +82,14 @@ export function Header({ onToggleSidebar }: HeaderProps) {
   const handleSavePhoto = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!photoInput) return;
-    if (activePartner === "partner1") {
-      await updateCoupleProfile({ partner1Photo: photoInput });
-    } else {
-      await updateCoupleProfile({ partner2Photo: photoInput });
-    }
-    setIsPhotoModalOpen(false);
-  };
+    const saved =
+      activePartner === "partner1"
+        ? await updateCoupleProfile({ partner1Photo: photoInput })
+        : await updateCoupleProfile({ partner2Photo: photoInput });
+
+    if (saved) {
+      setIsPhotoModalOpen(false);
+    }  };
 
   const getSyncBadge = () => {
     switch (syncState) {

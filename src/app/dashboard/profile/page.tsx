@@ -6,7 +6,7 @@ import { fileToCompressedDataUrl } from "@/lib/image-upload";
 import { Camera, Save, CheckCircle2 } from "lucide-react";
 
 export default function ProfilePage() {
-  const { couple, updateCoupleProfile } = useTheme();
+  const { couple, activePartner, updateCoupleProfile } = useTheme();
   const [accessCode, setAccessCode] = useState<string | null>(null);
   const photo1Ref = useRef<HTMLInputElement>(null);
   const photo2Ref = useRef<HTMLInputElement>(null);
@@ -35,6 +35,20 @@ export default function ProfilePage() {
     partner2Photo: couple?.partner2Photo || "",
   });
 
+  useEffect(() => {
+    if (!couple) return;
+
+    setForm({
+      partner1Name: couple.partner1Name || "",
+      partner2Name: couple.partner2Name || "",
+      weddingDate: couple.weddingDate ? couple.weddingDate.slice(0, 10) : "",
+      city: couple.city || "",
+      venue: couple.venue || "",
+      bibleVerse: couple.bibleVerse || "",
+      partner1Photo: couple.partner1Photo || "",
+      partner2Photo: couple.partner2Photo || "",
+    });
+  }, [couple]);
   const set = (field: keyof typeof form) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
@@ -59,9 +73,33 @@ export default function ProfilePage() {
     setSaving(true);
     setMessage(null);
     try {
-      await updateCoupleProfile(form);
-      setMessage({ type: "success", text: "Profil mis à jour avec succès !" });
-    } catch {
+      const profilePayload = {
+        weddingDate: form.weddingDate,
+        city: form.city,
+        venue: form.venue,
+        bibleVerse: form.bibleVerse,
+        ...(activePartner === "partner1"
+          ? {
+              partner1Name: form.partner1Name,
+              partner1Photo: form.partner1Photo,
+            }
+          : {
+              partner2Name: form.partner2Name,
+              partner2Photo: form.partner2Photo,
+            }),
+      };
+
+      const saved = await updateCoupleProfile(profilePayload);
+
+      if (!saved) {
+        setMessage({
+          type: "error",
+          text: "Le serveur n'a pas confirmé l'enregistrement.",
+        });
+        return;
+      }
+
+      setMessage({ type: "success", text: "Profil mis à jour avec succès !" });    } catch {
       setMessage({ type: "error", text: "Connexion perdue. Réessayez." });
     } finally {
       setSaving(false);
@@ -117,7 +155,10 @@ export default function ProfilePage() {
                   type="file"
                   ref={p.ref}
                   accept="image/*"
-                  onChange={handlePhoto(p.photoField)}
+disabled={
+                    p.nameField !==
+                    (activePartner === "partner1" ? "partner1Name" : "partner2Name")
+                  }                  onChange={handlePhoto(p.photoField)}
                   className="hidden"
                 />
                 <button

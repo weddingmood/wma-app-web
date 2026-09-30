@@ -13,6 +13,26 @@ export async function PATCH(req: Request) {
   if (blocageEcriture) return blocageEcriture;
 
   const body = await req.json();
+
+  const protectedFields =
+    session.activePartner === "partner1"
+      ? ["partner2Name", "partner2Photo"]
+      : ["partner1Name", "partner1Photo"];
+
+  const triesToEditOtherPartner = protectedFields.some((field) =>
+    Object.prototype.hasOwnProperty.call(body, field)
+  );
+
+  if (triesToEditOtherPartner) {
+    return Response.json(
+      {
+        success: false,
+        message: "Each partner can only edit their own profile",
+      },
+      { status: 403 }
+    );
+  }
+
   const {
     partner1Name,
     partner2Name,

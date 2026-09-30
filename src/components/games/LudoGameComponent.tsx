@@ -59,14 +59,30 @@ export function LudoGameComponent({
   const [isRolling, setIsRolling] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
   const [quickReaction, setQuickReaction] = useState<string | null>(null);
+  const [serverPartner, setServerPartner] = useState<"partner1" | "partner2">(activePartner);
 
   // Le mode Couple utilise la route Ludo transactionnelle ; le localStorage
   // reste réservé aux modes IA et 4 joueurs explicitement locaux.
   const syncOnlineState = async () => {
     try {
       const response = await fetch("/api/games/ludo", { cache: "no-store" });
-      const data = await response.json();
-      if (response.ok && data.success && data.game) setGameState(data.game);
+      const data = await response.json().catch(() => null);
+
+      if (
+        data?.you === "partner1" ||
+        data?.you === "partner2"
+      ) {
+        setServerPartner(data.you);
+      }
+
+      if (response.ok && data?.success && data?.game) {
+        setGameState(data.game);
+      } else if (!response.ok) {
+        setGameState((previous) => ({
+          ...previous,
+          lastMessage: data?.message || `Erreur serveur (${response.status}).`,
+        }));
+      }
     } catch {
       // La prochaine synchronisation réessaiera.
     }
@@ -97,18 +113,33 @@ export function LudoGameComponent({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = await response.json();
-      if (response.ok && data.success && data.game) {
+      const data = await response.json().catch(() => null);
+
+      if (
+        data?.you === "partner1" ||
+        data?.you === "partner2"
+      ) {
+        setServerPartner(data.you);
+      }
+
+      if (response.ok && data?.success && data?.game) {
         setGameState(data.game);
+
         if (
           payload.action === "roll" &&
           data.game.movableTokenIds?.length === 1 &&
           data.game.status === "ongoing"
         ) {
-          await sendOnlineAction({ action: "move", tokenId: data.game.movableTokenIds[0] });
+          await sendOnlineAction({
+            action: "move",
+            tokenId: data.game.movableTokenIds[0],
+          });
         }
-      } else if (data.message) {
-        setGameState((previous) => ({ ...previous, lastMessage: data.message }));
+      } else {
+        setGameState((previous) => ({
+          ...previous,
+          lastMessage: data?.message || `Erreur serveur (${response.status}).`,
+        }));
       }
     } catch {
       setGameState((previous) => ({ ...previous, lastMessage: "Connexion serveur indisponible." }));
@@ -125,11 +156,17 @@ export function LudoGameComponent({
 
   const activePlayer = gameState.players[gameState.activePlayerIndex];
   const canActAsCurrentPlayer =
-    gameMode !== "couple" || activePlayer?.id === activePartner;
+    gameMode !== "couple" || activePlayer?.id === serverPartner;
 
   // Roll dice action following official Ludo King rules
   const handleRollDice = () => {
-    if (!canActAsCurrentPlayer) return;
+    if (gameMode !== "couple" && !canActAsCurrentPlayer) {
+      setGameState((previous) => ({
+        ...previous,
+        lastMessage: "Ce n'est pas votre tour.",
+      }));
+      return;
+    }
     if (!gameState.canRoll || isRolling || gameState.status === "finished") return;
     if (gameMode === "couple") {
       void sendOnlineAction({ action: "roll" });
@@ -653,7 +690,7 @@ export function LudoGameComponent({
             <div className="flex justify-center">
               <button
                 onClick={handleRollDice}
-                disabled={!canActAsCurrentPlayer || !gameState.canRoll || isRolling || gameState.status === "finished" || activePlayer.isAi}
+                disabled={!gameState.canRoll || isRolling || gameState.status === "finished" || activePlayer.isAi}
                 className={`w-24 h-24 rounded-3xl border-2 border-stone-300 shadow-xl flex items-center justify-center transition-all cursor-pointer ${
                   isRolling
                     ? "animate-spin bg-amber-50"
@@ -669,7 +706,7 @@ export function LudoGameComponent({
 
             <button
               onClick={handleRollDice}
-              disabled={!canActAsCurrentPlayer || !gameState.canRoll || isRolling || gameState.status === "finished" || activePlayer.isAi}
+              disabled={!gameState.canRoll || isRolling || gameState.status === "finished" || activePlayer.isAi}
               className="w-full py-3.5 rounded-2xl text-white font-bold text-xs shadow-md transition-all cursor-pointer disabled:opacity-50"
               style={{ backgroundColor: getColorHex(activePlayer.color) }}
             >

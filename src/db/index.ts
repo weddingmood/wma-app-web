@@ -4,10 +4,30 @@ import { drizzle } from "drizzle-orm/postgres-js";
 
 // Supabase recommande le Transaction Pooler pour les fonctions serverless Vercel.
 // DATABASE_URL reste la variable standard, avec SUPABASE_DATABASE_URL comme alias explicite.
-const databaseUrl = process.env.SUPABASE_DATABASE_URL || process.env.DATABASE_URL;
+const databaseCandidates: string[] = [];
+
+for (const value of [
+  process.env.SUPABASE_DATABASE_URL,
+  process.env.DATABASE_URL,
+]) {
+  const trimmed = value?.trim();
+  if (!trimmed) continue;
+
+  try {
+    const protocol = new URL(trimmed).protocol;
+
+    if (protocol === "postgres:" || protocol === "postgresql:") {
+      databaseCandidates.push(trimmed);
+    }
+  } catch {
+    // Ignorer une variable mal formée et essayer l'autre.
+  }
+}
+
+const databaseUrl = databaseCandidates[0];
 
 if (!databaseUrl) {
-  throw new Error("DATABASE_URL or SUPABASE_DATABASE_URL is required");
+  throw new Error("A valid PostgreSQL URL is required");
 }
 
 const isSupabaseUrl = databaseUrl.includes("supabase") || databaseUrl.includes("pooler.supabase.com");

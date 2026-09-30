@@ -55,8 +55,8 @@ interface ThemeContextType {
   unreadNotifications: number;
   isCallOpen: boolean;
   callType: "audio" | "video";
-  updatePreferences: (newPrefs: Partial<CouplePreferences>) => Promise<void>;
-  updateCoupleProfile: (profileUpdates: Partial<CoupleProfile>) => Promise<void>;
+  updatePreferences: (newPrefs: Partial<CouplePreferences>) => Promise<boolean>;
+  updateCoupleProfile: (profileUpdates: Partial<CoupleProfile>) => Promise<boolean>;
   refreshCoupleData: () => Promise<void>;
   startCall: (type: "audio" | "video") => void;
   closeCall: () => void;
@@ -85,38 +85,62 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const activeTheme = COLOR_THEMES.find((t) => t.id === preferences.themeId) || COLOR_THEMES[0];
 
   const refreshCoupleData = useCallback(async () => {
+    let authData;
     try {
-      const res = await fetch("/api/auth");
-      if (res.ok) {
-        const data = await res.json();
-        if (data.success && data.couple) {
-          setCouple({ ...data.couple, coverPhoto: data.preferences?.coverPhotoUrl ?? null });
-          if (data.preferences) {
-            setPreferences({
-              themeId: data.preferences.themeId || 1,
-              fontFamily: data.preferences.fontFamily || "cormorant",
-              displayMode: data.preferences.displayMode || "standard",
-              density: data.preferences.density || "normal",
-              fontSize: data.preferences.fontSize || "md",
-              coverPhotoUrl: data.preferences.coverPhotoUrl,
-            });
-          }
-          if (data.activePartner) {
-            setActivePartner(data.activePartner);
-          }
-        }
+      const res = await fetch("/api/auth", { cache: "no-store" });
+
+      if (!res.ok) {
+        if (res.status === 401) setCouple(null);
+        setSyncState(res.status === 401 ? "Hors connexion" : "Modifications en attente");
+        return;
       }
 
-      // Check notifications
-      const notifRes = await fetch("/api/notifications");
+      authData = await res.json();
+
+      if (!authData.success || !authData.couple) {
+        setCouple(null);
+        setSyncState("Hors connexion");
+        return;
+      }
+
+      setCouple({
+        ...authData.couple,
+        coverPhoto: authData.preferences?.coverPhotoUrl ?? null,
+      });
+
+      if (authData.preferences) {
+        setPreferences({
+          themeId: authData.preferences.themeId || 1,
+          fontFamily: authData.preferences.fontFamily || "cormorant",
+          displayMode: authData.preferences.displayMode || "standard",
+          density: authData.preferences.density || "normal",
+          fontSize: authData.preferences.fontSize || "md",
+          coverPhotoUrl: authData.preferences.coverPhotoUrl,
+        });
+      }
+
+      if (authData.activePartner) {
+        setActivePartner(authData.activePartner);
+      }
+
+      setSyncState("Synchronisé");
+    } catch {
+      setSyncState("Hors connexion");
+      return;
+    }
+
+    try {
+      const notifRes = await fetch("/api/notifications", { cache: "no-store" });
+
       if (notifRes.ok) {
         const notifData = await notifRes.json();
+
         if (notifData.success) {
           setUnreadNotifications(notifData.unreadCount || 0);
         }
       }
     } catch {
-      setSyncState("Hors connexion");
+      // Les notifications ne doivent pas bloquer les donn?es du couple.
     }
   }, []);
 
@@ -144,50 +168,78 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [refreshCoupleData]);
 
   const updatePreferences = async (newPrefs: Partial<CouplePreferences>) => {
-    const merged = { ...preferences, ...newPrefs };
-    setPreferences(merged);
+    const previous = preferences;
+    setPreferences({ ...preferences, ...newPrefs });
+
     try {
       setSyncState("Synchronisation en cours");
+
       const res = await fetch("/api/preferences", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newPrefs),
       });
+
       if (res.ok) {
         setSyncState("Synchronisé");
-      } else {
-        setSyncState("Modifications en attente");
+        return true;
       }
-    } catch {
+
+      setPreferences(previous);
       setSyncState("Modifications en attente");
+      return false;
+    } catch {
+      setPreferences(previous);
+      setSyncState("Modifications en attente");
+      return false;
     }
   };
+  const updateCoupleProfile = async (profileUpdates: Partial<CoupleProfile>) => {
+    const { coverPhoto, ...profileRest } = profileUpdates;
 
-  const updateCoupleProfile = async (profileUpdates: Partial<CoupleProfile>) => { const { coverPhoto, ...profileRest } = profileUpdates; if (coverPhoto !== undefined) { await updatePreferences({ coverPhotoUrl: coverPhoto }); if (couple) { setCouple({ ...couple, coverPhoto }); } if (Object.keys(profileRest).length === 0) { return; } }
-    if (couple) {
-      setCouple({ ...couple, ...profileUpdates });
+    if (coverPhoto !== undefined) {
+      const saved = await updatePreferences({ coverPhotoUrl: coverPhoto });
+
+      if (!saved) return false;
+
+      setCouple((prev) => (prev ? { ...prev, coverPhoto } : prev));
     }
+
+    if (Object.keys(profileRest).length === 0) return true;
+
     try {
       setSyncState("Synchronisation en cours");
+
       const res = await fetch("/api/couples", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(profileRest),
       });
-      if (res.ok) {
-        const data = await res.json();
-        if (data.couple) {
-          setCouple((prev) => ({ ...data.couple, coverPhoto: prev?.coverPhoto ?? null }));
-        }
-        setSyncState("Synchronisé");
-      } else {
+
+      if (!res.ok) {
         setSyncState("Modifications en attente");
+        return false;
       }
+
+      const data = await res.json();
+
+      if (!data?.success || !data.couple) {
+        setSyncState("Modifications en attente");
+        return false;
+      }
+
+      setCouple((prev) => ({
+        ...data.couple,
+        coverPhoto: prev?.coverPhoto ?? null,
+      }));
+
+      setSyncState("Synchronisé");
+      return true;
     } catch {
       setSyncState("Modifications en attente");
+      return false;
     }
   };
-
   const triggerSync = async () => {
     setSyncState("Synchronisation en cours");
     try {
