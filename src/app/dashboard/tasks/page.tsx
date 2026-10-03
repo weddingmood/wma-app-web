@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/components/ThemeContext";
@@ -306,7 +307,8 @@ export default function TasksPage() {
                     <span>{t.dueDate || "Sans échéance"}</span>
                   </div>
 
-                  <button
+                  <Link href={`/dashboard/tasks/${t.id}`} className="text-xs font-semibold underline text-[#C05638]">Voir / modifier</Link>
+                <button
                     onClick={() => handleDeleteTask(t.id)}
                     className="p-1 text-stone-400 hover:text-red-600 transition-colors"
                     title="Supprimer la tâche"

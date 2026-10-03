@@ -79,6 +79,27 @@ export async function POST(req: Request) {
   return Response.json({ success: true, task: newTask });
 }
 
+const EDITABLE_TASK_FIELDS = [
+  "title",
+  "description",
+  "category",
+  "assignee",
+  "dueDate",
+  "priority",
+  "status",
+  "budgetEstimated",
+  "budgetActual",
+  "comments",
+] as const;
+
+function pickTaskUpdates(input: Record<string, unknown>): Partial<typeof tasks.$inferInsert> {
+  const out: Record<string, unknown> = {};
+  for (const key of EDITABLE_TASK_FIELDS) {
+    if (input[key] !== undefined) out[key] = input[key];
+  }
+  return out as unknown as Partial<typeof tasks.$inferInsert>;
+}
+
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
@@ -97,7 +118,7 @@ export async function PATCH(req: Request) {
   const [updatedTask] = await db
     .update(tasks)
     .set({
-      ...updates,
+      ...pickTaskUpdates(updates),
       updatedAt: new Date(),
     })
     .where(and(eq(tasks.id, Number(id)), eq(tasks.coupleId, session.coupleId)))
