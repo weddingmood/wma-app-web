@@ -187,6 +187,7 @@ export default function LibraryPage() {
                     </span>
                   </div>
 
+                  {b.coverUrl && (<img src={b.coverUrl} alt="" className="w-full h-40 object-cover rounded-2xl" />)}
                   <h3 className="font-serif font-bold text-stone-900 text-lg leading-snug">
                     {b.title}
                   </h3>
@@ -212,13 +213,16 @@ export default function LibraryPage() {
                     </div>
                   </div>
 
-                  <button
+                  {b.fileUrl && (<a href={b.fileUrl} target="_blank" rel="noopener noreferrer" className="w-full py-2.5 rounded-xl bg-[#C05638] text-white font-bold text-xs flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">Ouvrir / Télécharger le document</a>)}
+                  {(b.chapters?.length || 0) > 0 && (
+<button
                     onClick={() => handleOpenBook(b)}
                     className="w-full py-2.5 rounded-xl bg-stone-900 text-white font-bold text-xs hover:bg-[#C05638] transition-colors flex items-center justify-center gap-2"
                   >
                     <BookOpen className="w-4 h-4" />
                     <span>{prog > 0 ? "Reprendre la Lecture" : "Commencer la Lecture"}</span>
                   </button>
+                  )}
                 </div>
               </div>
             );
