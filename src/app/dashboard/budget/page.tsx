@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/components/ThemeContext";
@@ -146,6 +147,7 @@ export default function BudgetPage() {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
+          <Link href="/dashboard/budget/modifier" className="px-4 py-2.5 rounded-2xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-800 text-xs font-semibold transition-colors cursor-pointer">Modifier le budget</Link>
           <button
             onClick={() => setIsCategoryModalOpen(true)}
             className="px-4 py-2.5 rounded-2xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-800 text-xs font-semibold transition-colors cursor-pointer"
