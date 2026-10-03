@@ -194,7 +194,7 @@ export default function JeuxPage() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-serif font-bold text-stone-900 text-xl sm:text-2xl">
-                Nos 4 Jeux de Table
+                {hiddenGames.length > 0 ? "Nos Jeux de Table" : "Nos 4 Jeux de Table"}
               </h2>
               <p className="text-xs text-stone-500 mt-0.5">
                 Sélectionnez un jeu pour lancer une partie en couple ou contre l'ordinateur.
@@ -202,7 +202,19 @@ export default function JeuxPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {hiddenGames.length > 0 && (
+            <div className="p-6 rounded-3xl border border-orange-100 bg-orange-50/60 text-center space-y-2">
+              <Sparkles className="w-6 h-6 mx-auto text-[#C05638]" />
+              <h3 className="font-serif font-bold text-stone-900 text-lg">
+                {hiddenGames.length >= gameCards.length
+                  ? "Votre salle de jeux se refait une beaut&eacute;"
+                  : "Certains jeux se pr&eacute;parent pour vous"}
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-md mx-auto">
+                Nous prenons le temps de peaufiner chaque jeu pour que vos parties &agrave; deux soient fluides et inoubliables. Merci pour votre patience, ils reviennent tr&egrave;s vite !
+              </p>
+            </div>
+          )}          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {gameCards.filter((g) => !hiddenGames.includes(g.id)).map((g) => {
               const Icon = g.icon;
               return (
