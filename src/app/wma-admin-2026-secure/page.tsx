@@ -1,4 +1,5 @@
 "use client";
+import GameVisibilityAdmin from "@/components/games/GameVisibilityAdmin";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -419,7 +420,7 @@ export default function AdminPage() {
             { id: "couples", label: "Couples & Premium", icon: Users },
             { id: "payments", label: `Paiements Wave (${pendingPayments.length})`, icon: CreditCard },
             { id: "providers", label: `Prestataires (${pendingProviders.length})`, icon: Store },
-            { id: "games", label: "Jeux", icon: Gamepad2 },
+            { id: "games", label: "Jeux & Activités", icon: Gamepad2 },
             { id: "audit", label: "Journal d'audit", icon: History },
             { id: "settings", label: "Paramètres", icon: Settings },
           ].map((tab) => {
@@ -923,7 +924,8 @@ export default function AdminPage() {
         )}
 
         {/* TAB 4: GAMES */}
-        {activeTab === "games" && (
+        {activeTab === "games" && (<div className="mb-6 p-4 rounded-2xl border border-stone-200 bg-white"><h3 className="font-bold text-stone-900 mb-3">Visibilité des jeux</h3><GameVisibilityAdmin /></div>)}
+{activeTab === "games" && (
           <div className="space-y-6 animate-in fade-in text-xs">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="p-5 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">

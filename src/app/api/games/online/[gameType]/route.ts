@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { couples, gameHistory, gameSessions } from "@/db/schema";
 import { getCurrentSession } from "@/lib/auth-helpers";
@@ -52,6 +52,16 @@ type ServerState = AwaleGameState | CheckersGameState | WordGameState;
 type RuleFailure = { error: string; status: number };
 
 type RuleSuccess = { state: ServerState };
+
+async function isGameHidden(slug: string): Promise<boolean> {
+  try {
+    const res: unknown = await db.execute(sql`select is_visible from wedding_games where slug = ${slug} limit 1`);
+    const rows = (Array.isArray(res) ? res : ((res as { rows?: unknown[] }).rows ?? [])) as Array<{ is_visible?: boolean }>;
+    return rows[0]?.is_visible === false;
+  } catch {
+    return false;
+  }
+}
 
 function getGameType(value: unknown): GameType | null {
   return value === "awale" || value === "dames" || value === "mots" ? value : null;
@@ -328,6 +338,7 @@ function stateAfter(state: ServerState, gameType: GameType) {
 export async function GET(req: NextRequest, ctx: { params: any }) {
   const gameType = getGameType((await ctx.params)?.gameType);
   if (!gameType) return Response.json({ success: false, message: "Jeu en ligne inconnu." }, { status: 404 });
+  if (await isGameHidden(gameType)) return Response.json({ success: false, message: "Ce jeu est temporairement indisponible." }, { status: 403 });
   const player = await playerFromSession();
   if (!player) return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
 
@@ -347,6 +358,7 @@ export async function GET(req: NextRequest, ctx: { params: any }) {
 export async function POST(req: NextRequest, ctx: { params: any }) {
   const gameType = getGameType((await ctx.params)?.gameType);
   if (!gameType) return Response.json({ success: false, message: "Jeu en ligne inconnu." }, { status: 404 });
+  if (await isGameHidden(gameType)) return Response.json({ success: false, message: "Ce jeu est temporairement indisponible." }, { status: 403 });
   const player = await playerFromSession();
   if (!player) return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
 

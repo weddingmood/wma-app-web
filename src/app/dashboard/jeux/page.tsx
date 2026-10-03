@@ -21,9 +21,11 @@ import { AwaleGameComponent } from "@/components/games/AwaleGameComponent";
 import { CheckersGameComponent } from "@/components/games/CheckersGameComponent";
 import { WordGameComponent } from "@/components/games/WordGameComponent";
 import { PlayerProfileCard } from "@/components/games/PlayerProfileCard";
+import { useHiddenGames } from "@/components/games/useHiddenGames";
 
 export default function JeuxPage() {
   const { couple, activePartner, activeTheme, partnerPhoto, otherPartnerPhoto } = useTheme();
+  const hiddenGames = useHiddenGames();
 
   const [activeGame, setActiveGame] = useState<"hub" | "ludo" | "awale" | "dames" | "mots">("hub");
   const [statsData, setStatsData] = useState<any>(null);
@@ -134,7 +136,7 @@ export default function JeuxPage() {
               Salle de Jeux
             </button>
             <button
-              onClick={() => setActiveGame("ludo")}
+              hidden={hiddenGames.includes("ludo")} onClick={() => setActiveGame("ludo")}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 activeGame === "ludo"
                   ? "bg-[#C05638] text-white shadow-xs"
@@ -144,7 +146,7 @@ export default function JeuxPage() {
               Ludo
             </button>
             <button
-              onClick={() => setActiveGame("awale")}
+              hidden={hiddenGames.includes("awale")} onClick={() => setActiveGame("awale")}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 activeGame === "awale"
                   ? "bg-[#C05638] text-white shadow-xs"
@@ -154,7 +156,7 @@ export default function JeuxPage() {
               Awalé
             </button>
             <button
-              onClick={() => setActiveGame("dames")}
+              hidden={hiddenGames.includes("dames")} onClick={() => setActiveGame("dames")}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 activeGame === "dames"
                   ? "bg-[#C05638] text-white shadow-xs"
@@ -164,7 +166,7 @@ export default function JeuxPage() {
               Dames
             </button>
             <button
-              onClick={() => setActiveGame("mots")}
+              hidden={hiddenGames.includes("mots")} onClick={() => setActiveGame("mots")}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 activeGame === "mots"
                   ? "bg-[#C05638] text-white shadow-xs"
@@ -201,7 +203,7 @@ export default function JeuxPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {gameCards.map((g) => {
+            {gameCards.filter((g) => !hiddenGames.includes(g.id)).map((g) => {
               const Icon = g.icon;
               return (
                 <div
