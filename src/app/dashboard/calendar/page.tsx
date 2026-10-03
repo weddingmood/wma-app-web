@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/components/ThemeContext";
@@ -279,7 +280,7 @@ export default function CalendarPage() {
             <div className="p-3.5 rounded-2xl glass-card-warm border border-amber-200/80 flex items-center gap-3 text-xs text-amber-950">
               <Heart className="w-5 h-5 text-amber-600 shrink-0 fill-current" />
               <div>
-                <strong>Célébration du Mariage :</strong> Prévue le {couple.weddingDate}. Cet événement est automatiquement mis en avant sur votre calendrier.
+                <strong>Célébration du Mariage :</strong> Prévue le {couple.weddingDate}. Cet événement est automatiquement mis en avant sur votre calendrier. <Link href="/dashboard/profile" className="ml-1 font-bold underline text-[#C05638]">Modifier la date</Link>
               </div>
             </div>
           )}
