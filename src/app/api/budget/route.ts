@@ -2,7 +2,7 @@ import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { budgetCategories, expenses, couples } from "@/db/schema";
 import { refuserSiEssaiExpire } from "@/lib/access-guard";
-import { eq, desc } from "drizzle-orm";
+import { and, eq, desc } from "drizzle-orm";
 
 export async function GET() {
   const session = await getCurrentSession();
@@ -76,3 +76,57 @@ export async function POST(req: Request) {
   return Response.json({ success: true, category: newCat });
 }
 
+export async function PATCH(req: Request) {
+  const session = await getCurrentSession();
+  if (!session?.coupleId) {
+    return Response.json({ success: false, message: "Non autoris\u00e9" }, { status: 401 });
+  }
+  const blocageEcriture = await refuserSiEssaiExpire(session.coupleId);
+  if (blocageEcriture) return blocageEcriture;
+
+  const body = (await req.json().catch(() => ({}))) as {
+    totalBudget?: unknown;
+    categoryId?: unknown;
+    name?: unknown;
+    allocatedAmount?: unknown;
+  };
+
+  if (body.totalBudget !== undefined) {
+    const total = Number(body.totalBudget);
+    if (!Number.isFinite(total) || total < 0) {
+      return Response.json({ success: false, message: "Montant invalide." }, { status: 400 });
+    }
+    await db.update(couples).set({ totalBudget: Math.round(total) }).where(eq(couples.id, session.coupleId));
+    return Response.json({ success: true, totalBudget: Math.round(total) });
+  }
+
+  if (body.categoryId !== undefined) {
+    const id = Number(body.categoryId);
+    if (!Number.isInteger(id)) {
+      return Response.json({ success: false, message: "Cat\u00e9gorie invalide." }, { status: 400 });
+    }
+    const changes: { name?: string; allocatedAmount?: number } = {};
+    if (typeof body.name === "string" && body.name.trim()) changes.name = body.name.trim();
+    if (body.allocatedAmount !== undefined) {
+      const amount = Number(body.allocatedAmount);
+      if (!Number.isFinite(amount) || amount < 0) {
+        return Response.json({ success: false, message: "Montant invalide." }, { status: 400 });
+      }
+      changes.allocatedAmount = Math.round(amount);
+    }
+    if (Object.keys(changes).length === 0) {
+      return Response.json({ success: false, message: "Rien \u00e0 modifier." }, { status: 400 });
+    }
+    const [updated] = await db
+      .update(budgetCategories)
+      .set(changes)
+      .where(and(eq(budgetCategories.id, id), eq(budgetCategories.coupleId, session.coupleId)))
+      .returning();
+    if (!updated) {
+      return Response.json({ success: false, message: "Cat\u00e9gorie introuvable." }, { status: 404 });
+    }
+    return Response.json({ success: true, category: updated });
+  }
+
+  return Response.json({ success: false, message: "Requ\u00eate invalide." }, { status: 400 });
+}
