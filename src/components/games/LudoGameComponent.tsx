@@ -76,7 +76,7 @@ export function LudoGameComponent({
       }
 
       if (response.ok && data?.success && data?.game) {
-        setGameState(data.game);
+        if (isFreshLudoVersion(data.version)) setGameState(data.game);
       } else if (!response.ok) {
         setGameState((previous) => ({
           ...previous,
@@ -89,7 +89,7 @@ export function LudoGameComponent({
   };
 
   useEffect(() => {
-    if (gameMode === "couple") {
+    if (gameMode === "couple") { lastLudoVersion = "";
       syncOnlineState();
       const timer = setInterval(syncOnlineState, 2000);
       return () => clearInterval(timer);
@@ -123,7 +123,7 @@ export function LudoGameComponent({
       }
 
       if (response.ok && data?.success && data?.game) {
-        setGameState(data.game);
+        if (isFreshLudoVersion(data.version)) setGameState(data.game);
 
         if (
           payload.action === "roll" &&
@@ -804,3 +804,12 @@ export function LudoGameComponent({
   );
 }
 
+// Ignore une reponse du serveur plus ancienne que celle deja affichee
+// (une lecture automatique peut arriver apres le resultat d'un coup).
+let lastLudoVersion = "";
+function isFreshLudoVersion(version: unknown): boolean {
+  if (typeof version !== "string") return true;
+  if (version < lastLudoVersion) return false;
+  lastLudoVersion = version;
+  return true;
+}
