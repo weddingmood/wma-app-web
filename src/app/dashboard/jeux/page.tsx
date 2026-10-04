@@ -21,6 +21,7 @@ import { AwaleGameComponent } from "@/components/games/AwaleGameComponent";
 import { CheckersGameComponent } from "@/components/games/CheckersGameComponent";
 import { WordGameComponent } from "@/components/games/WordGameComponent";
 import { PlayerProfileCard } from "@/components/games/PlayerProfileCard";
+import VoiceChat from "@/components/games/VoiceChat";
 import { useHiddenGames } from "@/components/games/useHiddenGames";
 
 export default function JeuxPage() {
@@ -276,6 +277,7 @@ export default function JeuxPage() {
         </div>
       )}
 
+      {activeGame !== "hub" && (<VoiceChat />)}
       {/* 4. JEU 1: LUDO NUPTIAL */}
       {activeGame === "ludo" && (
         <LudoGameComponent
