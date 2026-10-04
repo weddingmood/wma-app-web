@@ -81,8 +81,8 @@ async function playerFromSession() {
   return { coupleId: session.coupleId, partner: session.activePartner };
 }
 
-async function coupleNames(coupleId: number) {
-  const [couple] = await db.select().from(couples).where(eq(couples.id, coupleId)).limit(1);
+async function coupleNames(tx: Tx, coupleId: number) {
+  const [couple] = await tx.select().from(couples).where(eq(couples.id, coupleId)).limit(1);
   return {
     p1: couple?.partner1Name || "Époux",
     p2: couple?.partner2Name || "Épouse",
@@ -400,7 +400,7 @@ export async function POST(req: NextRequest, ctx: { params: any }) {
         .returning();
 
       if (previous.status !== "finished" && next.status === "finished") {
-        const { p1, p2 } = await coupleNames(player.coupleId);
+        const { p1, p2 } = await coupleNames(tx, player.coupleId);
         await tx.insert(gameHistory).values({
           coupleId: player.coupleId,
           gameType,

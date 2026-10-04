@@ -33,8 +33,8 @@ async function getPlayer() {
   return { coupleId: session.coupleId, partner: session.activePartner };
 }
 
-async function coupleNames(coupleId: number) {
-  const [couple] = await db.select().from(couples).where(eq(couples.id, coupleId)).limit(1);
+async function coupleNames(tx: Tx, coupleId: number) {
+  const [couple] = await tx.select().from(couples).where(eq(couples.id, coupleId)).limit(1);
   return {
     p1: couple?.partner1Name || "Époux",
     p2: couple?.partner2Name || "Épouse",
@@ -69,7 +69,7 @@ async function findRow(tx: Tx, coupleId: number, lock: boolean) {
 }
 
 async function createRow(tx: Tx, coupleId: number) {
-  const { p1, p2 } = await coupleNames(coupleId);
+  const { p1, p2 } = await coupleNames(tx, coupleId);
   const state = createInitialLudoGame("couple", p1, p2);
   const now = new Date();
   const [row] = await tx
@@ -144,7 +144,7 @@ export async function POST(req: Request) {
         if (row.status !== "finished" && body?.force !== true) {
           return { error: "La partie n'est pas terminée.", status: 409 as number };
         }
-        const { p1, p2 } = await coupleNames(player.coupleId);
+        const { p1, p2 } = await coupleNames(tx, player.coupleId);
         next = createInitialLudoGame("couple", p1, p2);
       } else if (action === "roll") {
         const outcome = rollForPlayer(state, player.partner, randomInt(1, 7));
