@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import QuizDayDone from "@/components/QuizDayDone";
 import { useTheme } from "@/components/ThemeContext";
 import {
   HelpCircle,
@@ -27,6 +28,17 @@ export default function QuizzesPage() {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [resultData, setResultData] = useState<any>(null);
+
+  // Met a jour le score affiche apres chaque reponse
+  useEffect(() => {
+    if (!isAnswered) return;
+    fetch(`/api/quizzes?category=${activeCategory}`, { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d && d.score) setScoreData(d.score);
+      })
+      .catch(() => {});
+  }, [isAnswered]);
 
   const fetchQuiz = async () => {
     try {
@@ -192,6 +204,8 @@ export default function QuizzesPage() {
       {loading ? (
         <div className="text-center py-12 text-stone-500 text-xs">Chargement des questions...</div>
       ) : !currentQ ? (
+          <QuizDayDone category={activeCategory} />
+        ) : !currentQ ? (
         <div className="p-8 text-center bg-white rounded-3xl border border-stone-200">
           <p className="text-stone-600 text-xs">Aucune question disponible dans cette catégorie.</p>
         </div>
