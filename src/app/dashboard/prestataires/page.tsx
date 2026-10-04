@@ -63,6 +63,18 @@ export default function PrestatairesPage() {
         {"Traiteurs, d\u00e9corateurs, photographes\u2026 s\u00e9lectionn\u00e9s et valid\u00e9s par notre \u00e9quipe. Contactez-les directement sur WhatsApp."}
       </p>
 
+      <div style={{ padding: 14, border: "1px dashed #C05638", borderRadius: 16, background: "#fff7ed", display: "grid", gap: 6 }}>
+        <strong>{"Vous \u00eates prestataire ?"}</strong>
+        <span style={{ fontSize: 13, color: "#57534e" }}>
+          {"Inscrivez-vous gratuitement : votre fiche sera visible par tous les couples apr\u00e8s validation par notre \u00e9quipe."}
+        </span>
+        <a
+          href="/devenir-prestataire"
+          style={{ marginTop: 4, padding: "9px 12px", borderRadius: 12, background: "#C05638", color: "#fff", textAlign: "center", fontWeight: 700, fontSize: 13 }}
+        >
+          {"S'inscrire gratuitement"}
+        </a>
+      </div>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <select style={input} value={service} onChange={(e) => setService(e.target.value)}>
           <option value="all">{"Tous les m\u00e9tiers"}</option>
