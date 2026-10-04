@@ -515,6 +515,18 @@ export default function LandingPage() {
       </section>
 
       {/* FOOTER LUMINEUX & ÉLÉGANT (AUCUN FOND SOMBRE) */}
+      <section className="py-14 bg-[#FCFAF7] border-t border-stone-200">
+        <div className="max-w-3xl mx-auto px-4 text-center space-y-3">
+          <h2 className="font-serif text-2xl font-bold text-stone-900">Vous &ecirc;tes prestataire de mariage ?</h2>
+          <p className="text-sm text-stone-600 leading-relaxed">
+            Traiteur, d&eacute;corateur, photographe&hellip; Inscrivez-vous gratuitement : votre fiche sera visible par les couples apr&egrave;s validation par notre &eacute;quipe.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+            <a href="/devenir-prestataire" className="inline-flex items-center px-5 py-2.5 rounded-2xl bg-[#C05638] text-white text-sm font-bold hover:opacity-90">Inscription gratuite</a>
+            <a href="/marketplace" className="inline-flex items-center px-5 py-2.5 rounded-2xl bg-white border border-stone-200 text-stone-800 text-sm font-semibold hover:bg-stone-50">Voir les prestataires</a>
+          </div>
+        </div>
+      </section>
       <footer className="bg-white text-stone-700 py-12 border-t border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center">
