@@ -1,6 +1,7 @@
 import { randomInt } from "crypto";
 import { cookies } from "next/headers";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
+import { refuserSiEssaiExpire } from "@/lib/access-guard";
 import { db } from "@/db";
 import { couples, gameHistory, gameSessions } from "@/db/schema";
 import { getCurrentSession } from "@/lib/auth-helpers";
@@ -9,6 +10,16 @@ import { moveForPlayer, rollForPlayer } from "@/lib/ludo-online";
 
 // Type de partie distinct de "ludo" : les parties locales existantes ne sont pas touchées.
 const GAME_TYPE = "ludo_online";
+
+async function isLudoHidden(): Promise<boolean> {
+  try {
+    const res: unknown = await db.execute(sql`select is_visible from wedding_games where slug = 'ludo' limit 1`);
+    const rows = (Array.isArray(res) ? res : ((res as { rows?: unknown[] }).rows ?? [])) as Array<{ is_visible?: boolean }>;
+    return rows[0]?.is_visible === false;
+  } catch {
+    return false;
+  }
+}
 
 type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
@@ -82,6 +93,7 @@ async function createRow(tx: Tx, coupleId: number) {
 
 // Lecture de la partie (utilisée par le téléphone toutes les 2 secondes)
 export async function GET(req: Request) {
+  if (await isLudoHidden()) return Response.json({ success: false, message: "Ce jeu est temporairement indisponible." }, { status: 403 });
   const player = await getPlayer();
   if (!player) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
@@ -108,10 +120,14 @@ export async function GET(req: Request) {
 
 // Actions : roll (lancer le dé), move (déplacer un pion), new (nouvelle partie)
 export async function POST(req: Request) {
+  if (await isLudoHidden()) return Response.json({ success: false, message: "Ce jeu est temporairement indisponible." }, { status: 403 });
   const player = await getPlayer();
   if (!player) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
+
+  const blocageEcriture = await refuserSiEssaiExpire(player.coupleId);
+  if (blocageEcriture) return blocageEcriture;
 
   const body = await req.json().catch(() => ({}));
   const action = body?.action;
