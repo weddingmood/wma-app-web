@@ -300,7 +300,7 @@ export function LudoGameComponent({
       gameState.status === "ongoing" &&
       !isRolling
     ) {
-      if (gameState.canRoll && !gameState.diceRolled) {
+      if (gameState.canRoll) {
         const timer = setTimeout(() => {
           handleRollDice();
         }, 750);
