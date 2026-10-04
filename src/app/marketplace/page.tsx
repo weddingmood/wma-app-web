@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { PROVIDER_SERVICES, PROVIDER_CITIES } from "@/lib/provider-constants";
@@ -78,6 +78,7 @@ export default function MarketplacePage() {
           <h1 className="font-serif text-2xl font-bold text-stone-900">
             Nos prestataires partenaires
           </h1>
+          <a href="/devenir-prestataire" className="inline-flex items-center mt-3 px-4 py-2 rounded-2xl bg-[#C05638] text-white text-xs font-bold hover:opacity-90">Vous étes prestataire ? Inscrivez-vous gratuitement</a>
           <p className="text-xs text-stone-500 max-w-md mx-auto">
             Traiteurs, dÃ©corateurs, photographes... trouvez le prestataire qu'il vous faut pour
             votre mariage, et contactez-le directement sur WhatsApp.
