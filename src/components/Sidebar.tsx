@@ -1,4 +1,5 @@
-﻿"use client";
+"use client";
+import { Store as PrestatairesIcon } from "lucide-react";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -75,6 +76,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       items: [
         { href: "/dashboard/articles", label: "Guides & DÃ©marches CI", icon: BookOpen },
         { href: "/dashboard/library", label: "BibliothÃ¨que Pastorale", icon: BookMarked },
+      { href: "/dashboard/prestataires", label: "Prestataires", icon: PrestatairesIcon },
       ],
     },
     {

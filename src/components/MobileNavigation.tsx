@@ -1,4 +1,5 @@
 "use client";
+import { Store as PrestatairesIcon } from "lucide-react";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -64,6 +65,7 @@ export function MobileNavigation() {
     { title: "RESSOURCES & COMPTE", items: [
       { href: "/dashboard/articles", label: "Guides & Lois CI", icon: BookOpen },
       { href: "/dashboard/library", label: "Bibliothèque", icon: BookMarked },
+      { href: "/dashboard/prestataires", label: "Prestataires", icon: PrestatairesIcon },
       { href: "/dashboard/preferences", label: "Personnalisation & Thèmes", icon: Sliders },
       { href: "/dashboard/subscription", label: "Abonnement Wave", icon: CreditCard },
       { href: "/telechargement", label: "Application Mobile & APK", icon: Smartphone },
