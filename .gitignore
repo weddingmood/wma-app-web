@@ -44,3 +44,7 @@ node_modules
 tsconfig.tsbuildinfo
 .vercel
 .env*
+
+# Cles de signature Android (ne jamais publier)
+*.keystore
+*.jks
