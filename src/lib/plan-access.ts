@@ -9,7 +9,7 @@ export const PREMIUM_UPGRADE_URL = "https://pay.wave.com/m/M_W9fOyOGfFiNN/c/ci/?
 
 // Formules sans acces aux traiteurs ni aux livres.
 // "couple" (ancienne formule) et "individual" gardent l'acces actuel.
-const RESTRICTED_PLANS = ["standard_couple"];
+const RESTRICTED_PLANS = ["standard_couple", "individual"];
 
 export async function coupleHasPremiumContent(coupleId: number): Promise<boolean> {
   const [row] = await db

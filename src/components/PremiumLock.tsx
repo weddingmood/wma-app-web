@@ -20,15 +20,15 @@ export default function PremiumLock({ feature, compact = false }: { feature: str
     >
       <strong style={{ fontSize: compact ? 15 : 20 }}>{"Contenu Premium"}</strong>
       <p style={{ fontSize: 13, color: "#57534e" }}>
-        {"D\u00e9bloquez " + feature + " pour 2 000 F de plus. L'offre Premium (5 000 F) donne acc\u00e8s aux traiteurs, \u00e0 tous les jeux et aux livres."}
+        {"Pour acc\u00e9der \u00e0 " + feature + ", passez \u00e0 l'offre Premium (5 000 F) : traiteurs, tous les jeux et livres. Avec la formule Couple Standard, un compl\u00e9ment de 2 000 F suffit."}
       </p>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: compact ? "flex-start" : "center" }}>
-        <a href={UPGRADE_URL} target="_blank" rel="noopener noreferrer" style={{ ...btn, background: "#2563eb", color: "#fff" }}>
-          {"Payer 2 000 F sur Wave"}
-        </a>
-        <Link href="/dashboard/subscription" style={{ ...btn, background: "#fff", color: "#C05638", border: "1px solid #C05638" }}>
-          {"J'ai pay\u00e9 : confirmer"}
+        <Link href="/abonnement" style={{ ...btn, background: "#C05638", color: "#fff" }}>
+          {"Voir les offres"}
         </Link>
+        <a href={UPGRADE_URL} target="_blank" rel="noopener noreferrer" style={{ ...btn, background: "#2563eb", color: "#fff" }}>
+          {"Compl\u00e9ment Standard : 2 000 F"}
+        </a>
       </div>
     </div>
   );

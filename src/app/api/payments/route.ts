@@ -61,7 +61,7 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  const { action, amount, planType, payerEmail, paymentDate, referenceNumber, proofImageUrl, partner2Email } = body;
+  const { action, amount, planType, payerEmail, paymentDate, referenceNumber, proofImageUrl, partner2Email, coupleName, waveNumber } = body;
 
   const [couple] = await db.select().from(couples).where(eq(couples.id, session.coupleId)).limit(1);
 
@@ -114,8 +114,13 @@ export async function POST(req: Request) {
     );
   }
 
-  const resolvedPlan = planType === "individual" ? "individual" : "couple";
-  const resolvedAmount = Number(amount) || (resolvedPlan === "individual" ? 2000 : 3000);
+  const ALLOWED_PLANS = ["individual", "couple", "standard_couple", "premium_couple"];
+  const resolvedPlan = ALLOWED_PLANS.includes(planType) ? planType : "couple";
+  const EXPECTED_AMOUNTS: Record<string, number> = { individual: 2000, couple: 3000, standard_couple: 3000, premium_couple: 5000 };
+  // Complement Standard -> Premium : 2 000 FCFA, seulement pour une formule Standard
+  const isUpgrade = resolvedPlan === "premium_couple" && Number(amount) === 2000 && couple?.planType === "standard_couple";
+  const resolvedAmount = isUpgrade ? 2000 : EXPECTED_AMOUNTS[resolvedPlan];
+  const PACK_LABELS: Record<string, string> = { individual: "Individuelle", couple: "Couple", standard_couple: "Couple Standard", premium_couple: "Couple Premium" };
 
   const [newPayment] = await db
     .insert(payments)
@@ -128,6 +133,7 @@ export async function POST(req: Request) {
       paymentDate,
       referenceNumber: referenceNumber.trim(),
       proofImageUrl: proofImageUrl || null,
+      adminNotes: "Pack demande : " + PACK_LABELS[resolvedPlan] + (isUpgrade ? " (complement 2 000 F)" : "") + (coupleName ? " | Couple : " + String(coupleName).trim().slice(0, 80) : "") + (waveNumber ? " | Tel Wave : " + String(waveNumber).replace(/[^0-9+ ]/g, "").slice(0, 20) : ""),
       status: "pending",
     })
     .returning();
@@ -137,9 +143,7 @@ export async function POST(req: Request) {
     .update(couples)
     .set({
       status: "verification",
-      planType: resolvedPlan,
-      planAmount: resolvedAmount,
-      partner2AccessActive: resolvedPlan === "couple",
+      ...(resolvedPlan === "individual" || resolvedPlan === "couple" ? { planType: resolvedPlan, planAmount: resolvedAmount, partner2AccessActive: resolvedPlan === "couple" } : {}),
       partner2Email: partner2Email ? partner2Email.trim().toLowerCase() : couple?.partner2Email,
       updatedAt: new Date(),
     })
@@ -148,8 +152,8 @@ export async function POST(req: Request) {
   return Response.json({
     success: true,
     message:
-      resolvedPlan === "couple"
-        ? "Preuve de règlement de 3 000 FCFA enregistrée. Après validation, les deux partenaires accéderont à l'espace avec le code unique."
+      resolvedPlan !== "individual"
+        ? "Preuve de règlement de " + resolvedAmount.toLocaleString("fr-FR") + " FCFA enregistrée. Après validation, les deux partenaires accéderont à l'espace avec le code unique."
         : "Preuve de règlement de 2 000 FCFA enregistrée. Votre accès individuel sera activé après vérification.",
     payment: newPayment,
   });

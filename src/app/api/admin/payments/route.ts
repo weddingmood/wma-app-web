@@ -70,7 +70,7 @@ export async function PATCH(req: Request) {
       .set({
         status: "active",
         planType: payment.planType || "couple",
-        planAmount: payment.amount || (isCouplePlan ? 3000 : 2000),
+        planAmount: payment.planType === "premium_couple" ? 5000 : payment.amount || (isCouplePlan ? 3000 : 2000),
         partner1AccessActive: true,
         partner2AccessActive: isCouplePlan,
         updatedAt: new Date(),
