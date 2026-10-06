@@ -1,4 +1,5 @@
 "use client";
+import PremiumLock from "@/components/PremiumLock";
 
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/components/ThemeContext";
@@ -8,6 +9,7 @@ export default function LibraryPage() {
   const { activeTheme } = useTheme();
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [locked, setLocked] = useState(false);
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [currentChapterIdx, setCurrentChapterIdx] = useState(0);
 
@@ -15,6 +17,10 @@ export default function LibraryPage() {
     try {
       setLoading(true);
       const res = await fetch("/api/library");
+      if (res.status === 403) {
+        setLocked(true);
+        return;
+      }
       if (res.ok) {
         const data = await res.json();
         if (data.success) {
@@ -57,6 +63,8 @@ export default function LibraryPage() {
       console.error(err);
     }
   };
+
+  if (locked) return <PremiumLock feature="les livres" />;
 
   return (
     <div className="space-y-6 pb-12">

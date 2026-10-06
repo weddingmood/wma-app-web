@@ -1,3 +1,4 @@
+import { coupleHasPremiumContent, PREMIUM_UPGRADE_URL } from "@/lib/plan-access";
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { libraryBooks, coupleBooksProgress } from "@/db/schema";
@@ -9,6 +10,18 @@ export async function GET(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
     return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
+  }
+
+  if (!(await coupleHasPremiumContent(session.coupleId))) {
+    return Response.json(
+      {
+        success: false,
+        code: "PREMIUM_REQUIRED",
+        message: "Contenu Premium : d\u00e9bloquez les livres pour 2 000 F de plus.",
+        upgradeUrl: PREMIUM_UPGRADE_URL,
+      },
+      { status: 403 }
+    );
   }
 
   const { searchParams } = new URL(req.url);

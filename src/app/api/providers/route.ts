@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { providers } from "@/db/schema";
 import { PROVIDER_SERVICES, PROVIDER_CITIES } from "@/lib/provider-constants";
 import { eq } from "drizzle-orm";
+import { premiumContentAccess } from "@/lib/plan-access";
 
 const SERVICE_IDS = PROVIDER_SERVICES.map((s) => s.id);
 
@@ -58,5 +59,8 @@ export async function POST(req: Request) {
 export async function GET() {
   // Public : uniquement les fiches deja validees par l'admin.
   const list = await db.select().from(providers).where(eq(providers.status, "approved"));
-  return Response.json({ success: true, providers: list });
+  const access = await premiumContentAccess();
+  const traiteursPresents = list.some((p) => p.service === "traiteur");
+  const visibles = access.allowed ? list : list.filter((p) => p.service !== "traiteur");
+  return Response.json({ success: true, providers: visibles, traiteursLocked: !access.allowed && traiteursPresents });
 }

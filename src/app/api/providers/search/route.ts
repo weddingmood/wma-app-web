@@ -12,6 +12,7 @@ import { NextRequest } from "next/server";
 import { ok, params } from "@/lib/platform";
 import { trier, fichePublique, METIERS, villesParPays } from "@/lib/vendors";
 import { providersPublics } from "@/lib/queries";
+import { premiumContentAccess } from "@/lib/plan-access";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +24,11 @@ export async function GET(req: NextRequest) {
   const q = String(p.get("q") || p.get("recherche") || "").trim();
   const limite = Math.min(60, Math.max(1, Number(p.get("limite") || p.get("limit") || 24)));
 
-  const toutes = await providersPublics();
+  const toutesBrutes = await providersPublics();
+  const acces = await premiumContentAccess();
+  const toutes = acces.allowed
+    ? toutesBrutes
+    : toutesBrutes.filter((f: any) => String(f?.service || f?.metier || "").toLowerCase() !== "traiteur");
   const filtrees = trier(toutes, { pays, ville, service, q });
   const page = filtrees.slice(0, limite);
 

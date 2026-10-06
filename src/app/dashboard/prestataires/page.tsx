@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import PremiumLock from "@/components/PremiumLock";
 
 type Provider = {
   id: number;
@@ -35,11 +36,15 @@ export default function PrestatairesPage() {
   const [loading, setLoading] = useState(true);
   const [service, setService] = useState("all");
   const [q, setQ] = useState("");
+  const [traiteursLocked, setTraiteursLocked] = useState(false);
 
   useEffect(() => {
     fetch("/api/providers", { cache: "no-store" })
       .then((r) => r.json())
-      .then((d) => setList(Array.isArray(d.providers) ? (d.providers as Provider[]) : []))
+      .then((d) => {
+        setList(Array.isArray(d.providers) ? (d.providers as Provider[]) : []);
+        setTraiteursLocked(Boolean(d.traiteursLocked));
+      })
       .catch(() => setList([]))
       .finally(() => setLoading(false));
   }, []);
@@ -75,6 +80,8 @@ export default function PrestatairesPage() {
           {"S'inscrire gratuitement"}
         </a>
       </div>
+      {traiteursLocked && <PremiumLock feature="le service traiteurs" compact />}
+
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <select style={input} value={service} onChange={(e) => setService(e.target.value)}>
           <option value="all">{"Tous les m\u00e9tiers"}</option>
