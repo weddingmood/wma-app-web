@@ -99,6 +99,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       items: [
         { href: "/dashboard/preferences", label: "20 ThÃ¨mes & Affichage", icon: Palette },
         { href: "/dashboard/subscription", label: "Abonnement Wave (2 000 FCFA)", icon: CreditCard },
+      { href: "/abonnement", label: "Offres & Premium", icon: CreditCard },
         { href: "/telechargement", label: "Application Mobile & APK", icon: Smartphone },
       ],
     },

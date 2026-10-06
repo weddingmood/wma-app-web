@@ -114,8 +114,9 @@ export async function POST(req: Request) {
     );
   }
 
-  const ALLOWED_PLANS = ["individual", "couple", "standard_couple", "premium_couple"];
-  const resolvedPlan = ALLOWED_PLANS.includes(planType) ? planType : "couple";
+  const ALLOWED_PLANS = ["individual", "standard_couple", "premium_couple"];
+  const requestedPlan = planType === "couple" ? "standard_couple" : planType;
+  const resolvedPlan = ALLOWED_PLANS.includes(requestedPlan) ? requestedPlan : "standard_couple";
   const EXPECTED_AMOUNTS: Record<string, number> = { individual: 2000, couple: 3000, standard_couple: 3000, premium_couple: 5000 };
   // Complement Standard -> Premium : 2 000 FCFA, seulement pour une formule Standard
   const isUpgrade = resolvedPlan === "premium_couple" && Number(amount) === 2000 && couple?.planType === "standard_couple";

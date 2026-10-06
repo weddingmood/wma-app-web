@@ -68,6 +68,7 @@ export function MobileNavigation() {
       { href: "/dashboard/prestataires", label: "Prestataires", icon: PrestatairesIcon },
       { href: "/dashboard/preferences", label: "Personnalisation & Thèmes", icon: Sliders },
       { href: "/dashboard/subscription", label: "Abonnement Wave", icon: CreditCard },
+      { href: "/abonnement", label: "Offres & Premium", icon: CreditCard },
       { href: "/telechargement", label: "Application Mobile & APK", icon: Smartphone },
     ]},
   ];

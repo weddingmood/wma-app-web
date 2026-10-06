@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Logo } from "@/components/Logo";
+import { OFFERS } from "@/lib/offers";
 import {
   Heart,
   CheckCircle2,
@@ -414,89 +415,62 @@ export default function LandingPage() {
       {/* PRICING : 2 FORMULES WAVE MANUELLES */}
       <section id="tarifs" className="py-20 bg-white border-t border-stone-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-10">
-          
           <div className="space-y-3">
             <span className="text-xs uppercase font-bold tracking-widest text-[#C05638]">
-              Tarifs Simples & Transparents
+              Tarifs Simples &amp; Transparents
             </span>
-
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950">
-              Deux formules adaptées à votre situation
+              Trois formules adapt&eacute;es &agrave; votre situation
             </h2>
-
             <p className="text-stone-600 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
-              3 jours d'essai gratuit sans engagement. Règlement manuel direct via Wave Côte d'Ivoire, validé par notre équipe. Un code d'accès unique est généré automatiquement pour connecter les deux partenaires.
+              3 jours d&apos;essai gratuit sans engagement. R&egrave;glement direct via Wave C&ocirc;te d&apos;Ivoire, valid&eacute; par notre &eacute;quipe.
             </p>
           </div>
 
-          {/* Les 2 cartes tarifaires */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-            {PRICING_PLANS.map((plan) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            {OFFERS.map((o) => (
               <div
-                key={plan.id}
-                className={`p-8 rounded-3xl shadow-xl space-y-6 flex flex-col justify-between transition-all ${
-                  plan.isRecommended
-                    ? "glass-card-warm border-2 border-[#C05638] ring-2 ring-[#C05638]/20"
-                    : "glass-panel border-2 border-stone-200"
+                key={o.id}
+                className={`relative p-7 rounded-3xl flex flex-col justify-between gap-6 transition-all ${
+                  o.highlight
+                    ? "bg-[#FFF7ED] border-[3px] border-[#C05638] shadow-xl"
+                    : "bg-white border border-stone-200 shadow-sm"
                 }`}
               >
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      {plan.id === "couple" ? (
-                        <Users className="w-5 h-5 text-[#C05638]" />
-                      ) : (
-                        <Heart className="w-5 h-5 text-stone-600" />
-                      )}
-                      <h3 className="font-serif font-bold text-stone-900 text-xl">{plan.name}</h3>
-                    </div>
-                    {plan.isRecommended && (
-                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#C05638] text-white shadow-xs shrink-0">
-                        Recommandée
-                      </span>
-                    )}
+                {o.highlight && (
+                  <span className="absolute -top-3 left-6 text-[10px] font-bold px-3 py-1 rounded-full bg-[#C05638] text-white">
+                    RECOMMAND&Eacute;E
+                  </span>
+                )}
+                <div className="space-y-3">
+                  <h3 className="font-serif font-bold text-stone-900 text-xl">{o.name}</h3>
+                  <div className="font-serif text-4xl font-black text-stone-900">
+                    {o.amount.toLocaleString("fr-FR")}{" "}
+                    <span className="text-base font-normal text-stone-500">FCFA</span>
                   </div>
-
-                  <div className="font-serif text-5xl font-black text-stone-900">
-                    {plan.amount.toLocaleString("fr-FR")}{" "}
-                    <span className="text-lg font-normal text-stone-500">FCFA</span>
-                  </div>
-
-                  <p className="text-xs text-stone-600 leading-relaxed">{plan.description}</p>
-
-                  <div className="space-y-2 pt-1">
-                    {plan.features.map((feat, fIdx) => (
-                      <div key={fIdx} className="flex items-start gap-2 text-xs text-stone-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="text-xs text-stone-600 leading-relaxed">{o.tagline}</p>
                 </div>
-
-                <a
-                  href={plan.payUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                <Link
+                  href="/abonnement"
+                  className={`w-full py-3 rounded-2xl font-bold text-xs text-center shadow-md transition-all ${
+                    o.highlight ? "bg-[#C05638] text-white hover:opacity-90" : "bg-stone-900 text-white hover:bg-stone-800"
+                  }`}
                 >
-                  <span>Payer {plan.amount.toLocaleString("fr-FR")} FCFA sur Wave</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
+                  Comparer et choisir
+                </Link>
               </div>
             ))}
           </div>
 
-          {/* Explication du code d'accès unique */}
           <div className="p-6 rounded-3xl glass-panel border border-[#D4AF37]/40 shadow-sm max-w-3xl mx-auto space-y-3">
             <div className="flex items-center justify-center gap-2">
               <Sparkles className="w-5 h-5 text-[#B37D28]" />
               <h4 className="font-serif font-bold text-stone-900 text-lg">
-                Un code d'accès unique pour les deux partenaires
+                Un code d&apos;acc&egrave;s unique pour les deux partenaires
               </h4>
             </div>
             <p className="text-xs text-stone-600 leading-relaxed max-w-xl mx-auto">
-              Dès la création de votre espace, un code court et facile à retenir (par exemple <strong className="text-[#C05638] font-mono">WM-4821</strong>) est généré automatiquement. Chaque conjoint se connecte depuis son propre téléphone avec son adresse email personnelle et ce code partagé.
+              D&egrave;s la cr&eacute;ation de votre espace, un code court et facile &agrave; retenir (par exemple <strong className="text-[#C05638] font-mono">WM-4821</strong>) est g&eacute;n&eacute;r&eacute; automatiquement. Chaque conjoint se connecte depuis son propre t&eacute;l&eacute;phone avec son adresse email personnelle et ce code partag&eacute;.
             </p>
             <p className="text-[11px] text-stone-500">
               Assistance et activation manuelle par WhatsApp :{" "}
@@ -510,7 +484,6 @@ export default function LandingPage() {
               </a>
             </p>
           </div>
-
         </div>
       </section>
 

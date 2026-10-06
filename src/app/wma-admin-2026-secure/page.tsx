@@ -29,6 +29,8 @@ import {
 
 type AdminTab = "stats" | "couples" | "payments" | "providers" | "games" | "audit" | "settings" | "library";
 
+const PLAN_LABELS: Record<string, string> = { individual: "Individuelle", couple: "Couple", standard_couple: "Couple Standard", premium_couple: "Couple Premium" };
+
 export default function AdminPage() {
   const [isAdminAuth, setIsAdminAuth] = useState(false);
   const [adminUser, setAdminUser] = useState<any>(null);
@@ -590,7 +592,7 @@ export default function AdminPage() {
                                 : "bg-amber-100 text-amber-900"
                             }`}
                           >
-                            {c.planType === "individual" ? "Individuelle" : "Couple"}
+                            {PLAN_LABELS[c.planType || "couple"] || "Couple"}
                           </span>
                           <div className="text-[11px] text-stone-600 font-bold mt-1">
                             {(c.planAmount || 3000).toLocaleString("fr-FR")} FCFA
@@ -745,7 +747,7 @@ export default function AdminPage() {
                                 : "bg-amber-100 text-amber-900"
                             }`}
                           >
-                            {p.planType === "individual" ? "Individuelle" : "Couple"}
+                            {PLAN_LABELS[p.planType || "couple"] || "Couple"}
                           </span>
                         </td>
                         <td className="p-4 font-mono font-bold text-blue-800">
