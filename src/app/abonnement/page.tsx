@@ -1,9 +1,22 @@
 import Link from "next/link";
+import { Check, X } from "lucide-react";
 import { OFFERS, COMPARISON, UPGRADE_OFFER } from "@/lib/offers";
 
 export const metadata = { title: "Abonnements | Wedding Mood" };
 
 const fmt = (n: number) => n.toLocaleString("fr-FR");
+function Mark({ on, highlight }: { on: boolean; highlight: boolean }) {
+  const base = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 26, height: 26, borderRadius: 999 } as const;
+  return on ? (
+    <span role="img" aria-label="Inclus" style={{ ...base, background: highlight ? "#C05638" : "#16a34a", boxShadow: highlight ? "0 2px 8px rgba(192,86,56,0.35)" : "none" }}>
+      <Check size={15} color="#ffffff" strokeWidth={3} />
+    </span>
+  ) : (
+    <span role="img" aria-label="Non inclus" style={{ ...base, background: "#f5f5f4" }}>
+      <X size={14} color="#a8a29e" strokeWidth={2.5} />
+    </span>
+  );
+}
 
 export default function AbonnementPage() {
   const btn = { padding: "12px 14px", borderRadius: 14, fontWeight: 800, fontSize: 14, textAlign: "center", display: "block" } as const;
@@ -83,7 +96,7 @@ export default function AbonnementPage() {
                 <td style={{ padding: 12 }}>{row.label}</td>
                 {row.values.map((v, i) => (
                   <td key={i} style={{ padding: 12, textAlign: "center", background: OFFERS[i].highlight ? "#FFF7ED" : "transparent" }}>
-                    {v ? "\u2705" : "\u274C"}
+                    <Mark on={v} highlight={OFFERS[i].highlight} />
                   </td>
                 ))}
               </tr>
