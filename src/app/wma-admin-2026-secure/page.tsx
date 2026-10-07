@@ -1,6 +1,7 @@
 "use client";
 import AdminBibliothequePage from "./bibliotheque/page";
 import AdminTemoignagesPage from "./temoignages/page";
+import AdminAmbassadeursPage from "./ambassadeurs/page";
 import { BookMarked } from "lucide-react";
 import GameVisibilityAdmin from "@/components/games/GameVisibilityAdmin";
 
@@ -28,7 +29,7 @@ import {
   EyeOff,
 } from "lucide-react";
 
-type AdminTab = "stats" | "couples" | "payments" | "providers" | "games" | "audit" | "settings" | "library" | "testimonials";
+type AdminTab = "stats" | "couples" | "payments" | "providers" | "games" | "audit" | "settings" | "library" | "testimonials" | "ambassadors";
 
 const PLAN_LABELS: Record<string, string> = { individual: "Individuelle", couple: "Couple", standard_couple: "Couple Standard", premium_couple: "Couple Premium" };
 
@@ -428,6 +429,7 @@ export default function AdminPage() {
             { id: "games", label: "Jeux & Activités", icon: Gamepad2 },
             { id: "library", label: "Bibliothéque", icon: BookMarked },
             { id: "testimonials", label: "T\u00e9moignages", icon: BookMarked },
+            { id: "ambassadors", label: "Ambassadeurs", icon: BookMarked },
             { id: "audit", label: "Journal d'audit", icon: History },
             { id: "settings", label: "Paramètres", icon: Settings },
           ].map((tab) => {
@@ -934,6 +936,7 @@ export default function AdminPage() {
         {activeTab === "games" && (<div className="mb-6 p-4 rounded-2xl border border-stone-200 bg-white"><h3 className="font-bold text-stone-900 mb-3">Visibilité des jeux</h3><GameVisibilityAdmin /></div>)}
 {activeTab === "library" && (<AdminBibliothequePage />)}
 {activeTab === "testimonials" && (<AdminTemoignagesPage />)}
+{activeTab === "ambassadors" && (<AdminAmbassadeursPage />)}
 {activeTab === "games" && (
           <div className="space-y-6 animate-in fade-in text-xs">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
