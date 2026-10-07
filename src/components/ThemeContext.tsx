@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { COLOR_THEMES, FONTS_LIST, ThemeDefinition } from "@/lib/constants";
+import { buildCustomTheme } from "@/lib/custom-theme";
 
 export interface CoupleProfile {
   id: number;
@@ -81,8 +82,32 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [isCallOpen, setIsCallOpen] = useState(false);
   const [callType, setCallType] = useState<"audio" | "video">("video");
+  const [customColor, setCustomColor] = useState<string | null>(null);
+  const [customBase, setCustomBase] = useState<number | null>(null);
 
-  const activeTheme = COLOR_THEMES.find((t) => t.id === preferences.themeId) || COLOR_THEMES[0];
+  useEffect(() => {
+    const loadCustomColor = () => {
+      fetch("/api/theme-color", { cache: "no-store" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (d && d.success && typeof d.color === "string") {
+            setCustomColor(d.color);
+            setCustomBase(typeof d.baseThemeId === "number" ? d.baseThemeId : null);
+          } else {
+            setCustomColor(null);
+            setCustomBase(null);
+          }
+        })
+        .catch(() => {});
+    };
+    loadCustomColor();
+    window.addEventListener("wm-custom-color", loadCustomColor);
+    return () => window.removeEventListener("wm-custom-color", loadCustomColor);
+  }, []);
+
+  const baseTheme = COLOR_THEMES.find((t) => t.id === preferences.themeId) || COLOR_THEMES[0];
+  const customActive = Boolean(customColor) && (customBase === null || customBase === preferences.themeId);
+  const activeTheme: ThemeDefinition = customActive && customColor ? buildCustomTheme(customColor, baseTheme) : baseTheme;
 
   const refreshCoupleData = useCallback(async () => {
     let authData;

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useTheme } from "@/components/ThemeContext";
 import { COLOR_THEMES, FONTS_LIST } from "@/lib/constants";
+import CustomColorPicker from "@/components/CustomColorPicker";
 import { Palette, Type, Layout, Sliders, CheckCircle2, Sparkles, User, Save, RefreshCw } from "lucide-react";
 
 export default function PreferencesPage() {
@@ -59,6 +60,7 @@ export default function PreferencesPage() {
           <span className="text-xs font-bold text-[#C05638]">
             Thème sélectionné : {COLOR_THEMES.find((t) => t.id === selectedThemeId)?.name}
           </span>
+          <CustomColorPicker />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
