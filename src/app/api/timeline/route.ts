@@ -1,4 +1,4 @@
-﻿import { getCurrentSession } from "@/lib/auth-helpers";
+import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { timelineEvents } from "@/db/schema";
 import { eq, asc, and } from "drizzle-orm";
@@ -7,7 +7,7 @@ import { refuserSiEssaiExpire } from "@/lib/access-guard";
 export async function GET() {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const events = await db
@@ -22,7 +22,7 @@ export async function GET() {
 export async function PATCH(req: Request) {
   const session = await getCurrentSession();
   if (!session?.coupleId) {
-    return Response.json({ success: false, message: "Non autorisÃ©" }, { status: 401 });
+    return Response.json({ success: false, message: "Non autorisé" }, { status: 401 });
   }
 
   const body = await req.json();

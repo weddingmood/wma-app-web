@@ -22,7 +22,7 @@ function serviceLabel(id: string) {
 function waveLinkWhatsapp(numero: string, entreprise: string) {
   const digits = numero.replace(/[^\d+]/g, "");
   const texte = encodeURIComponent(
-    "Bonjour, j'ai trouvÃ© votre profil " + entreprise + " sur Wedding Mood, je suis intÃ©ressÃ©(e) par vos services."
+    "Bonjour, j'ai trouvé votre profil " + entreprise + " sur Wedding Mood, je suis intéressé(e) par vos services."
   );
   return "https://wa.me/" + digits.replace(/^\+/, "") + "?text=" + texte;
 }
@@ -80,7 +80,7 @@ export default function MarketplacePage() {
           </h1>
           <a href="/devenir-prestataire" className="inline-flex items-center mt-3 px-4 py-2 rounded-2xl bg-[#C05638] text-white text-xs font-bold hover:opacity-90">Vous étes prestataire ? Inscrivez-vous gratuitement</a>
           <p className="text-xs text-stone-500 max-w-md mx-auto">
-            Traiteurs, dÃ©corateurs, photographes... trouvez le prestataire qu'il vous faut pour
+            Traiteurs, décorateurs, photographes... trouvez le prestataire qu'il vous faut pour
             votre mariage, et contactez-le directement sur WhatsApp.
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function MarketplacePage() {
           </p>
         ) : filtres.length === 0 ? (
           <p className="text-center text-sm text-stone-500 py-16">
-            Aucun prestataire ne correspond Ã  votre recherche pour le moment.
+            Aucun prestataire ne correspond à votre recherche pour le moment.
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -163,7 +163,7 @@ export default function MarketplacePage() {
                   )}
                   {p.priceFrom > 0 && (
                     <p className="text-xs font-bold text-amber-700">
-                      Ã€ partir de {p.priceFrom.toLocaleString("fr-FR")} FCFA
+                      À partir de {p.priceFrom.toLocaleString("fr-FR")} FCFA
                     </p>
                   )}
                   <a
