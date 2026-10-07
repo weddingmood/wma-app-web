@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import { Check, X } from "lucide-react";
 import { OFFERS, COMPARISON, UPGRADE_OFFER } from "@/lib/offers";
 
@@ -104,6 +105,8 @@ export default function AbonnementPage() {
           </tbody>
         </table>
       </section>
+
+      <TestimonialsSection />
 
       <section style={{ padding: 18, borderRadius: 16, border: "1px solid #D4AF37", background: "#FFFBEB", display: "grid", gap: 8 }}>
         <strong>{"D\u00e9j\u00e0 en formule Couple Standard ?"}</strong>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Logo } from "@/components/Logo";
 import { OFFERS } from "@/lib/offers";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import {
   Heart,
   CheckCircle2,
@@ -488,6 +489,8 @@ export default function LandingPage() {
       </section>
 
       {/* FOOTER LUMINEUX & ÉLÉGANT (AUCUN FOND SOMBRE) */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10"><TestimonialsSection hideWhenEmpty /></div>
+
       <section className="py-14 bg-[#FCFAF7] border-t border-stone-200">
         <div className="max-w-3xl mx-auto px-4 text-center space-y-3">
           <h2 className="font-serif text-2xl font-bold text-stone-900">Vous &ecirc;tes prestataire de mariage ?</h2>

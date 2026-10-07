@@ -69,6 +69,7 @@ export function MobileNavigation() {
       { href: "/dashboard/preferences", label: "Personnalisation & Thèmes", icon: Sliders },
       { href: "/dashboard/subscription", label: "Abonnement Wave", icon: CreditCard },
       { href: "/abonnement", label: "Offres & Premium", icon: CreditCard },
+      { href: "/dashboard/temoignage", label: "Mon t\u00e9moignage", icon: CreditCard },
       { href: "/telechargement", label: "Application Mobile & APK", icon: Smartphone },
     ]},
   ];
