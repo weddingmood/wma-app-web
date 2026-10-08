@@ -1,7 +1,7 @@
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { payments, couples } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, sql } from "drizzle-orm";
 import {
   WAVE_PAY_COUPLE_URL,
   WAVE_PAY_INDIVIDUAL_URL,
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  const { action, amount, planType, payerEmail, paymentDate, referenceNumber, proofImageUrl, partner2Email, coupleName, waveNumber } = body;
+  const { action, amount, planType, payerEmail, paymentDate, referenceNumber, proofImageUrl, partner2Email, coupleName, waveNumber, referralCode } = body;
 
   const [couple] = await db.select().from(couples).where(eq(couples.id, session.coupleId)).limit(1);
 
@@ -138,6 +138,30 @@ export async function POST(req: Request) {
       status: "pending",
     })
     .returning();
+
+  // Ambassadeur : code reverifie cote serveur, commission enregistree avec le paiement
+  // (le solde de l'ambassadeur n'est credite qu'a la validation par l'administrateur)
+  if (typeof referralCode === "string" && referralCode.trim()) {
+    try {
+      const refCode = referralCode.trim().toUpperCase();
+      const ambRes: any = await db.execute(sql`select id from ambassadors where code_unique = ${refCode} and is_active = true limit 1`);
+      const ambRow = (Array.isArray(ambRes) ? ambRes : ambRes?.rows ?? [])[0];
+      if (ambRow) {
+        const rateRes: any = await db.execute(sql`select value from site_settings where key = 'commission_rate' limit 1`);
+        const rateRow = (Array.isArray(rateRes) ? rateRes : rateRes?.rows ?? [])[0];
+        const parsedRate = rateRow ? Number(rateRow.value) : 15;
+        const commissionRate = Number.isFinite(parsedRate) ? parsedRate : 15;
+        const commissionAmount = Math.round((resolvedAmount * commissionRate) / 100);
+        await db.execute(sql`
+          update payments set referral_code = ${refCode}, ambassador_id = ${Number(ambRow.id)},
+            commission_rate = ${commissionRate}, commission_amount = ${commissionAmount}
+          where id = ${newPayment.id}
+        `);
+      }
+    } catch (error) {
+      console.error("Code ambassadeur non enregistre:", error);
+    }
+  }
 
   // Mise à jour du statut du couple et de la formule choisie
   await db

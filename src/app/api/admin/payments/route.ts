@@ -1,7 +1,7 @@
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { payments, couples, notifications } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, sql } from "drizzle-orm";
 
 export async function GET() {
   const session = await getCurrentSession();
@@ -90,6 +90,28 @@ export async function PATCH(req: Request) {
       linkUrl: "/dashboard/subscription",
     });
 
+    // Commission ambassadeur : creditee une seule fois, au moment de la validation du paiement
+    try {
+      const creditedRes: any = await db.execute(sql`
+        update payments set commission_credited = true
+        where id = ${Number(id)} and ambassador_id is not null and commission_credited = false
+        returning ambassador_id, commission_amount
+      `);
+      const credited = (Array.isArray(creditedRes) ? creditedRes : creditedRes?.rows ?? [])[0];
+      if (credited && Number(credited.commission_amount) > 0) {
+        await db.execute(sql`
+          update ambassadors set
+            total_sales = total_sales + ${payment.amount || 0},
+            total_commissions = total_commissions + ${Number(credited.commission_amount)},
+            balance = balance + ${Number(credited.commission_amount)},
+            total_clients = total_clients + 1,
+            last_sale_at = now()
+          where id = ${Number(credited.ambassador_id)}
+        `);
+      }
+    } catch (error) {
+      console.error("Commission ambassadeur non creditee:", error);
+    }
     return Response.json({ success: true, message: "Paiement validé avec succès", payment: updatedPayment });
   }
 
