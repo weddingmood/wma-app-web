@@ -1,4 +1,5 @@
 "use client";
+import SubscriptionCard from "@/components/SubscriptionCard";
 
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/ThemeContext";
@@ -108,6 +109,7 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-5 pb-16">
+      <SubscriptionCard />
       <div className="space-y-1">
         <h1 className="font-serif text-2xl font-bold text-stone-900">Mon profil</h1>
         <p className="text-xs text-stone-500">

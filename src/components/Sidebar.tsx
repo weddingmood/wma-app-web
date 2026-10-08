@@ -98,7 +98,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       title: "EXPÉRIENCE & COMPTE",
       items: [
         { href: "/dashboard/preferences", label: "20 Thèmes & Affichage", icon: Palette },
-        { href: "/dashboard/subscription", label: "Abonnement Wave (2 000 FCFA)", icon: CreditCard },
+        { href: "/dashboard/subscription", label: "Mon abonnement", icon: CreditCard },
       { href: "/abonnement", label: "Offres & Premium", icon: CreditCard },
       { href: "/dashboard/temoignage", label: "Mon t\u00e9moignage", icon: CreditCard },
         { href: "/telechargement", label: "Application Mobile & APK", icon: Smartphone },
