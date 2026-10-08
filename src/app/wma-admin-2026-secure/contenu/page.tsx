@@ -1,0 +1,10 @@
+"use client"; import { useEffect, useState } from "react";
+export default function Page(){
+  const [settings,setSettings]=useState<any>({footer_signature:"©{YEAR} {GROUP_NAME}",group_name:"Wedding Mood Africa",rccm:"",ncc:"",annonce_active:false,annonce_text:"",annonce_color:"#D4AF37"}); const [preview,setPreview]=useState("");
+  async function load(){ const r=await fetch("/api/site-contents"); const j=await r.json(); if(j.settings) setSettings(j.settings); }
+  useEffect(()=>{load();},[]);
+  useEffect(()=>{ let t=settings.footer_signature||""; t=t.replace("{YEAR}",new Date().getFullYear().toString()).replace("{GROUP_NAME}",settings.group_name||"").replace("{COUNTRY}","CI").replace("{CITY}","Abidjan"); setPreview(t); },[settings]);
+  async function save(){ await fetch("/api/admin/settings",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(settings)}); alert("Enregistré"); }
+  return (<div className="p-6 space-y-6"><h1 className="text-2xl font-bold text-[#800020]">Contenu - Footer + Annonce</h1>
+  <div className="bg-white p-4 rounded-xl border space-y-3"><textarea className="w-full border p-2 rounded" rows={2} value={settings.footer_signature} onChange={e=>setSettings({...settings,footer_signature:e.target.value})}/><div className="flex gap-2"><input className="border p-2 rounded flex-1" value={settings.group_name} onChange={e=>setSettings({...settings,group_name:e.target.value})}/><input className="border p-2 rounded" value={settings.rccm||""} onChange={e=>setSettings({...settings,rccm:e.target.value})} placeholder="RCCM"/><input className="border p-2 rounded" value={settings.ncc||""} onChange={e=>setSettings({...settings,ncc:e.target.value})} placeholder="NCC"/></div><div className="bg-gray-50 p-2 rounded text-sm">Preview: {preview}</div><button onClick={save} className="bg-[#800020] text-white px-6 py-2 rounded">Enregistrer</button></div></div>);
+}
