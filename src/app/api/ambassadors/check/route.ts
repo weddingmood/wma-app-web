@@ -20,7 +20,7 @@ export async function GET(req: Request) {
   try {
     const amb = rowsOf(
       await db.execute(sql`
-        select a.code_unique, a.name, a.city, a.photo_url, c.name as country_name, c.flag
+        select a.code_unique, a.referral_slug, a.name, a.city, a.country_slug, a.photo_url, c.name as country_name, c.flag
         from ambassadors a left join countries c on c.slug = a.country_slug
         where a.code_unique = ${code} and a.is_active = true
         limit 1
@@ -35,9 +35,10 @@ export async function GET(req: Request) {
       valid: true,
       commissionRate: Number.isFinite(rate) ? rate : 15,
       ambassador: {
-        code: String(amb.code_unique),
+        slug: amb.referral_slug ? String(amb.referral_slug) : "",
         name: String(amb.name),
         city: amb.city ? String(amb.city) : "",
+        countrySlug: amb.country_slug ? String(amb.country_slug) : "",
         countryName: amb.country_name ? String(amb.country_name) : "",
         flag: amb.flag ? String(amb.flag) : "",
         photoUrl: amb.photo_url ? String(amb.photo_url) : "",

@@ -61,7 +61,7 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  const { action, amount, planType, payerEmail, paymentDate, referenceNumber, proofImageUrl, partner2Email, coupleName, waveNumber, referralCode } = body;
+  const { action, amount, planType, payerEmail, paymentDate, referenceNumber, proofImageUrl, partner2Email, coupleName, waveNumber, referralCode, ambassadorSlug } = body;
 
   const [couple] = await db.select().from(couples).where(eq(couples.id, session.coupleId)).limit(1);
 
@@ -139,12 +139,15 @@ export async function POST(req: Request) {
     })
     .returning();
 
-  // Ambassadeur : code reverifie cote serveur, commission enregistree avec le paiement
-  // (le solde de l'ambassadeur n'est credite qu'a la validation par l'administrateur)
-  if (typeof referralCode === "string" && referralCode.trim()) {
+  // Ambassadeur coche dans la liste (ou saisi par code) : reverifie cote serveur, commission enregistree
+  // avec le paiement (le solde de l'ambassadeur n'est credite qu'a la validation par l'administrateur)
+  const wantedSlug = typeof ambassadorSlug === "string" ? ambassadorSlug.trim().toLowerCase() : "";
+  const wantedCode = typeof referralCode === "string" ? referralCode.trim().toUpperCase() : "";
+  if (wantedSlug || wantedCode) {
     try {
-      const refCode = referralCode.trim().toUpperCase();
-      const ambRes: any = await db.execute(sql`select id from ambassadors where code_unique = ${refCode} and is_active = true limit 1`);
+      const ambRes: any = wantedSlug
+        ? await db.execute(sql`select id, code_unique from ambassadors where referral_slug = ${wantedSlug} and is_active = true limit 1`)
+        : await db.execute(sql`select id, code_unique from ambassadors where code_unique = ${wantedCode} and is_active = true limit 1`);
       const ambRow = (Array.isArray(ambRes) ? ambRes : ambRes?.rows ?? [])[0];
       if (ambRow) {
         const rateRes: any = await db.execute(sql`select value from site_settings where key = 'commission_rate' limit 1`);
@@ -153,13 +156,13 @@ export async function POST(req: Request) {
         const commissionRate = Number.isFinite(parsedRate) ? parsedRate : 15;
         const commissionAmount = Math.round((resolvedAmount * commissionRate) / 100);
         await db.execute(sql`
-          update payments set referral_code = ${refCode}, ambassador_id = ${Number(ambRow.id)},
+          update payments set referral_code = ${String(ambRow.code_unique)}, ambassador_id = ${Number(ambRow.id)},
             commission_rate = ${commissionRate}, commission_amount = ${commissionAmount}
           where id = ${newPayment.id}
         `);
       }
     } catch (error) {
-      console.error("Code ambassadeur non enregistre:", error);
+      console.error("Ambassadeur non enregistre:", error);
     }
   }
 

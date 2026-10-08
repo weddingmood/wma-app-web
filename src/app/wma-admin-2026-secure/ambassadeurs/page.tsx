@@ -33,12 +33,50 @@ const METHODS: Array<[string, string]> = [
 const DAYS: Array<[number, string]> = [[1, "Lundi"], [2, "Mardi"], [3, "Mercredi"], [4, "Jeudi"], [5, "Vendredi"], [6, "Samedi"], [7, "Dimanche"]];
 const fcfa = (v: number | string) => Number(v || 0).toLocaleString("fr-FR") + " F";
 
+async function squareJpeg(file: File): Promise<Blob> {
+  const bitmap = await createImageBitmap(file);
+  const size = Math.min(bitmap.width, bitmap.height);
+  const out = Math.min(640, size);
+  const canvas = document.createElement("canvas");
+  canvas.width = out;
+  canvas.height = out;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Image illisible.");
+  ctx.drawImage(bitmap, (bitmap.width - size) / 2, (bitmap.height - size) / 2, size, size, 0, 0, out, out);
+  return await new Promise<Blob>((resolve, reject) => {
+    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Conversion impossible."))), "image/jpeg", 0.88);
+  });
+}
+
+// Recadre la photo en carre, la convertit en JPEG leger, puis l'envoie
+async function uploadPhoto(file: File): Promise<{ url: string }> {
+  let body: Blob = file;
+  let contentType = file.type || "image/jpeg";
+  let pathname = "ambassadors/" + Date.now() + ".jpg";
+  try {
+    body = await squareJpeg(file);
+    contentType = "image/jpeg";
+  } catch {
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) {
+      throw new Error("Format de photo non pris en charge : utilisez une photo JPG ou PNG.");
+    }
+    pathname = "ambassadors/" + Date.now() + "-" + file.name.replace(/[^A-Za-z0-9._-]/g, "_");
+  }
+  try {
+    return await upload(pathname, body, { access: "public", handleUploadUrl: "/api/admin/library/upload", contentType });
+  } catch (e) {
+    throw new Error("Envoi de la photo impossible : " + (e instanceof Error ? e.message : "erreur inconnue"));
+  }
+}
 export default function AdminAmbassadeursPage() {
   const [list, setList] = useState<Amb[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
   const [rate, setRate] = useState("15");
   const [minBalance, setMinBalance] = useState("10000");
   const [msg, setMsg] = useState<string | null>(null);
+  useEffect(() => {
+    if (msg && /impossible|erreur|format|refus|indisponible/i.test(msg)) window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [msg]);
   const [busy, setBusy] = useState(false);
   const [secret, setSecret] = useState<{ name: string; code: string; pin: string } | null>(null);
 
@@ -94,7 +132,7 @@ export default function AdminAmbassadeursPage() {
     try {
       let photoUrl = "";
       if (photo) {
-        const up = await upload("ambassadors/" + photo.name, photo, { access: "public", handleUploadUrl: "/api/admin/library/upload" });
+        const up = await uploadPhoto(photo);
         photoUrl = up.url;
       }
       const res = await fetch("/api/admin/ambassadors", {
@@ -134,7 +172,7 @@ export default function AdminAmbassadeursPage() {
     if (!file) return;
     setBusy(true);
     try {
-      const up = await upload("ambassadors/" + file.name, file, { access: "public", handleUploadUrl: "/api/admin/library/upload" });
+      const up = await uploadPhoto(file);
       patchLocal(a.id, { photo_url: up.url });
       setMsg("Photo envoy\u00e9e : appuyez sur Enregistrer.");
     } catch (e) {
@@ -218,6 +256,7 @@ export default function AdminAmbassadeursPage() {
             </select>
           </label>
           <label style={lab}>{"Photo"}<input type="file" accept="image/*" onChange={(e) => setPhoto(e.target.files?.[0] ?? null)} /></label>
+          {photo && <span style={{ fontSize: 12, color: "#15803d" }}>{"Photo s\u00e9lectionn\u00e9e : " + photo.name}</span>}
         </div>
         <label style={lab}>{"Courte pr\u00e9sentation (500 caract\u00e8res max)"}<textarea style={{ ...input, minHeight: 70 }} value={bio} onChange={(e) => setBio(e.target.value)} /></label>
         <label style={{ display: "flex", gap: 8, fontSize: 13 }}>
