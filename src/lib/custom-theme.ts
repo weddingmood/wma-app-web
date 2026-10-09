@@ -60,3 +60,22 @@ export function buildCustomTheme(hex: string, base: ThemeDefinition): ThemeDefin
     previewColor: primary,
   };
 }
+export function mixColors(a: string, b: string, t: number): string {
+  return mix(a, b, t);
+}
+
+export function contrastWith(hex: string, other: string): number {
+  const l1 = luminance(hex);
+  const l2 = luminance(other);
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+}
+
+export function readableText(hex: string): string {
+  let c = normalizeHex(hex);
+  for (let i = 0; i < 40 && contrastWith(c, "#FFFFFF") < 4.5; i++) c = mix(c, "#000000", 0.05);
+  return c;
+}
+
+export function onColor(bg: string): string {
+  return contrastWith(bg, "#FFFFFF") >= contrastWith(bg, "#000000") ? "#FFFFFF" : "#000000";
+}

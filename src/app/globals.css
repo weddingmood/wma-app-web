@@ -213,3 +213,24 @@ body.display-mode-elegant .elegant-flourish {
   --wm-sand: #EAE2D5;
   --wm-line: #E7E5E4;
 }
+
+/* Boutons personnalises par l'utilisateur */
+body.wm-custom-buttons :is(button, a):is(
+  [style*="background:var(--wm-primary)"],
+  [style*="background: var(--wm-primary)"],
+  [style*="background-color:var(--wm-primary)"],
+  [style*="background-color: var(--wm-primary)"],
+  [class*="bg-[var(--wm-primary)]"]
+) {
+  background: var(--wm-btn-bg) !important;
+  color: var(--wm-btn-text) !important;
+}
+body.wm-custom-buttons :is(button, a):is(
+  [style*="background:var(--wm-primary)"],
+  [style*="background: var(--wm-primary)"],
+  [style*="background-color:var(--wm-primary)"],
+  [style*="background-color: var(--wm-primary)"],
+  [class*="bg-[var(--wm-primary)]"]
+):hover {
+  background: var(--wm-btn-bg-hover) !important;
+}

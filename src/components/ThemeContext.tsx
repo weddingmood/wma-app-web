@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { COLOR_THEMES, FONTS_LIST, ThemeDefinition } from "@/lib/constants";
-import { buildCustomTheme } from "@/lib/custom-theme";
+import { buildCustomTheme, mixColors, onColor, readableText } from "@/lib/custom-theme";
 
 export interface CoupleProfile {
   id: number;
@@ -84,12 +84,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [callType, setCallType] = useState<"audio" | "video">("video");
   const [customColor, setCustomColor] = useState<string | null>(null);
   const [customBase, setCustomBase] = useState<number | null>(null);
+  const [customText, setCustomText] = useState<string | null>(null);
+  const [customButton, setCustomButton] = useState<string | null>(null);
 
   useEffect(() => {
     const loadCustomColor = () => {
       fetch("/api/theme-color", { cache: "no-store" })
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => {
+          setCustomText(d && d.success && typeof d.textColor === "string" ? d.textColor : null);
+          setCustomButton(d && d.success && typeof d.buttonColor === "string" ? d.buttonColor : null);
           if (d && d.success && typeof d.color === "string") {
             setCustomColor(d.color);
             setCustomBase(typeof d.baseThemeId === "number" ? d.baseThemeId : null);
@@ -321,10 +325,41 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.style.setProperty("--wm-secondary", activeTheme.secondary);
     root.style.setProperty("--wm-accent-gold", activeTheme.accent);
 
+    const textKeys = ["--wm-text-dark", "--color-stone-950", "--color-stone-900", "--color-stone-800", "--color-stone-700", "--color-stone-600", "--wm-text-soft", "--color-stone-500", "--wm-text-faint"];
+    const textVars: Record<string, string> = {};
+    if (customText) {
+      const txt = readableText(customText);
+      const mid = mixColors(txt, "#FFFFFF", 0.3);
+      const light = mixColors(txt, "#FFFFFF", 0.45);
+      textVars["--wm-text-dark"] = txt;
+      textVars["--color-stone-950"] = txt;
+      textVars["--color-stone-900"] = txt;
+      textVars["--color-stone-800"] = txt;
+      textVars["--color-stone-700"] = mid;
+      textVars["--color-stone-600"] = mid;
+      textVars["--wm-text-soft"] = mid;
+      textVars["--color-stone-500"] = light;
+      textVars["--wm-text-faint"] = light;
+    }
+    textKeys.forEach((k) => {
+      if (textVars[k]) root.style.setProperty(k, textVars[k]);
+      else root.style.removeProperty(k);
+    });
+
+    if (customButton) {
+      root.style.setProperty("--wm-btn-bg", customButton);
+      root.style.setProperty("--wm-btn-bg-hover", mixColors(customButton, "#000000", 0.15));
+      root.style.setProperty("--wm-btn-text", onColor(customButton));
+    } else {
+      root.style.removeProperty("--wm-btn-bg");
+      root.style.removeProperty("--wm-btn-bg-hover");
+      root.style.removeProperty("--wm-btn-text");
+    }
+
     // Conserve les classes de base du layout et ajoute uniquement les classes de personnalisation
     const baseClasses = "bg-[#F8FAFC] text-stone-900 antialiased min-h-screen";
-    document.body.className = `${baseClasses} font-family-${preferences.fontFamily} font-size-${preferences.fontSize} display-mode-${preferences.displayMode}`;
-  }, [activeTheme, preferences]);
+    document.body.className = `${baseClasses} font-family-${preferences.fontFamily} font-size-${preferences.fontSize} display-mode-${preferences.displayMode}${customButton ? " wm-custom-buttons" : ""}`;
+  }, [activeTheme, preferences, customText, customButton]);
 
   return (
     <ThemeContext.Provider

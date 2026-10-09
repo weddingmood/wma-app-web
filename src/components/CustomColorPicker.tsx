@@ -3,15 +3,78 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "@/components/ThemeContext";
 import { COLOR_THEMES } from "@/lib/constants";
-import { buildCustomTheme, isValidHex, normalizeHex } from "@/lib/custom-theme";
+import { buildCustomTheme, isValidHex, normalizeHex, onColor, readableText } from "@/lib/custom-theme";
 
 const QUICK = ["#C05638", "#9F1239", "#7C2D12", "#B45309", "#15803D", "#0F766E", "#1D4ED8", "#6D28D9", "#BE185D", "#0F172A"];
+const QUICK_TEXT = ["#1F2937", "#1C1917", "#111827", "#3F2A1D", "#1E3A2F", "#312E81", "#7F1D1D", "#0F172A"];
+
+type FieldProps = {
+  label: string;
+  help: string;
+  value: string | null;
+  fallback: string;
+  swatches: string[];
+  onChange: (v: string | null) => void;
+};
+
+function Field({ label, help, value, fallback, swatches, onChange }: FieldProps) {
+  const shown = value ?? fallback;
+  const [hex, setHex] = useState(shown);
+  useEffect(() => { setHex(shown); }, [shown]);
+
+  const typed = (v: string) => {
+    setHex(v);
+    const n = normalizeHex(v);
+    if (isValidHex(n)) onChange(n);
+  };
+
+  return (
+    <div style={{ display: "grid", gap: 8, padding: 12, border: "1px solid #e7e5e4", borderRadius: 12 }}>
+      <div>
+        <strong style={{ fontSize: 14 }}>{label}</strong>
+        <p style={{ fontSize: 12, color: "#57534e", marginTop: 2 }}>{help}</p>
+      </div>
+      <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+        <input
+          type="color"
+          value={shown.toLowerCase()}
+          onChange={(e) => onChange(normalizeHex(e.target.value))}
+          aria-label={label}
+          style={{ width: 56, height: 40, padding: 0, border: "1px solid #d6d3d1", borderRadius: 10, background: "#fff", cursor: "pointer" }}
+        />
+        <input
+          value={hex}
+          onChange={(e) => typed(e.target.value)}
+          maxLength={7}
+          aria-label={"Code " + label}
+          style={{ width: 110, padding: "8px 10px", border: "1px solid #d6d3d1", borderRadius: 10, fontFamily: "monospace", fontSize: 14 }}
+        />
+        {value && (
+          <button type="button" onClick={() => onChange(null)} style={{ fontSize: 12, background: "none", border: 0, color: "#57534e", textDecoration: "underline", cursor: "pointer" }}>
+            {"Par d\u00e9faut"}
+          </button>
+        )}
+      </div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        {swatches.map((c) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => onChange(c)}
+            aria-label={"Choisir " + c}
+            style={{ width: 28, height: 28, borderRadius: 999, background: c, border: c === value ? "3px solid #1c1917" : "2px solid #fff", boxShadow: "0 0 0 1px #d6d3d1", cursor: "pointer" }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function CustomColorPicker() {
   const { preferences } = useTheme();
-  const [saved, setSaved] = useState<string | null>(null);
-  const [color, setColor] = useState("#C05638");
-  const [hex, setHex] = useState("#C05638");
+  const [main, setMain] = useState<string | null>(null);
+  const [text, setText] = useState<string | null>(null);
+  const [button, setButton] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -19,45 +82,35 @@ export default function CustomColorPicker() {
     fetch("/api/theme-color", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
-        if (d && d.success && typeof d.color === "string") {
-          setSaved(d.color);
-          setColor(d.color);
-          setHex(d.color);
+        if (d && d.success) {
+          setMain(typeof d.color === "string" ? d.color : null);
+          setText(typeof d.textColor === "string" ? d.textColor : null);
+          setButton(typeof d.buttonColor === "string" ? d.buttonColor : null);
         }
       })
       .catch(() => {});
   }, []);
 
   const base = COLOR_THEMES.find((t) => t.id === preferences.themeId) || COLOR_THEMES[0];
-  const preview = buildCustomTheme(color, base);
-  const adjusted = preview.primary.toUpperCase() !== normalizeHex(color);
+  const theme = main ? buildCustomTheme(main, base) : base;
+  const btnBg = button ?? theme.primary;
+  const txtColor = text ? readableText(text) : "#1F2937";
+  const textAdjusted = Boolean(text) && txtColor !== normalizeHex(text as string);
 
-  const pick = (value: string) => {
-    const n = normalizeHex(value);
-    setColor(n);
-    setHex(n);
-  };
-
-  const onHexChange = (value: string) => {
-    setHex(value);
-    const n = normalizeHex(value);
-    if (isValidHex(n)) setColor(n);
-  };
-
-  const save = async (value: string | null) => {
+  const save = async (reset: boolean) => {
     setBusy(true);
     setMsg(null);
     try {
       const res = await fetch("/api/theme-color", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ color: value, baseThemeId: preferences.themeId }),
+        body: JSON.stringify(reset ? { reset: true } : { color: main, textColor: text, buttonColor: button, baseThemeId: preferences.themeId }),
       });
       const d = await res.json().catch(() => null);
       if (res.ok && d && d.success) {
-        setSaved(value);
+        if (reset) { setMain(null); setText(null); setButton(null); }
         window.dispatchEvent(new Event("wm-custom-color"));
-        setMsg(value ? "Couleur appliqu\u00e9e \u2714" : "Th\u00e8me d'origine r\u00e9tabli \u2714");
+        setMsg(reset ? "Th\u00e8me d'origine r\u00e9tabli \u2714" : "Couleurs appliqu\u00e9es \u2714");
       } else {
         setMsg((d && d.message) || "Enregistrement impossible.");
       }
@@ -68,67 +121,42 @@ export default function CustomColorPicker() {
     }
   };
 
-  const box = { padding: 16, border: "1px solid #e7e5e4", borderRadius: 16, background: "#fff", display: "grid", gap: 12 } as const;
-  const btn = (bg: string) => ({ padding: "10px 14px", borderRadius: 12, border: 0, color: "#fff", background: bg, fontWeight: 700, fontSize: 13, cursor: "pointer" }) as const;
+  const btn = (bg: string) => ({ padding: "10px 14px", borderRadius: 12, border: 0, color: onColor(bg), background: bg, fontWeight: 700, fontSize: 13, cursor: "pointer" }) as const;
 
   return (
-    <div style={box}>
+    <div style={{ padding: 16, border: "1px solid #e7e5e4", borderRadius: 16, background: "#fff", display: "grid", gap: 12 }}>
       <div>
-        <strong style={{ fontSize: 16 }}>{"Ma couleur personnalis\u00e9e"}</strong>
+        <strong style={{ fontSize: 16 }}>{"Mes couleurs personnalis\u00e9es"}</strong>
         <p style={{ fontSize: 12, color: "#57534e", marginTop: 4 }}>
-          {"En plus des 20 th\u00e8mes, cr\u00e9ez votre propre couleur avec la palette ou un code (exemple : #C05638)."}
+          {"Choisissez la couleur principale, celle des textes et celle des boutons, avec la palette ou un code (exemple : #C05638)."}
         </p>
       </div>
 
-      <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => pick(e.target.value)}
-          aria-label="Palette de couleurs"
-          style={{ width: 64, height: 44, padding: 0, border: "1px solid #d6d3d1", borderRadius: 10, background: "#fff", cursor: "pointer" }}
-        />
-        <input
-          value={hex}
-          onChange={(e) => onHexChange(e.target.value)}
-          maxLength={7}
-          aria-label="Code couleur"
-          style={{ width: 120, padding: "9px 11px", border: "1px solid #d6d3d1", borderRadius: 10, fontFamily: "monospace", fontSize: 14 }}
-        />
-      </div>
+      <Field label="Couleur principale" help={"Titres, accents et ic\u00f4nes de l'application."} value={main} fallback={base.primary} swatches={QUICK} onChange={setMain} />
+      <Field label="Couleur des textes" help={"Le texte reste lisible : il est assombri si le contraste est trop faible."} value={text} fallback="#1F2937" swatches={QUICK_TEXT} onChange={setText} />
+      <Field label="Couleur des boutons" help={"Le texte du bouton passe automatiquement en blanc ou en noir."} value={button} fallback={theme.primary} swatches={QUICK} onChange={setButton} />
 
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        {QUICK.map((c) => (
-          <button
-            key={c}
-            type="button"
-            onClick={() => pick(c)}
-            aria-label={"Choisir " + c}
-            style={{ width: 30, height: 30, borderRadius: 999, background: c, border: c === color ? "3px solid #1c1917" : "2px solid #fff", boxShadow: "0 0 0 1px #d6d3d1", cursor: "pointer" }}
-          />
-        ))}
+      <div style={{ display: "grid", gap: 10, padding: 12, borderRadius: 12, background: theme.badgeBg }}>
+        <span style={{ color: txtColor, fontWeight: 700, fontSize: 15 }}>{"Aper\u00e7u du texte"}</span>
+        <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+          <span style={{ padding: "8px 14px", borderRadius: 10, background: btnBg, color: onColor(btnBg), fontWeight: 700, fontSize: 13 }}>
+            {"Aper\u00e7u du bouton"}
+          </span>
+          <span style={{ padding: "4px 10px", borderRadius: 999, background: theme.badgeBg, color: theme.badgeText, border: "1px solid " + theme.primary, fontSize: 12, fontWeight: 700 }}>
+            {"Badge"}
+          </span>
+        </div>
       </div>
-
-      <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", padding: 12, borderRadius: 12, background: preview.badgeBg }}>
-        <span style={{ padding: "8px 14px", borderRadius: 10, background: preview.primary, color: "#fff", fontWeight: 700, fontSize: 13 }}>
-          {"Aper\u00e7u du bouton"}
-        </span>
-        <span style={{ padding: "4px 10px", borderRadius: 999, background: preview.badgeBg, color: preview.badgeText, border: "1px solid " + preview.primary, fontSize: 12, fontWeight: 700 }}>
-          {"Badge"}
-        </span>
-      </div>
-      {adjusted && (
-        <p style={{ fontSize: 12, color: "#78716c" }}>
-          {"Cette couleur est l\u00e9g\u00e8rement assombrie pour que le texte blanc reste lisible."}
-        </p>
+      {textAdjusted && (
+        <p style={{ fontSize: 12, color: "#78716c" }}>{"La couleur du texte a \u00e9t\u00e9 l\u00e9g\u00e8rement assombrie pour rester lisible."}</p>
       )}
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        <button type="button" disabled={busy || !isValidHex(color)} onClick={() => save(color)} style={btn(preview.primary)}>
-          {"Appliquer cette couleur"}
+        <button type="button" disabled={busy} onClick={() => save(false)} style={btn(btnBg)}>
+          {"Appliquer mes couleurs"}
         </button>
-        {saved && (
-          <button type="button" disabled={busy} onClick={() => save(null)} style={btn("#6b7280")}>
+        {(main || text || button) && (
+          <button type="button" disabled={busy} onClick={() => save(true)} style={btn("#6b7280")}>
             {"Revenir au th\u00e8me d'origine"}
           </button>
         )}
