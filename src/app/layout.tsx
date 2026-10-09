@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import DesktopModeNotice from "@/components/DesktopModeNotice";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeContext";
 import { CallModal } from "@/components/CallModal";
@@ -46,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className="bg-[#F8FAFC] text-stone-900 antialiased min-h-screen">
+        <DesktopModeNotice />
         <ThemeProvider>
           <PwaRegister />
           {children}
