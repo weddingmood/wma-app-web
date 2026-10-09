@@ -47,7 +47,7 @@ export default function ArticlesPage() {
       
       {/* Banner */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100">
           <BookOpen className="w-3.5 h-3.5" />
           <span>Bon à Savoir • Côte d'Ivoire</span>
         </div>
@@ -66,7 +66,7 @@ export default function ArticlesPage() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 selectedCategory === cat
-                  ? "bg-[#C05638] text-white font-bold"
+                  ? "bg-[var(--wm-primary)] text-white font-bold"
                   : "bg-stone-50 hover:bg-stone-100 text-stone-700 border border-stone-200"
               }`}
               style={selectedCategory === cat ? { backgroundColor: activeTheme.primary } : {}}
@@ -86,7 +86,7 @@ export default function ArticlesPage() {
             <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-5">
               <div className="border-b border-stone-100 pb-4 space-y-2">
                 <div className="flex items-center justify-between text-xs text-stone-500">
-                  <span className="font-bold text-[#C05638] uppercase">{selectedArticle.organism || "Source Officielle"}</span>
+                  <span className="font-bold text-[var(--wm-primary)] uppercase">{selectedArticle.organism || "Source Officielle"}</span>
                   <span>Vérifié le {selectedArticle.verifiedAt || "Récemment"}</span>
                 </div>
                 <h2 className="font-serif text-2xl font-bold text-stone-900">
@@ -105,7 +105,7 @@ export default function ArticlesPage() {
                     href={selectedArticle.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 font-semibold text-[#C05638] hover:underline"
+                    className="flex items-center gap-1 font-semibold text-[var(--wm-primary)] hover:underline"
                   >
                     <span>Consulter le texte de loi</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -126,10 +126,10 @@ export default function ArticlesPage() {
             </h3>
             <div className="space-y-4">
               {coursesList.map((course) => (
-                <div key={course.id} className="p-5 rounded-2xl bg-[#FCFAF7] border border-[#EAE2D5] space-y-3">
+                <div key={course.id} className="p-5 rounded-2xl bg-[var(--wm-surface-ivory)] border border-[var(--wm-sand)] space-y-3">
                   <div className="flex items-center justify-between">
                     <h4 className="font-serif font-bold text-stone-900 text-base">{course.title}</h4>
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-orange-100 text-[#C05638] font-bold">
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-orange-100 text-[var(--wm-primary)] font-bold">
                       {course.momentIdeal}
                     </span>
                   </div>
@@ -140,7 +140,7 @@ export default function ArticlesPage() {
                       <span className="text-[11px] font-bold text-stone-800 uppercase">Étapes clés :</span>
                       {course.steps.map((st: any, sIdx: number) => (
                         <div key={sIdx} className="text-xs text-stone-700 flex items-start gap-2">
-                          <span className="font-bold text-[#C05638] shrink-0">{st.stepNumber}.</span>
+                          <span className="font-bold text-[var(--wm-primary)] shrink-0">{st.stepNumber}.</span>
                           <span><strong>{st.title} :</strong> {st.detail}</span>
                         </div>
                       ))}
@@ -168,13 +168,13 @@ export default function ArticlesPage() {
                     onClick={() => setSelectedArticle(art)}
                     className={`w-full p-3.5 rounded-2xl text-left text-xs transition-all flex items-start justify-between gap-2 ${
                       isSelected
-                        ? "bg-[#C05638] text-white shadow-md font-bold"
+                        ? "bg-[var(--wm-primary)] text-white shadow-md font-bold"
                         : "bg-stone-50 hover:bg-stone-100 text-stone-800 border border-stone-200"
                     }`}
                     style={isSelected ? { backgroundColor: activeTheme.primary } : {}}
                   >
                     <div className="space-y-0.5">
-                      <span className={`text-[10px] uppercase font-bold ${isSelected ? "text-white/80" : "text-[#C05638]"}`}>
+                      <span className={`text-[10px] uppercase font-bold ${isSelected ? "text-white/80" : "text-[var(--wm-primary)]"}`}>
                         {art.category}
                       </span>
                       <div className="font-serif line-clamp-2 leading-tight">{art.title}</div>

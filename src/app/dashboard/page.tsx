@@ -316,7 +316,7 @@ export default function DashboardHome() {
                 </div>
                 <div className="w-full bg-stone-100 rounded-full h-1.5 overflow-hidden">
                   <div
-                    className="bg-[#D4AF37] h-1.5 rounded-full transition-all duration-700"
+                    className="bg-[var(--wm-accent-gold)] h-1.5 rounded-full transition-all duration-700"
                     style={{ width: Math.round((p.done / p.total) * 100) + "%" }}
                   ></div>
                 </div>

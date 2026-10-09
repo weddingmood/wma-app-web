@@ -21,8 +21,8 @@ const COLOR_LABEL: Record<string, string> = {
 };
 
 const COLOR_CHIP: Record<string, string> = {
-  terracotta: "bg-[#C05638]",
-  gold: "bg-[#D4AF37]",
+  terracotta: "bg-[var(--wm-primary)]",
+  gold: "bg-[var(--wm-accent-gold)]",
   emerald: "bg-emerald-700",
   ivory: "bg-stone-300",
 };

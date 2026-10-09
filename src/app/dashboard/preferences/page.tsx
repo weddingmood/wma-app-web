@@ -39,7 +39,7 @@ export default function PreferencesPage() {
       
       {/* Banner */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100">
           <Palette className="w-3.5 h-3.5" />
           <span>Personnalisation & Design Premium</span>
         </div>
@@ -57,7 +57,7 @@ export default function PreferencesPage() {
           <h3 className="font-serif font-bold text-stone-900 text-lg">
             1. Choisissez Votre Thème (20 Palettes Royales)
           </h3>
-          <span className="text-xs font-bold text-[#C05638]">
+          <span className="text-xs font-bold text-[var(--wm-primary)]">
             Thème sélectionné : {COLOR_THEMES.find((t) => t.id === selectedThemeId)?.name}
           </span>
           <CustomColorPicker />
@@ -247,7 +247,7 @@ export default function PreferencesPage() {
 
         <button
           onClick={handleSavePreferences}
-          className="px-6 py-3 rounded-2xl bg-[#C05638] text-white font-bold text-xs shadow-md hover:bg-[#A84429] transition-all flex items-center gap-2 cursor-pointer"
+          className="px-6 py-3 rounded-2xl bg-[var(--wm-primary)] text-white font-bold text-xs shadow-md hover:bg-[var(--wm-primary-hover)] transition-all flex items-center gap-2 cursor-pointer"
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Save className="w-4 h-4" />

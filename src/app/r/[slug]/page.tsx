@@ -36,23 +36,23 @@ export default async function AmbassadorPage({ params }: { params: Promise<{ slu
       <AmbassadorClickTracker slug={safe} />
       {amb.photo_url ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={String(amb.photo_url)} alt={name} style={{ width: 180, height: 180, borderRadius: 999, objectFit: "cover", border: "4px solid #D4AF37" }} />
+        <img src={String(amb.photo_url)} alt={name} style={{ width: 180, height: 180, borderRadius: 999, objectFit: "cover", border: "4px solid var(--wm-accent-gold)" }} />
       ) : (
-        <div style={{ width: 180, height: 180, borderRadius: 999, background: "#f5f5f4", border: "4px solid #D4AF37" }} />
+        <div style={{ width: 180, height: 180, borderRadius: 999, background: "#f5f5f4", border: "4px solid var(--wm-accent-gold)" }} />
       )}
       <div style={{ display: "grid", gap: 6 }}>
         <h1 style={{ fontSize: 28, fontWeight: 800 }}>{name}</h1>
-        <span style={{ fontSize: 14, color: "#78716c" }}>{place}</span>
+        <span style={{ fontSize: 14, color: "var(--wm-text-faint)" }}>{place}</span>
       </div>
       {amb.bio ? <p style={{ fontSize: 15, lineHeight: 1.6, color: "#292524" }}>{String(amb.bio)}</p> : null}
-      <p style={{ fontSize: 14, color: "#57534e" }}>
+      <p style={{ fontSize: 14, color: "var(--wm-text-soft)" }}>
         {name + " vous invite \u00e0 pr\u00e9parer votre mariage avec Wedding Mood : budget, invit\u00e9s, prestataires et jeux, \u00e0 deux."}
       </p>
       <div style={{ display: "grid", gap: 10, width: "100%" }}>
-        <Link href="/" style={{ ...btn, background: "#C05638", color: "#fff" }}>
+        <Link href="/" style={{ ...btn, background: "var(--wm-primary)", color: "#fff" }}>
           {"Essayer gratuitement 3 jours"}
         </Link>
-        <Link href="/abonnement" style={{ ...btn, background: "#fff", color: "#C05638", border: "1px solid #C05638" }}>
+        <Link href="/abonnement" style={{ ...btn, background: "#fff", color: "var(--wm-primary)", border: "1px solid var(--wm-primary)" }}>
           {"Voir les offres"}
         </Link>
       </div>

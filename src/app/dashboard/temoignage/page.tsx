@@ -53,7 +53,7 @@ export default function TemoignagePage() {
     }
   };
 
-  const box = { padding: 18, border: "1px solid #e7e5e4", borderRadius: 16, background: "#fff", display: "grid", gap: 12 } as const;
+  const box = { padding: 18, border: "1px solid var(--wm-line)", borderRadius: 16, background: "#fff", display: "grid", gap: 12 } as const;
   const input = { width: "100%", padding: "9px 11px", border: "1px solid #d6d3d1", borderRadius: 10, fontSize: 14 } as const;
   const lab = { fontSize: 12, fontWeight: 700, display: "grid", gap: 4 } as const;
 
@@ -67,7 +67,7 @@ export default function TemoignagePage() {
       {!loading && loggedIn && info && !info.eligible && !info.alreadySent && !sent && (
         <div style={box}>
           <strong>{"Bient\u00f4t disponible"}</strong>
-          <span style={{ fontSize: 14, color: "#57534e" }}>
+          <span style={{ fontSize: 14, color: "var(--wm-text-soft)" }}>
             {"Vous pourrez partager votre exp\u00e9rience 7 jours apr\u00e8s la validation de votre abonnement."}
           </span>
         </div>
@@ -76,7 +76,7 @@ export default function TemoignagePage() {
       {!loading && loggedIn && (sent || (info && info.alreadySent)) && (
         <div style={box}>
           <strong>{"Merci pour votre t\u00e9moignage !"}</strong>
-          <span style={{ fontSize: 14, color: "#57534e" }}>
+          <span style={{ fontSize: 14, color: "var(--wm-text-soft)" }}>
             {"Notre \u00e9quipe le relit avant de le publier. Il appara\u00eetra ensuite sur la page des offres."}
           </span>
         </div>
@@ -101,7 +101,7 @@ export default function TemoignagePage() {
                   type="button"
                   onClick={() => setRating(n)}
                   aria-label={n + " sur 5"}
-                  style={{ fontSize: 28, border: 0, background: "transparent", cursor: "pointer", color: n <= rating ? "#D4AF37" : "#d6d3d1" }}
+                  style={{ fontSize: 28, border: 0, background: "transparent", cursor: "pointer", color: n <= rating ? "var(--wm-accent-gold)" : "#d6d3d1" }}
                 >
                   {"\u2605"}
                 </button>
@@ -111,14 +111,14 @@ export default function TemoignagePage() {
           <label style={lab}>
             {"Votre t\u00e9moignage (20 \u00e0 600 caract\u00e8res)"}
             <textarea style={{ ...input, minHeight: 120 }} value={content} onChange={(e) => setContent(e.target.value)} />
-            <span style={{ fontWeight: 400, color: "#78716c" }}>{content.trim().length + " / 600"}</span>
+            <span style={{ fontWeight: 400, color: "var(--wm-text-faint)" }}>{content.trim().length + " / 600"}</span>
           </label>
           {error && <p style={{ fontSize: 13, color: "#dc2626" }}>{error}</p>}
           <button
             type="button"
             disabled={busy}
             onClick={submit}
-            style={{ padding: "12px 14px", borderRadius: 14, fontWeight: 800, fontSize: 14, border: 0, color: "#fff", background: "#C05638", cursor: "pointer" }}
+            style={{ padding: "12px 14px", borderRadius: 14, fontWeight: 800, fontSize: 14, border: 0, color: "#fff", background: "var(--wm-primary)", cursor: "pointer" }}
           >
             {busy ? "Envoi\u2026" : "Envoyer mon t\u00e9moignage"}
           </button>

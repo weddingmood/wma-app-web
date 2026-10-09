@@ -102,7 +102,7 @@ export default function JourJPage() {
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100 mb-2">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Centre de Contrôle du Grand Jour</span>
           </div>
@@ -118,7 +118,7 @@ export default function JourJPage() {
           onClick={() => setIsLiveWallOpen(true)}
           className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold shadow-md transition-all shrink-0 cursor-pointer"
         >
-          <Tv className="w-4 h-4 text-[#D4AF37]" />
+          <Tv className="w-4 h-4 text-[var(--wm-accent-gold)]" />
           <span>Lancer le Mur Grand Écran</span>
         </button>
       </div>
@@ -139,7 +139,7 @@ export default function JourJPage() {
                   key={item.id}
                   className={`p-4 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
                     item.isCompleted
-                      ? "bg-[#FCFAF7] border-emerald-200 opacity-80"
+                      ? "bg-[var(--wm-surface-ivory)] border-emerald-200 opacity-80"
                       : "bg-stone-50 border-stone-200 hover:bg-white"
                   }`}
                 >
@@ -156,7 +156,7 @@ export default function JourJPage() {
                     </button>
 
                     <div className="space-y-0.5">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#C05638] font-mono">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--wm-primary)] font-mono">
                         {item.timeSlot}
                       </span>
                       <h4 className={`font-serif font-bold text-sm ${item.isCompleted ? "line-through text-stone-400" : "text-stone-900"}`}>
@@ -185,7 +185,7 @@ export default function JourJPage() {
               </h3>
               <button
                 onClick={() => setIsBlessingModalOpen(true)}
-                className="px-3 py-1.5 rounded-xl bg-[#C05638] text-white font-bold text-xs shadow-xs cursor-pointer hover:bg-[#A84429]"
+                className="px-3 py-1.5 rounded-xl bg-[var(--wm-primary)] text-white font-bold text-xs shadow-xs cursor-pointer hover:bg-[var(--wm-primary-hover)]"
                 style={{ backgroundColor: activeTheme.primary }}
               >
                 Ajouter une bénédiction
@@ -194,7 +194,7 @@ export default function JourJPage() {
 
             <div className="space-y-3 max-h-[500px] overflow-y-auto">
               {blessings.map((b) => (
-                <div key={b.id} className="p-4 rounded-2xl bg-[#FCFAF7] border border-[#EAE2D5] text-xs space-y-1">
+                <div key={b.id} className="p-4 rounded-2xl bg-[var(--wm-surface-ivory)] border border-[var(--wm-sand)] text-xs space-y-1">
                   <div className="flex items-center justify-between">
                     <strong className="text-stone-900 font-bold">{b.senderName}</strong>
                     <span className="text-[10px] text-stone-400">{b.senderRelation}</span>
@@ -214,10 +214,10 @@ export default function JourJPage() {
       {isLiveWallOpen && (
         <div className="fixed inset-0 z-50 bg-[#FDFBF7] flex flex-col items-center justify-between p-8 text-stone-900 animate-in fade-in">
           
-          <div className="w-full max-w-6xl flex items-center justify-between border-b border-[#EAE2D5] pb-4">
+          <div className="w-full max-w-6xl flex items-center justify-between border-b border-[var(--wm-sand)] pb-4">
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-[#C05638] animate-ping"></span>
-              <span className="font-serif font-bold text-xl sm:text-2xl text-[#C05638]">
+              <span className="w-3 h-3 rounded-full bg-[var(--wm-primary)] animate-ping"></span>
+              <span className="font-serif font-bold text-xl sm:text-2xl text-[var(--wm-primary)]">
                 {couple?.partner1Name} & {couple?.partner2Name} : Mur des Bénédictions
               </span>
             </div>
@@ -230,10 +230,10 @@ export default function JourJPage() {
           </div>
 
           {/* Active Blessing Display */}
-          <div className="max-w-4xl text-center space-y-6 my-auto p-8 rounded-3xl glass-panel border border-[#D4AF37]/50 shadow-xl animate-in zoom-in-95 duration-500">
+          <div className="max-w-4xl text-center space-y-6 my-auto p-8 rounded-3xl glass-panel border border-[var(--wm-accent-gold)]/50 shadow-xl animate-in zoom-in-95 duration-500">
             {blessings[activeSlide] ? (
               <>
-                <Heart className="w-16 h-16 text-[#C05638] mx-auto animate-pulse" />
+                <Heart className="w-16 h-16 text-[var(--wm-primary)] mx-auto animate-pulse" />
                 <p className="font-serif text-3xl sm:text-5xl italic leading-relaxed text-stone-900">
                   « {blessings[activeSlide].blessingText} »
                 </p>
@@ -309,7 +309,7 @@ export default function JourJPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
+                  className="px-5 py-2 rounded-xl bg-[var(--wm-primary)] text-white font-bold cursor-pointer hover:bg-[var(--wm-primary-hover)]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Publier sur le mur

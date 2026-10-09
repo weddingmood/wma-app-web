@@ -119,7 +119,7 @@ export async function POST(req: Request) {
       `);
       return { ok: true as const };
     });
-    if ("error" in result) return bad(result.error, result.status);
+    if ("error" in result) return bad(result.error ?? "Erreur", result.status ?? 400);
     return Response.json({ success: true });
   } catch (error) {
     console.error("Erreur admin paiements ambassadeurs (paiement):", error);

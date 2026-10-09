@@ -48,3 +48,5 @@ tsconfig.tsbuildinfo
 # Cles de signature Android (ne jamais publier)
 *.keystore
 *.jks
+
+supabase/.temp

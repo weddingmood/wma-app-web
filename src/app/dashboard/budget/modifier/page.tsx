@@ -46,9 +46,9 @@ export default function ModifierBudgetPage() {
   const updateCat = (id: number, patch: Partial<Category>) =>
     setCats((list) => list.map((c) => (c.id === id ? { ...c, ...patch } : c)));
 
-  const box = { padding: 14, border: "1px solid #e7e5e4", borderRadius: 16, background: "#fff" } as const;
+  const box = { padding: 14, border: "1px solid var(--wm-line)", borderRadius: 16, background: "#fff" } as const;
   const input = { width: "100%", padding: "8px 10px", border: "1px solid #d6d3d1", borderRadius: 10 } as const;
-  const btn = { padding: "8px 14px", borderRadius: 10, border: 0, color: "#fff", background: "#C05638", cursor: "pointer" } as const;
+  const btn = { padding: "8px 14px", borderRadius: 10, border: 0, color: "#fff", background: "var(--wm-primary)", cursor: "pointer" } as const;
 
   return (
     <div style={{ display: "grid", gap: 16, paddingBottom: 64 }}>

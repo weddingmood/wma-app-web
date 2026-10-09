@@ -134,7 +134,7 @@ export default function BudgetPage() {
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100 mb-2">
             <Wallet className="w-3.5 h-3.5" />
             <span>Gestion Financière en FCFA</span>
           </div>
@@ -156,7 +156,7 @@ export default function BudgetPage() {
           </button>
           <button
             onClick={() => setIsExpenseModalOpen(true)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white text-xs font-bold shadow-md transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white text-xs font-bold shadow-md transition-all cursor-pointer"
             style={{ backgroundColor: activeTheme.primary }}
           >
             <Plus className="w-4 h-4" />
@@ -275,14 +275,14 @@ export default function BudgetPage() {
                 const pct = c.allocatedAmount > 0 ? Math.min(100, Math.round((committed / c.allocatedAmount) * 100)) : 0;
 
                 return (
-                  <div key={c.id} className="p-3.5 rounded-2xl glass-card-warm border border-[#EAE2D5] space-y-2">
+                  <div key={c.id} className="p-3.5 rounded-2xl glass-card-warm border border-[var(--wm-sand)] space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <strong className="text-stone-900 font-bold">{c.name}</strong>
                       <span className="text-stone-600 font-semibold">{c.allocatedAmount?.toLocaleString("fr-FR")} FCFA</span>
                     </div>
                     <div className="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
                       <div
-                        className="bg-[#C05638] h-full rounded-full"
+                        className="bg-[var(--wm-primary)] h-full rounded-full"
                         style={{ width: `${pct}%`, backgroundColor: activeTheme.primary }}
                       ></div>
                     </div>
@@ -449,7 +449,7 @@ export default function BudgetPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
+                  className="px-5 py-2 rounded-xl bg-[var(--wm-primary)] text-white font-bold cursor-pointer hover:bg-[var(--wm-primary-hover)]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Enregistrer la dépense
@@ -502,7 +502,7 @@ export default function BudgetPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
+                  className="px-5 py-2 rounded-xl bg-[var(--wm-primary)] text-white font-bold cursor-pointer hover:bg-[var(--wm-primary-hover)]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Créer

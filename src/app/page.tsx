@@ -127,7 +127,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-stone-900 font-sans selection:bg-[#C05638] selection:text-white">
+    <div className="min-h-screen bg-[#F8FAFC] text-stone-900 font-sans selection:bg-[var(--wm-primary)] selection:text-white">
       
       {/* Navigation Top Header with Glass Translucent Effect */}
       <nav className="sticky top-0 z-40 w-full glass-panel border-b border-stone-200/70 shadow-xs">
@@ -138,11 +138,11 @@ export default function LandingPage() {
 
           {/* Center Links */}
           <div className="hidden md:flex items-center gap-8 text-xs font-semibold text-stone-700">
-            <a href="#vision" className="hover:text-[#C05638] transition-colors">Vision Pastorale</a>
-            <a href="#modules" className="hover:text-[#C05638] transition-colors">Notre Mariage</a>
-            <a href="#spirituel" className="hover:text-[#C05638] transition-colors">7 Thèmes Bibliques</a>
-            <a href="#themes" className="hover:text-[#C05638] transition-colors">20 Palettes CI</a>
-            <a href="#tarifs" className="hover:text-[#C05638] transition-colors">Abonnement Wave</a>
+            <a href="#vision" className="hover:text-[var(--wm-primary)] transition-colors">Vision Pastorale</a>
+            <a href="#modules" className="hover:text-[var(--wm-primary)] transition-colors">Notre Mariage</a>
+            <a href="#spirituel" className="hover:text-[var(--wm-primary)] transition-colors">7 Thèmes Bibliques</a>
+            <a href="#themes" className="hover:text-[var(--wm-primary)] transition-colors">20 Palettes CI</a>
+            <a href="#tarifs" className="hover:text-[var(--wm-primary)] transition-colors">Abonnement Wave</a>
           </div>
 
           {/* Right Action CTA */}
@@ -162,7 +162,7 @@ export default function LandingPage() {
                 setAuthMode("login");
                 setIsAuthModalOpen(true);
               }}
-              className="px-5 py-2.5 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white text-xs font-bold shadow-md transition-all flex items-center gap-2 cursor-pointer"
+              className="px-5 py-2.5 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white text-xs font-bold shadow-md transition-all flex items-center gap-2 cursor-pointer"
             >
               <span>Accéder à Notre Espace</span>
               <ArrowRight className="w-4 h-4" />
@@ -172,7 +172,7 @@ export default function LandingPage() {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative pt-12 pb-20 sm:pt-20 sm:pb-32 overflow-hidden bg-gradient-to-b from-white via-[#FCFAF7] to-[#F8FAFC]">
+      <section className="relative pt-12 pb-20 sm:pt-20 sm:pb-32 overflow-hidden bg-gradient-to-b from-white via-[var(--wm-surface-ivory)] to-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -180,13 +180,13 @@ export default function LandingPage() {
             {/* Left Column Text */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 text-[#C05638] text-xs font-bold border border-orange-100 shadow-2xs">
-                <Sparkles className="w-4 h-4 text-[#C05638]" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-bold border border-orange-100 shadow-2xs">
+                <Sparkles className="w-4 h-4 text-[var(--wm-primary)]" />
                 <span>Application Premium de Préparation au Mariage en Côte d'Ivoire</span>
               </div>
 
               <h1 className="font-serif text-4xl sm:text-6xl lg:text-6xl font-bold tracking-tight text-stone-950 leading-[1.12]">
-                Bâtir votre mariage sur le <span className="text-[#C05638] font-bold">Roc</span>, du premier jour jusqu'au <span className="text-[#B37D28] font-bold">Jour J</span>.
+                Bâtir votre mariage sur le <span className="text-[var(--wm-primary)] font-bold">Roc</span>, du premier jour jusqu'au <span className="text-[#B37D28] font-bold">Jour J</span>.
               </h1>
 
               <p className="font-serif italic text-base sm:text-xl text-stone-600 max-w-2xl leading-relaxed">
@@ -204,7 +204,7 @@ export default function LandingPage() {
                     setAuthMode("register");
                     setIsAuthModalOpen(true);
                   }}
-                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white text-sm font-bold shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer"
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white text-sm font-bold shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer"
                 >
                   <Heart className="w-5 h-5 fill-current" />
                   <span>Commencer l'Essai Gratuit (3 Jours)</span>
@@ -228,7 +228,7 @@ export default function LandingPage() {
                   Données confidentielles et protégées
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#C05638]" />
+                  <CheckCircle2 className="w-4 h-4 text-[var(--wm-primary)]" />
                   Synchronisation instantanée Elle & Lui
                 </span>
                 <span className="flex items-center gap-1.5">
@@ -258,13 +258,13 @@ export default function LandingPage() {
                 </div>
 
                 {/* Progress bar */}
-                <div className="p-4 rounded-2xl glass-card-warm border border-[#EAE2D5] space-y-2">
+                <div className="p-4 rounded-2xl glass-card-warm border border-[var(--wm-sand)] space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-semibold text-stone-600">Progression des Préparatifs</span>
-                    <strong className="text-[#C05638] text-sm">64 %</strong>
+                    <strong className="text-[var(--wm-primary)] text-sm">64 %</strong>
                   </div>
                   <div className="w-full bg-stone-200 h-2 rounded-full overflow-hidden">
-                    <div className="bg-gradient-to-r from-[#C05638] via-[#B37D28] to-emerald-600 h-full w-[64%] rounded-full"></div>
+                    <div className="bg-gradient-to-r from-[var(--wm-primary)] via-[#B37D28] to-emerald-600 h-full w-[64%] rounded-full"></div>
                   </div>
                   <div className="text-[11px] text-stone-500">
                     J-90 : Cérémonie de Dot & Dossier Mairie validés.
@@ -298,7 +298,7 @@ export default function LandingPage() {
                     setAuthMode("login");
                     setIsAuthModalOpen(true);
                   }}
-                  className="w-full py-3 rounded-xl bg-stone-900 text-white font-bold text-xs hover:bg-[#C05638] transition-colors cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-stone-900 text-white font-bold text-xs hover:bg-[var(--wm-primary)] transition-colors cursor-pointer"
                 >
                   Ouvrir le Tableau de Bord en Direct
                 </button>
@@ -316,7 +316,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs uppercase font-bold tracking-widest text-[#C05638]">
+            <span className="text-xs uppercase font-bold tracking-widest text-[var(--wm-primary)]">
               Les Espaces Fondateurs
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950">
@@ -330,8 +330,8 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* 1. Notre Mariage */}
-            <div className="p-6 rounded-3xl glass-card-warm border border-[#EAE2D5] space-y-4 hover:shadow-lg transition-all">
-              <div className="p-3.5 rounded-2xl bg-orange-100 text-[#C05638] w-fit">
+            <div className="p-6 rounded-3xl glass-card-warm border border-[var(--wm-sand)] space-y-4 hover:shadow-lg transition-all">
+              <div className="p-3.5 rounded-2xl bg-orange-100 text-[var(--wm-primary)] w-fit">
                 <Calendar className="w-6 h-6" />
               </div>
               <h3 className="font-serif font-bold text-xl text-stone-900">1. Notre Mariage</h3>
@@ -341,7 +341,7 @@ export default function LandingPage() {
             </div>
 
             {/* 2. Nous Deux & Dieu */}
-            <div id="spirituel" className="p-6 rounded-3xl glass-card-warm border border-[#EAE2D5] space-y-4 hover:shadow-lg transition-all">
+            <div id="spirituel" className="p-6 rounded-3xl glass-card-warm border border-[var(--wm-sand)] space-y-4 hover:shadow-lg transition-all">
               <div className="p-3.5 rounded-2xl bg-purple-100 text-purple-800 w-fit">
                 <BookOpen className="w-6 h-6" />
               </div>
@@ -352,7 +352,7 @@ export default function LandingPage() {
             </div>
 
             {/* 3. Jeux & Complicité */}
-            <div className="p-6 rounded-3xl glass-card-warm border border-[#EAE2D5] space-y-4 hover:shadow-lg transition-all">
+            <div className="p-6 rounded-3xl glass-card-warm border border-[var(--wm-sand)] space-y-4 hover:shadow-lg transition-all">
               <div className="p-3.5 rounded-2xl bg-emerald-100 text-emerald-800 w-fit">
                 <Gamepad2 className="w-6 h-6" />
               </div>
@@ -363,7 +363,7 @@ export default function LandingPage() {
             </div>
 
             {/* 4. Bon à Savoir & Invités */}
-            <div className="p-6 rounded-3xl glass-card-warm border border-[#EAE2D5] space-y-4 hover:shadow-lg transition-all">
+            <div className="p-6 rounded-3xl glass-card-warm border border-[var(--wm-sand)] space-y-4 hover:shadow-lg transition-all">
               <div className="p-3.5 rounded-2xl bg-blue-100 text-blue-800 w-fit">
                 <Users className="w-6 h-6" />
               </div>
@@ -383,7 +383,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs uppercase font-bold tracking-widest text-[#C05638]">
+            <span className="text-xs uppercase font-bold tracking-widest text-[var(--wm-primary)]">
               Personnalisation
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950">
@@ -418,7 +418,7 @@ export default function LandingPage() {
       <section id="tarifs" className="py-20 bg-white border-t border-stone-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-10">
           <div className="space-y-3">
-            <span className="text-xs uppercase font-bold tracking-widest text-[#C05638]">
+            <span className="text-xs uppercase font-bold tracking-widest text-[var(--wm-primary)]">
               Tarifs Simples &amp; Transparents
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-950">
@@ -435,12 +435,12 @@ export default function LandingPage() {
                 key={o.id}
                 className={`relative p-7 rounded-3xl flex flex-col justify-between gap-6 transition-all ${
                   o.highlight
-                    ? "bg-[#FFF7ED] border-[3px] border-[#C05638] shadow-xl"
+                    ? "bg-[#FFF7ED] border-[3px] border-[var(--wm-primary)] shadow-xl"
                     : "bg-white border border-stone-200 shadow-sm"
                 }`}
               >
                 {o.highlight && (
-                  <span className="absolute -top-3 left-6 text-[10px] font-bold px-3 py-1 rounded-full bg-[#C05638] text-white">
+                  <span className="absolute -top-3 left-6 text-[10px] font-bold px-3 py-1 rounded-full bg-[var(--wm-primary)] text-white">
                     RECOMMAND&Eacute;E
                   </span>
                 )}
@@ -455,7 +455,7 @@ export default function LandingPage() {
                 <Link
                   href="/abonnement"
                   className={`w-full py-3 rounded-2xl font-bold text-xs text-center shadow-md transition-all ${
-                    o.highlight ? "bg-[#C05638] text-white hover:opacity-90" : "bg-stone-900 text-white hover:bg-stone-800"
+                    o.highlight ? "bg-[var(--wm-primary)] text-white hover:opacity-90" : "bg-stone-900 text-white hover:bg-stone-800"
                   }`}
                 >
                   Comparer et choisir
@@ -464,7 +464,7 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <div className="p-6 rounded-3xl glass-panel border border-[#D4AF37]/40 shadow-sm max-w-3xl mx-auto space-y-3">
+          <div className="p-6 rounded-3xl glass-panel border border-[var(--wm-accent-gold)]/40 shadow-sm max-w-3xl mx-auto space-y-3">
             <div className="flex items-center justify-center gap-2">
               <Sparkles className="w-5 h-5 text-[#B37D28]" />
               <h4 className="font-serif font-bold text-stone-900 text-lg">
@@ -472,7 +472,7 @@ export default function LandingPage() {
               </h4>
             </div>
             <p className="text-xs text-stone-600 leading-relaxed max-w-xl mx-auto">
-              D&egrave;s la cr&eacute;ation de votre espace, un code court et facile &agrave; retenir (par exemple <strong className="text-[#C05638] font-mono">WM-4821</strong>) est g&eacute;n&eacute;r&eacute; automatiquement. Chaque conjoint se connecte depuis son propre t&eacute;l&eacute;phone avec son adresse email personnelle et ce code partag&eacute;.
+              D&egrave;s la cr&eacute;ation de votre espace, un code court et facile &agrave; retenir (par exemple <strong className="text-[var(--wm-primary)] font-mono">WM-4821</strong>) est g&eacute;n&eacute;r&eacute; automatiquement. Chaque conjoint se connecte depuis son propre t&eacute;l&eacute;phone avec son adresse email personnelle et ce code partag&eacute;.
             </p>
             <p className="text-[11px] text-stone-500">
               Assistance et activation manuelle par WhatsApp :{" "}
@@ -494,14 +494,14 @@ export default function LandingPage() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10"><FeaturedAmbassadors /></div>
 
-      <section className="py-14 bg-[#FCFAF7] border-t border-stone-200">
+      <section className="py-14 bg-[var(--wm-surface-ivory)] border-t border-stone-200">
         <div className="max-w-3xl mx-auto px-4 text-center space-y-3">
           <h2 className="font-serif text-2xl font-bold text-stone-900">Vous &ecirc;tes prestataire de mariage ?</h2>
           <p className="text-sm text-stone-600 leading-relaxed">
             Traiteur, d&eacute;corateur, photographe&hellip; Inscrivez-vous gratuitement : votre fiche sera visible par les couples apr&egrave;s validation par notre &eacute;quipe.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-            <a href="/devenir-prestataire" className="inline-flex items-center px-5 py-2.5 rounded-2xl bg-[#C05638] text-white text-sm font-bold hover:opacity-90">Inscription gratuite</a>
+            <a href="/devenir-prestataire" className="inline-flex items-center px-5 py-2.5 rounded-2xl bg-[var(--wm-primary)] text-white text-sm font-bold hover:opacity-90">Inscription gratuite</a>
             <a href="/marketplace" className="inline-flex items-center px-5 py-2.5 rounded-2xl bg-white border border-stone-200 text-stone-800 text-sm font-semibold hover:bg-stone-50">Voir les prestataires</a>
           </div>
         </div>
@@ -513,7 +513,7 @@ export default function LandingPage() {
           </div>
 
           <div className="text-xs text-stone-500 text-center sm:text-right space-y-1">
-            <p>Support WhatsApp Officiel : <a href={OFFICIAL_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-[#C05638] font-bold hover:underline">+225 70 50 13 56</a></p>
+            <p>Support WhatsApp Officiel : <a href={OFFICIAL_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-[var(--wm-primary)] font-bold hover:underline">+225 70 50 13 56</a></p>
             <p>© 2025 Wedding Mood Côte d'Ivoire. Tous droits réservés.</p>
           </div>
         </div>
@@ -544,7 +544,7 @@ export default function LandingPage() {
 
             {/* CODE D'ACCÈS UNIQUE GÉNÉRÉ APRÈS INSCRIPTION */}
             {generatedAccessCode && (
-              <div className="p-5 rounded-3xl glass-card-warm border-2 border-[#D4AF37] shadow-md space-y-3 text-center animate-in fade-in">
+              <div className="p-5 rounded-3xl glass-card-warm border-2 border-[var(--wm-accent-gold)] shadow-md space-y-3 text-center animate-in fade-in">
                 <Sparkles className="w-8 h-8 text-[#B37D28] mx-auto" />
                 <h4 className="font-serif font-bold text-stone-900 text-base">
                   Votre espace est créé avec succès !
@@ -552,8 +552,8 @@ export default function LandingPage() {
                 <p className="text-[11px] text-stone-600">
                   Voici votre code d'accès unique. Communiquez-le à votre conjoint pour qu'il rejoigne l'espace avec son adresse email.
                 </p>
-                <div className="p-4 rounded-2xl bg-white border-2 border-[#C05638]/50">
-                  <span className="font-serif font-black text-3xl tracking-widest text-[#C05638]">
+                <div className="p-4 rounded-2xl bg-white border-2 border-[var(--wm-primary)]/50">
+                  <span className="font-serif font-black text-3xl tracking-widest text-[var(--wm-primary)]">
                     {generatedAccessCode}
                   </span>
                 </div>
@@ -618,16 +618,16 @@ export default function LandingPage() {
                   />
                 </div>
 
-                <div className="p-3 rounded-xl glass-card-warm border border-[#EAE2D5] text-[11px] text-stone-600 space-y-1">
+                <div className="p-3 rounded-xl glass-card-warm border border-[var(--wm-sand)] text-[11px] text-stone-600 space-y-1">
                   <strong className="block text-stone-800">Accès de démonstration :</strong>
                   <span className="block">Email : Époux@weddingmood.ci ou Épouse@weddingmood.ci</span>
-                  <span className="block">Code d'accès : <strong className="font-mono text-[#C05638]">WM-2025</strong></span>
+                  <span className="block">Code d'accès : <strong className="font-mono text-[var(--wm-primary)]">WM-2025</strong></span>
                 </div>
 
                 <button
                   type="submit"
                   disabled={authLoading}
-                  className="w-full py-3 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white font-bold text-xs shadow-md transition-all cursor-pointer"
+                  className="w-full py-3 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white font-bold text-xs shadow-md transition-all cursor-pointer"
                 >
                   {authLoading ? "Connexion..." : "Ouvrir Notre Espace Wedding Mood"}
                 </button>
@@ -649,7 +649,7 @@ export default function LandingPage() {
                       onClick={() => setSelectedPlanId("couple")}
                       className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
                         selectedPlanId === "couple"
-                          ? "bg-[#C05638] text-white border-[#C05638] shadow-xs"
+                          ? "bg-[var(--wm-primary)] text-white border-[var(--wm-primary)] shadow-xs"
                           : "bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100"
                       }`}
                     >
@@ -664,7 +664,7 @@ export default function LandingPage() {
                       onClick={() => setSelectedPlanId("individual")}
                       className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
                         selectedPlanId === "individual"
-                          ? "bg-[#C05638] text-white border-[#C05638] shadow-xs"
+                          ? "bg-[var(--wm-primary)] text-white border-[var(--wm-primary)] shadow-xs"
                           : "bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100"
                       }`}
                     >
@@ -750,8 +750,8 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl glass-card-warm border border-[#EAE2D5] text-[11px] text-stone-600">
-                  Un <strong className="text-[#C05638]">code d'accès unique</strong> sera généré automatiquement à la création de votre espace. Les deux partenaires s'en serviront avec leurs adresses email respectives.
+                <div className="p-3 rounded-xl glass-card-warm border border-[var(--wm-sand)] text-[11px] text-stone-600">
+                  Un <strong className="text-[var(--wm-primary)]">code d'accès unique</strong> sera généré automatiquement à la création de votre espace. Les deux partenaires s'en serviront avec leurs adresses email respectives.
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -780,7 +780,7 @@ export default function LandingPage() {
                 <button
                   type="submit"
                   disabled={authLoading}
-                  className="w-full py-3 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white font-bold text-xs shadow-md transition-all cursor-pointer"
+                  className="w-full py-3 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white font-bold text-xs shadow-md transition-all cursor-pointer"
                 >
                   {authLoading ? "Création en cours..." : "Créer Notre Espace et Générer Notre Code (Essai 3 Jours)"}
                 </button>

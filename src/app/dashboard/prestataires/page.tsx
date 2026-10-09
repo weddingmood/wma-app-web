@@ -64,18 +64,18 @@ export default function PrestatairesPage() {
   return (
     <div style={{ display: "grid", gap: 16, paddingBottom: 64 }}>
       <h1 style={{ fontSize: 24, fontWeight: 700 }}>{"Prestataires du mariage"}</h1>
-      <p style={{ fontSize: 13, color: "#57534e" }}>
+      <p style={{ fontSize: 13, color: "var(--wm-text-soft)" }}>
         {"Traiteurs, d\u00e9corateurs, photographes\u2026 s\u00e9lectionn\u00e9s et valid\u00e9s par notre \u00e9quipe. Contactez-les directement sur WhatsApp."}
       </p>
 
-      <div style={{ padding: 14, border: "1px dashed #C05638", borderRadius: 16, background: "#fff7ed", display: "grid", gap: 6 }}>
+      <div style={{ padding: 14, border: "1px dashed var(--wm-primary)", borderRadius: 16, background: "#fff7ed", display: "grid", gap: 6 }}>
         <strong>{"Vous \u00eates prestataire ?"}</strong>
-        <span style={{ fontSize: 13, color: "#57534e" }}>
+        <span style={{ fontSize: 13, color: "var(--wm-text-soft)" }}>
           {"Inscrivez-vous gratuitement : votre fiche sera visible par tous les couples apr\u00e8s validation par notre \u00e9quipe."}
         </span>
         <a
           href="/devenir-prestataire"
-          style={{ marginTop: 4, padding: "9px 12px", borderRadius: 12, background: "#C05638", color: "#fff", textAlign: "center", fontWeight: 700, fontSize: 13 }}
+          style={{ marginTop: 4, padding: "9px 12px", borderRadius: 12, background: "var(--wm-primary)", color: "#fff", textAlign: "center", fontWeight: 700, fontSize: 13 }}
         >
           {"S'inscrire gratuitement"}
         </a>
@@ -94,7 +94,7 @@ export default function PrestatairesPage() {
 
       {loading && <p>{"Chargement..."}</p>}
       {!loading && shown.length === 0 && (
-        <p style={{ fontSize: 14, color: "#57534e" }}>{"Aucun prestataire disponible pour le moment. Revenez bient\u00f4t !"}</p>
+        <p style={{ fontSize: 14, color: "var(--wm-text-soft)" }}>{"Aucun prestataire disponible pour le moment. Revenez bient\u00f4t !"}</p>
       )}
 
       <div style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
@@ -102,12 +102,12 @@ export default function PrestatairesPage() {
           const photo = p.photos && p.photos.length > 0 ? p.photos[0] : null;
           const phone = (p.whatsapp || "").replace(/\D/g, "");
           return (
-            <div key={p.id} style={{ border: "1px solid #e7e5e4", borderRadius: 16, background: "#fff", overflow: "hidden", display: "grid" }}>
+            <div key={p.id} style={{ border: "1px solid var(--wm-line)", borderRadius: 16, background: "#fff", overflow: "hidden", display: "grid" }}>
               {photo && <img src={photo} alt="" style={{ width: "100%", height: 150, objectFit: "cover" }} />}
               <div style={{ padding: 14, display: "grid", gap: 6 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "#C05638", textTransform: "uppercase" }}>{SERVICES[p.service] ?? p.service}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--wm-primary)", textTransform: "uppercase" }}>{SERVICES[p.service] ?? p.service}</span>
                 <h3 style={{ fontSize: 17, fontWeight: 700 }}>{p.businessName}</h3>
-                <p style={{ fontSize: 12, color: "#78716c" }}>{(p.city || "Abidjan") + " \u2022 " + p.contactName}</p>
+                <p style={{ fontSize: 12, color: "var(--wm-text-faint)" }}>{(p.city || "Abidjan") + " \u2022 " + p.contactName}</p>
                 {p.description && <p style={{ fontSize: 13, color: "#44403c" }}>{p.description}</p>}
                 {p.priceFrom ? (
                   <p style={{ fontSize: 13, fontWeight: 600 }}>{"\u00c0 partir de " + p.priceFrom.toLocaleString("fr-FR") + " FCFA"}</p>

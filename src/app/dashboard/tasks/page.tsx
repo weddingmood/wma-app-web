@@ -135,7 +135,7 @@ export default function TasksPage() {
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100 mb-2">
             <CheckSquare className="w-3.5 h-3.5" />
             <span>Organisation & Actions du Couple</span>
           </div>
@@ -149,7 +149,7 @@ export default function TasksPage() {
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white text-xs font-bold shadow-md transition-all shrink-0"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white text-xs font-bold shadow-md transition-all shrink-0"
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Plus className="w-4 h-4" />
@@ -238,8 +238,8 @@ export default function TasksPage() {
                 key={t.id}
                 className={`p-5 rounded-2xl border transition-all flex flex-col justify-between ${
                   isDone
-                    ? "bg-[#FCFAF7] border-emerald-200/80 opacity-80"
-                    : "bg-white border-stone-200 hover:shadow-md hover:border-[#D4AF37]/50"
+                    ? "bg-[var(--wm-surface-ivory)] border-emerald-200/80 opacity-80"
+                    : "bg-white border-stone-200 hover:shadow-md hover:border-[var(--wm-accent-gold)]/50"
                 }`}
               >
                 <div className="space-y-3">
@@ -307,7 +307,7 @@ export default function TasksPage() {
                     <span>{t.dueDate || "Sans échéance"}</span>
                   </div>
 
-                  <Link href={`/dashboard/tasks/${t.id}`} className="text-xs font-semibold underline text-[#C05638]">Voir / modifier</Link>
+                  <Link href={`/dashboard/tasks/${t.id}`} className="text-xs font-semibold underline text-[var(--wm-primary)]">Voir / modifier</Link>
                 <button
                     onClick={() => handleDeleteTask(t.id)}
                     className="p-1 text-stone-400 hover:text-red-600 transition-colors"
@@ -435,7 +435,7 @@ export default function TasksPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold hover:bg-[#A84429] shadow-sm"
+                  className="px-5 py-2 rounded-xl bg-[var(--wm-primary)] text-white font-bold hover:bg-[var(--wm-primary-hover)] shadow-sm"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Enregistrer

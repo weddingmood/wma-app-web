@@ -105,7 +105,7 @@ export default function QuizzesPage() {
       
       {/* Banner */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100">
           <HelpCircle className="w-3.5 h-3.5" />
           <span>Quiz Bibliques & Connexion du Couple</span>
         </div>
@@ -122,7 +122,7 @@ export default function QuizzesPage() {
             onClick={() => setActiveCategory("connaissance")}
             className={`p-3 rounded-2xl text-xs font-bold transition-all text-left flex items-center gap-2 cursor-pointer ${
               activeCategory === "connaissance"
-                ? "bg-[#C05638] text-white shadow-md"
+                ? "bg-[var(--wm-primary)] text-white shadow-md"
                 : "bg-white/80 hover:bg-white text-stone-700 border border-stone-200"
             }`}
             style={activeCategory === "connaissance" ? { backgroundColor: activeTheme.primary } : {}}
@@ -135,7 +135,7 @@ export default function QuizzesPage() {
             onClick={() => setActiveCategory("situation_reelle")}
             className={`p-3 rounded-2xl text-xs font-bold transition-all text-left flex items-center gap-2 cursor-pointer ${
               activeCategory === "situation_reelle"
-                ? "bg-[#C05638] text-white shadow-md"
+                ? "bg-[var(--wm-primary)] text-white shadow-md"
                 : "bg-white/80 hover:bg-white text-stone-700 border border-stone-200"
             }`}
             style={activeCategory === "situation_reelle" ? { backgroundColor: activeTheme.primary } : {}}
@@ -148,7 +148,7 @@ export default function QuizzesPage() {
             onClick={() => setActiveCategory("discussion_couple")}
             className={`p-3 rounded-2xl text-xs font-bold transition-all text-left flex items-center gap-2 cursor-pointer ${
               activeCategory === "discussion_couple"
-                ? "bg-[#C05638] text-white shadow-md"
+                ? "bg-[var(--wm-primary)] text-white shadow-md"
                 : "bg-white/80 hover:bg-white text-stone-700 border border-stone-200"
             }`}
             style={activeCategory === "discussion_couple" ? { backgroundColor: activeTheme.primary } : {}}
@@ -165,11 +165,11 @@ export default function QuizzesPage() {
         <div className="p-5 rounded-3xl glass-panel border border-stone-200 shadow-2xs flex items-center justify-between">
           <div>
             <span className="text-[11px] font-bold text-stone-500 uppercase">Score de Complicité</span>
-            <div className="text-3xl font-serif font-extrabold text-[#C05638] mt-0.5">
+            <div className="text-3xl font-serif font-extrabold text-[var(--wm-primary)] mt-0.5">
               {scoreData.complicityScore} %
             </div>
           </div>
-          <div className="p-3 rounded-2xl bg-orange-50 text-[#C05638]">
+          <div className="p-3 rounded-2xl bg-orange-50 text-[var(--wm-primary)]">
             <Flame className="w-6 h-6" />
           </div>
         </div>
@@ -186,7 +186,7 @@ export default function QuizzesPage() {
           </div>
         </div>
 
-        <div className="p-5 rounded-3xl glass-card-warm border border-[#EAE2D5] shadow-2xs flex items-center justify-between">
+        <div className="p-5 rounded-3xl glass-card-warm border border-[var(--wm-sand)] shadow-2xs flex items-center justify-between">
           <div>
             <span className="text-[11px] font-bold text-stone-500 uppercase">Engagement 7 Jours</span>
             <div className="text-xs font-serif font-bold text-stone-800 mt-1">
@@ -213,7 +213,7 @@ export default function QuizzesPage() {
         <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-6">
           
           <div className="flex items-center justify-between border-b border-stone-100 pb-3 text-xs">
-            <span className="text-[#C05638] font-bold uppercase tracking-wider">
+            <span className="text-[var(--wm-primary)] font-bold uppercase tracking-wider">
               Question {currentIdx + 1} sur {questions.length}
             </span>
             <span className="text-stone-500">
@@ -238,7 +238,7 @@ export default function QuizzesPage() {
                   btnClass = "bg-red-50 border-red-300 text-red-950";
                 }
               } else if (isSelected) {
-                btnClass = "bg-[#C05638]/10 border-[#C05638] text-[#C05638] font-bold";
+                btnClass = "bg-[var(--wm-primary)]/10 border-[var(--wm-primary)] text-[var(--wm-primary)] font-bold";
               }
 
               return (
@@ -268,14 +268,14 @@ export default function QuizzesPage() {
 
           {/* Answer Explanation */}
           {isAnswered && (
-            <div className="p-4 rounded-2xl glass-card-warm border border-[#EAE2D5] text-xs space-y-1.5 animate-in fade-in">
+            <div className="p-4 rounded-2xl glass-card-warm border border-[var(--wm-sand)] text-xs space-y-1.5 animate-in fade-in">
               <div className="flex items-center gap-2 text-stone-900 font-bold">
-                <Sparkles className="w-4 h-4 text-[#C05638]" />
+                <Sparkles className="w-4 h-4 text-[var(--wm-primary)]" />
                 <span>Éclairage pastoral :</span>
               </div>
               <p className="text-stone-700 leading-relaxed">{resultData?.explanation}</p>
               {resultData?.bibleRef && (
-                <span className="text-[11px] font-bold text-[#C05638]">Référence : {resultData.bibleRef}</span>
+                <span className="text-[11px] font-bold text-[var(--wm-primary)]">Référence : {resultData.bibleRef}</span>
               )}
             </div>
           )}
@@ -286,7 +286,7 @@ export default function QuizzesPage() {
               <button
                 onClick={handleSubmitAnswer}
                 disabled={selectedOption === null}
-                className="px-6 py-2.5 rounded-xl bg-[#C05638] disabled:opacity-50 text-white font-bold text-xs shadow-md cursor-pointer hover:bg-[#A84429]"
+                className="px-6 py-2.5 rounded-xl bg-[var(--wm-primary)] disabled:opacity-50 text-white font-bold text-xs shadow-md cursor-pointer hover:bg-[var(--wm-primary-hover)]"
                 style={{ backgroundColor: activeTheme.primary }}
               >
                 Valider ma réponse

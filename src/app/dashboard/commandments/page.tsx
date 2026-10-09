@@ -97,7 +97,7 @@ export default function CommandmentsPage() {
       {/* Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100 mb-2">
             <ScrollText className="w-3.5 h-3.5" />
             <span>Charte d'Alliance du Couple</span>
           </div>
@@ -132,7 +132,7 @@ export default function CommandmentsPage() {
 
         <div className="w-full sm:w-48 bg-stone-100 h-3 rounded-full overflow-hidden shrink-0">
           <div
-            className="h-full bg-[#C05638] rounded-full transition-all duration-700"
+            className="h-full bg-[var(--wm-primary)] rounded-full transition-all duration-700"
             style={{ width: `${stats.progressPercent}%`, backgroundColor: activeTheme.primary }}
           ></div>
         </div>
@@ -149,13 +149,13 @@ export default function CommandmentsPage() {
               key={cmd.id}
               className={`p-6 rounded-3xl border transition-all space-y-4 ${
                 isBoth
-                  ? "glass-card-warm border-[#EAE2D5] shadow-2xs"
+                  ? "glass-card-warm border-[var(--wm-sand)] shadow-2xs"
                   : "glass-panel border-stone-200 hover:shadow-md"
               }`}
             >
               <div className="flex items-start justify-between gap-4 border-b border-stone-100 pb-3">
                 <div className="flex items-start gap-3">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#C05638] text-white font-serif font-bold text-sm shrink-0" style={{ backgroundColor: activeTheme.primary }}>
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--wm-primary)] text-white font-serif font-bold text-sm shrink-0" style={{ backgroundColor: activeTheme.primary }}>
                     {cmd.orderIndex}
                   </span>
                   <div>
@@ -225,7 +225,7 @@ export default function CommandmentsPage() {
                   className={`px-4 py-2 rounded-xl font-bold transition-all cursor-pointer ${
                     myConfirmed
                       ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
-                      : "bg-[#C05638] text-white hover:bg-[#A84429] shadow-xs"
+                      : "bg-[var(--wm-primary)] text-white hover:bg-[var(--wm-primary-hover)] shadow-xs"
                   }`}
                   style={!myConfirmed ? { backgroundColor: activeTheme.primary } : {}}
                 >
@@ -292,7 +292,7 @@ export default function CommandmentsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
+                  className="px-5 py-2 rounded-xl bg-[var(--wm-primary)] text-white font-bold cursor-pointer hover:bg-[var(--wm-primary-hover)]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Enregistrer

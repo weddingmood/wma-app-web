@@ -181,7 +181,7 @@ export default function ConfirmationPaiementPage() {
     }
   };
 
-  const box = { padding: 18, border: "1px solid #e7e5e4", borderRadius: 16, background: "#fff", display: "grid", gap: 12 } as const;
+  const box = { padding: 18, border: "1px solid var(--wm-line)", borderRadius: 16, background: "#fff", display: "grid", gap: 12 } as const;
   const input = { width: "100%", padding: "9px 11px", border: "1px solid #d6d3d1", borderRadius: 10, fontSize: 14 } as const;
   const lab = { fontSize: 12, fontWeight: 700, display: "grid", gap: 4 } as const;
   const btn = { padding: "12px 14px", borderRadius: 14, fontWeight: 800, fontSize: 14, textAlign: "center", display: "block", border: 0, cursor: "pointer" } as const;
@@ -199,7 +199,7 @@ export default function ConfirmationPaiementPage() {
       {ready && !loggedIn && (
         <div style={box}>
           <p style={{ fontSize: 14 }}>{"Connectez-vous d'abord \u00e0 votre espace Wedding Mood, puis revenez sur cette page pour confirmer votre paiement."}</p>
-          <Link href="/dashboard" style={{ ...btn, background: "#C05638", color: "#fff" }}>
+          <Link href="/dashboard" style={{ ...btn, background: "var(--wm-primary)", color: "#fff" }}>
             {"Me connecter"}
           </Link>
         </div>
@@ -208,7 +208,7 @@ export default function ConfirmationPaiementPage() {
       {ready && loggedIn && done && (
         <div style={box}>
           <strong>{"Merci ! Votre demande est enregistr\u00e9e."}</strong>
-          <p style={{ fontSize: 14, color: "#57534e" }}>
+          <p style={{ fontSize: 14, color: "var(--wm-text-soft)" }}>
             {"Notre \u00e9quipe v\u00e9rifie votre paiement de " + done.amount.toLocaleString("fr-FR") + " FCFA (" + done.label + ") et active votre pack."}
           </p>
           <a
@@ -250,7 +250,7 @@ export default function ConfirmationPaiementPage() {
             <input style={input} value={txId} onChange={(e) => setTxId(e.target.value)} />
           </label>
 
-          <div style={{ padding: 14, border: "1px solid #D4AF37", borderRadius: 14, background: "#FFFBEB", display: "grid", gap: 10 }}>
+          <div style={{ padding: 14, border: "1px solid var(--wm-accent-gold)", borderRadius: 14, background: "#FFFBEB", display: "grid", gap: 10 }}>
             <strong>{"Qui vous a recommand\u00e9 ? Cochez votre ambassadeur"}</strong>
 
             {ambs.length > 5 && (
@@ -268,13 +268,13 @@ export default function ConfirmationPaiementPage() {
             )}
 
             <div style={{ maxHeight: 300, overflowY: "auto", display: "grid", gap: 8 }}>
-              {filtered.length === 0 && <span style={{ fontSize: 13, color: "#78716c" }}>{ambs.length === 0 ? "Aucun ambassadeur pour le moment." : "Aucun r\u00e9sultat."}</span>}
+              {filtered.length === 0 && <span style={{ fontSize: 13, color: "var(--wm-text-faint)" }}>{ambs.length === 0 ? "Aucun ambassadeur pour le moment." : "Aucun r\u00e9sultat."}</span>}
               {filtered.map((a) => {
                 const on = selected === a.slug && !noAmb;
                 return (
                   <label
                     key={a.slug}
-                    style={{ display: "flex", gap: 10, alignItems: "center", padding: 10, borderRadius: 12, cursor: "pointer", border: on ? "2px solid #16a34a" : "1px solid #e7e5e4", background: on ? "#f0fdf4" : "#fff" }}
+                    style={{ display: "flex", gap: 10, alignItems: "center", padding: 10, borderRadius: 12, cursor: "pointer", border: on ? "2px solid #16a34a" : "1px solid var(--wm-line)", background: on ? "#f0fdf4" : "#fff" }}
                   >
                     <input type="checkbox" checked={on} onChange={() => toggleAmb(a.slug)} style={{ width: 22, height: 22, accentColor: "#16a34a" }} />
                     {a.photoUrl ? (
@@ -285,7 +285,7 @@ export default function ConfirmationPaiementPage() {
                     )}
                     <div style={{ display: "grid", gap: 2 }}>
                       <strong style={{ fontSize: 14 }}>{a.name}</strong>
-                      <span style={{ fontSize: 12, color: "#78716c" }}>{(a.flag ? a.flag + " " : "") + a.city + (a.countryName ? ", " + a.countryName : "")}</span>
+                      <span style={{ fontSize: 12, color: "var(--wm-text-faint)" }}>{(a.flag ? a.flag + " " : "") + a.city + (a.countryName ? ", " + a.countryName : "")}</span>
                     </div>
                   </label>
                 );
@@ -305,7 +305,7 @@ export default function ConfirmationPaiementPage() {
               <span>{"Aucun ambassadeur"}</span>
             </label>
 
-            <button type="button" onClick={() => setShowCode((v) => !v)} style={{ background: "transparent", border: 0, color: "#C05638", fontSize: 13, textAlign: "left", cursor: "pointer", padding: 0 }}>
+            <button type="button" onClick={() => setShowCode((v) => !v)} style={{ background: "transparent", border: 0, color: "var(--wm-primary)", fontSize: 13, textAlign: "left", cursor: "pointer", padding: 0 }}>
               {showCode ? "Masquer le champ code" : "J'ai un code ambassadeur"}
             </button>
             {showCode && (
@@ -320,7 +320,7 @@ export default function ConfirmationPaiementPage() {
               </div>
             )}
 
-            <div style={{ fontSize: 13, display: "grid", gap: 3, borderTop: "1px dashed #D4AF37", paddingTop: 8 }}>
+            <div style={{ fontSize: 13, display: "grid", gap: 3, borderTop: "1px dashed var(--wm-accent-gold)", paddingTop: 8 }}>
               <span>{"Montant du pack : " + selectedPack.amount.toLocaleString("fr-FR") + " FCFA"}</span>
               {selectedAmb && !noAmb && <span>{"Ambassadeur : " + selectedAmb.name}</span>}
               {selectedAmb && !noAmb && (
@@ -333,7 +333,7 @@ export default function ConfirmationPaiementPage() {
           </div>
 
           {error && <p style={{ fontSize: 13, color: "#dc2626" }}>{error}</p>}
-          <button type="button" disabled={busy} onClick={submit} style={{ ...btn, background: "#C05638", color: "#fff" }}>
+          <button type="button" disabled={busy} onClick={submit} style={{ ...btn, background: "var(--wm-primary)", color: "#fff" }}>
             {busy ? "Envoi en cours\u2026" : "Envoyer ma confirmation"}
           </button>
         </div>

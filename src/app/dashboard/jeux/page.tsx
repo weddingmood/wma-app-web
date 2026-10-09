@@ -70,7 +70,7 @@ export default function JeuxPage() {
       category: "Plateau & Stratégie",
       description: "La course sacrée vers l'autel de mariage : 4 pions, circuit de 52 cases, étoiles sécurisées et lancers de dé animés.",
       badge: "Multijoueur & IA",
-      primaryColor: "#C05638",
+      primaryColor: "var(--wm-primary)",
       icon: Dice5,
       features: ["2 ou 4 Joueurs", "Partie en couple", "Adversaire IA", "Captures & Bonus 6"],
     },
@@ -112,7 +112,7 @@ export default function JeuxPage() {
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-bold border border-orange-100 mb-2">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-bold border border-orange-100 mb-2">
               <Gamepad2 className="w-3.5 h-3.5" />
               <span>Salle de Jeux & Complicité • Wedding Mood</span>
             </div>
@@ -140,7 +140,7 @@ export default function JeuxPage() {
               hidden={hiddenGames.includes("ludo")} onClick={() => setActiveGame("ludo")}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 activeGame === "ludo"
-                  ? "bg-[#C05638] text-white shadow-xs"
+                  ? "bg-[var(--wm-primary)] text-white shadow-xs"
                   : "text-stone-600 hover:text-stone-900"
               }`}
             >
@@ -150,7 +150,7 @@ export default function JeuxPage() {
               hidden={hiddenGames.includes("awale")} onClick={() => setActiveGame("awale")}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 activeGame === "awale"
-                  ? "bg-[#C05638] text-white shadow-xs"
+                  ? "bg-[var(--wm-primary)] text-white shadow-xs"
                   : "text-stone-600 hover:text-stone-900"
               }`}
             >
@@ -160,7 +160,7 @@ export default function JeuxPage() {
               hidden={hiddenGames.includes("dames")} onClick={() => setActiveGame("dames")}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 activeGame === "dames"
-                  ? "bg-[#C05638] text-white shadow-xs"
+                  ? "bg-[var(--wm-primary)] text-white shadow-xs"
                   : "text-stone-600 hover:text-stone-900"
               }`}
             >
@@ -170,7 +170,7 @@ export default function JeuxPage() {
               hidden={hiddenGames.includes("mots")} onClick={() => setActiveGame("mots")}
               className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
                 activeGame === "mots"
-                  ? "bg-[#C05638] text-white shadow-xs"
+                  ? "bg-[var(--wm-primary)] text-white shadow-xs"
                   : "text-stone-600 hover:text-stone-900"
               }`}
             >
@@ -205,7 +205,7 @@ export default function JeuxPage() {
 
           {hiddenGames.length > 0 && (
             <div className="p-6 rounded-3xl border border-orange-100 bg-orange-50/60 text-center space-y-2">
-              <Sparkles className="w-6 h-6 mx-auto text-[#C05638]" />
+              <Sparkles className="w-6 h-6 mx-auto text-[var(--wm-primary)]" />
               <h3 className="font-serif font-bold text-stone-900 text-lg">
                 {hiddenGames.length >= gameCards.length
                   ? "Votre salle de jeux se refait une beauté"

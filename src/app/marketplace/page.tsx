@@ -72,13 +72,13 @@ export default function MarketplacePage() {
     <div className="min-h-screen bg-[#FFF8F0] py-10 px-4">
       <div className="max-w-5xl mx-auto space-y-6">
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-[#D4AF37] text-white flex items-center justify-center mx-auto shadow-md">
+          <div className="w-14 h-14 rounded-2xl bg-[var(--wm-accent-gold)] text-white flex items-center justify-center mx-auto shadow-md">
             <Store className="w-7 h-7" />
           </div>
           <h1 className="font-serif text-2xl font-bold text-stone-900">
             Nos prestataires partenaires
           </h1>
-          <a href="/devenir-prestataire" className="inline-flex items-center mt-3 px-4 py-2 rounded-2xl bg-[#C05638] text-white text-xs font-bold hover:opacity-90">Vous étes prestataire ? Inscrivez-vous gratuitement</a>
+          <a href="/devenir-prestataire" className="inline-flex items-center mt-3 px-4 py-2 rounded-2xl bg-[var(--wm-primary)] text-white text-xs font-bold hover:opacity-90">Vous étes prestataire ? Inscrivez-vous gratuitement</a>
           <p className="text-xs text-stone-500 max-w-md mx-auto">
             Traiteurs, décorateurs, photographes... trouvez le prestataire qu'il vous faut pour
             votre mariage, et contactez-le directement sur WhatsApp.
@@ -146,7 +146,7 @@ export default function MarketplacePage() {
                       <Store className="w-10 h-10" />
                     </div>
                   )}
-                  <span className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-[#D4AF37] text-white text-[10px] font-bold">
+                  <span className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-[var(--wm-accent-gold)] text-white text-[10px] font-bold">
                     {serviceLabel(p.service)}
                   </span>
                 </div>

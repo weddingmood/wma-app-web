@@ -40,7 +40,7 @@ export default function AbonnementsPage(){
         <h1 style={{fontSize:20,fontWeight:800}}>Abonnements - 5 ans (3000F unique)</h1>
         <button onClick={fix5ans} style={{padding:"10px 14px", background:"#16a34a", color:"#fff", borderRadius:10, border:0, fontWeight:700, fontSize:13}}>Corriger tout en 5 ans</button>
       </div>
-      <div style={{marginTop:12, fontSize:13, color:"#57534e", padding:10, background:"#FFFBEB", borderRadius:10, border:"1px solid #D4AF37"}}>
+      <div style={{marginTop:12, fontSize:13, color:"var(--wm-text-soft)", padding:10, background:"#FFFBEB", borderRadius:10, border:"1px solid var(--wm-accent-gold)"}}>
         1 utilisateur = 1 code unique (mail + nom + contact). 3000F = 5 ans. Reset connexion = autorisation chiffrée AES-256 valable 24h.
       </div>
       <div style={{marginTop:16, display:"grid", gap:10}}>
@@ -49,11 +49,11 @@ export default function AbonnementsPage(){
           const isActive = c.status==="active" || c.subscription_status==="active";
           const uid = c.id || c.user_id;
           return (
-            <div key={i} style={{padding:12, border:"1px solid #e7e5e4", borderRadius:12, background:"#fff", display:"grid", gap:8}}>
+            <div key={i} style={{padding:12, border:"1px solid var(--wm-line)", borderRadius:12, background:"#fff", display:"grid", gap:8}}>
               <div style={{display:"flex", justifyContent:"space-between", gap:8}}>
                 <div>
                   <div style={{fontWeight:700, fontSize:13}}>{c.couple_name || c.email} - {c.email}</div>
-                  <div style={{fontSize:11, color:"#78716c"}}>{c.phone || c.contact} • Code: {c.code_unique || c.id}</div>
+                  <div style={{fontSize:11, color:"var(--wm-text-faint)"}}>{c.phone || c.contact} • Code: {c.code_unique || c.id}</div>
                 </div>
                 <div style={{textAlign:"right"}}>
                   <div style={{fontWeight:700, fontSize:12, color: isActive ? "#15803d" : "#dc2626"}}>{isActive ? "Actif 5 ans" : c.status}</div>

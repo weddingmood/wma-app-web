@@ -71,7 +71,7 @@ export default function LibraryPage() {
       
       {/* Banner */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100">
           <BookMarked className="w-3.5 h-3.5" />
           <span>Bibliothèque & Ouvrages Pastoraux</span>
         </div>
@@ -103,7 +103,7 @@ export default function LibraryPage() {
 
           <div className="max-w-3xl mx-auto space-y-6">
             <div>
-              <span className="text-xs font-bold text-[#C05638] uppercase tracking-wider">{selectedBook.category}</span>
+              <span className="text-xs font-bold text-[var(--wm-primary)] uppercase tracking-wider">{selectedBook.category}</span>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-1">
                 {selectedBook.title}
               </h2>
@@ -123,7 +123,7 @@ export default function LibraryPage() {
                   }}
                   className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                     currentChapterIdx === idx
-                      ? "bg-[#C05638] text-white font-bold"
+                      ? "bg-[var(--wm-primary)] text-white font-bold"
                       : "bg-stone-50 hover:bg-stone-100 text-stone-700 border border-stone-200"
                   }`}
                   style={currentChapterIdx === idx ? { backgroundColor: activeTheme.primary } : {}}
@@ -135,7 +135,7 @@ export default function LibraryPage() {
 
             {/* Active Chapter Reading Stage */}
             {selectedBook.chapters?.[currentChapterIdx] && (
-              <div className="space-y-4 font-serif leading-relaxed text-stone-800 text-sm sm:text-base bg-[#FCFAF7] p-6 sm:p-8 rounded-3xl border border-[#EAE2D5]">
+              <div className="space-y-4 font-serif leading-relaxed text-stone-800 text-sm sm:text-base bg-[var(--wm-surface-ivory)] p-6 sm:p-8 rounded-3xl border border-[var(--wm-sand)]">
                 <h3 className="font-bold text-xl text-stone-900">
                   {selectedBook.chapters[currentChapterIdx].title}
                 </h3>
@@ -182,11 +182,11 @@ export default function LibraryPage() {
             return (
               <div
                 key={b.id}
-                className="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4 group hover:border-[#D4AF37]/50"
+                className="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4 group hover:border-[var(--wm-accent-gold)]/50"
               >
                 <div className="space-y-3">
                   <div className="flex items-start justify-between">
-                    <span className="px-2.5 py-0.5 rounded-full bg-orange-50 text-[#C05638] text-[10px] font-bold uppercase">
+                    <span className="px-2.5 py-0.5 rounded-full bg-orange-50 text-[var(--wm-primary)] text-[10px] font-bold uppercase">
                       {b.category}
                     </span>
                     <span className="flex items-center gap-1 text-[11px] text-stone-400">
@@ -215,17 +215,17 @@ export default function LibraryPage() {
                     </div>
                     <div className="w-full bg-stone-100 h-1.5 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-[#C05638] rounded-full"
+                        className="h-full bg-[var(--wm-primary)] rounded-full"
                         style={{ width: `${prog}%`, backgroundColor: activeTheme.primary }}
                       ></div>
                     </div>
                   </div>
 
-                  {b.fileUrl && (<a href={b.fileUrl} target="_blank" rel="noopener noreferrer" className="w-full py-2.5 rounded-xl bg-[#C05638] text-white font-bold text-xs flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">Ouvrir / Télécharger le document</a>)}
+                  {b.fileUrl && (<a href={b.fileUrl} target="_blank" rel="noopener noreferrer" className="w-full py-2.5 rounded-xl bg-[var(--wm-primary)] text-white font-bold text-xs flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">Ouvrir / Télécharger le document</a>)}
                   {(b.chapters?.length || 0) > 0 && (
 <button
                     onClick={() => handleOpenBook(b)}
-                    className="w-full py-2.5 rounded-xl bg-stone-900 text-white font-bold text-xs hover:bg-[#C05638] transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-2.5 rounded-xl bg-stone-900 text-white font-bold text-xs hover:bg-[var(--wm-primary)] transition-colors flex items-center justify-center gap-2"
                   >
                     <BookOpen className="w-4 h-4" />
                     <span>{prog > 0 ? "Reprendre la Lecture" : "Commencer la Lecture"}</span>

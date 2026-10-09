@@ -96,7 +96,7 @@ export default function DownloadPage() {
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-8 space-y-6">
         <div className="p-6 sm:p-10 rounded-3xl glass-panel border border-stone-200 shadow-sm text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-bold border border-orange-100">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-bold border border-orange-100">
             <Smartphone className="w-3.5 h-3.5" />
             <span>Application mobile officielle • v{apkInfo?.version || "1.0.0"}</span>
           </div>
@@ -122,7 +122,7 @@ export default function DownloadPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Option 1 : PWA */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-white border-2 border-[#C05638]/40 shadow-md space-y-4">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border-2 border-[var(--wm-primary)]/40 shadow-md space-y-4">
             <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 uppercase tracking-wider">
               Méthode recommandée
             </span>
@@ -138,7 +138,7 @@ export default function DownloadPage() {
                 "Validez : l’icône Wedding Mood apparaît avec démarrage plein écran.",
               ].map((step, i) => (
                 <li key={i} className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-[#C05638] text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="w-5 h-5 rounded-full bg-[var(--wm-primary)] text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                     {i + 1}
                   </span>
                   <span>{step}</span>
@@ -148,7 +148,7 @@ export default function DownloadPage() {
             <button
               onClick={handlePwaInstall}
               disabled={!canInstallPwa}
-              className="w-full py-3.5 rounded-2xl bg-[#C05638] text-white font-bold text-xs shadow-md hover:bg-[#A84429] disabled:opacity-40 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-2xl bg-[var(--wm-primary)] text-white font-bold text-xs shadow-md hover:bg-[var(--wm-primary-hover)] disabled:opacity-40 cursor-pointer flex items-center justify-center gap-2"
             >
               <Download className="w-4 h-4" />
               {canInstallPwa ? "Installer maintenant" : "Ouvrez dans Chrome Android pour installer"}
@@ -197,7 +197,7 @@ export default function DownloadPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm text-center space-y-3">
             <div className="flex items-center justify-center gap-2 text-sm font-bold">
-              <QrCode className="w-4 h-4 text-[#C05638]" />
+              <QrCode className="w-4 h-4 text-[var(--wm-primary)]" />
               Partager par QR Code
             </div>
             {qrDataUrl ? (
@@ -220,7 +220,7 @@ export default function DownloadPage() {
                 { icon: ShieldCheck, title: "Données protégées", desc: "Espace privé isolé par couple, sessions sécurisées." },
               ].map((f, i) => (
                 <div key={i} className="flex items-start gap-3 p-3 rounded-2xl bg-white border border-stone-200">
-                  <f.icon className="w-4 h-4 text-[#C05638] shrink-0 mt-0.5" />
+                  <f.icon className="w-4 h-4 text-[var(--wm-primary)] shrink-0 mt-0.5" />
                   <div>
                     <strong className="block text-stone-900">{f.title}</strong>
                     <span className="text-stone-500">{f.desc}</span>

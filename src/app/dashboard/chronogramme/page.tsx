@@ -176,7 +176,7 @@ export default function ChronogrammePage() {
     <div className="space-y-6 pb-12">
       {/* Bandeau */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100">
           <Clock className="w-3.5 h-3.5" />
           <span>Chronogramme Maître : J-90 → Jour J</span>
         </div>
@@ -200,7 +200,7 @@ export default function ChronogrammePage() {
                 className={
                   "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all " +
                   (isActive
-                    ? "bg-[#C05638] text-white shadow-xs font-bold"
+                    ? "bg-[var(--wm-primary)] text-white shadow-xs font-bold"
                     : "bg-stone-50 hover:bg-stone-100 text-stone-700 border border-stone-200")
                 }
                 style={isActive ? { backgroundColor: activeTheme.primary } : {}}
@@ -224,7 +224,7 @@ export default function ChronogrammePage() {
         </div>
         <div className="w-28 sm:w-36 shrink-0 bg-stone-100 h-2.5 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#C05638] rounded-full transition-all duration-700"
+            className="h-full bg-[var(--wm-primary)] rounded-full transition-all duration-700"
             style={{ width: progressPercent + "%", backgroundColor: activeTheme.primary }}
           ></div>
         </div>
@@ -244,7 +244,7 @@ export default function ChronogrammePage() {
           <div className="absolute left-[19px] top-2 bottom-2 w-0.5 bg-stone-200 rounded-full" />
           <div
             className="absolute left-[19px] top-2 w-0.5 rounded-full transition-all duration-1000"
-            style={{ height: progressPercent + "%", backgroundColor: "#D4AF37" }}
+            style={{ height: progressPercent + "%", backgroundColor: "var(--wm-accent-gold)" }}
           />
 
           {groups.map(([phase, items]) => {
@@ -256,7 +256,7 @@ export default function ChronogrammePage() {
                     <span
                       className={
                         "absolute left-[13px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow " +
-                        (isCurrent ? "bg-[#D4AF37]" : "bg-stone-300")
+                        (isCurrent ? "bg-[var(--wm-accent-gold)]" : "bg-stone-300")
                       }
                     />
                     <span className="text-xs font-bold uppercase tracking-wider text-stone-700">
@@ -281,7 +281,7 @@ export default function ChronogrammePage() {
                     : isOverdue
                     ? "bg-amber-100 text-amber-700 border-amber-300"
                     : isCurrent
-                    ? "bg-[#FFF8F0] border-[#D4AF37]"
+                    ? "bg-[#FFF8F0] border-[var(--wm-accent-gold)]"
                     : "bg-stone-100";
 
                   return (
@@ -301,7 +301,7 @@ export default function ChronogrammePage() {
                             "flex items-start gap-3 p-4 sm:p-5 rounded-2xl border transition-all " +
                             (isDone
                               ? "bg-[#FFF8F0] border-emerald-200"
-                              : "bg-white border-stone-200 hover:shadow-md hover:border-[#D4AF37]/40")
+                              : "bg-white border-stone-200 hover:shadow-md hover:border-[var(--wm-accent-gold)]/40")
                           }
                         >
                           <button
@@ -326,7 +326,7 @@ export default function ChronogrammePage() {
                                     "px-2.5 py-0.5 rounded-full text-[10px] font-bold " +
                                     (item.phase === "JOUR_J"
                                       ? "bg-emerald-100 text-emerald-800"
-                                      : "bg-orange-100 text-[#C05638]")
+                                      : "bg-orange-100 text-[var(--wm-primary)]")
                                   }
                                 >
                                   {item.phase === "JOUR_J" ? "CÉLÉBRATION JOUR J" : item.phase}

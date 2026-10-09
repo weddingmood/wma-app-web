@@ -143,7 +143,7 @@ export default function GuestsPage() {
       {/* Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100 mb-2">
             <Users className="w-3.5 h-3.5" />
             <span>Gestion des Invités & Badges QR</span>
           </div>
@@ -157,7 +157,7 @@ export default function GuestsPage() {
 
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white text-xs font-bold shadow-md transition-all shrink-0"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white text-xs font-bold shadow-md transition-all shrink-0"
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Plus className="w-4 h-4" />
@@ -228,7 +228,7 @@ export default function GuestsPage() {
       <div className="bg-white rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FCFAF7] border-b border-stone-100 text-[11px] text-stone-500 font-bold uppercase tracking-wider">
+            <thead className="bg-[var(--wm-surface-ivory)] border-b border-stone-100 text-[11px] text-stone-500 font-bold uppercase tracking-wider">
               <tr>
                 <th className="p-4">Invité(e)</th>
                 <th className="p-4">Groupe</th>
@@ -289,7 +289,7 @@ export default function GuestsPage() {
                     <div className="flex items-center justify-end gap-1">
                       <button
                         onClick={() => handleShowQr(g)}
-                        className="p-1.5 text-stone-500 hover:text-[#C05638]"
+                        className="p-1.5 text-stone-500 hover:text-[var(--wm-primary)]"
                         title="Voir le QR Code d'entrée"
                       >
                         <QrCode className="w-4 h-4" />
@@ -406,7 +406,7 @@ export default function GuestsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold"
+                  className="px-5 py-2 rounded-xl bg-[var(--wm-primary)] text-white font-bold"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Enregistrer
@@ -427,7 +427,7 @@ export default function GuestsPage() {
             <p className="text-xs text-stone-500">
               Présentez ce QR Code à l'entrée de la salle pour le check-in instantané.
             </p>
-            <div className="flex justify-center p-4 bg-[#FCFAF7] rounded-2xl border border-[#EAE2D5]">
+            <div className="flex justify-center p-4 bg-[var(--wm-surface-ivory)] rounded-2xl border border-[var(--wm-sand)]">
               <img src={qrModalGuest.qrDataUrl} alt="QR Code" className="w-48 h-48 rounded-xl shadow-xs" />
             </div>
             <button

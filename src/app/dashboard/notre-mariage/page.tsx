@@ -77,7 +77,7 @@ export default function NotreMariagePage() {
       title: "4. Grande Réception & Banquet",
       subtitle: "Célébration, Partage & Mur de Bénédictions",
       icon: PartyPopper,
-      color: "from-[#C05638] to-[#9C4123]",
+      color: "from-[var(--wm-primary)] to-[#9C4123]",
       description: "Le banquet de noce réunissant les familles, amis et frères en Christ. Buffet ivoirien d'exception, animation gospel live et félicitations.",
       checklist: [
         "Validation du plan de table et attribution des groupes (Famille, VIP, Chorale...)",
@@ -97,7 +97,7 @@ export default function NotreMariagePage() {
       
       {/* Header Banner */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100">
           <HeartHandshake className="w-3.5 h-3.5" />
           <span>Espace Central « Notre Mariage »</span>
         </div>
@@ -119,7 +119,7 @@ export default function NotreMariagePage() {
                 onClick={() => setActiveTab(c.id as any)}
                 className={`flex items-center gap-2.5 p-3 rounded-2xl text-xs font-semibold transition-all text-left ${
                   isActive
-                    ? "bg-[#C05638] text-white shadow-md font-bold"
+                    ? "bg-[var(--wm-primary)] text-white shadow-md font-bold"
                     : "bg-stone-50 hover:bg-stone-100 text-stone-700 border border-stone-200"
                 }`}
                 style={isActive ? { backgroundColor: activeTheme.primary } : {}}
@@ -140,14 +140,14 @@ export default function NotreMariagePage() {
           <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-6">
             <div className="flex items-start justify-between gap-4 border-b border-stone-100 pb-4">
               <div>
-                <span className="text-xs uppercase tracking-wider text-[#C05638] font-bold">
+                <span className="text-xs uppercase tracking-wider text-[var(--wm-primary)] font-bold">
                   {currentCeremony.subtitle}
                 </span>
                 <h2 className="font-serif text-2xl font-bold text-stone-900 mt-1">
                   {currentCeremony.title}
                 </h2>
               </div>
-              <div className="p-3 rounded-2xl bg-orange-50 text-[#C05638]">
+              <div className="p-3 rounded-2xl bg-orange-50 text-[var(--wm-primary)]">
                 <currentCeremony.icon className="w-6 h-6" />
               </div>
             </div>
@@ -165,7 +165,7 @@ export default function NotreMariagePage() {
                 {currentCeremony.checklist.map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#FCFAF7] border border-[#EAE2D5] text-xs text-stone-800"
+                    className="flex items-start gap-3 p-3.5 rounded-2xl bg-[var(--wm-surface-ivory)] border border-[var(--wm-sand)] text-xs text-stone-800"
                   >
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <span className="leading-relaxed">{item}</span>

@@ -67,7 +67,7 @@ export default function DevotionsPage() {
       
       {/* Banner */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100">
           <BookOpen className="w-3.5 h-3.5" />
           <span>Nous deux & Dieu • Les 7 Piliers Fondateurs</span>
         </div>
@@ -89,7 +89,7 @@ export default function DevotionsPage() {
                 onClick={() => setSelectedThemeId(d.themeNumber)}
                 className={`p-3 rounded-2xl text-left transition-all border flex flex-col justify-between min-h-[85px] cursor-pointer ${
                   isSelected
-                    ? "bg-[#C05638] text-white border-[#C05638] shadow-md"
+                    ? "bg-[var(--wm-primary)] text-white border-[var(--wm-primary)] shadow-md"
                     : isDone
                     ? "glass-card-warm border-emerald-200 text-stone-800"
                     : "bg-white/80 hover:bg-white border-stone-200 text-stone-700"
@@ -124,7 +124,7 @@ export default function DevotionsPage() {
               {/* Header */}
               <div className="border-b border-stone-100 pb-4 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase font-bold text-[#C05638] tracking-wider">
+                  <span className="text-xs uppercase font-bold text-[var(--wm-primary)] tracking-wider">
                     Jalon : {currentDev.timelinePhase || "J-90"} • Thème {currentDev.themeNumber} / 7
                   </span>
                   <span className="text-xs text-stone-500 font-medium">
@@ -137,8 +137,8 @@ export default function DevotionsPage() {
               </div>
 
               {/* Scripture Highlight Box */}
-              <div className="p-5 rounded-2xl glass-card-warm border-l-4 border-[#C05638] border-y border-r border-stone-200 space-y-2">
-                <span className="text-xs uppercase tracking-wider font-bold text-[#C05638]">
+              <div className="p-5 rounded-2xl glass-card-warm border-l-4 border-[var(--wm-primary)] border-y border-r border-stone-200 space-y-2">
+                <span className="text-xs uppercase tracking-wider font-bold text-[var(--wm-primary)]">
                   {currentDev.scriptureRef}
                 </span>
                 <p className="font-serif text-base sm:text-lg italic text-stone-900 leading-relaxed">
@@ -178,11 +178,11 @@ export default function DevotionsPage() {
               </div>
 
               {/* Pastor Audio in Light White Glass */}
-              <div className="p-4 rounded-2xl glass-card-warm border border-[#EAE2D5] text-stone-900 flex items-center justify-between gap-4">
+              <div className="p-4 rounded-2xl glass-card-warm border border-[var(--wm-sand)] text-stone-900 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setIsPlaying(!isPlaying)}
-                    className="p-3 rounded-xl bg-[#C05638] text-white hover:bg-[#A84429] shadow-md transition-all shrink-0 cursor-pointer"
+                    className="p-3 rounded-xl bg-[var(--wm-primary)] text-white hover:bg-[var(--wm-primary-hover)] shadow-md transition-all shrink-0 cursor-pointer"
                     style={{ backgroundColor: activeTheme.primary }}
                   >
                     {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current" />}
@@ -192,7 +192,7 @@ export default function DevotionsPage() {
                     <div className="text-[11px] text-stone-500">Prédication et prière de bénédiction (4 min)</div>
                   </div>
                 </div>
-                <Volume2 className="w-5 h-5 text-[#C05638] shrink-0" />
+                <Volume2 className="w-5 h-5 text-[var(--wm-primary)] shrink-0" />
               </div>
 
             </div>
@@ -247,7 +247,7 @@ export default function DevotionsPage() {
 
               <button
                 onClick={handleToggleComplete}
-                className="w-full py-3 rounded-2xl bg-[#C05638] text-white font-bold text-xs shadow-md hover:bg-[#A84429] transition-all cursor-pointer"
+                className="w-full py-3 rounded-2xl bg-[var(--wm-primary)] text-white font-bold text-xs shadow-md hover:bg-[var(--wm-primary-hover)] transition-all cursor-pointer"
                 style={{ backgroundColor: activeTheme.primary }}
               >
                 {activePartner === "partner1"

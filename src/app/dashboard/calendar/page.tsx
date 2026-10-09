@@ -129,7 +129,7 @@ export default function CalendarPage() {
       {/* Top Banner with White Glass */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100 mb-2">
             <CalendarIcon className="w-3.5 h-3.5" />
             <span>Agenda Synchronisé du Couple</span>
           </div>
@@ -146,7 +146,7 @@ export default function CalendarPage() {
             setForm((prev) => ({ ...prev, eventDate: selectedDate }));
             setIsModalOpen(true);
           }}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white text-xs font-bold shadow-md transition-all shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white text-xs font-bold shadow-md transition-all shrink-0 cursor-pointer"
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Plus className="w-4 h-4" />
@@ -227,7 +227,7 @@ export default function CalendarPage() {
                   onClick={() => setSelectedDate(dateStr)}
                   className={`h-20 sm:h-24 p-1.5 sm:p-2 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
                     isSelected
-                      ? "ring-2 ring-[#C05638] bg-[#FCFAF7] border-[#C05638] shadow-xs"
+                      ? "ring-2 ring-[var(--wm-primary)] bg-[var(--wm-surface-ivory)] border-[var(--wm-primary)] shadow-xs"
                       : isWeddingDay
                       ? "bg-amber-50/80 border-amber-300 shadow-2xs"
                       : "bg-white/80 hover:bg-white border-stone-200"
@@ -237,7 +237,7 @@ export default function CalendarPage() {
                     <span
                       className={`text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center ${
                         isToday
-                          ? "bg-[#C05638] text-white"
+                          ? "bg-[var(--wm-primary)] text-white"
                           : isWeddingDay
                           ? "bg-amber-600 text-white"
                           : "text-stone-800"
@@ -258,7 +258,7 @@ export default function CalendarPage() {
                         className={`text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md truncate font-medium ${
                           ev.isTaskLinked
                             ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                            : "bg-orange-50 text-[#C05638] border border-orange-200"
+                            : "bg-orange-50 text-[var(--wm-primary)] border border-orange-200"
                         }`}
                       >
                         {ev.title}
@@ -280,7 +280,7 @@ export default function CalendarPage() {
             <div className="p-3.5 rounded-2xl glass-card-warm border border-amber-200/80 flex items-center gap-3 text-xs text-amber-950">
               <Heart className="w-5 h-5 text-amber-600 shrink-0 fill-current" />
               <div>
-                <strong>Célébration du Mariage :</strong> Prévue le {couple.weddingDate}. Cet événement est automatiquement mis en avant sur votre calendrier. <Link href="/dashboard/profile" className="ml-1 font-bold underline text-[#C05638]">Modifier la date</Link>
+                <strong>Célébration du Mariage :</strong> Prévue le {couple.weddingDate}. Cet événement est automatiquement mis en avant sur votre calendrier. <Link href="/dashboard/profile" className="ml-1 font-bold underline text-[var(--wm-primary)]">Modifier la date</Link>
               </div>
             </div>
           )}
@@ -309,7 +309,7 @@ export default function CalendarPage() {
                       setForm((prev) => ({ ...prev, eventDate: selectedDate }));
                       setIsModalOpen(true);
                     }}
-                    className="text-xs text-[#C05638] font-bold hover:underline cursor-pointer"
+                    className="text-xs text-[var(--wm-primary)] font-bold hover:underline cursor-pointer"
                   >
                     + Ajouter sur cette date
                   </button>
@@ -318,7 +318,7 @@ export default function CalendarPage() {
                 selectedDateEvents.map((ev: any) => (
                   <div
                     key={ev.id}
-                    className="p-4 rounded-2xl glass-card-warm border border-[#EAE2D5] space-y-2 text-xs"
+                    className="p-4 rounded-2xl glass-card-warm border border-[var(--wm-sand)] space-y-2 text-xs"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <h4 className="font-serif font-bold text-stone-900 text-sm">
@@ -368,7 +368,7 @@ export default function CalendarPage() {
                 setForm((prev) => ({ ...prev, eventDate: selectedDate }));
                 setIsModalOpen(true);
               }}
-              className="w-full py-2.5 rounded-xl bg-stone-900 text-white text-xs font-bold hover:bg-[#C05638] transition-colors cursor-pointer"
+              className="w-full py-2.5 rounded-xl bg-stone-900 text-white text-xs font-bold hover:bg-[var(--wm-primary)] transition-colors cursor-pointer"
             >
               + Ajouter un Rendez-vous
             </button>
@@ -456,7 +456,7 @@ export default function CalendarPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
+                  className="px-5 py-2 rounded-xl bg-[var(--wm-primary)] text-white font-bold cursor-pointer hover:bg-[var(--wm-primary-hover)]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Enregistrer

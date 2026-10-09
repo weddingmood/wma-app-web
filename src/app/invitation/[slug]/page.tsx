@@ -61,7 +61,7 @@ export default function PublicInvitationPage() {
   if (loading) return <div className="min-h-screen flex items-center justify-center bg-[#FAF8F5] text-stone-600 font-serif text-lg">Chargement de l'invitation de mariage...</div>;
 
   if (!invData?.invitation) {
-    return <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF8F5] p-6 text-center space-y-3"><Heart className="w-12 h-12 text-[#C05638]" /><h1 className="font-serif text-2xl font-bold text-stone-900">Invitation Introuvable</h1><p className="text-xs text-stone-500 max-w-sm">Cette page d'invitation n'existe pas ou n'est plus accessible.</p></div>;
+    return <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF8F5] p-6 text-center space-y-3"><Heart className="w-12 h-12 text-[var(--wm-primary)]" /><h1 className="font-serif text-2xl font-bold text-stone-900">Invitation Introuvable</h1><p className="text-xs text-stone-500 max-w-sm">Cette page d'invitation n'existe pas ou n'est plus accessible.</p></div>;
   }
 
   const inv = invData.invitation;

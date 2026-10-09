@@ -122,7 +122,7 @@ export default function TaskDetailPage() {
     }
   };
 
-  const box = { padding: 16, border: "1px solid #e7e5e4", borderRadius: 16, background: "#fff", display: "grid", gap: 12 } as const;
+  const box = { padding: 16, border: "1px solid var(--wm-line)", borderRadius: 16, background: "#fff", display: "grid", gap: 12 } as const;
   const input = { width: "100%", padding: "8px 10px", border: "1px solid #d6d3d1", borderRadius: 10, fontSize: 14 } as const;
   const lab = { fontSize: 12, fontWeight: 600, display: "grid", gap: 4 } as const;
 
@@ -195,7 +195,7 @@ export default function TaskDetailPage() {
           type="button"
           disabled={busy}
           onClick={save}
-          style={{ padding: "10px 16px", borderRadius: 12, border: 0, color: "#fff", background: "#C05638", cursor: "pointer", fontWeight: 700 }}
+          style={{ padding: "10px 16px", borderRadius: 12, border: 0, color: "#fff", background: "var(--wm-primary)", cursor: "pointer", fontWeight: 700 }}
         >
           {busy ? "Enregistrement..." : "Enregistrer"}
         </button>

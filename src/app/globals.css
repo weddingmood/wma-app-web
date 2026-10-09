@@ -203,3 +203,13 @@ body.display-mode-elegant .elegant-flourish {
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
+:root {
+  --wm-btn-bg: var(--wm-primary);
+  --wm-btn-bg-hover: var(--wm-primary-hover);
+  --wm-btn-text: #FFFFFF;
+  --wm-text-soft: #57534E;
+  --wm-text-faint: #78716C;
+  --wm-sand: #EAE2D5;
+  --wm-line: #E7E5E4;
+}

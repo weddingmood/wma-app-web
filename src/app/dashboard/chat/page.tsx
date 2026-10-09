@@ -90,7 +90,7 @@ export default function ChatPage() {
       <div className="p-4 sm:p-5 bg-white/80 border-b border-stone-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-[#C05638] text-white flex items-center justify-center font-serif font-bold text-sm shadow-xs" style={{ backgroundColor: activeTheme.primary }}>
+            <div className="w-10 h-10 rounded-full bg-[var(--wm-primary)] text-white flex items-center justify-center font-serif font-bold text-sm shadow-xs" style={{ backgroundColor: activeTheme.primary }}>
               {otherPartnerName.charAt(0)}
             </div>
             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white"></span>
@@ -129,7 +129,7 @@ export default function ChatPage() {
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3 bg-[#FAF8F5]/80">
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center p-8 space-y-2">
-            <Heart className="w-10 h-10 text-[#C05638]" />
+            <Heart className="w-10 h-10 text-[var(--wm-primary)]" />
             <h4 className="font-serif font-bold text-stone-800 text-base">Votre sanctuaire de messages</h4>
             <p className="text-xs text-stone-500 max-w-xs">
               Écrivez à votre fiancé(e). Les messages sont protégés et conservés même sans connexion active.
@@ -146,7 +146,7 @@ export default function ChatPage() {
                 <div
                   className={`max-w-[78%] sm:max-w-md p-3.5 rounded-2xl text-xs leading-relaxed shadow-2xs ${
                     isMe
-                      ? "bg-[#C05638] text-white rounded-br-xs"
+                      ? "bg-[var(--wm-primary)] text-white rounded-br-xs"
                       : "bg-white text-stone-900 border border-stone-200 rounded-bl-xs"
                   }`}
                   style={isMe ? { backgroundColor: activeTheme.primary } : {}}
@@ -190,7 +190,7 @@ export default function ChatPage() {
         <button
           type="submit"
           disabled={!input.trim()}
-          className="p-3 rounded-2xl bg-[#C05638] text-white disabled:opacity-40 hover:bg-[#A84429] transition-all shadow-xs shrink-0 cursor-pointer"
+          className="p-3 rounded-2xl bg-[var(--wm-primary)] text-white disabled:opacity-40 hover:bg-[var(--wm-primary-hover)] transition-all shadow-xs shrink-0 cursor-pointer"
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Send className="w-4 h-4" />

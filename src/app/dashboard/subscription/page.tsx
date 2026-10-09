@@ -195,7 +195,7 @@ export default function SubscriptionPage() {
       
       {/* Banner */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100">
           <CreditCard className="w-3.5 h-3.5" />
           <span>Abonnement Wave Manuel & Accès Partagé</span>
         </div>
@@ -219,7 +219,7 @@ export default function SubscriptionPage() {
           </p>
           <p className="text-xs text-stone-500">
             Formule actuelle :{" "}
-            <strong className="text-[#C05638]">
+            <strong className="text-[var(--wm-primary)]">
               {payInfo?.planType === "individual" ? "Individuelle (2 000 FCFA)" : "Couple (3 000 FCFA)"}
             </strong>
           </p>
@@ -236,7 +236,7 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Carte Code d'Accès Unique */}
-        <div className="p-6 rounded-3xl glass-card-warm border border-[#D4AF37]/50 shadow-sm space-y-3">
+        <div className="p-6 rounded-3xl glass-card-warm border border-[var(--wm-accent-gold)]/50 shadow-sm space-y-3">
           <div className="flex items-center gap-2">
             <KeyRound className="w-5 h-5 text-[#B37D28]" />
             <span className="text-[11px] font-bold text-stone-600 uppercase">
@@ -244,8 +244,8 @@ export default function SubscriptionPage() {
             </span>
           </div>
 
-          <div className="flex items-center justify-between gap-3 p-4 rounded-2xl bg-white border-2 border-[#D4AF37]/60 shadow-2xs">
-            <span className="font-serif font-black text-3xl tracking-widest text-[#C05638]">
+          <div className="flex items-center justify-between gap-3 p-4 rounded-2xl bg-white border-2 border-[var(--wm-accent-gold)]/60 shadow-2xs">
+            <span className="font-serif font-black text-3xl tracking-widest text-[var(--wm-primary)]">
               {payInfo?.accessCode || "WM-0000"}
             </span>
             <div className="flex items-center gap-1.5">
@@ -289,7 +289,7 @@ export default function SubscriptionPage() {
               key={plan.id}
               className={`p-6 sm:p-8 rounded-3xl border-2 transition-all space-y-5 flex flex-col justify-between ${
                 isSelected
-                  ? "glass-card-warm border-[#C05638] ring-2 ring-[#C05638]/30 shadow-lg"
+                  ? "glass-card-warm border-[var(--wm-primary)] ring-2 ring-[var(--wm-primary)]/30 shadow-lg"
                   : "glass-panel border-stone-200 hover:border-stone-300"
               }`}
             >
@@ -298,7 +298,7 @@ export default function SubscriptionPage() {
                   <div>
                     <div className="flex items-center gap-2">
                       {plan.id === "couple" ? (
-                        <Users className="w-5 h-5 text-[#C05638]" />
+                        <Users className="w-5 h-5 text-[var(--wm-primary)]" />
                       ) : (
                         <User className="w-5 h-5 text-stone-600" />
                       )}
@@ -308,7 +308,7 @@ export default function SubscriptionPage() {
                   </div>
 
                   {plan.isRecommended && (
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#C05638] text-white shadow-xs">
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[var(--wm-primary)] text-white shadow-xs">
                       Recommandée
                     </span>
                   )}
@@ -336,7 +336,7 @@ export default function SubscriptionPage() {
                   onClick={() => handleSelectPlan(plan.id as "couple" | "individual")}
                   className={`w-full py-3 rounded-2xl font-bold text-xs transition-all cursor-pointer ${
                     isSelected
-                      ? "bg-[#C05638] text-white shadow-md"
+                      ? "bg-[var(--wm-primary)] text-white shadow-md"
                       : "bg-white border border-stone-200 text-stone-800 hover:bg-stone-50"
                   }`}
                   style={isSelected ? { backgroundColor: activeTheme.primary } : {}}
@@ -363,7 +363,7 @@ export default function SubscriptionPage() {
       {/* GESTION DES EMAILS DES DEUX PARTENAIRES */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-4">
         <div className="flex items-center gap-2 border-b border-stone-100 pb-3">
-          <Mail className="w-5 h-5 text-[#C05638]" />
+          <Mail className="w-5 h-5 text-[var(--wm-primary)]" />
           <div>
             <h3 className="font-serif font-bold text-stone-900 text-lg">
               Adresses Email des Deux Partenaires
@@ -418,7 +418,7 @@ export default function SubscriptionPage() {
 
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-2xl bg-stone-900 hover:bg-[#C05638] text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer shrink-0"
+              className="px-5 py-2.5 rounded-2xl bg-stone-900 hover:bg-[var(--wm-primary)] text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer shrink-0"
             >
               <Save className="w-4 h-4" />
               <span>Enregistrer les emails</span>
@@ -430,7 +430,7 @@ export default function SubscriptionPage() {
       {/* SOUMISSION DE LA PREUVE DE PAIEMENT WAVE */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-5">
         <div className="flex items-center gap-2 border-b border-stone-100 pb-3">
-          <ShieldCheck className="w-5 h-5 text-[#C05638]" />
+          <ShieldCheck className="w-5 h-5 text-[var(--wm-primary)]" />
           <div>
             <h3 className="font-serif font-bold text-stone-900 text-lg">
               Confirmer Mon Règlement Wave
@@ -448,7 +448,7 @@ export default function SubscriptionPage() {
           </div>
         )}
 
-        <div className="p-4 rounded-2xl glass-card-warm border border-[#EAE2D5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div className="p-4 rounded-2xl glass-card-warm border border-[var(--wm-sand)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
           <div>
             <span className="text-stone-500 font-medium block">Formule sélectionnée :</span>
             <strong className="font-serif font-bold text-stone-900 text-base">
@@ -534,7 +534,7 @@ export default function SubscriptionPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 rounded-2xl bg-[#C05638] text-white font-bold text-xs shadow-md hover:bg-[#A84429] transition-all disabled:opacity-50 cursor-pointer"
+            className="w-full py-3.5 rounded-2xl bg-[var(--wm-primary)] text-white font-bold text-xs shadow-md hover:bg-[var(--wm-primary-hover)] transition-all disabled:opacity-50 cursor-pointer"
             style={{ backgroundColor: activeTheme.primary }}
           >
             {submitting ? "Soumission en cours..." : "Soumettre ma preuve de paiement pour vérification"}
@@ -553,7 +553,7 @@ export default function SubscriptionPage() {
             {payInfo.payments.map((p: any) => (
               <div
                 key={p.id}
-                className="p-4 rounded-2xl glass-card-warm border border-[#EAE2D5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                className="p-4 rounded-2xl glass-card-warm border border-[var(--wm-sand)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
               >
                 <div>
                   <div className="flex items-center gap-2">

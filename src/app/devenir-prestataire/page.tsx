@@ -92,7 +92,7 @@ export default function DevenirPrestatairePage() {
     <div className="min-h-screen bg-[#FFF8F0] py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-[#D4AF37] text-white flex items-center justify-center mx-auto shadow-md">
+          <div className="w-14 h-14 rounded-2xl bg-[var(--wm-accent-gold)] text-white flex items-center justify-center mx-auto shadow-md">
             <Store className="w-7 h-7" />
           </div>
           <h1 className="font-serif text-2xl font-bold text-stone-900">Devenez prestataire partenaire</h1>
@@ -236,7 +236,7 @@ export default function DevenirPrestatairePage() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full py-3 rounded-2xl bg-[#D4AF37] hover:bg-[#B8942E] text-white font-bold text-sm shadow-md transition disabled:opacity-50"
+            className="w-full py-3 rounded-2xl bg-[var(--wm-accent-gold)] hover:bg-[#B8942E] text-white font-bold text-sm shadow-md transition disabled:opacity-50"
           >
             {saving ? "Envoi..." : "Envoyer mon inscription"}
           </button>

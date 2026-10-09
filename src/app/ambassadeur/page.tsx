@@ -4,8 +4,8 @@ import Link from "next/link";
 
 function Stat({ label, value, big }: { label: string; value: string | number; big?: boolean }) {
   return (
-    <div style={{ padding: 12, background: "var(--wm-surface-pure, #fff)", borderRadius: 12, border: "1px solid var(--wm-border, #e7e5e4)" }}>
-      <div style={{ fontSize: 11, color: "var(--wm-text-muted, #78716c)" }}>{label}</div>
+    <div style={{ padding: 12, background: "var(--wm-surface-pure, #fff)", borderRadius: 12, border: "1px solid var(--wm-border, var(--wm-line))" }}>
+      <div style={{ fontSize: 11, color: "var(--wm-text-muted, var(--wm-text-faint))" }}>{label}</div>
       <div style={{ fontSize: big ? 20 : 18, fontWeight: 800 }}>{value}</div>
     </div>
   );
@@ -47,9 +47,9 @@ export default function AmbassadeurDashboard() {
     } catch {}
   }, [load]);
 
-  const box = { padding: 16, border: "1px solid var(--wm-border, #e7e5e4)", borderRadius: 14, background: "var(--wm-surface-pure, #fff)", display: "grid", gap: 10 } as const;
+  const box = { padding: 16, border: "1px solid var(--wm-border, var(--wm-line))", borderRadius: 14, background: "var(--wm-surface-pure, #fff)", display: "grid", gap: 10 } as const;
   const btn = { padding: "12px 14px", borderRadius: 12, fontWeight: 800, fontSize: 14, textAlign: "center", border: 0, cursor: "pointer" } as const;
-  const muted = "var(--wm-text-muted, #78716c)";
+  const muted = "var(--wm-text-muted, var(--wm-text-faint))";
 
   return (
     <main style={{ maxWidth: 520, margin: "0 auto", padding: "24px 16px 64px", display: "grid", gap: 16 }}>
@@ -67,7 +67,7 @@ export default function AmbassadeurDashboard() {
 
       {data && (
         <>
-          <div style={{ ...box, background: "var(--wm-accent-gold-light, #FFFBEB)", border: "1px solid var(--wm-accent-gold, #D4AF37)" }}>
+          <div style={{ ...box, background: "var(--wm-accent-gold-light, #FFFBEB)", border: "1px solid var(--wm-accent-gold, var(--wm-accent-gold))" }}>
             <strong>{"Bonjour " + data.ambassador.name + " !"}</strong>
             <div style={{ fontSize: 13 }}>Lien : <strong>{"wedding.bouakestore.com/r/" + data.ambassador.slug}</strong></div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 6 }}>

@@ -118,7 +118,7 @@ export default function PrayersPage() {
       {/* Banner */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#C05638] text-xs font-semibold border border-orange-100 mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[var(--wm-primary)] text-xs font-semibold border border-orange-100 mb-2">
             <BookMarked className="w-3.5 h-3.5" />
             <span>Sanctuaire Spirituel du Couple</span>
           </div>
@@ -132,7 +132,7 @@ export default function PrayersPage() {
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#C05638] hover:bg-[#A84429] text-white text-xs font-bold shadow-md transition-all shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white text-xs font-bold shadow-md transition-all shrink-0 cursor-pointer"
           style={{ backgroundColor: activeTheme.primary }}
         >
           <Plus className="w-4 h-4" />
@@ -305,7 +305,7 @@ export default function PrayersPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C05638] text-white font-bold cursor-pointer hover:bg-[#A84429]"
+                  className="px-5 py-2 rounded-xl bg-[var(--wm-primary)] text-white font-bold cursor-pointer hover:bg-[var(--wm-primary-hover)]"
                   style={{ backgroundColor: activeTheme.primary }}
                 >
                   Déposer la Prière
