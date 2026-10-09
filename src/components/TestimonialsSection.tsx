@@ -43,8 +43,8 @@ export default function TestimonialsSection({ hideWhenEmpty = false }: { hideWhe
                 <blockquote style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: "#292524" }}>{"\u00ab " + t.content + " \u00bb"}</blockquote>
                 <figcaption style={{ fontSize: 12, color: "#78716c" }}>
                   <strong style={{ color: "#1c1917" }}>{t.couple_name}</strong>
-                  {t.city ? " \u2013 " + t.city : ""}
-                  {t.wedding_date ? " \u2013 Mariage " + t.wedding_date : ""}
+                  {t.city ? " - " + t.city : ""}
+                  {t.wedding_date ? " - Mariage " + t.wedding_date : ""}
                 </figcaption>
               </figure>
             ))}

@@ -150,7 +150,7 @@ export default function LudoEnLignePage() {
 
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-3xl font-black text-amber-600 tabular-nums">
-            {game.diceValue ?? "–"}
+            {game.diceValue ?? "-"}
           </div>
           <button
             onClick={() => send({ action: "roll" })}

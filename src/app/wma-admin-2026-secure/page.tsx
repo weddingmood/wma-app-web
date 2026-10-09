@@ -2,6 +2,7 @@
 import AdminBibliothequePage from "./bibliotheque/page";
 import AdminTemoignagesPage from "./temoignages/page";
 import AdminAmbassadeursPage from "./ambassadeurs/page";
+import AdminPayoutsPage from "./payouts/page";
 import { BookMarked } from "lucide-react";
 import GameVisibilityAdmin from "@/components/games/GameVisibilityAdmin";
 
@@ -29,7 +30,7 @@ import {
   EyeOff,
 } from "lucide-react";
 
-type AdminTab = "stats" | "couples" | "payments" | "providers" | "games" | "audit" | "settings" | "library" | "testimonials" | "ambassadors";
+type AdminTab = "stats" | "couples" | "payments" | "providers" | "games" | "audit" | "settings" | "library" | "testimonials" | "ambassadors" | "payouts";
 
 const PLAN_LABELS: Record<string, string> = { individual: "Individuelle", couple: "Couple", standard_couple: "Couple Standard", premium_couple: "Couple Premium" };
 
@@ -430,6 +431,7 @@ export default function AdminPage() {
             { id: "library", label: "Bibliothéque", icon: BookMarked },
             { id: "testimonials", label: "T\u00e9moignages", icon: BookMarked },
             { id: "ambassadors", label: "Ambassadeurs", icon: BookMarked },
+            { id: "payouts", label: "Paiements ambassadeurs", icon: BookMarked },
             { id: "audit", label: "Journal d'audit", icon: History },
             { id: "settings", label: "Paramètres", icon: Settings },
           ].map((tab) => {
@@ -713,7 +715,7 @@ export default function AdminPage() {
             <div className="bg-white rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
               <div className="p-5 border-b border-stone-100">
                 <h3 className="font-serif font-bold text-stone-900 text-base">
-                  Validation des Packs Premium — Règlements Wave (Couple 3 000 FCFA / Individuel 2 000 FCFA)
+                  Validation des Packs Premium, Règlements Wave (Couple 3 000 FCFA / Individuel 2 000 FCFA)
                 </h3>
                 <p className="text-stone-500 text-xs">
                   Vérifiez la référence Wave, puis validez pour activer immédiatement le Pack Premium complet du couple.
@@ -828,7 +830,7 @@ export default function AdminPage() {
             <div className="bg-white rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
               <div className="p-5 border-b border-stone-100">
                 <h3 className="font-serif font-bold text-stone-900 text-base">
-                  Validation des Prestataires — Marketplace
+                  Validation des Prestataires, Marketplace
                 </h3>
                 <p className="text-stone-500 text-xs">
                   Verifiez les photos et le WhatsApp, puis validez pour rendre la fiche visible publiquement.
@@ -937,6 +939,7 @@ export default function AdminPage() {
 {activeTab === "library" && (<AdminBibliothequePage />)}
 {activeTab === "testimonials" && (<AdminTemoignagesPage />)}
 {activeTab === "ambassadors" && (<AdminAmbassadeursPage />)}
+{activeTab === "payouts" && (<AdminPayoutsPage />)}
 {activeTab === "games" && (
           <div className="space-y-6 animate-in fade-in text-xs">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -1037,7 +1040,7 @@ export default function AdminPage() {
                   <div key={log.id} className="p-3 rounded-2xl bg-stone-50 border border-stone-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <strong className="text-stone-900">{log.action}</strong>
-                      <span className="text-stone-500"> — {log.coupleName} • par {log.adminName}</span>
+                      <span className="text-stone-500">, {log.coupleName} • par {log.adminName}</span>
                       {log.details && <p className="text-stone-600 text-[11px] mt-0.5">{log.details}</p>}
                     </div>
                     <span className="text-[10px] text-stone-400 whitespace-nowrap">
@@ -1111,8 +1114,8 @@ export default function AdminPage() {
                 Règles du Pack Premium
               </h3>
               <ul className="space-y-2.5 text-stone-700 leading-relaxed">
-                <li><strong>Pack Couple — 3 000 FCFA :</strong> accès complet et simultané des deux partenaires, tous modules débloqués.</li>
-                <li><strong>Pack Individuel — 2 000 FCFA :</strong> accès complet d’un seul partenaire ; le second reste désactivé.</li>
+                <li><strong>Pack Couple, 3 000 FCFA :</strong> accès complet et simultané des deux partenaires, tous modules débloqués.</li>
+                <li><strong>Pack Individuel, 2 000 FCFA :</strong> accès complet d’un seul partenaire ; le second reste désactivé.</li>
                 <li><strong>Validation :</strong> « Valider & Activer Premium » active le statut, la formule et les deux accès, puis notifie le couple avec son code.</li>
                 <li><strong>Essai :</strong> 3 jours gratuits, prolongeables par tranches de 7 jours depuis le tableau Couples.</li>
                 <li><strong>Traçabilité :</strong> chaque activation, suspension, blocage et changement de formule est consigné dans le journal d’audit.</li>

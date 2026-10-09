@@ -12,7 +12,7 @@ export async function GET(req: Request) {
     // SELECT * pour ne plus planter si une colonne manque
     const list = rowsOf(await db.execute(sql`SELECT * FROM ambassadors WHERE code_unique = ${code} LIMIT 1`));
     const amb = list[0];
-    if (!amb) return Response.json({ success: false, message: "Code introuvable. Verifie WM-TEST-TNC" }, { status: 404 });
+    if (!amb) return Response.json({ success: false, message: "Code introuvable." }, { status: 404 });
 
     // is_active peut s'appeler is_active ou active
     const isActive = (amb.is_active as boolean)?? (amb.active as boolean)?? true;
@@ -39,6 +39,6 @@ export async function GET(req: Request) {
       payouts, clients: clientsList
     });
   } catch (e) {
-    return Response.json({ success: false, message: (e as Error).message }, { status: 500 });
+    return Response.json({ success: false, message: "Erreur serveur" }, { status: 500 });
   }
 }

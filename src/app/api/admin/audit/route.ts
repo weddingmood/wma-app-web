@@ -19,7 +19,7 @@ export async function GET() {
     success: true,
     logs: logs.map((l) => ({
       ...l,
-      coupleName: l.coupleId ? coupleMap.get(l.coupleId) || `Couple #${l.coupleId}` : "—",
+      coupleName: l.coupleId ? coupleMap.get(l.coupleId) || `Couple #${l.coupleId}` : "-",
       adminName: l.adminId ? adminMap.get(l.adminId) || `Admin #${l.adminId}` : "Système",
     })),
   });

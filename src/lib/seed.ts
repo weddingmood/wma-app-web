@@ -707,7 +707,7 @@ Conseils Pastoraux pour le Couple Chrétien :
       await db.insert(invitations).values({
         coupleId,
         slug: demoCoupleSlug,
-        heroTitle: "Époux & Épouse – Unis par la Grâce de Dieu",
+        heroTitle: "Époux & Épouse - Unis par la Grâce de Dieu",
         loveStory: "Notre histoire a débuté au sein du groupe de jeunesse de l'église en 2021. À travers les temps de prière, les partages fraternels et les projets communs, Dieu a révélé Son dessein bienveillant pour nos vies. Aujourd'hui, avec la bénédiction de nos parents et de nos pasteurs, nous nous engageons pour l'éternité !",
         testimony: "« Nous savons, du reste, que toutes choses concourent au bien de ceux qui aiment Dieu » (Romains 8:28). Malgré les défis, la fidélité de l'Éternel a guidé chaque pas de notre cheminement.",
         weddingDate: "15 Novembre 2025",

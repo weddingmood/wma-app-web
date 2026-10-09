@@ -121,7 +121,7 @@ export default function ProfilePage() {
       {accessCode && (
         <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-stone-700">
           Votre code d'accès : <strong className="text-stone-900">{accessCode}</strong>{" "}
-          — gardez-le précieusement, il sert à vous reconnecter.
+         , gardez-le précieusement, il sert à vous reconnecter.
         </div>
       )}
 

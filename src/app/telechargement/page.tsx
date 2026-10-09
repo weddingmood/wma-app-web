@@ -75,7 +75,7 @@ export default function DownloadPage() {
 
   const sizeLabel = apkInfo?.sizeBytes
     ? `${(apkInfo.sizeBytes / 1024).toFixed(1)} Ko`
-    : "—";
+    : "-";
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-stone-900 pb-20">
