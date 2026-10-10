@@ -27,6 +27,13 @@ export async function GET(req: Request) {
     const slug = String((amb.referral_slug as string) || (amb.slug as string) || "");
     const city = String((amb.city as string) || (amb.ville as string) || "");
 
+    let countryName = "", flag = "";
+    try {
+      const c = rowsOf(await db.execute(sql`SELECT name, flag FROM countries WHERE slug = ${String(amb.country_slug || "")} LIMIT 1`))[0];
+      if (c) { countryName = String(c.name || ""); flag = String(c.flag || ""); }
+    } catch {}
+    const photoUrl = String((amb.photo_url as string) || "");
+
     let payouts: Row[] = [];
     try { payouts = rowsOf(await db.execute(sql`SELECT * FROM ambassador_payouts WHERE ambassador_id = ${Number(amb.id)} ORDER BY created_at DESC LIMIT 20`)); } catch { payouts = []; }
 
@@ -35,7 +42,7 @@ export async function GET(req: Request) {
 
     return Response.json({
       success: true,
-      ambassador: { name, slug, city, balance, totalClicks: clicks, totalClients: clients, totalPaid: paid },
+      ambassador: { name, slug, city, balance, totalClicks: clicks, totalClients: clients, totalPaid: paid, photoUrl, countryName, flag },
       payouts, clients: clientsList
     });
   } catch (e) {

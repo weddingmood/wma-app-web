@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import AmbassadorCard from "@/components/AmbassadorCard";
 
 function Stat({ label, value, big }: { label: string; value: string | number; big?: boolean }) {
   return (
@@ -69,7 +70,7 @@ export default function AmbassadeurDashboard() {
         <>
           <div style={{ ...box, background: "var(--wm-accent-gold-light, #FFFBEB)", border: "1px solid var(--wm-accent-gold, var(--wm-accent-gold))" }}>
             <strong>{"Bonjour " + data.ambassador.name + " !"}</strong>
-            <div style={{ fontSize: 13 }}>Lien : <strong>{"wedding.bouakestore.com/r/" + data.ambassador.slug}</strong></div>
+<AmbassadorCard name={data.ambassador.name} city={data.ambassador.city} countryName={data.ambassador.countryName} flag={data.ambassador.flag} photoUrl={data.ambassador.photoUrl} slug={data.ambassador.slug} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 6 }}>
               <Stat big label="SOLDE ACTUEL" value={Number(data.ambassador.balance).toLocaleString("fr-FR") + " F"} />
               <Stat big label={"TOTAL GAGN\u00c9"} value={Number(data.ambassador.totalPaid + data.ambassador.balance).toLocaleString("fr-FR") + " F"} />
