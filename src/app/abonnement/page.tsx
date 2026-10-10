@@ -1,3 +1,4 @@
+import PaymentLogos from "@/components/PaymentLogos";
 import Link from "next/link";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import { Check, X } from "lucide-react";
@@ -129,6 +130,7 @@ export default function AbonnementPage() {
         <span>{"2. Revenez ici et appuyez sur \u00ab J'ai pay\u00e9 \u00bb : indiquez votre identifiant de transaction Wave."}</span>
         <span>{"3. Notre \u00e9quipe v\u00e9rifie votre paiement et active votre pack."}</span>
       </section>
+    <PaymentLogos />
     </main>
   );
 }

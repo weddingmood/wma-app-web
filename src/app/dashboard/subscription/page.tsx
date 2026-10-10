@@ -1,5 +1,6 @@
 "use client";
 
+import PaymentLogos from "@/components/PaymentLogos";
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/components/ThemeContext";
 import {
@@ -427,6 +428,7 @@ export default function SubscriptionPage() {
         </form>
       </div>
 
+      <div className="py-2"><PaymentLogos /></div>
       {/* SOUMISSION DE LA PREUVE DE PAIEMENT WAVE */}
       <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-stone-200 shadow-sm space-y-5">
         <div className="flex items-center gap-2 border-b border-stone-100 pb-3">
