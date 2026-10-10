@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { upload } from "@vercel/blob/client";
+import AmbassadorCard from "@/components/AmbassadorCard";
 
 type Amb = {
   id: number;
@@ -291,7 +292,14 @@ export default function AdminAmbassadeursPage() {
               <span>{"Commissions : " + fcfa(a.total_commissions)}</span>
               <strong>{"Solde : " + fcfa(a.balance)}</strong>
             </div>
-            <div style={{ fontSize: 12, wordBreak: "break-all" }}>{link}</div>
+            <AmbassadorCard
+              name={a.name}
+              city={a.city || undefined}
+              countryName={countries.find((c) => c.slug === a.country_slug)?.name}
+              flag={countries.find((c) => c.slug === a.country_slug)?.flag || undefined}
+              photoUrl={a.photo_url || undefined}
+              slug={a.referral_slug ?? ""}
+            />
             <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
               <label style={lab}>{"Ville"}<input style={input} value={a.city || ""} onChange={(e) => patchLocal(a.id, { city: e.target.value })} /></label>
               <label style={lab}>
