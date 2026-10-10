@@ -49,6 +49,16 @@ function hashPin(pin: string): string {
   return salt + ":" + scryptSync(pin, salt, 32).toString("hex");
 }
 
+async function setSetting(key: string, value: string) {
+  try {
+    const u = rowsOf(await db.execute(sql`update site_settings set value = ${value} where key = ${key} returning key`));
+    if (u.length === 0) await db.execute(sql`insert into site_settings (key, value) values (${key}, ${value})`);
+  } catch {
+    const u = rowsOf(await db.execute(sql`update site_settings set value = to_jsonb(${value}::text) where key = ${key} returning key`));
+    if (u.length === 0) await db.execute(sql`insert into site_settings (key, value) values (${key}, to_jsonb(${value}::text))`);
+  }
+}
+
 export async function GET() {
   const denied = await adminOnly();
   if (denied) return denied;
@@ -99,6 +109,7 @@ export async function POST(req: Request) {
     const pinHash = hashPin(pin);
 
     let created: Row | null = null;
+    let lastErr = "";
     for (let attempt = 0; attempt < 6 && !created; attempt++) {
       const codeUnique = "WM-" + letters + "-" + randomChars(3);
       const slug = attempt === 0 ? slugBase : slugBase + randomInt(10, 100);
@@ -106,17 +117,18 @@ export async function POST(req: Request) {
       try {
         const res = await db.execute(sql`
           insert into ambassadors (name, ambassador_code, code_unique, referral_slug, country_slug, city, phone, bio, photo_url,
-            payment_method, payment_number, payout_day, pin_hash, is_featured)
+            payment_method, payment_number, payout_day, pin_hash, is_featured, is_active, total_clicks, total_clients, balance, total_sales, total_commissions)
           values (${name}, ${ambCode}, ${codeUnique}, ${slug}, ${countrySlug}, ${city}, ${phone || null}, ${bio || null}, ${photoUrl},
-            ${paymentMethod}, ${paymentNumber || null}, ${payoutDayValue}, ${pinHash}, ${isFeatured})
+            ${paymentMethod}, ${paymentNumber || null}, ${payoutDayValue}, ${pinHash}, ${isFeatured}, true, 0, 0, 0, 0, 0)
           returning ${LIST_COLUMNS}
         `);
         created = rowsOf(res)[0] ?? null;
-      } catch {
+      } catch (e) {
         created = null;
+        lastErr = (e as Error).message;
       }
     }
-    if (!created) return bad("Cr\u00e9ation impossible, r\u00e9essayez.", 500);
+    if (!created) return bad("Cr\u00e9ation impossible : " + (lastErr || "r\u00e9essayez"), 500);
     return Response.json({ success: true, ambassador: created, pin });
   } catch (error) {
     console.error("Erreur admin ambassadeurs (creation):", error);
@@ -136,10 +148,8 @@ export async function PATCH(req: Request) {
       if (!Number.isFinite(rate) || rate < 0 || rate > 100 || !Number.isFinite(min) || min < 0) {
         return bad("Commission entre 0 et 100, seuil positif.");
       }
-      await db.execute(sql`
-        insert into site_settings (key, value) values ('commission_rate', ${String(rate)}), ('payout_min_balance', ${String(Math.round(min))})
-        on conflict (key) do update set value = excluded.value, updated_at = now()
-      `);
+      await setSetting("commission_rate", String(rate));
+      await setSetting("payout_min_balance", String(Math.round(min)));
       return Response.json({ success: true });
     }
 
@@ -173,7 +183,7 @@ export async function PATCH(req: Request) {
     return Response.json({ success: true });
   } catch (error) {
     console.error("Erreur admin ambassadeurs (modification):", error);
-    return bad("Erreur serveur", 500);
+    return bad("Erreur serveur : " + (error as Error).message, 500);
   }
 }
 

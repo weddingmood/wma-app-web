@@ -76,7 +76,7 @@ export default function AdminAmbassadeursPage() {
   const [minBalance, setMinBalance] = useState("10000");
   const [msg, setMsg] = useState<string | null>(null);
   useEffect(() => {
-    if (msg && /impossible|erreur|format|refus|indisponible/i.test(msg)) window.scrollTo({ top: 0, behavior: "smooth" });
+    if (msg) window.scrollTo({ top: 0, behavior: "smooth" });
   }, [msg]);
   const [busy, setBusy] = useState(false);
   const [secret, setSecret] = useState<{ name: string; code: string; pin: string } | null>(null);
