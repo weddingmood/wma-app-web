@@ -38,6 +38,21 @@ export default function AdminPage() {
   const [isAdminAuth, setIsAdminAuth] = useState(false);
   const [adminUser, setAdminUser] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<AdminTab>("stats");
+  useEffect(() => {
+    const ids = ["stats", "couples", "payments", "providers", "games", "audit", "settings", "library", "testimonials", "ambassadors", "payouts"];
+    const read = () => {
+      const p = new URLSearchParams(window.location.search).get("tab");
+      if (p && ids.includes(p)) setActiveTab(p as AdminTab);
+      else if (!p) setActiveTab("stats");
+    };
+    read();
+    window.addEventListener("popstate", read);
+    window.addEventListener("wma-tab", read);
+    return () => {
+      window.removeEventListener("popstate", read);
+      window.removeEventListener("wma-tab", read);
+    };
+  }, []);
 
   // Login form
   const [adminEmail, setAdminEmail] = useState("admin@weddingmood.ci");
@@ -440,7 +455,7 @@ export default function AdminPage() {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as AdminTab)}
+                onClick={() => { setActiveTab(tab.id as AdminTab); window.history.replaceState(null, "", "?tab=" + tab.id); window.dispatchEvent(new Event("wma-tab")); }}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl font-bold transition-all cursor-pointer ${
                   isActive
                     ? "bg-stone-900 text-white shadow-xs"

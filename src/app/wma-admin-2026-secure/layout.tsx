@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { LayoutDashboard, Users, CreditCard, Store, Gamepad2, BookMarked, Star, Handshake, Video, Building2, FileText, Crown, UtensilsCrossed, Wallet, History, Settings } from "lucide-react";
 
 const MENU = [
@@ -24,16 +25,35 @@ const MENU = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }){
   const pathname = usePathname();
+  const ROOT = "/wma-admin-2026-secure";
+  const [curTab, setCurTab] = useState("");
+  useEffect(() => {
+    const read = () => setCurTab(new URLSearchParams(window.location.search).get("tab") || "");
+    read();
+    window.addEventListener("popstate", read);
+    window.addEventListener("wma-tab", read);
+    return () => {
+      window.removeEventListener("popstate", read);
+      window.removeEventListener("wma-tab", read);
+    };
+  }, [pathname]);
+  const go = (e: React.MouseEvent, href: string) => {
+    if (pathname === ROOT && (href === ROOT || href.startsWith(ROOT + "?"))) {
+      e.preventDefault();
+      window.history.pushState(null, "", href);
+      window.dispatchEvent(new Event("wma-tab"));
+    }
+  };
   return (
     <div className="flex min-h-screen bg-gray-50">
       <aside className="w-64 bg-[#800020] text-white p-4 space-y-1 overflow-y-auto">
         <h2 className="text-xl font-bold mb-6 tracking-wide">WMA Admin</h2>
         {MENU.map(m=>{
-          const active = m.exact ? pathname===m.href : pathname.startsWith(m.href) && !m.tab;
+          const onRoot = pathname === ROOT; const active = onRoot ? (m.href === ROOT && (m.exact ? (curTab === "" || curTab === "stats") : (m as any).tab === curTab)) : (!(m as any).tab && !m.exact && pathname.startsWith(m.href));
           const href = (m as any).tab ? `${m.href}?tab=${(m as any).tab}` : m.href;
           const Icon = m.Icon;
           return (
-            <Link key={m.label+m.href} href={href} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm hover:bg-white/10 transition ${active?'bg-white/15 font-semibold':''}`}>
+            <Link key={m.label+m.href} href={href} onClick={(e) => go(e, href)} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm hover:bg-white/10 transition ${active?'bg-white/15 font-semibold':''}`}>
               <Icon size={18} /> {m.label}
             </Link>
           );
