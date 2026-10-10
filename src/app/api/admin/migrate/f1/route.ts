@@ -1,6 +1,9 @@
+import { adminOu401 } from "@/lib/platform";
 import { sql } from "drizzle-orm"; import { db } from "@/db";
 export const dynamic = "force-dynamic";
 export async function POST(){
+  const __adm = await adminOu401();
+  if (__adm.reponse) return __adm.reponse;
   try{
     await db.execute(sql`CREATE TABLE IF NOT EXISTS medias (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), youtube_url TEXT NOT NULL, youtube_id TEXT, category TEXT CHECK (category IN ('entree-maries','ballet-danse','chants-dansants','sortie-eglise','musique-ambiance','deco-salle','tenue-traditionnelle','photographie')), title TEXT, country_ids UUID[] DEFAULT '{}', city_ids UUID[] DEFAULT '{}', order_index INT DEFAULT 0, is_featured BOOLEAN DEFAULT false, is_active BOOLEAN DEFAULT true, created_at TIMESTAMPTZ DEFAULT NOW())`);
     await db.execute(sql`CREATE TABLE IF NOT EXISTS partenaires (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), name TEXT NOT NULL, logo_url TEXT, website TEXT, country_ids UUID[] DEFAULT '{}', order_index INT DEFAULT 0, is_active BOOLEAN DEFAULT true, created_at TIMESTAMPTZ DEFAULT NOW())`);
