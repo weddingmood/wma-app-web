@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeContext";
 import { CallModal } from "@/components/CallModal";
 import { PwaRegister } from "@/components/PwaRegister";
+import VisitTracker from "@/components/VisitTracker";
 import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default function RootLayout({
         <DesktopModeNotice />
         <ThemeProvider>
           <PwaRegister />
+          <VisitTracker />
           {children}
           <PwaInstallPrompt />
           <CallModal />

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LayoutDashboard, Users, CreditCard, Store, Gamepad2, BookMarked, Star, Handshake, Video, Building2, FileText, Crown, UtensilsCrossed, Wallet, History, Settings } from "lucide-react";
+import { LayoutDashboard, Users, CreditCard, Store, Gamepad2, BookMarked, Star, Handshake, Video, Building2, FileText, Crown, UtensilsCrossed, Wallet, History, Settings, BarChart3 } from "lucide-react";
 
 const MENU = [
   { href: "/wma-admin-2026-secure", label: "Tableau de Bord", Icon: LayoutDashboard, exact: true },
@@ -20,6 +20,7 @@ const MENU = [
   { href: "/wma-admin-2026-secure/menus", label: "Menus Africains", Icon: UtensilsCrossed },
   { href: "/wma-admin-2026-secure/payouts", label: "Payouts Ambassadeur", Icon: Wallet },
   { href: "/wma-admin-2026-secure", label: "Journal d'audit", Icon: History, tab: "audit" },
+  { href: "/wma-admin-2026-secure", label: "Visites par pays", Icon: BarChart3, tab: "visits" },
   { href: "/wma-admin-2026-secure", label: "Paramètres", Icon: Settings, tab: "settings" },
 ];
 
