@@ -6,7 +6,7 @@ const rowsOf = (res: unknown): Row[] => (Array.isArray(res) ? (res as Row[]) : (
 
 export const PUBLIC_KEYS = [
   "whatsapp", "phone", "email_contact", "email_support", "address",
-  "company_name", "dfe", "rccm", "footer_signature", "faq", "terms", "privacy",
+  "company_name", "dfe", "rccm", "footer_signature", "faq", "terms", "privacy", "payment_methods",
 ] as const;
 export const PRIVATE_KEYS = ["mail_from", "mail_signature", "mail_welcome"] as const;
 export const ALL_KEYS: readonly string[] = [...PUBLIC_KEYS, ...PRIVATE_KEYS];

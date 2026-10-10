@@ -1,5 +1,6 @@
 "use client";
 
+import SiteFooter from "@/components/SiteFooter";
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -506,18 +507,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <footer className="bg-white text-stone-700 py-12 border-t border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center">
-            <Logo size={42} showText={true} variant="dark" />
-          </div>
-
-          <div className="text-xs text-stone-500 text-center sm:text-right space-y-1">
-            <p>Support WhatsApp Officiel : <a href={OFFICIAL_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-[var(--wm-primary)] font-bold hover:underline">+225 70 50 13 56</a></p>
-            <p>© 2025 Wedding Mood Côte d'Ivoire. Tous droits réservés.</p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter logo={<Logo size={42} showText={true} variant="dark" />} fallbackWhatsapp={OFFICIAL_WHATSAPP_URL} />
 
       {/* AUTH MODAL (LOGIN / REGISTER) */}
       {isAuthModalOpen && (

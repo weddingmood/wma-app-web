@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import FileUpload from "@/components/admin/FileUpload";
 
 type Faq = { q: string; a: string };
 type Field = { key: string; label: string; area?: boolean };
@@ -38,6 +39,7 @@ const SECTIONS: Array<{ title: string; fields: Field[] }> = [
 export default function SettingsEditor() {
   const [vals, setVals] = useState<Record<string, string>>({});
   const [faq, setFaq] = useState<Faq[]>([]);
+  const [pays, setPays] = useState<Array<{ name: string; logo: string }>>([]);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [ok, setOk] = useState(true);
@@ -51,6 +53,10 @@ export default function SettingsEditor() {
           try {
             const arr = JSON.parse((d.values && d.values.faq) || "[]");
             if (Array.isArray(arr)) setFaq(arr.map((x: any) => ({ q: String(x.q || ""), a: String(x.a || "") })));
+          } catch {}
+          try {
+            const pm = JSON.parse((d.values && d.values.payment_methods) || "[]");
+            if (Array.isArray(pm)) setPays(pm.map((x: any) => ({ name: String(x.name || ""), logo: String(x.logo || "") })));
           } catch {}
         } else {
           setOk(false);
@@ -75,7 +81,7 @@ export default function SettingsEditor() {
     setBusy(true);
     setMsg(null);
     try {
-      const values = { ...vals, faq: JSON.stringify(faq.filter((f) => f.q.trim())) };
+      const values = { ...vals, faq: JSON.stringify(faq.filter((f) => f.q.trim())), payment_methods: JSON.stringify(pays.filter((p) => p.name.trim())) };
       const res = await fetch("/api/admin/settings", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -132,6 +138,21 @@ export default function SettingsEditor() {
         ))}
         <button type="button" onClick={() => setFaq((p) => [...p, { q: "", a: "" }])} className="px-4 py-2 rounded-xl bg-stone-900 text-white font-bold cursor-pointer">
           {"Ajouter une question"}
+        </button>
+      </div>
+
+      <div className="space-y-3">
+        <h4 className="font-bold text-stone-900 text-sm">{"Moyens de paiement (logos affich\u00e9s sur le site)"}</h4>
+        {pays.length === 0 && <p className="text-stone-500">{"Aucun moyen de paiement pour l'instant."}</p>}
+        {pays.map((p, i) => (
+          <div key={i} className="p-3 rounded-2xl border border-stone-200 bg-stone-50 space-y-2">
+            <input value={p.name} onChange={(e) => setPays((a) => a.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))} placeholder="Nom (exemple : Wave)" className={inp} />
+            <FileUpload label="Logo du moyen de paiement" folder="paiements" accept="image/*" value={p.logo} onUploaded={(url) => setPays((a) => a.map((x, j) => (j === i ? { ...x, logo: url } : x)))} />
+            <button type="button" onClick={() => setPays((a) => a.filter((_, j) => j !== i))} className="px-3 py-1.5 rounded-lg border border-red-300 bg-white text-red-700 font-bold cursor-pointer">{"Supprimer"}</button>
+          </div>
+        ))}
+        <button type="button" onClick={() => setPays((a) => [...a, { name: "", logo: "" }])} className="px-4 py-2 rounded-xl bg-stone-900 text-white font-bold cursor-pointer">
+          {"Ajouter un moyen de paiement"}
         </button>
       </div>
 
