@@ -17,6 +17,7 @@ export default function SiteFooter({ logo, fallbackWhatsapp }: { logo: React.Rea
   const [w, setW] = useState<Record<string, string>>({});
   const [s, setS] = useState<any>({});
   const [partners, setPartners] = useState<Partner[]>([]);
+  const [about, setAbout] = useState("");
 
   useEffect(() => {
     fetch("/api/public-settings", { cache: "no-store" })
@@ -28,6 +29,10 @@ export default function SiteFooter({ logo, fallbackWhatsapp }: { logo: React.Rea
       .then((d) => {
         setS((d && d.settings) || {});
         setPartners(Array.isArray(d && d.partenaires) ? d.partenaires : []);
+        const list = Array.isArray(d && d.contents) ? d.contents : [];
+        const a = list.find((x: any) => x && x.key === "footer_about");
+        const av = a && a.value && typeof a.value === "object" ? a.value : null;
+        setAbout(av && av.is_active !== false && av.content ? String(av.content) : "");
       })
       .catch(() => {});
   }, []);
@@ -78,6 +83,8 @@ export default function SiteFooter({ logo, fallbackWhatsapp }: { logo: React.Rea
             {w.address && <p>{w.address}</p>}
           </div>
         </div>
+
+        {about && <p className="text-xs text-stone-600 text-center max-w-2xl mx-auto" style={{ whiteSpace: "pre-wrap" }}>{about}</p>}
 
         <PaymentLogos />
 

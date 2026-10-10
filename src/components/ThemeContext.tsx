@@ -159,6 +159,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
 
     try {
+      if (window.location.pathname.startsWith("/wma-admin-2026-secure")) return;
       const notifRes = await fetch("/api/notifications", { cache: "no-store" });
 
       if (notifRes.ok) {
