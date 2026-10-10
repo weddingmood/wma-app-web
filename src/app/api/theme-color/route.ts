@@ -43,7 +43,7 @@ const unauthorized = () => Response.json({ success: false, message: "Non autoris
 
 export async function GET() {
   const player = await getPlayer();
-  if (!player) return unauthorized();
+  if (!player) return Response.json({ success: true, color: null, textColor: null, buttonColor: null, baseThemeId: null });
   try {
     await ensureColumns();
     const row = rowsOf(
