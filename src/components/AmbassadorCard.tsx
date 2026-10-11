@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Logo } from "@/components/Logo";
 
 
-const BASE = "https://wedding.bouakestore.com";
+const BASE = "https://www.weddingmood.site";
 
 export default function AmbassadorCard({
   name, city, countryName, flag, photoUrl, slug,
