@@ -2,7 +2,7 @@
  * Les assets sont mis en cache ; les API restent toujours réseau-only pour
  * éviter de servir hors connexion une session ou un état privé obsolète.
  */
-const CACHE_VERSION = "wm-v1.2.0";
+const CACHE_VERSION = "wm-v1.3.0";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
