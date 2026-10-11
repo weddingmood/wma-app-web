@@ -35,7 +35,8 @@ export async function readSettings(keys: readonly string[]): Promise<Record<stri
 
 export async function writeSettings(values: Record<string, string>) {
   await ensureSettingsTable();
-  for (const [k, v] of Object.entries(values)) {
-    await db.execute(sql`insert into wma_settings (key, value, updated_at) values (${k}, ${v}, now()) on conflict (key) do update set value = excluded.value, updated_at = now()`);
-  }
+  const keys = Object.keys(values);
+  if (keys.length === 0) return;
+  const parts = keys.map((k) => sql`(${k}, ${values[k]}, now())`);
+  await db.execute(sql`insert into wma_settings (key, value, updated_at) values ${sql.join(parts, sql`, `)} on conflict (key) do update set value = excluded.value, updated_at = now()`);
 }

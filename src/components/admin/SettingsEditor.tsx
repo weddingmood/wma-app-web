@@ -80,20 +80,31 @@ export default function SettingsEditor() {
   const save = async () => {
     setBusy(true);
     setMsg(null);
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 25000);
     try {
       const values = { ...vals, faq: JSON.stringify(faq.filter((f) => f.q.trim())), payment_methods: JSON.stringify(pays.filter((p) => p.name.trim())) };
       const res = await fetch("/api/admin/settings", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ values }),
+        signal: ctl.signal,
       });
       const d = await res.json().catch(() => null);
-      if (res.ok && d && d.success) { setOk(true); setMsg("Param\u00e8tres enregistr\u00e9s \u2714"); }
-      else { setOk(false); setMsg((d && d.message) || "Enregistrement impossible."); }
-    } catch {
+      if (res.ok && d && d.success) {
+        const chk = await fetch("/api/admin/settings", { cache: "no-store" }).then((r) => r.json()).catch(() => null);
+        if (chk && chk.success) setVals(chk.values || {});
+        setOk(true);
+        setMsg("Param\u00e8tres enregistr\u00e9s \u2714 (" + new Date().toLocaleTimeString("fr-FR") + ")");
+      } else {
+        setOk(false);
+        setMsg((d && d.message) || "Enregistrement impossible (" + res.status + ").");
+      }
+    } catch (e) {
       setOk(false);
-      setMsg("Connexion indisponible.");
+      setMsg(e instanceof Error && e.name === "AbortError" ? "Le serveur ne r\u00e9pond pas (25 s). R\u00e9essayez dans un instant." : "Connexion indisponible.");
     } finally {
+      clearTimeout(timer);
       setBusy(false);
     }
   };
