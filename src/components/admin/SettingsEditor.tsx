@@ -9,6 +9,13 @@ type Field = { key: string; label: string; area?: boolean };
 const inp = "w-full px-4 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-900 text-xs";
 const lab = "block text-stone-700 font-bold mb-1 text-xs";
 
+const DEFAULT_PAYS: Array<{ name: string; logo: string; soon?: boolean }> = [
+  { name: "Wave", logo: "", soon: false },
+  { name: "Orange Money", logo: "", soon: true },
+  { name: "MTN Money", logo: "", soon: true },
+  { name: "Moov Money", logo: "", soon: true },
+];
+
 const SECTIONS: Array<{ title: string; fields: Field[] }> = [
   { title: "Contacts", fields: [
     { key: "whatsapp", label: "Num\u00e9ro WhatsApp" },
@@ -39,7 +46,7 @@ const SECTIONS: Array<{ title: string; fields: Field[] }> = [
 export default function SettingsEditor() {
   const [vals, setVals] = useState<Record<string, string>>({});
   const [faq, setFaq] = useState<Faq[]>([]);
-  const [pays, setPays] = useState<Array<{ name: string; logo: string }>>([]);
+  const [pays, setPays] = useState<Array<{ name: string; logo: string; soon?: boolean }>>(DEFAULT_PAYS);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [ok, setOk] = useState(true);
@@ -56,7 +63,7 @@ export default function SettingsEditor() {
           } catch {}
           try {
             const pm = JSON.parse((d.values && d.values.payment_methods) || "[]");
-            if (Array.isArray(pm)) setPays(pm.map((x: any) => ({ name: String(x.name || ""), logo: String(x.logo || "") })));
+            if (Array.isArray(pm) && pm.length > 0) setPays(pm.map((x: any) => ({ name: String(x.name || ""), logo: String(x.logo || ""), soon: x.soon === true })));
           } catch {}
         } else {
           setOk(false);
@@ -159,6 +166,10 @@ export default function SettingsEditor() {
           <div key={i} className="p-3 rounded-2xl border border-stone-200 bg-stone-50 space-y-2">
             <input value={p.name} onChange={(e) => setPays((a) => a.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))} placeholder="Nom (exemple : Wave)" className={inp} />
             <FileUpload label="Logo du moyen de paiement" folder="paiements" accept="image/*" value={p.logo} onUploaded={(url) => setPays((a) => a.map((x, j) => (j === i ? { ...x, logo: url } : x)))} />
+            <label className="flex items-center gap-2">
+              <input type="checkbox" checked={p.soon === true} onChange={(e) => setPays((a) => a.map((x, j) => (j === i ? { ...x, soon: e.target.checked } : x)))} />
+              {"Bient\u00f4t disponible (non utilisable pour l'instant)"}
+            </label>
             <button type="button" onClick={() => setPays((a) => a.filter((_, j) => j !== i))} className="px-3 py-1.5 rounded-lg border border-red-300 bg-white text-red-700 font-bold cursor-pointer">{"Supprimer"}</button>
           </div>
         ))}
