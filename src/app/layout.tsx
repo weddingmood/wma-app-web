@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeContext";
 import { CallModal } from "@/components/CallModal";
 import { PwaRegister } from "@/components/PwaRegister";
 import VisitTracker from "@/components/VisitTracker";
+import WhatsappSync from "@/components/WhatsappSync";
 import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
 
 export const metadata: Metadata = {
@@ -52,6 +53,7 @@ export default function RootLayout({
         <ThemeProvider>
           <PwaRegister />
           <VisitTracker />
+          <WhatsappSync />
           {children}
           <PwaInstallPrompt />
           <CallModal />

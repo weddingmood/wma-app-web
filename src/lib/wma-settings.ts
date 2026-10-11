@@ -40,3 +40,13 @@ export async function writeSettings(values: Record<string, string>) {
   const parts = keys.map((k) => sql`(${k}, ${values[k]}, now())`);
   await db.execute(sql`insert into wma_settings (key, value, updated_at) values ${sql.join(parts, sql`, `)} on conflict (key) do update set value = excluded.value, updated_at = now()`);
 }
+const DEFAULT_WA = "22570501356";
+const DEFAULT_WA_LABEL = "+225 70 50 13 56";
+
+export async function getSupportWhatsapp(): Promise<{ digits: string; url: string; label: string }> {
+  const s = await readSettings(["whatsapp"]);
+  const digits = (s.whatsapp || "").replace(/\D/g, "");
+  const valid = digits.length >= 8 && digits.length <= 15;
+  const d = valid ? digits : DEFAULT_WA;
+  return { digits: d, url: "https://wa.me/" + d, label: valid ? String(s.whatsapp).trim() : DEFAULT_WA_LABEL };
+}

@@ -1,3 +1,4 @@
+import { getSupportWhatsapp } from "@/lib/wma-settings";
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
 import { payments, couples } from "@/db/schema";
@@ -48,8 +49,8 @@ export async function GET() {
     plans: PRICING_PLANS,
     waveCoupleUrl: WAVE_PAY_COUPLE_URL,
     waveIndividualUrl: WAVE_PAY_INDIVIDUAL_URL,
-    whatsappContactUrl: OFFICIAL_WHATSAPP_URL,
-    whatsappNumber: OFFICIAL_WHATSAPP_NUMBER,
+    whatsappContactUrl: (await getSupportWhatsapp()).url,
+    whatsappNumber: (await getSupportWhatsapp()).label,
     payments: paymentHistory,
   });
 }
