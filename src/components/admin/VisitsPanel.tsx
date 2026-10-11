@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 
 type Totals = { visits: number; views: number };
+type Funnel = { visitors: number; home: number; pricing: number; waveClick: number; confirmPage: number; whatsappClick: number; promoClick: number; signups: number | null; payments: number | null };
 type Data = {
-  today: Totals; week: Totals; period: Totals;
+  today: Totals; week: Totals; period: Totals; funnel: Funnel;
   byCountry: Array<{ country: string; visits: number; views: number }>;
   byRegion: Array<{ country: string; region: string; city: string | null; visits: number }>;
   topCities: Array<{ city: string; country: string | null; visits: number }>;
   topPages: Array<{ path: string; views: number }>;
   daily: Array<{ day: string; visits: number }>;
+  bySource: Array<{ source: string; visits: number }>;
 };
 
 function countryName(code: string | null): string {
@@ -19,6 +21,12 @@ function countryName(code: string | null): string {
   } catch {
     return code;
   }
+}
+
+function sourceLabel(s: string): string {
+  if (s === "direct") return "Acc\u00e8s direct";
+  if (s.startsWith("utm:")) return "Lien suivi : " + s.slice(4);
+  return s.replace(/^www\./, "");
 }
 
 const card = "p-4 rounded-2xl bg-white border border-stone-200";
@@ -43,6 +51,17 @@ export default function VisitsPanel() {
 
   const max = Math.max(1, ...data.daily.map((d) => d.visits));
   const empty = data.period.views === 0;
+  const f = data.funnel;
+  const steps: Array<[string, number | null, boolean]> = [
+    ["Visiteurs actifs", f.visitors, false],
+    ["Ont vu la page d'accueil", f.home, false],
+    ["Ont ouvert la page abonnement", f.pricing, false],
+    ["Ont cliqu\u00e9 sur le paiement Wave", f.waveClick, false],
+    ["Ont ouvert la confirmation de paiement", f.confirmPage, false],
+    ["Inscriptions (couples cr\u00e9\u00e9s)", f.signups, true],
+    ["Paiements d\u00e9clar\u00e9s", f.payments, true],
+  ];
+  const base = Math.max(1, f.visitors);
 
   return (
     <div className="space-y-5 text-xs">
@@ -66,9 +85,28 @@ export default function VisitsPanel() {
 
       {empty && (
         <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900">
-          {"Aucune visite enregistr\u00e9e pour l'instant. Le comptage a commenc\u00e9 avec cette mise en ligne : ouvrez le site depuis un autre appareil ou onglet, puis rechargez cette page."}
+          {"Aucune visite enregistr\u00e9e pour l'instant. Une visite est compt\u00e9e quand la personne touche ou fait d\u00e9filer la page : ouvrez le site depuis un autre appareil, touchez l'\u00e9cran, puis rechargez cette page."}
         </div>
       )}
+
+      <div className={card}>
+        <div className="font-bold mb-3">{"Entonnoir : o\u00f9 s'arr\u00eatent les visiteurs"}</div>
+        <div className="space-y-2">
+          {steps.map(([label, value, fromDb]) => {
+            const pct = value === null ? 0 : Math.min(100, Math.round((value / base) * 100));
+            return (
+              <div key={label}>
+                <div className="flex justify-between gap-3">
+                  <span>{label + (fromDb ? " (base de donn\u00e9es)" : "")}</span>
+                  <span className="font-bold">{value === null ? "-" : value}{value !== null && !fromDb && f.visitors > 0 ? " (" + pct + " %)" : ""}</span>
+                </div>
+                <div className="h-2 rounded bg-stone-100"><div className="h-2 rounded bg-[#800020]" style={{ width: pct + "%" }} /></div>
+              </div>
+            );
+          })}
+        </div>
+        <p className="text-stone-500 mt-3">{"Clics WhatsApp : " + f.whatsappClick + " - Clics sur le bandeau des invitations : " + f.promoClick}</p>
+      </div>
 
       {data.daily.length > 0 && (
         <div className={card}>
@@ -82,6 +120,13 @@ export default function VisitsPanel() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className={card}>
+          <div className="font-bold mb-2">{"D'o\u00f9 viennent les visiteurs"}</div>
+          <table className="w-full"><thead><tr><th className={th}>{"Source"}</th><th className={th}>{"Visites"}</th></tr></thead>
+            <tbody>{data.bySource.map((r) => (<tr key={r.source}><td className={td}>{sourceLabel(r.source)}</td><td className={td}>{r.visits}</td></tr>))}</tbody>
+          </table>
+        </div>
+
         <div className={card}>
           <div className="font-bold mb-2">{"Par pays"}</div>
           <table className="w-full"><thead><tr><th className={th}>{"Pays"}</th><th className={th}>{"Visites"}</th><th className={th}>{"Pages vues"}</th></tr></thead>
@@ -111,7 +156,9 @@ export default function VisitsPanel() {
         </div>
       </div>
 
-      <p className="text-stone-500">{"Une visite correspond \u00e0 une session de navigation. Les robots, les pages admin et les adresses IP ne sont pas enregistr\u00e9s."}</p>
+      <p className="text-stone-500">
+        {"Une visite est compt\u00e9e uniquement si la personne touche, clique ou fait d\u00e9filer la page. Pour ne pas compter vos propres appareils, ouvrez une fois ce lien sur chacun : /?notrack=1 (et /?notrack=0 pour r\u00e9activer)."}
+      </p>
     </div>
   );
 }

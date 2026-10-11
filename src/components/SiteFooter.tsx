@@ -95,6 +95,8 @@ export default function SiteFooter({ logo, fallbackWhatsapp }: { logo: React.Rea
             <a href="/conditions" className="hover:underline">{"Conditions d'utilisation"}</a>
             <a href="/confidentialite" className="hover:underline">{"Confidentialit\u00e9"}</a>
             <a href="/mentions-legales" className="hover:underline">{"Mentions l\u00e9gales"}</a>
+            <a href="/devenir-ambassadeur" className="hover:underline">{"Devenir ambassadeur"}</a>
+            <a href="/devenir-prestataire" className="hover:underline">{"Devenir prestataire"}</a>
           </p>
           <p style={{ whiteSpace: "pre-wrap" }}>{signature}</p>
         </div>
