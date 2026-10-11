@@ -39,7 +39,7 @@ export default function LandingPage() {
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
 
   // Login Form : email personnel + code d'accès unique
-  const [loginIdentifier, setLoginIdentifier] = useState("Époux@weddingmood.ci");
+  const [loginIdentifier, setLoginIdentifier] = useState("epoux@weddingmood.ci");
   const [loginAccessCode, setLoginAccessCode] = useState("WM-2025");
   const [loginPassword, setLoginPassword] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
@@ -584,7 +584,7 @@ export default function LandingPage() {
                   <input
                     type="email"
                     required
-                    placeholder="Époux@exemple.ci"
+                    placeholder="epoux@exemple.ci"
                     value={loginIdentifier}
                     onChange={(e) => setLoginIdentifier(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"
@@ -610,7 +610,7 @@ export default function LandingPage() {
 
                 <div className="p-3 rounded-xl glass-card-warm border border-[var(--wm-sand)] text-[11px] text-stone-600 space-y-1">
                   <strong className="block text-stone-800">Accès de démonstration :</strong>
-                  <span className="block">Email : Époux@weddingmood.ci ou Épouse@weddingmood.ci</span>
+                  <span className="block">Email : epoux@weddingmood.ci ou epouse@weddingmood.ci</span>
                   <span className="block">Code d'accès : <strong className="font-mono text-[var(--wm-primary)]">WM-2025</strong></span>
                 </div>
 
@@ -697,7 +697,7 @@ export default function LandingPage() {
                     <input
                       type="email"
                       required
-                      placeholder="Époux@exemple.ci"
+                      placeholder="epoux@exemple.ci"
                       value={regForm.partner1Email}
                       onChange={(e) => setRegForm({ ...regForm, partner1Email: e.target.value })}
                       className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"
@@ -710,7 +710,7 @@ export default function LandingPage() {
                     <input
                       type="email"
                       required={selectedPlanId === "couple"}
-                      placeholder="Épouse@exemple.ci"
+                      placeholder="epouse@exemple.ci"
                       value={regForm.partner2Email}
                       onChange={(e) => setRegForm({ ...regForm, partner2Email: e.target.value })}
                       className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"

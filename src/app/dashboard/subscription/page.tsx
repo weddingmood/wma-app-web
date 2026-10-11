@@ -386,7 +386,7 @@ export default function SubscriptionPage() {
                 required
                 value={emailsForm.newPartner1Email}
                 onChange={(e) => setEmailsForm({ ...emailsForm, newPartner1Email: e.target.value })}
-                placeholder="Époux@exemple.ci"
+                placeholder="epoux@exemple.ci"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-900"
               />
             </div>
@@ -399,7 +399,7 @@ export default function SubscriptionPage() {
                 type="email"
                 value={emailsForm.newPartner2Email}
                 onChange={(e) => setEmailsForm({ ...emailsForm, newPartner2Email: e.target.value })}
-                placeholder="Épouse@exemple.ci"
+                placeholder="epouse@exemple.ci"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-stone-200 text-stone-900"
               />
             </div>

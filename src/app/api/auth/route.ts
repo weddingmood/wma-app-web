@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { signToken, verifyToken } from "@/lib/session-token";
 import { db } from "@/db";
 import { couples, couplePreferences, coupleCommandments } from "@/db/schema";
-import { eq, or } from "drizzle-orm";
+import { eq, or, sql } from "drizzle-orm";
 import { seedDatabaseIfEmpty, hashPassword } from "@/lib/seed";
 import { DEFAULT_COMMANDMENTS } from "@/lib/constants";
 
@@ -84,9 +84,9 @@ export async function POST(req: Request) {
       .from(couples)
       .where(
         or(
-          eq(couples.slug, cleanIdentifier),
-          eq(couples.partner1Email, cleanIdentifier),
-          eq(couples.partner2Email, cleanIdentifier)
+          sql`lower(${couples.slug}) = ${cleanIdentifier}`,
+          sql`lower(${couples.partner1Email}) = ${cleanIdentifier}`,
+          sql`lower(${couples.partner2Email}) = ${cleanIdentifier}`
         )
       )
       .limit(1);
