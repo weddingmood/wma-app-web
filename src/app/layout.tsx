@@ -6,6 +6,7 @@ import { CallModal } from "@/components/CallModal";
 import { PwaRegister } from "@/components/PwaRegister";
 import VisitTracker from "@/components/VisitTracker";
 import WhatsappSync from "@/components/WhatsappSync";
+import DiscoveryTour from "@/components/DiscoveryTour";
 import InvitationPromo from "@/components/InvitationPromo";
 import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
 
@@ -55,6 +56,7 @@ export default function RootLayout({
           <PwaRegister />
           <VisitTracker />
           <WhatsappSync />
+          <DiscoveryTour />
           <InvitationPromo />
           {children}
           <PwaInstallPrompt />

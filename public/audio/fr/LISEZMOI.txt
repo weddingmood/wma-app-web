@@ -1,0 +1,6 @@
+Fichiers audio facultatifs (format MP3), un par explication :
+bienvenue.mp3, tableau-de-bord.mp3, espace-couple.mp3, inviter-partenaire.mp3, dot.mp3,
+mariage-civil.mp3, benediction.mp3, budget.mp3, taches.mp3, spirituel.mp3, jeux.mp3,
+invites.mp3, prestataires.mp3, paiement.mp3, assistance.mp3
+Si un fichier existe ici, le site le lit. Sinon il utilise la voix francaise de l'appareil.
+Le texte lu est dans src/lib/tour-content.ts (champ "text" de chaque explication).

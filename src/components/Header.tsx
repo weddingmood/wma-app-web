@@ -18,6 +18,7 @@ import {
   Sliders,
   Upload,
   ShieldCheck,
+  LogOut,
 } from "lucide-react";
 import { OFFICIAL_WHATSAPP_URL } from "@/lib/constants";
 
@@ -238,6 +239,14 @@ export function Header({ onToggleSidebar }: HeaderProps) {
                     <Sliders className="w-4 h-4 text-stone-500" />
                     <span>Personnalisation & Thèmes</span>
                   </Link>
+
+                  <button
+                    onClick={async () => { await fetch("/api/auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "logout" }) }); window.location.href = "/"; }}
+                    className="w-full py-2 px-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 text-xs font-semibold flex items-center gap-2 cursor-pointer transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>DÃ©connexion</span>
+                  </button>
                 </div>
               )}
             </div>
