@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!amb) return { title: "Ambassadeur" };
   const name = String(amb.name);
   const title = name + ", Ambassadeur officiel";
-  const description = name + " vous invite \u00e0 pr\u00e9parer votre mariage avec Wedding Mood : budget, invit\u00e9s, prestataires et jeux, \u00e0 deux. Essai gratuit de 3 jours.";
+  const description = name + " vous invite \u00e0 pr\u00e9parer votre mariage avec Wedding Mood : budget, invit\u00e9s, prestataires et jeux, \u00e0 deux. Essai gratuit de 7 jours.";
   const images = amb.photo_url ? [{ url: String(amb.photo_url), alt: name }] : undefined;
   return {
     title,
@@ -75,7 +75,7 @@ export default async function AmbassadorPage({ params }: { params: Promise<{ slu
       </p>
       <div style={{ display: "grid", gap: 10, width: "100%" }}>
         <Link href="/" style={{ ...btn, background: "var(--wm-primary)", color: "#fff" }}>
-          {"Essayer gratuitement 3 jours"}
+          {"Essayer gratuitement 7 jours"}
         </Link>
         <Link href="/abonnement" style={{ ...btn, background: "#fff", color: "var(--wm-primary)", border: "1px solid var(--wm-primary)" }}>
           {"Voir les offres"}

@@ -485,7 +485,7 @@ export default function AdminPage() {
               <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
                 <span className="text-[11px] font-bold text-stone-500 uppercase">En Période d'Essai</span>
                 <div className="text-3xl font-serif font-extrabold text-blue-700">{stats.trialCouples}</div>
-                <span className="text-xs text-blue-600">3 jours gratuits</span>
+                <span className="text-xs text-blue-600">7 jours gratuits</span>
               </div>
 
               <div className="p-6 rounded-3xl bg-white border border-stone-200 shadow-2xs space-y-1">
@@ -546,7 +546,7 @@ export default function AdminPage() {
               >
                 <option value="all">Tous les Statuts</option>
                 <option value="active">Actif</option>
-                <option value="trial">Essai (3j)</option>
+                <option value="trial">Essai (7j)</option>
                 <option value="verification">Paiement en Vérification</option>
                 <option value="pending_payment">En attente de paiement</option>
                 <option value="suspended">Suspendu</option>
@@ -1137,7 +1137,7 @@ export default function AdminPage() {
                 <li><strong>Pack Couple, 3 000 FCFA :</strong> accès complet et simultané des deux partenaires, tous modules débloqués.</li>
                 <li><strong>Pack Individuel, 2 000 FCFA :</strong> accès complet d’un seul partenaire ; le second reste désactivé.</li>
                 <li><strong>Validation :</strong> « Valider & Activer Premium » active le statut, la formule et les deux accès, puis notifie le couple avec son code.</li>
-                <li><strong>Essai :</strong> 3 jours gratuits, prolongeables par tranches de 7 jours depuis le tableau Couples.</li>
+                <li><strong>Essai :</strong> 7 jours gratuits, prolongeables par tranches de 7 jours depuis le tableau Couples.</li>
                 <li><strong>Traçabilité :</strong> chaque activation, suspension, blocage et changement de formule est consigné dans le journal d’audit.</li>
               </ul>
             </div>

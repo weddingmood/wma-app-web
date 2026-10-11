@@ -234,7 +234,7 @@ export async function POST(req: Request) {
     }
 
     const trialEndsAt = new Date();
-    trialEndsAt.setDate(trialEndsAt.getDate() + 3);
+    trialEndsAt.setDate(trialEndsAt.getDate() + 7);
 
     // Génération automatique du code d'accès unique et simple
     const accessCode = await generateUniqueAccessCode();
@@ -309,7 +309,7 @@ export async function POST(req: Request) {
 
     return Response.json({
       success: true,
-      message: `Votre espace est créé avec une période d'essai de 3 jours. Votre code d'accès unique est ${accessCode}.`,
+      message: `Votre espace est créé avec une période d'essai de 7 jours. Votre code d'accès unique est ${accessCode}.`,
       accessCode,
       couple: safeCouple,
     });

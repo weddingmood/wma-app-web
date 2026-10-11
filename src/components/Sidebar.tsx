@@ -138,7 +138,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 ? "Compte Actif"
                 : couple?.status === "verification"
                 ? "Paiement en Vérification"
-                : "Période d'Essai (3 jours)"}
+                : "Période d'Essai (7 jours)"}
             </span>
             <span
               className="w-2 h-2 rounded-full"

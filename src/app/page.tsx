@@ -208,7 +208,7 @@ export default function LandingPage() {
                   className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white text-sm font-bold shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer"
                 >
                   <Heart className="w-5 h-5 fill-current" />
-                  <span>Commencer l'Essai Gratuit (3 Jours)</span>
+                  <span>Commencer l'Essai Gratuit (7 Jours)</span>
                 </button>
 
                 <button
@@ -426,7 +426,7 @@ export default function LandingPage() {
               Trois formules adapt&eacute;es &agrave; votre situation
             </h2>
             <p className="text-stone-600 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
-              3 jours d&apos;essai gratuit sans engagement. R&egrave;glement direct via Wave C&ocirc;te d&apos;Ivoire, valid&eacute; par notre &eacute;quipe.
+              7 jours d&apos;essai gratuit sans engagement. R&egrave;glement direct via Wave C&ocirc;te d&apos;Ivoire, valid&eacute; par notre &eacute;quipe.
             </p>
           </div>
 
@@ -569,7 +569,7 @@ export default function LandingPage() {
                   authMode === "register" ? "bg-white text-stone-900 shadow-xs" : "text-stone-500"
                 }`}
               >
-                Nouveau Couple (Essai 3j)
+                Nouveau Couple (Essai 7j)
               </button>
             </div>
 
@@ -772,7 +772,7 @@ export default function LandingPage() {
                   disabled={authLoading}
                   className="w-full py-3 rounded-2xl bg-[var(--wm-primary)] hover:bg-[var(--wm-primary-hover)] text-white font-bold text-xs shadow-md transition-all cursor-pointer"
                 >
-                  {authLoading ? "Création en cours..." : "Créer Notre Espace et Générer Notre Code (Essai 3 Jours)"}
+                  {authLoading ? "Création en cours..." : "Créer Notre Espace et Générer Notre Code (Essai 7 Jours)"}
                 </button>
               </form>
             )}

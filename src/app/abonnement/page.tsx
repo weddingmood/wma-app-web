@@ -28,7 +28,7 @@ export default function AbonnementPage() {
       <header style={{ textAlign: "center", display: "grid", gap: 8 }}>
         <h1 style={{ fontSize: 28, fontWeight: 800 }}>{"Choisissez votre formule"}</h1>
         <p style={{ fontSize: 14, color: "var(--wm-text-soft)" }}>
-          {"3 jours d'essai gratuit, sans engagement. Paiement par Wave, activation de votre pack par notre \u00e9quipe."}
+          {"7 jours d'essai gratuit, sans engagement. Paiement par Wave, activation de votre pack par notre \u00e9quipe."}
         </p>
       </header>
 

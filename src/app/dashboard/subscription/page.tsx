@@ -185,7 +185,7 @@ export default function SubscriptionPage() {
       case "suspended":
         return <span className="px-3 py-1 rounded-full bg-red-100 text-red-800 font-bold text-xs">Compte Suspendu</span>;
       default:
-        return <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 font-bold text-xs">Période d'Essai (3 Jours)</span>;
+        return <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 font-bold text-xs">Période d'Essai (7 Jours)</span>;
     }
   };
 
