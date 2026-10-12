@@ -1,0 +1,1 @@
+﻿export default function Page(){return (<div className="max-w-3xl mx-auto p-8 prose"><h1>Politique de Remboursement</h1><p>Produit numérique personnalisé.</p><p>Remboursement possible sous 7 jours si le produit n'a pas été téléchargé / utilisé. Au-delà, aucun remboursement.</p><p>Demande à: support@weddingmood.site</p></div>)}

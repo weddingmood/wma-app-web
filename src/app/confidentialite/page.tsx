@@ -1,13 +1,1 @@
-import LegalPage from "@/components/LegalPage";
-import { readSettings } from "@/lib/wma-settings";
-
-export const dynamic = "force-dynamic";
-
-export default async function ConfidentialitePage() {
-  const s = await readSettings(["privacy"]);
-  return (
-    <LegalPage title={"Politique de confidentialit\u00e9"}>
-      <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.7 }}>{s.privacy || "Ce texte sera bient\u00f4t disponible."}</div>
-    </LegalPage>
-  );
-}
+﻿export default function Page(){return (<div className="max-w-3xl mx-auto p-8 prose"><h1>Politique de Confidentialité</h1><p>Données collectées: email, nom, infos mariage. Usage uniquement pour fournir le service. Paiement géré par Paiement Pro, nous ne stockons pas les numéros de carte. Contact DPO: support@weddingmood.site</p></div>)}
