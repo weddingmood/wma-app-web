@@ -30,10 +30,42 @@ function findTarget(selectors?: string[]): HTMLElement | null {
   return null;
 }
 
-const dock: React.CSSProperties = {
-  position: "fixed", left: 12, right: 12, bottom: "calc(12px + env(safe-area-inset-bottom, 0px))",
-  marginLeft: "auto", maxWidth: 420, zIndex: 60,
-};
+function bottomBarHeight(): number {
+  let best = 0;
+  try {
+    const w = window.innerWidth;
+    const y = window.innerHeight - 4;
+    for (const x of [Math.round(w * 0.25), Math.round(w * 0.5), Math.round(w * 0.75)]) {
+      const els = document.elementsFromPoint(x, y);
+      for (const el of els) {
+        if ((el as HTMLElement).closest && (el as HTMLElement).closest("[data-wm-tour]")) continue;
+        let n: HTMLElement | null = el as HTMLElement;
+        while (n && n !== document.body && n !== document.documentElement) {
+          if (getComputedStyle(n).position === "fixed") {
+            const r = n.getBoundingClientRect();
+            if (r.width >= w * 0.8 && r.bottom >= window.innerHeight - 2 && r.height > 20 && r.height < 200) {
+              best = Math.max(best, Math.round(r.height));
+            }
+          }
+          n = n.parentElement;
+        }
+      }
+    }
+  } catch {}
+  return best;
+}
+
+function fabBottom(off: number, extra = 0): string {
+  return off > 0 ? off + 14 + extra + "px" : "calc(" + (14 + extra) + "px + env(safe-area-inset-bottom, 0px))";
+}
+
+function dockAt(off: number): React.CSSProperties {
+  return {
+    position: "fixed", left: 12, right: 12,
+    bottom: off > 0 ? off + 12 + "px" : "calc(12px + env(safe-area-inset-bottom, 0px))",
+    marginLeft: "auto", maxWidth: 420, zIndex: 60,
+  };
+}
 const card: React.CSSProperties = {
   background: "var(--wm-surface-pure, #fff)", border: "1px solid var(--wm-accent-gold, #D4AF37)", borderRadius: 18,
   boxShadow: "0 10px 30px rgba(0,0,0,0.16)", padding: 14, display: "grid", gap: 10, maxHeight: "72vh", overflowY: "auto",
@@ -84,6 +116,23 @@ export default function DiscoveryTour() {
   const [extraId, setExtraId] = useState<string | null>(null);
   const [rect, setRect] = useState<Rect | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const [off, setOff] = useState(0);
+
+  useEffect(() => {
+    if (!onDash) return;
+    const measure = () => setOff((p) => { const h = bottomBarHeight(); return p === h ? p : h; });
+    measure();
+    const t1 = window.setTimeout(measure, 600);
+    const t2 = window.setTimeout(measure, 2000);
+    window.addEventListener("resize", measure);
+    window.addEventListener("orientationchange", measure);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("orientationchange", measure);
+    };
+  }, [onDash, pathname, tourOpen, menuOpen, lessonId]);
 
   useEffect(() => {
     if (!onDash) {
@@ -188,7 +237,7 @@ export default function DiscoveryTour() {
       )}
 
       {tourOpen && (
-        <div style={dock}>
+        <div data-wm-tour="1" style={dockAt(off)}>
           <div ref={panelRef} tabIndex={-1} role="dialog" aria-modal="false" aria-labelledby="wm-tour-title" style={{ ...card, outline: "none" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
               <span aria-live="polite" style={{ fontSize: 12, fontWeight: 800, color: "var(--wm-primary, #C05638)" }}>{"\u00c9tape " + (step + 1) + " sur " + TOTAL}</span>
@@ -249,7 +298,7 @@ export default function DiscoveryTour() {
         const l = lessonById(lessonId);
         if (!l) return null;
         return (
-          <div style={dock}>
+          <div data-wm-tour="1" style={dockAt(off)}>
             <div role="dialog" aria-modal="false" aria-label={l.title} style={card}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
                 <h2 style={{ fontSize: 16, fontWeight: 800, margin: 0 }}>{l.title}</h2>
@@ -264,7 +313,7 @@ export default function DiscoveryTour() {
       {!tourOpen && !lessonId && !choiceVisible && (
         <>
           {menuOpen && (
-            <div role="menu" aria-label="Aide" style={{ position: "fixed", right: 14, bottom: "calc(70px + env(safe-area-inset-bottom, 0px))", zIndex: 60, width: "min(300px, calc(100vw - 28px))", maxHeight: "65vh", overflowY: "auto", ...card }}>
+            <div role="menu" data-wm-tour="1" aria-label="Aide" style={{ position: "fixed", right: 14, bottom: fabBottom(off, 56), zIndex: 60, width: "min(300px, calc(100vw - 28px))", maxHeight: "65vh", overflowY: "auto", ...card }}>
               <strong style={{ fontSize: 14 }}>{"Aide"}</strong>
               <button type="button" role="menuitem" onClick={() => begin(0)} style={btn(true)}>{startLabel}</button>
               {resumeAvailable && (
@@ -280,9 +329,9 @@ export default function DiscoveryTour() {
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Aide et visite guid\u00e9e"
+            data-wm-tour="1" aria-label={"Aide et visite guid\u00e9e"}
             aria-expanded={menuOpen}
-            style={{ position: "fixed", right: 14, bottom: "calc(14px + env(safe-area-inset-bottom, 0px))", zIndex: 60, width: 48, height: 48, borderRadius: 999, border: 0, background: "var(--wm-primary, #C05638)", color: "#fff", fontSize: 22, fontWeight: 800, cursor: "pointer", boxShadow: "0 6px 18px rgba(0,0,0,0.2)" }}
+            style={{ position: "fixed", right: 14, bottom: fabBottom(off), zIndex: 60, width: 48, height: 48, borderRadius: 999, border: 0, background: "var(--wm-primary, #C05638)", color: "#fff", fontSize: 22, fontWeight: 800, cursor: "pointer", boxShadow: "0 6px 18px rgba(0,0,0,0.2)" }}
           >
             {"?"}
           </button>
