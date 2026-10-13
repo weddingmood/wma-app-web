@@ -1,1 +1,10 @@
-﻿export default function Page(){return (<div className="max-w-3xl mx-auto p-8 prose"><h1>Conditions Générales de Vente</h1><p>Vendeur: WeddingMood - Bouaké, Côte d'Ivoire - support@weddingmood.site</p><h2>Produits</h2><p>Vente de templates et services de création de sites mariage.</p><h2>Prix</h2><p>Prix en FCFA, paiement via Paiement Pro / XPaye, Wave, Orange Money, MTN, Moov.</p><h2>Paiement</h2><p>Paiement 100% sécurisé via Paiement Pro.</p><h2>Livraison</h2><p>Produit numérique livré instantanément par email et accès compte.</p><h2>Remboursement</h2><p>Voir page /remboursement</p></div>)}
+import LegalDocument from "@/components/LegalDocument";
+import { legalVars } from "@/lib/legal-vars";
+
+export const dynamic = "force-dynamic";
+export const metadata = { title: "Conditions générales de vente" };
+
+export default async function Page() {
+  const l = await legalVars();
+  return <LegalDocument doc="cgv" vars={l.vars} override={l.override} />;
+}

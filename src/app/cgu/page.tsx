@@ -1,1 +1,10 @@
-﻿export default function Page(){return (<div className="max-w-3xl mx-auto p-8 prose"><h1>Conditions Générales d'Utilisation</h1><p>Bienvenue sur WeddingMood.site édité par WeddingMood, Bouaké, Côte d'Ivoire. Contact: support@weddingmood.site</p><h2>Objet</h2><p>Plateforme de création de faire-part de mariage numériques.</p><h2>Accès et compte</h2><p>L'utilisateur est responsable de ses identifiants.</p><h2>Propriété intellectuelle</h2><p>Tous les contenus restent propriété de WeddingMood.</p><h2>Contact</h2><p>support@weddingmood.site</p></div>)}
+import LegalDocument from "@/components/LegalDocument";
+import { legalVars } from "@/lib/legal-vars";
+
+export const dynamic = "force-dynamic";
+export const metadata = { title: "Conditions générales d'utilisation" };
+
+export default async function Page() {
+  const l = await legalVars();
+  return <LegalDocument doc="cgu" vars={l.vars} override={l.override} />;
+}

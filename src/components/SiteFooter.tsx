@@ -38,15 +38,15 @@ export default function SiteFooter({ logo, fallbackWhatsapp }: { logo: React.Rea
   }, []);
 
   const year = new Date().getFullYear();
-  const signature = (w.footer_signature || s.footer_signature || "\u00a9{YEAR} Wedding Mood C\u00f4te d'Ivoire. Tous droits r\u00e9serv\u00e9s.").replace(/\{YEAR\}/g, String(year));
+  const signature = (w.footer_signature || s.footer_signature || "\u00a9{YEAR} WeddingMood, service \u00e9dit\u00e9 par ETS IVOIRSTORES. Tous droits r\u00e9serv\u00e9s.").replace(/\{YEAR\}/g, String(year));
   const wa = (w.whatsapp || "").replace(/\D/g, "");
   const waHref = wa ? "https://wa.me/" + wa : fallbackWhatsapp;
   const waLabel = w.whatsapp || "+225 70 50 13 56";
   const rccm = w.rccm || s.rccm || "";
   const legal = [
-    w.company_name || "",
-    w.dfe ? "DFE : " + w.dfe : "",
-    rccm ? "RCCM : " + rccm : "",
+    (w.company_name || "ETS IVOIRSTORES") + ", entreprise individuelle",
+    rccm ? "RCCM : " + rccm : "RCCM : en cours d'immatriculation",
+    w.dfe ? "DFE : " + w.dfe : "DFE : en cours d'obtention",
     s.ncc ? "NCC : " + s.ncc : "",
   ].filter(Boolean).join(" \u2022 ");
   const logos = partners.filter((p) => (p.logo_url || p.logo) && (!p.type || p.type === "logo"));
@@ -92,7 +92,8 @@ export default function SiteFooter({ logo, fallbackWhatsapp }: { logo: React.Rea
           {legal && <p>{legal}</p>}
           <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <a href="/faq" className="hover:underline">{"FAQ"}</a>
-            <a href="/conditions" className="hover:underline">{"Conditions d'utilisation"}</a>
+            <a href="/cgv" className="hover:underline">{"CGV"}</a>
+            <a href="/cgu" className="hover:underline">{"CGU"}</a>
             <a href="/confidentialite" className="hover:underline">{"Confidentialit\u00e9"}</a>
             <a href="/mentions-legales" className="hover:underline">{"Mentions l\u00e9gales"}</a>
             <a href="/devenir-ambassadeur" className="hover:underline">{"Devenir ambassadeur"}</a>

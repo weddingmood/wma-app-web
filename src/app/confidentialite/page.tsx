@@ -1,1 +1,10 @@
-﻿export default function Page(){return (<div className="max-w-3xl mx-auto p-8 prose"><h1>Politique de Confidentialité</h1><p>Données collectées: email, nom, infos mariage. Usage uniquement pour fournir le service. Paiement géré par Paiement Pro, nous ne stockons pas les numéros de carte. Contact DPO: support@weddingmood.site</p></div>)}
+import LegalDocument from "@/components/LegalDocument";
+import { legalVars } from "@/lib/legal-vars";
+
+export const dynamic = "force-dynamic";
+export const metadata = { title: "Politique de confidentialité" };
+
+export default async function Page() {
+  const l = await legalVars();
+  return <LegalDocument doc="confidentialite" vars={l.vars} override={l.override} />;
+}
