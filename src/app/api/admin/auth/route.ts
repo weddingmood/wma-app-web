@@ -4,6 +4,7 @@ import { admins } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { seedDatabaseIfEmpty, hashPassword } from "@/lib/seed";
 import { signToken, verifyToken } from "@/lib/session-token";
+import { loginLockMinutes, recordLoginFailure, clearLoginFailures } from "@/lib/login-guard";
 
 export async function GET() {
   await seedDatabaseIfEmpty();
@@ -39,8 +40,17 @@ export async function POST(req: Request) {
     return Response.json({ success: true, message: "Déconnexion admin réussie" });
   }
 
-  if (!email || !password) {
+  if (typeof email !== "string" || typeof password !== "string" || !email || !password) {
     return Response.json({ success: false, message: "Email et mot de passe requis." }, { status: 400 });
+  }
+
+  const lockKey = "admin:" + email.trim().toLowerCase().slice(0, 120);
+  const lockedFor = await loginLockMinutes(lockKey);
+  if (lockedFor > 0) {
+    return Response.json(
+      { success: false, message: "Trop d'essais. Réessayez dans " + lockedFor + " minutes." },
+      { status: 429 }
+    );
   }
 
   const hashed = hashPassword(password);
@@ -51,9 +61,11 @@ export async function POST(req: Request) {
     .limit(1);
 
   if (!admin || admin.passwordHash !== hashed) {
+    await recordLoginFailure(lockKey, 60);
     return Response.json({ success: false, message: "Identifiants administrateur incorrects." }, { status: 401 });
   }
 
+  await clearLoginFailures(lockKey);
   const payload = signToken({ typ: "admin", adminId: admin.id, role: admin.role }, 60 * 60 * 24 * 7);
   cookieStore.set("wm_admin_session", payload, {
     path: "/",

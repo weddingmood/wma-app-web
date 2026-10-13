@@ -15,6 +15,7 @@ $branch = (git branch --show-current).Trim()
 if ($branch -ne "six-piliers") { Write-Host "Vous etes sur '$branch', pas sur six-piliers. Rien n'a ete publie." -ForegroundColor Red; exit 1 }
 
 Write-Host "1/5 Verification du code (tsc)..."
+Remove-Item ".next\types", ".next\dev\types" -Recurse -Force -ErrorAction SilentlyContinue
 npx tsc --noEmit
 if ($LASTEXITCODE -ne 0) { Write-Host "ERREURS DE CODE ci-dessus. Rien n'a ete publie. Collez-les moi." -ForegroundColor Red; exit 1 }
 
