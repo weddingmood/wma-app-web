@@ -37,7 +37,7 @@ export async function seedDatabaseIfEmpty() {
     if (existingAdmins.length === 0) {
       await db.insert(admins).values({
         email: (process.env.ADMIN_EMAIL || "admin@weddingmood.ci").trim().toLowerCase(),
-        passwordHash: hashPassword(process.env.ADMIN_PASSWORD || "Admin@2025!WM"),
+        passwordHash: hashPassword(process.env.ADMIN_PASSWORD || crypto.randomBytes(24).toString("hex")),
         name: process.env.ADMIN_NAME || "Direction Pastorale & Technique WM",
         role: "superadmin",
       });
