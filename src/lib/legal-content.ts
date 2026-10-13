@@ -22,7 +22,7 @@ export const DOCS: Record<DocKey, Doc> = {
         body: [
           `Le site {{SITE}} et le service WeddingMood sont édités par :`,
           `- Dénomination : {{ENTREPRISE}}, entreprise individuelle (personne physique exerçant en nom propre)`,
-          `- Exploitant et responsable de la publication : N'CHO CHAWA YVES ACHY`,
+          `- Exploitant et responsable de la publication : Yves ACHY`,
           `- Siège : {{ADRESSE}}`,
           `- Registre du commerce et du crédit mobilier (RCCM) : {{RCCM}}`,
           `- Déclaration fiscale d'existence (DFE) : {{DFE}}`,
@@ -205,7 +205,7 @@ export const DOCS: Record<DocKey, Doc> = {
         title: "Vendeur",
         body: [
           `- Dénomination : {{ENTREPRISE}}, entreprise individuelle`,
-          `- Exploitant : N'CHO CHAWA YVES ACHY`,
+          `- Exploitant : Yves ACHY`,
           `- Siège : {{ADRESSE}}`,
           `- RCCM : {{RCCM}}`,
           `- DFE : {{DFE}}`,
@@ -320,7 +320,7 @@ export const DOCS: Record<DocKey, Doc> = {
       {
         title: "Responsable du traitement",
         body: [
-          `- {{ENTREPRISE}}, entreprise individuelle, exploitée par N'CHO CHAWA YVES ACHY`,
+          `- {{ENTREPRISE}}, entreprise individuelle, exploitée par Yves ACHY`,
           `- Siège : {{ADRESSE}}`,
           `- Contact : {{EMAIL}}`,
         ],
