@@ -38,15 +38,15 @@ export default function SiteFooter({ logo, fallbackWhatsapp }: { logo: React.Rea
   }, []);
 
   const year = new Date().getFullYear();
-  const signature = (w.footer_signature || s.footer_signature || "\u00a9{YEAR} WeddingMood, service \u00e9dit\u00e9 par ETS IVOIRSTORES. Tous droits r\u00e9serv\u00e9s.").replace(/\{YEAR\}/g, String(year));
+  const signature = (w.footer_signature || "\u00a9{YEAR} Wedding Mood. Tous droits r\u00e9serv\u00e9s.").replace(/\{YEAR\}/g, String(year));
   const wa = (w.whatsapp || "").replace(/\D/g, "");
   const waHref = wa ? "https://wa.me/" + wa : fallbackWhatsapp;
   const waLabel = w.whatsapp || "+225 70 50 13 56";
   const rccm = w.rccm || s.rccm || "";
   const legal = [
-    (w.company_name || "ETS IVOIRSTORES") + ", entreprise individuelle",
+    w.company_name || "ETS IVOIRSTORES",
     rccm ? "RCCM : " + rccm : "RCCM : en cours d'immatriculation",
-    w.dfe ? "DFE : " + w.dfe : "DFE : en cours d'obtention",
+    w.dfe ? "DFE : " + w.dfe : "",
     s.ncc ? "NCC : " + s.ncc : "",
   ].filter(Boolean).join(" \u2022 ");
   const logos = partners.filter((p) => (p.logo_url || p.logo) && (!p.type || p.type === "logo"));
