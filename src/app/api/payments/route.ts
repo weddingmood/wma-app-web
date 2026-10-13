@@ -1,3 +1,4 @@
+import { randomInt } from "crypto";
 import { getSupportWhatsapp } from "@/lib/wma-settings";
 import { getCurrentSession } from "@/lib/auth-helpers";
 import { db } from "@/db";
@@ -90,7 +91,7 @@ export async function POST(req: Request) {
 
   // Régénération du code d'accès unique
   if (action === "regenerate-code") {
-    const newCode = `WM-${Math.floor(1000 + Math.random() * 9000)}`;
+    const newCode = "WM-" + Array.from({ length: 6 }, () => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[randomInt(0, 32)]).join("");
     const [updated] = await db
       .update(couples)
       .set({ accessCode: newCode, updatedAt: new Date() })
