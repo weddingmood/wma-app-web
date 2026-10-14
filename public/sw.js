@@ -2,7 +2,7 @@
  * Les assets sont mis en cache ; les API restent toujours réseau-only pour
  * éviter de servir hors connexion une session ou un état privé obsolète.
  */
-const CACHE_VERSION = "wm-v1.3.0";
+const CACHE_VERSION = "wm-v1.3.1";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -66,6 +66,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/wma-admin-2026-secure")) return;
 
   // Les API contiennent des données privées et ne sont jamais servies depuis
   // un cache hors ligne. Les commandes POST restent naturellement réseau-only.
@@ -103,7 +104,7 @@ self.addEventListener("fetch", (event) => {
     fetch(request)
       .then((response) => {
         const copy = response.clone();
-        caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+        if (response.ok) caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
         return response;
       })
       .catch(async () => {

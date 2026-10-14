@@ -48,7 +48,7 @@ export const client =
     ssl: isSupabaseUrl ? "require" : undefined,
   });
 
-if (process.env.NODE_ENV !== "production") {
+if (!globalForDb.__weddingMoodSql) {
   globalForDb.__weddingMoodSql = client;
 }
 

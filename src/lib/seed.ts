@@ -30,7 +30,7 @@ export function hashPassword(plainText: string): string {
   return crypto.createHash("sha256").update(plainText).digest("hex");
 }
 
-export async function seedDatabaseIfEmpty() {
+async function seedDatabaseIfEmptyInner() {
   try {
     // 1. Seed Admin (identifiants configurables via variables d'environnement)
     const existingAdmins = await db.select().from(admins).limit(1);
@@ -773,3 +773,18 @@ Conseils Pastoraux pour le Couple Chrétien :
   }
 }
 
+
+
+const globalForSeed = globalThis as typeof globalThis & { __wmSeedPromise?: Promise<void> };
+
+export function seedDatabaseIfEmpty(): Promise<void> {
+  if (!globalForSeed.__wmSeedPromise) {
+    globalForSeed.__wmSeedPromise = seedDatabaseIfEmptyInner()
+      .then(() => undefined)
+      .catch((e) => {
+        globalForSeed.__wmSeedPromise = undefined;
+        throw e;
+      });
+  }
+  return globalForSeed.__wmSeedPromise;
+}
