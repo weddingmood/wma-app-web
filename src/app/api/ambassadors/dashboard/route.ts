@@ -41,6 +41,19 @@ export async function GET() {
     } catch {}
     const photoUrl = String((amb.photo_url as string) || "");
 
+    let commissionRate = 15;
+    let payoutMin = 10000;
+    try {
+      const sr = rowsOf(await db.execute(sql`SELECT key, value FROM site_settings WHERE key IN ('commission_rate', 'payout_min_balance')`));
+      for (const r of sr) {
+        const n = Number(r.value);
+        if (!Number.isFinite(n)) continue;
+        if (String(r.key) === "commission_rate") commissionRate = n;
+        if (String(r.key) === "payout_min_balance") payoutMin = n;
+      }
+    } catch {}
+    const payoutDay = Number(amb.payout_day ?? 5);
+
     let payouts: Row[] = [];
     try { payouts = rowsOf(await db.execute(sql`SELECT * FROM ambassador_payouts WHERE ambassador_id = ${Number(amb.id)} ORDER BY created_at DESC LIMIT 20`)); } catch { payouts = []; }
 
@@ -49,7 +62,7 @@ export async function GET() {
 
     return Response.json({
       success: true,
-      ambassador: { name, slug, city, balance, totalClicks: clicks, totalClients: clients, totalPaid: paid, photoUrl, countryName, flag },
+      ambassador: { name, slug, city, balance, totalClicks: clicks, totalClients: clients, totalPaid: paid, photoUrl, countryName, flag, commissionRate, payoutMin, payoutDay },
       payouts,
       clients: clientsList,
     });

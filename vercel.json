@@ -3,6 +3,13 @@
   "framework": "nextjs",
   "regions": ["dub1"],
   "headers": [
+    { "source": "/wma-admin-2026-secure(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/dashboard(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/api/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/ambassadeur", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/confirmation-paiement", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/invitation/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/r/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
     {
       "source": "/(.*)",
       "headers": [

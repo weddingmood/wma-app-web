@@ -102,7 +102,7 @@ export default function AmbassadeurDashboard() {
               <Stat label="CLICS" value={data.ambassador.totalClicks} />
               <Stat label="CLIENTS" value={data.ambassador.totalClients} />
             </div>
-            <div style={{ fontSize: 12, color: muted, marginTop: 6 }}>{"Paiements chaque vendredi d\u00e8s 5 000 F. Partage ton lien pour gagner 15 %."}</div>
+            <div style={{ fontSize: 12, color: muted, marginTop: 6 }}>{"Paiements le " + (["", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"][Number(data.ambassador.payoutDay)] || "vendredi") + ", d\u00e8s " + Number(data.ambassador.payoutMin).toLocaleString("fr-FR") + " F de solde. Partagez votre lien pour gagner " + data.ambassador.commissionRate + " % sur chaque abonnement."}</div>
           </div>
 
           <div style={box}>
