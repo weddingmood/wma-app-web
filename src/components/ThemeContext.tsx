@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 import { COLOR_THEMES, FONTS_LIST, ThemeDefinition } from "@/lib/constants";
 import { buildCustomTheme, mixColors, onColor, readableText } from "@/lib/custom-theme";
 
@@ -113,7 +113,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const customActive = Boolean(customColor) && (customBase === null || customBase === preferences.themeId);
   const activeTheme: ThemeDefinition = customActive && customColor ? buildCustomTheme(customColor, baseTheme) : baseTheme;
 
-  const refreshCoupleData = useCallback(async () => {
+  const refreshCoupleDataInner = useCallback(async () => {
     let authData;
     try {
       const res = await fetch("/api/auth", { cache: "no-store" });
@@ -173,6 +173,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       // Les notifications ne doivent pas bloquer les donn?es du couple.
     }
   }, []);
+  const inFlightRef = useRef(false);
+  const refreshCoupleData = useCallback(async () => {
+    if (typeof window !== "undefined" && window.location.pathname.startsWith("/wma-admin-2026-secure")) return;
+    if (inFlightRef.current) return;
+    inFlightRef.current = true;
+    try {
+      await refreshCoupleDataInner();
+    } finally {
+      inFlightRef.current = false;
+    }
+  }, [refreshCoupleDataInner]);
 
   useEffect(() => {
     refreshCoupleData();
