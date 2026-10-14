@@ -5,7 +5,8 @@ import { signToken, verifyToken } from "@/lib/session-token";
 import { db } from "@/db";
 import { couples, couplePreferences, coupleCommandments } from "@/db/schema";
 import { eq, or, sql } from "drizzle-orm";
-import { seedDatabaseIfEmpty, hashPassword } from "@/lib/seed";
+import { seedDatabaseIfEmpty } from "@/lib/seed";
+import { hashSecure, verifySecure } from "@/lib/password";
 import { DEFAULT_COMMANDMENTS } from "@/lib/constants";
 
 // Génère un code d'accès unique simple et mémorisable (Ex: WM-4821)
@@ -119,7 +120,8 @@ export async function POST(req: Request) {
     // Authentification par code d'accès unique OU par mot de passe
     const cleanCode = accessCode ? accessCode.trim().toUpperCase() : "";
     const codeMatches = cleanCode && couple.accessCode && couple.accessCode.toUpperCase() === cleanCode;
-    const passwordMatches = password && couple.passwordHash === hashPassword(password);
+    const pwCheck = password ? verifySecure(String(password), couple.passwordHash) : { ok: false, upgrade: false };
+    const passwordMatches = pwCheck.ok;
 
     if (!codeMatches && !passwordMatches) {
       await recordLoginFailure(lockKey);
@@ -133,6 +135,9 @@ export async function POST(req: Request) {
     }
 
     await clearLoginFailures(lockKey);
+    if (passwordMatches && pwCheck.upgrade) {
+      try { await db.update(couples).set({ passwordHash: hashSecure(String(password)) }).where(eq(couples.id, couple.id)); } catch {}
+    }
 
     if (couple.status === "blocked" || couple.status === "suspended") {
       return Response.json(
@@ -286,7 +291,7 @@ export async function POST(req: Request) {
         bibleVerse: bibleVerse || "Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement.",
         status: "trial",
         trialEndsAt,
-        passwordHash: hashPassword(password || accessCode),
+        passwordHash: hashSecure(String(password || accessCode)),
         accessCode,
         planType: resolvedPlan,
         planAmount: resolvedAmount,

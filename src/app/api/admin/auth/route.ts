@@ -2,7 +2,8 @@ import { cookies } from "next/headers";
 import { db } from "@/db";
 import { admins } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { seedDatabaseIfEmpty, hashPassword } from "@/lib/seed";
+import { seedDatabaseIfEmpty } from "@/lib/seed";
+import { hashSecure, verifySecure } from "@/lib/password";
 import { signToken, verifyToken } from "@/lib/session-token";
 import { loginLockMinutes, recordLoginFailure, clearLoginFailures } from "@/lib/login-guard";
 
@@ -53,19 +54,23 @@ export async function POST(req: Request) {
     );
   }
 
-  const hashed = hashPassword(password);
+  
   const [admin] = await db
     .select()
     .from(admins)
     .where(eq(admins.email, email.trim().toLowerCase()))
     .limit(1);
 
-  if (!admin || admin.passwordHash !== hashed) {
+  const check = admin ? verifySecure(password, admin.passwordHash) : { ok: false, upgrade: false };
+  if (!admin || !check.ok) {
     await recordLoginFailure(lockKey, 60);
     return Response.json({ success: false, message: "Identifiants administrateur incorrects." }, { status: 401 });
   }
 
   await clearLoginFailures(lockKey);
+  if (check.upgrade) {
+    try { await db.update(admins).set({ passwordHash: hashSecure(password) }).where(eq(admins.id, admin.id)); } catch {}
+  }
   const payload = signToken({ typ: "admin", adminId: admin.id, role: admin.role }, 60 * 60 * 24 * 7);
   cookieStore.set("wm_admin_session", payload, {
     path: "/",
@@ -107,7 +112,7 @@ export async function PATCH(req: Request) {
   }
 
   if (newPassword) {
-    if (!currentPassword || admin.passwordHash !== hashPassword(currentPassword)) {
+    if (!currentPassword || !verifySecure(String(currentPassword), admin.passwordHash).ok) {
       return Response.json({ success: false, message: "Mot de passe actuel incorrect." }, { status: 401 });
     }
     if (String(newPassword).length < 8) {
@@ -118,7 +123,7 @@ export async function PATCH(req: Request) {
   const [updated] = await db
     .update(admins)
     .set({
-      ...(newPassword ? { passwordHash: hashPassword(newPassword) } : {}),
+      ...(newPassword ? { passwordHash: hashSecure(String(newPassword)) } : {}),
       ...(name ? { name: String(name).slice(0, 100) } : {}),
     })
     .where(eq(admins.id, Number(adminId)))
