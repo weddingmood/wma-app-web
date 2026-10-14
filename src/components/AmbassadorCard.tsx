@@ -15,7 +15,7 @@ export default function AmbassadorCard({
   const link = BASE + "/r/" + slug;
   const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
   const place = [city, countryName].filter(Boolean).join(", ");
-  const wa = "https://wa.me/?text=" + encodeURIComponent("Rejoignez Wedding Mood avec " + name + ", ambassadeur officiel : " + link);
+  const wa = "https://wa.me/?text=" + encodeURIComponent("Rejoignez Wedding Mood avec " + name + ", ambassadeur officiel : " + link + "?utm_source=whatsapp");
 
   const copy = async () => {
     try {

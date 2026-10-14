@@ -4,6 +4,7 @@ import AdminTemoignagesPage from "./temoignages/page";
 import AdminAmbassadeursPage from "./ambassadeurs/page";
 import AdminPayoutsPage from "./payouts/page";
 import SettingsEditor from "@/components/admin/SettingsEditor";
+import AdminAccounts from "@/components/admin/AdminAccounts";
 import VisitsPanel from "@/components/admin/VisitsPanel";
 import { BookMarked } from "lucide-react";
 import GameVisibilityAdmin from "@/components/games/GameVisibilityAdmin";
@@ -1074,6 +1075,7 @@ export default function AdminPage() {
 
         {/* TAB 6: SETTINGS */}
         {activeTab === "settings" && (<div className="mb-6"><SettingsEditor /></div>)}
+        {activeTab === "settings" && (<div className="mb-6"><AdminAccounts /></div>)}
         {activeTab === "settings" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in">
             <form onSubmit={handleSettingsSave} className="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-4 text-xs">

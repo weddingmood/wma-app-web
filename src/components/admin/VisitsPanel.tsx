@@ -6,9 +6,9 @@ type Totals = { visits: number; views: number };
 type Funnel = { visitors: number; home: number; pricing: number; waveClick: number; confirmPage: number; whatsappClick: number; promoClick: number; signups: number | null; payments: number | null };
 type Data = {
   today: Totals; week: Totals; period: Totals; funnel: Funnel;
-  byCountry: Array<{ country: string; visits: number; views: number }>;
-  byRegion: Array<{ country: string; region: string; city: string | null; visits: number }>;
-  topCities: Array<{ city: string; country: string | null; visits: number }>;
+  byCountry: Array<{ country: string; visits: number; views: number; topSource: string | null }>;
+  byRegion: Array<{ country: string; region: string; city: string | null; visits: number; topSource: string | null }>;
+  topCities: Array<{ city: string; country: string | null; visits: number; topSource: string | null }>;
   topPages: Array<{ path: string; views: number }>;
   daily: Array<{ day: string; visits: number }>;
   bySource: Array<{ source: string; visits: number }>;
@@ -23,20 +23,19 @@ function countryName(code: string | null): string {
   }
 }
 
-function sourceLabel(s: string): string {
-  if (s === "direct") return "Acc\u00e8s direct";
-  if (s.startsWith("utm:")) return "Lien suivi : " + s.slice(4);
-  return s.replace(/^www\./, "");
-}
-
 const card = "p-4 rounded-2xl bg-white border border-stone-200";
 const th = "text-left text-[11px] uppercase tracking-wide text-stone-500 py-2";
 const td = "py-2 border-t border-stone-100";
+const TRACKED = [["Facebook", "facebook"], ["WhatsApp", "whatsapp"], ["TikTok", "tiktok"], ["Instagram", "instagram"], ["YouTube", "youtube"]];
 
 export default function VisitsPanel() {
   const [days, setDays] = useState(30);
   const [data, setData] = useState<Data | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [origin, setOrigin] = useState("");
+  const [copied, setCopied] = useState("");
+
+  useEffect(() => { setOrigin(window.location.origin); }, []);
 
   useEffect(() => {
     setErr(null);
@@ -45,6 +44,10 @@ export default function VisitsPanel() {
       .then((d) => { if (d && d.success) setData(d); else setErr((d && d.message) || "Chargement impossible."); })
       .catch(() => setErr("Connexion indisponible."));
   }, [days]);
+
+  const copy = async (text: string, key: string) => {
+    try { await navigator.clipboard.writeText(text); setCopied(key); window.setTimeout(() => setCopied(""), 1500); } catch { window.prompt("Copiez ce lien :", text); }
+  };
 
   if (err) return <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-800 text-xs">{err}</div>;
   if (!data) return <div className="p-4 text-xs text-stone-500">{"Chargement..."}</div>;
@@ -121,30 +124,30 @@ export default function VisitsPanel() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className={card}>
-          <div className="font-bold mb-2">{"D'o\u00f9 viennent les visiteurs"}</div>
+          <div className="font-bold mb-2">{"D'o\u00f9 viennent les visiteurs (premi\u00e8re page de la visite)"}</div>
           <table className="w-full"><thead><tr><th className={th}>{"Source"}</th><th className={th}>{"Visites"}</th></tr></thead>
-            <tbody>{data.bySource.map((r) => (<tr key={r.source}><td className={td}>{sourceLabel(r.source)}</td><td className={td}>{r.visits}</td></tr>))}</tbody>
+            <tbody>{data.bySource.map((r) => (<tr key={r.source}><td className={td}>{r.source}</td><td className={td}>{r.visits}</td></tr>))}</tbody>
           </table>
         </div>
 
         <div className={card}>
           <div className="font-bold mb-2">{"Par pays"}</div>
-          <table className="w-full"><thead><tr><th className={th}>{"Pays"}</th><th className={th}>{"Visites"}</th><th className={th}>{"Pages vues"}</th></tr></thead>
-            <tbody>{data.byCountry.map((r) => (<tr key={r.country}><td className={td}>{countryName(r.country)}</td><td className={td}>{r.visits}</td><td className={td}>{r.views}</td></tr>))}</tbody>
+          <table className="w-full"><thead><tr><th className={th}>{"Pays"}</th><th className={th}>{"Visites"}</th><th className={th}>{"Pages vues"}</th><th className={th}>{"Source principale"}</th></tr></thead>
+            <tbody>{data.byCountry.map((r) => (<tr key={r.country}><td className={td}>{countryName(r.country)}</td><td className={td}>{r.visits}</td><td className={td}>{r.views}</td><td className={td}>{r.topSource || "-"}</td></tr>))}</tbody>
           </table>
         </div>
 
         <div className={card}>
           <div className="font-bold mb-2">{"Par r\u00e9gion"}</div>
-          <table className="w-full"><thead><tr><th className={th}>{"Pays"}</th><th className={th}>{"R\u00e9gion (code)"}</th><th className={th}>{"Ville principale"}</th><th className={th}>{"Visites"}</th></tr></thead>
-            <tbody>{data.byRegion.map((r, i) => (<tr key={i}><td className={td}>{countryName(r.country)}</td><td className={td}>{r.region}</td><td className={td}>{r.city || "-"}</td><td className={td}>{r.visits}</td></tr>))}</tbody>
+          <table className="w-full"><thead><tr><th className={th}>{"Pays"}</th><th className={th}>{"R\u00e9gion (code)"}</th><th className={th}>{"Ville principale"}</th><th className={th}>{"Visites"}</th><th className={th}>{"Source principale"}</th></tr></thead>
+            <tbody>{data.byRegion.map((r, i) => (<tr key={i}><td className={td}>{countryName(r.country)}</td><td className={td}>{r.region}</td><td className={td}>{r.city || "-"}</td><td className={td}>{r.visits}</td><td className={td}>{r.topSource || "-"}</td></tr>))}</tbody>
           </table>
         </div>
 
         <div className={card}>
           <div className="font-bold mb-2">{"Villes les plus actives"}</div>
-          <table className="w-full"><thead><tr><th className={th}>{"Ville"}</th><th className={th}>{"Pays"}</th><th className={th}>{"Visites"}</th></tr></thead>
-            <tbody>{data.topCities.map((r, i) => (<tr key={i}><td className={td}>{r.city}</td><td className={td}>{countryName(r.country)}</td><td className={td}>{r.visits}</td></tr>))}</tbody>
+          <table className="w-full"><thead><tr><th className={th}>{"Ville"}</th><th className={th}>{"Pays"}</th><th className={th}>{"Visites"}</th><th className={th}>{"Source principale"}</th></tr></thead>
+            <tbody>{data.topCities.map((r, i) => (<tr key={i}><td className={td}>{r.city}</td><td className={td}>{countryName(r.country)}</td><td className={td}>{r.visits}</td><td className={td}>{r.topSource || "-"}</td></tr>))}</tbody>
           </table>
         </div>
 
@@ -153,6 +156,22 @@ export default function VisitsPanel() {
           <table className="w-full"><thead><tr><th className={th}>{"Page"}</th><th className={th}>{"Vues"}</th></tr></thead>
             <tbody>{data.topPages.map((r) => (<tr key={r.path}><td className={td}>{r.path}</td><td className={td}>{r.views}</td></tr>))}</tbody>
           </table>
+        </div>
+
+        <div className={card}>
+          <div className="font-bold mb-2">{"Liens suivis \u00e0 partager"}</div>
+          <p className="text-stone-500 mb-2">{"WhatsApp, TikTok et Instagram n'indiquent souvent pas leur origine. Utilisez ces liens dans vos messages et publications pour que la source soit reconnue."}</p>
+          <div className="space-y-2">
+            {TRACKED.map(([label, key]) => {
+              const link = origin + "/?utm_source=" + key;
+              return (
+                <div key={key} className="flex items-center justify-between gap-2">
+                  <span><strong>{label}</strong>{" : " + link}</span>
+                  <button type="button" onClick={() => copy(link, key)} className="px-3 py-1.5 rounded-lg border border-stone-300 bg-white font-bold cursor-pointer">{copied === key ? "Copi\u00e9" : "Copier"}</button>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
