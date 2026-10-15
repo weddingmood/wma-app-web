@@ -1,6 +1,6 @@
 {
-  "id": "c759b8af-b03f-42c8-ae07-e310fa2864ad",
-  "prevId": "9d8ada48-1d48-458f-97e0-fe7cf8aec0e2",
+  "id": "0e84c1c4-4925-4815-a9d8-b2d73f0fb473",
+  "prevId": "c759b8af-b03f-42c8-ae07-e310fa2864ad",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -117,7 +117,7 @@
         },
         "verified_at": {
           "name": "verified_at",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -279,23 +279,7 @@
           "default": 0
         }
       },
-      "indexes": {
-        "budget_categories_couple_id_idx": {
-          "name": "budget_categories_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "budget_categories_couple_id_couples_id_fk": {
           "name": "budget_categories_couple_id_couples_id_fk",
@@ -378,23 +362,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "cagnotte_couple_id_idx": {
-          "name": "cagnotte_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "cagnotte_contributions_couple_id_couples_id_fk": {
           "name": "cagnotte_contributions_couple_id_couples_id_fk",
@@ -446,7 +414,7 @@
         },
         "event_date": {
           "name": "event_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true
         },
@@ -503,38 +471,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "calendar_couple_id_idx": {
-          "name": "calendar_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "calendar_event_date_idx": {
-          "name": "calendar_event_date_idx",
-          "columns": [
-            {
-              "expression": "event_date",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "calendar_events_couple_id_couples_id_fk": {
           "name": "calendar_events_couple_id_couples_id_fk",
@@ -547,19 +484,6 @@
             "id"
           ],
           "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "calendar_events_linked_task_id_tasks_id_fk": {
-          "name": "calendar_events_linked_task_id_tasks_id_fk",
-          "tableFrom": "calendar_events",
-          "tableTo": "tasks",
-          "columnsFrom": [
-            "linked_task_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
           "onUpdate": "no action"
         }
       },
@@ -865,23 +789,7 @@
           "notNull": false
         }
       },
-      "indexes": {
-        "devotion_progress_couple_id_idx": {
-          "name": "devotion_progress_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "couple_devotion_progress_couple_id_couples_id_fk": {
           "name": "couple_devotion_progress_couple_id_couples_id_fk",
@@ -988,23 +896,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "couple_prefs_couple_id_idx": {
-          "name": "couple_prefs_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "couple_preferences_couple_id_couples_id_fk": {
           "name": "couple_preferences_couple_id_couples_id_fk",
@@ -1068,16 +960,14 @@
         },
         "partner1_role": {
           "name": "partner1_role",
-          "type": "partner_role",
-          "typeSchema": "public",
+          "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false,
           "default": "'groom'"
         },
         "partner2_role": {
           "name": "partner2_role",
-          "type": "partner_role",
-          "typeSchema": "public",
+          "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false,
           "default": "'bride'"
@@ -1096,7 +986,7 @@
         },
         "wedding_date": {
           "name": "wedding_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -1163,12 +1053,11 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false,
-          "default": "'Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement.'"
+          "default": "'EcclÃ©siaste 4:12 - La corde Ã  trois fils ne se rompt pas facilement.'"
         },
         "status": {
           "name": "status",
-          "type": "couple_status",
-          "typeSchema": "public",
+          "type": "varchar(40)",
           "primaryKey": false,
           "notNull": false,
           "default": "'trial'"
@@ -1191,6 +1080,18 @@
           "primaryKey": false,
           "notNull": false
         },
+        "whatsapp": {
+          "name": "whatsapp",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "partner2_whatsapp": {
+          "name": "partner2_whatsapp",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "access_code": {
           "name": "access_code",
           "type": "varchar(20)",
@@ -1199,8 +1100,7 @@
         },
         "plan_type": {
           "name": "plan_type",
-          "type": "plan_type",
-          "typeSchema": "public",
+          "type": "varchar(30)",
           "primaryKey": false,
           "notNull": false,
           "default": "'couple'"
@@ -1241,53 +1141,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "couples_slug_idx": {
-          "name": "couples_slug_idx",
-          "columns": [
-            {
-              "expression": "slug",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "couples_access_code_idx": {
-          "name": "couples_access_code_idx",
-          "columns": [
-            {
-              "expression": "access_code",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "couples_status_idx": {
-          "name": "couples_status_idx",
-          "columns": [
-            {
-              "expression": "status",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
@@ -1658,23 +1512,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "decisions_couple_id_idx": {
-          "name": "decisions_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "decisions_couple_id_couples_id_fk": {
           "name": "decisions_couple_id_couples_id_fk",
@@ -1847,7 +1685,7 @@
         },
         "due_date": {
           "name": "due_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -1919,38 +1757,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "expenses_couple_id_idx": {
-          "name": "expenses_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "expenses_category_id_idx": {
-          "name": "expenses_category_id_idx",
-          "columns": [
-            {
-              "expression": "category_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "expenses_couple_id_couples_id_fk": {
           "name": "expenses_couple_id_couples_id_fk",
@@ -2269,8 +2076,7 @@
         },
         "rsvp_status": {
           "name": "rsvp_status",
-          "type": "rsvp_status",
-          "typeSchema": "public",
+          "type": "varchar(30)",
           "primaryKey": false,
           "notNull": false,
           "default": "'pending'"
@@ -2320,38 +2126,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "guests_couple_id_idx": {
-          "name": "guests_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "guests_qr_token_idx": {
-          "name": "guests_qr_token_idx",
-          "columns": [
-            {
-              "expression": "qr_code_token",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "guests_couple_id_couples_id_fk": {
           "name": "guests_couple_id_couples_id_fk",
@@ -2415,7 +2190,7 @@
         },
         "wedding_date": {
           "name": "wedding_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -2427,25 +2202,25 @@
         },
         "dot_date": {
           "name": "dot_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
         "civil_date": {
           "name": "civil_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
         "church_date": {
           "name": "church_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
         "reception_date": {
           "name": "reception_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -2593,7 +2368,7 @@
         },
         "rsvp_deadline": {
           "name": "rsvp_deadline",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -2729,7 +2504,7 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false,
-          "default": "'Pour les proches qui souhaitent manifester leur générosité et participer à l''aménagement du foyer, vous pouvez contribuer directement par votre moyen de paiement habituel.'"
+          "default": "'Pour les proches qui souhaitent manifester leur gÃ©nÃ©rositÃ© et participer Ã  l''amÃ©nagement du foyer, vous pouvez contribuer directement par votre moyen de paiement habituel.'"
         },
         "cagnotte_payment_method": {
           "name": "cagnotte_payment_method",
@@ -2765,38 +2540,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "invitations_slug_idx": {
-          "name": "invitations_slug_idx",
-          "columns": [
-            {
-              "expression": "slug",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "invitations_couple_id_idx": {
-          "name": "invitations_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "invitations_couple_id_couples_id_fk": {
           "name": "invitations_couple_id_couples_id_fk",
@@ -2988,23 +2732,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "messages_couple_id_idx": {
-          "name": "messages_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "messages_couple_id_couples_id_fk": {
           "name": "messages_couple_id_couples_id_fk",
@@ -3089,23 +2817,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "notifications_couple_id_idx": {
-          "name": "notifications_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "notifications_couple_id_couples_id_fk": {
           "name": "notifications_couple_id_couples_id_fk",
@@ -3152,8 +2864,7 @@
         },
         "plan_type": {
           "name": "plan_type",
-          "type": "plan_type",
-          "typeSchema": "public",
+          "type": "varchar(30)",
           "primaryKey": false,
           "notNull": false,
           "default": "'couple'"
@@ -3173,7 +2884,7 @@
         },
         "payment_date": {
           "name": "payment_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true
         },
@@ -3191,8 +2902,7 @@
         },
         "status": {
           "name": "status",
-          "type": "payment_status",
-          "typeSchema": "public",
+          "type": "varchar(40)",
           "primaryKey": false,
           "notNull": false,
           "default": "'pending'"
@@ -3229,38 +2939,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "payments_couple_id_idx": {
-          "name": "payments_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "payments_status_idx": {
-          "name": "payments_status_idx",
-          "columns": [
-            {
-              "expression": "status",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "payments_couple_id_couples_id_fk": {
           "name": "payments_couple_id_couples_id_fk",
@@ -3332,7 +3011,7 @@
         },
         "prayer_date": {
           "name": "prayer_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true
         },
@@ -3385,23 +3064,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "prayers_couple_id_idx": {
-          "name": "prayers_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "prayers_couple_id_couples_id_fk": {
           "name": "prayers_couple_id_couples_id_fk",
@@ -3414,6 +3077,135 @@
             "id"
           ],
           "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.providers": {
+      "name": "providers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "business_name": {
+          "name": "business_name",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contact_name": {
+          "name": "contact_name",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "service": {
+          "name": "service",
+          "type": "varchar(60)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Abidjan'"
+        },
+        "whatsapp": {
+          "name": "whatsapp",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(160)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_from": {
+          "name": "price_from",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "photos": {
+          "name": "photos",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'[]'::json"
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'pending'"
+        },
+        "admin_notes": {
+          "name": "admin_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reviewed_at": {
+          "name": "reviewed_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reviewed_by": {
+          "name": "reviewed_by",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "providers_reviewed_by_admins_id_fk": {
+          "name": "providers_reviewed_by_admins_id_fk",
+          "tableFrom": "providers",
+          "tableTo": "admins",
+          "columnsFrom": [
+            "reviewed_by"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
@@ -3478,23 +3270,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "quiz_attempts_couple_id_idx": {
-          "name": "quiz_attempts_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "quiz_attempts_couple_id_couples_id_fk": {
           "name": "quiz_attempts_couple_id_couples_id_fk",
@@ -3691,23 +3467,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "rsvps_invitation_id_idx": {
-          "name": "rsvps_invitation_id_idx",
-          "columns": [
-            {
-              "expression": "invitation_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "rsvps_invitation_id_invitations_id_fk": {
           "name": "rsvps_invitation_id_invitations_id_fk",
@@ -3786,22 +3546,20 @@
         },
         "due_date": {
           "name": "due_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
         "priority": {
           "name": "priority",
-          "type": "priority",
-          "typeSchema": "public",
+          "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false,
           "default": "'medium'"
         },
         "status": {
           "name": "status",
-          "type": "task_status",
-          "typeSchema": "public",
+          "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false,
           "default": "'todo'"
@@ -3854,38 +3612,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "tasks_couple_id_idx": {
-          "name": "tasks_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "tasks_status_idx": {
-          "name": "tasks_status_idx",
-          "columns": [
-            {
-              "expression": "status",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "tasks_couple_id_couples_id_fk": {
           "name": "tasks_couple_id_couples_id_fk",
@@ -3949,7 +3676,7 @@
         },
         "due_date": {
           "name": "due_date",
-          "type": "date",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -3982,23 +3709,7 @@
           "default": "now()"
         }
       },
-      "indexes": {
-        "timeline_couple_id_idx": {
-          "name": "timeline_couple_id_idx",
-          "columns": [
-            {
-              "expression": "couple_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
+      "indexes": {},
       "foreignKeys": {
         "timeline_events_couple_id_couples_id_fk": {
           "name": "timeline_events_couple_id_couples_id_fk",
@@ -4021,77 +3732,7 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {
-    "public.couple_status": {
-      "name": "couple_status",
-      "schema": "public",
-      "values": [
-        "trial",
-        "pending_payment",
-        "verification",
-        "active",
-        "expired",
-        "suspended",
-        "blocked"
-      ]
-    },
-    "public.partner_role": {
-      "name": "partner_role",
-      "schema": "public",
-      "values": [
-        "groom",
-        "bride",
-        "partner"
-      ]
-    },
-    "public.payment_status": {
-      "name": "payment_status",
-      "schema": "public",
-      "values": [
-        "pending",
-        "verified",
-        "rejected",
-        "need_new_proof"
-      ]
-    },
-    "public.plan_type": {
-      "name": "plan_type",
-      "schema": "public",
-      "values": [
-        "couple",
-        "individual"
-      ]
-    },
-    "public.priority": {
-      "name": "priority",
-      "schema": "public",
-      "values": [
-        "low",
-        "medium",
-        "high",
-        "urgent"
-      ]
-    },
-    "public.rsvp_status": {
-      "name": "rsvp_status",
-      "schema": "public",
-      "values": [
-        "pending",
-        "confirmed",
-        "declined"
-      ]
-    },
-    "public.task_status": {
-      "name": "task_status",
-      "schema": "public",
-      "values": [
-        "todo",
-        "in_progress",
-        "completed",
-        "delayed"
-      ]
-    }
-  },
+  "enums": {},
   "schemas": {},
   "sequences": {},
   "roles": {},

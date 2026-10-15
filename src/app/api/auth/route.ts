@@ -219,6 +219,8 @@ export async function POST(req: Request) {
       traditions,
       bibleVerse,
       password,
+      whatsapp,
+      partner2Whatsapp,
       planType,
     } = body;
 
@@ -291,6 +293,8 @@ export async function POST(req: Request) {
         bibleVerse: bibleVerse || "Ecclésiaste 4:12 - La corde à trois fils ne se rompt pas facilement.",
         status: "trial",
         trialEndsAt,
+        whatsapp: (whatsapp || "").trim() || null,
+        partner2Whatsapp: (partner2Whatsapp || "").trim() || null,
         passwordHash: hashSecure(String(password || accessCode)),
         accessCode,
         planType: resolvedPlan,

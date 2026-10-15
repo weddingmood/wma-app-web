@@ -8,6 +8,13 @@
       "when": 1789645504204,
       "tag": "0000_kind_malice",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792018340057,
+      "tag": "0001_rare_abomination",
+      "breakpoints": true
     }
   ]
 }

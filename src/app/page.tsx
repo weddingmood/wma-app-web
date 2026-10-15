@@ -54,6 +54,8 @@ export default function LandingPage() {
     partner1Name: "Époux Kouassi",
     partner2Name: "Épouse Yao",
     partner1Email: "",
+    whatsapp: "",
+    partner2Whatsapp: "",
     partner2Email: "",
     weddingDate: "2025-11-15",
     city: "Abidjan (Cocody)",
@@ -715,6 +717,17 @@ export default function LandingPage() {
                       onChange={(e) => setRegForm({ ...regForm, partner2Email: e.target.value })}
                       className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900"
                     />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-stone-700 font-bold mb-1">WhatsApp Partenaire 1 *</label>
+                    <input type="tel" required placeholder="Ex: 0701234567" value={regForm.whatsapp} onChange={(e) => setRegForm({ ...regForm, whatsapp: e.target.value })} className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900" />
+                  </div>
+                  <div>
+                    <label className="block text-stone-700 font-bold mb-1">WhatsApp Partenaire 2 (Optionnel)</label>
+                    <input type="tel" placeholder="Ex: 0701234567" value={regForm.partner2Whatsapp} onChange={(e) => setRegForm({ ...regForm, partner2Whatsapp: e.target.value })} className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900" />
                   </div>
                 </div>
 
