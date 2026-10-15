@@ -1,3 +1,4 @@
+import { sendAmbassadorCredentialsWhatsApp } from "@/lib/whatsapp";
 import { sql } from "drizzle-orm";
 import { randomBytes, randomInt, scryptSync } from "crypto";
 import { db } from "@/db";
@@ -129,7 +130,12 @@ export async function POST(req: Request) {
       }
     }
     if (!created) return bad("Cr\u00e9ation impossible : " + (lastErr || "r\u00e9essayez"), 500);
-    return Response.json({ success: true, ambassador: created, pin });
+    let whatsappSent = false;
+    if (phone) {
+      const r = await sendAmbassadorCredentialsWhatsApp(phone, String(created.code_unique), pin);
+      whatsappSent = r.ok;
+    }
+    return Response.json({ success: true, ambassador: created, pin, whatsappSent });
   } catch (error) {
     console.error("Erreur admin ambassadeurs (creation):", error);
     return bad("Erreur serveur", 500);
@@ -159,7 +165,13 @@ export async function PATCH(req: Request) {
     if (body.action === "reset-pin") {
       const pin = newPin();
       await db.execute(sql`update ambassadors set pin_hash = ${hashPin(pin)} where id = ${id}`);
-      return Response.json({ success: true, pin });
+      let whatsappSent = false;
+      const amb = rowsOf(await db.execute(sql`select phone, code_unique from ambassadors where id = ${id} limit 1`))[0];
+      if (amb?.phone) {
+        const r = await sendAmbassadorCredentialsWhatsApp(String(amb.phone), String(amb.code_unique), pin);
+        whatsappSent = r.ok;
+      }
+      return Response.json({ success: true, pin, whatsappSent });
     }
 
     const cur = rowsOf(await db.execute(sql`select * from ambassadors where id = ${id} limit 1`))[0];

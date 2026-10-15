@@ -1,3 +1,4 @@
+import { sendAccessCodeWhatsApp } from "@/lib/whatsapp";
 import { cookies } from "next/headers";
 import { loginLockMinutes, recordLoginFailure, clearLoginFailures } from "@/lib/login-guard";
 import { randomInt } from "crypto";
@@ -337,10 +338,18 @@ export async function POST(req: Request) {
 
     const { passwordHash: _, ...safeCouple } = newCouple;
 
+    // Envoi du code par WhatsApp : ne doit jamais bloquer l'inscription
+    let whatsappSent = false;
+    const waNumber = (whatsapp || "").trim();
+    if (waNumber) {
+      const waResult = await sendAccessCodeWhatsApp(waNumber, accessCode);
+      whatsappSent = waResult.ok;
+    }
     return Response.json({
       success: true,
       message: `Votre espace est créé avec une période d'essai de 7 jours. Votre code d'accès unique est ${accessCode}.`,
       accessCode,
+      whatsappSent,
       couple: safeCouple,
     });
   }
@@ -377,19 +386,31 @@ export async function POST(req: Request) {
       .where(or(eq(couples.partner1Email, cleanEmail), eq(couples.partner2Email, cleanEmail)))
       .limit(1);
 
-    if (!couple) {
-      return Response.json(
-        { success: false, message: "Aucun espace n'est rattaché à cette adresse email." },
-        { status: 404 }
-      );
-    }
-
-    return Response.json({
+    // Réponse neutre : ne révèle ni l'existence du compte ni le code
+    const neutral = Response.json({
       success: true,
-      message: `Le code d'accès de l'espace de ${couple.partner1Name} et ${couple.partner2Name} est : ${couple.accessCode}`,
-      accessCode: couple.accessCode,
-      coupleNames: `${couple.partner1Name} & ${couple.partner2Name}`,
+      message: "Si un espace correspond à cette adresse, le code d'accès a été envoyé sur le WhatsApp enregistré.",
     });
+
+    // Limitation simple : 3 demandes / 15 min / email (mémoire du serveur)
+    const g = globalThis as any;
+    g.__recoverHits ??= new Map<string, number[]>();
+    const nowMs = Date.now();
+    const hits = ((g.__recoverHits.get(cleanEmail) as number[]) || []).filter((t) => nowMs - t < 15 * 60 * 1000);
+    if (hits.length >= 3) return neutral;
+    hits.push(nowMs);
+    g.__recoverHits.set(cleanEmail, hits);
+
+    if (couple && couple.accessCode) {
+      const isPartner1 = (couple.partner1Email || "").toLowerCase() === cleanEmail;
+      const target = isPartner1
+        ? couple.whatsapp
+        : (couple.partner2Whatsapp || couple.whatsapp);
+      if (target) {
+        await sendAccessCodeWhatsApp(String(target), couple.accessCode);
+      }
+    }
+    return neutral;
   }
 
   if (action === "logout") {
