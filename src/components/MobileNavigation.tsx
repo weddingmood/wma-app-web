@@ -70,6 +70,7 @@ export function MobileNavigation() {
       { href: "/dashboard/subscription", label: "Mon abonnement", icon: CreditCard },
       { href: "/abonnement", label: "Offres & Premium", icon: CreditCard },
       { href: "/dashboard/temoignage", label: "Mon t\u00e9moignage", icon: CreditCard },
+      { href: "/dashboard/tracking", label: "Suivi publicitaire", icon: CreditCard },
       { href: "/telechargement", label: "Application Mobile & APK", icon: Smartphone },
     ]},
   ];

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import TrackingLoader from "@/components/TrackingLoader";
 import DesktopModeNotice from "@/components/DesktopModeNotice";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeContext";
@@ -67,6 +68,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className="bg-[#F8FAFC] text-stone-900 antialiased min-h-screen">
+        <TrackingLoader />
         <DesktopModeNotice />
         <ThemeProvider>
           <PwaRegister />
